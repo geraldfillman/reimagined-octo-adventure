@@ -1,0 +1,22 @@
+# Secrets
+.env
+.env.*
+
+# Node
+scripts/node_modules/
+
+# Obsidian workspace (changes every session, not meaningful to track)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/hotkeys.json
+
+# Claude local settings
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Pull history (machine-local runtime data)
+scripts/.pull-history.jsonl
+scripts/.regime-history.jsonl

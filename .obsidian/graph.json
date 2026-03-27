@@ -1,0 +1,79 @@
+{
+  "collapse-filter": false,
+  "search": "-path:01_Data_Sources -path:05_Data_Pulls -path:03_Templates -path:00_Dashboard -path:scripts",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#stock  ",
+      "color": {
+        "a": 1,
+        "rgb": 5396192
+      }
+    },
+    {
+      "query": "tag:#sector ",
+      "color": {
+        "a": 1,
+        "rgb": 5431511
+      }
+    },
+    {
+      "query": "tag:#country  ",
+      "color": {
+        "a": 1,
+        "rgb": 14736466
+      }
+    },
+    {
+      "query": "tag:#agricultural  ",
+      "color": {
+        "a": 1,
+        "rgb": 5431378
+      }
+    },
+    {
+      "query": "tag:#macro",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag:#commodity  ",
+      "color": {
+        "a": 1,
+        "rgb": 5431413
+      }
+    },
+    {
+      "query": "tag:#thesis  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701235
+      }
+    },
+    {
+      "query": "tag:#indicator",
+      "color": {
+        "a": 1,
+        "rgb": 14720594
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": -3,
+  "nodeSizeMultiplier": 2.6265625,
+  "lineSizeMultiplier": 1.12083333333333,
+  "collapse-forces": false,
+  "centerStrength": 0.213541666666667,
+  "repelStrength": 8.95833333333333,
+  "linkStrength": 0.645833333333333,
+  "linkDistance": 370,
+  "scale": 0.1316872427983518,
+  "close": true
+}

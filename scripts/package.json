@@ -1,0 +1,12 @@
+{
+  "name": "my-data-scripts",
+  "version": "1.0.0",
+  "description": "Data pull and signal evaluation scripts for My_Data Obsidian vault",
+  "type": "module",
+  "scripts": {
+    "pull": "node run.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0"
+  }
+}
