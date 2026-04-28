@@ -19,6 +19,7 @@ import {
   buildNote, buildTable, writeNote, formatNumber,
   today, dateStampedFilename,
 } from '../lib/markdown.mjs';
+import { setProperties } from '../lib/obsidian-cli.mjs';
 import {
   evaluateElectricityDemandGrowth, evaluateGenerationGap, evaluateRegionalLoadSpike,
   highestSeverity, formatSignalsSection,
@@ -204,6 +205,7 @@ export async function pull(flags = {}) {
     // Write note
     const filePath = join(getPullsDir(), group.domain, dateStampedFilename(noteName));
     writeNote(filePath, note);
+    setProperties(filePath, { signal_status: signalStatus, date_pulled: today() });
     console.log(`\n📝 Wrote: ${filePath}`);
 
     // Write signal logs if any fired

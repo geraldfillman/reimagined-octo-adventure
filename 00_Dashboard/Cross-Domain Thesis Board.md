@@ -1,7 +1,14 @@
 ---
+title: Cross-Domain Thesis Board
+type: dashboard
 tags: [dashboard, thesis, cross-domain]
+last_updated: 2026-03-27
 ---
 # Cross-Domain Thesis Board
+
+Summary:
+- Cross-domain signal board for thesis-level convergence.
+- Start here when you need to see where housing, macro, biotech, government, and market evidence are lining up.
 
 ## Active Signals Across Domains
 
@@ -90,6 +97,9 @@ LIMIT 10
 | **Energy Transition** | EIA, NOAA storms | Is energy supply/demand shifting? Are storms disrupting infrastructure? |
 
 ## How to Read This Board
+
+Use [[Capital Allocation Board]] when you need to compare opportunity cost, sizing, and catalyst quality across the thesis book.
+Use [[High Priority Thesis Monitor]] when fresh pulls change the evidence behind the core thesis set.
 
 1. **Check Active Signals** — any 🔴 or 🟠 requires immediate attention
 2. **Check Convergence** — signals in multiple domains pointing the same direction = high conviction

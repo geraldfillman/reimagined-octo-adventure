@@ -1,0 +1,40 @@
+filters:
+  and:
+    - file.inFolder("05_Data_Pulls/Macro")
+formulas:
+  signal_icon: if(signal_status == "critical", "🔴", if(signal_status == "alert", "🟠", if(signal_status == "watch", "🟡", "⚪")))
+  days_old: if(date_pulled, (today() - date(date_pulled)).days, 999)
+properties:
+  formula.signal_icon:
+    displayName: Signal
+  formula.days_old:
+    displayName: Age (Days)
+  date_pulled:
+    displayName: Date
+views:
+  - type: table
+    name: Latest Macro Data
+    order:
+      - formula.signal_icon
+      - file.name
+      - source
+      - date_pulled
+      - formula.days_old
+    limit: 20
+  - type: table
+    name: By Signal Status
+    groupBy:
+      property: signal_status
+      direction: DESC
+    order:
+      - formula.signal_icon
+      - file.name
+      - source
+      - date_pulled
+  - type: cards
+    name: Regime Cards
+    order:
+      - file.name
+      - formula.signal_icon
+      - source
+      - date_pulled

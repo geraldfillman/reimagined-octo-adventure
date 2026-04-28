@@ -71,7 +71,7 @@ async function pullEntities(naicsCode, apiKey) {
   console.log('📋 SAM.gov: Pulling entities for NAICS ' + naicsCode);
 
   try {
-    const url = `https://api.sam.gov/entity-information/v3/entities?api_key=${apiKey}&naicsCode=${naicsCode}&registrationStatus=A&page=0&size=25`;
+    const url = `https://api.sam.gov/entity-information/v4/entities?api_key=${apiKey}&naicsCode=${naicsCode}&samRegistered=Yes&registrationStatus=A&includeSections=entityRegistration,coreData&page=0&size=10`;
     const response = await getJson(url);
 
     const entityData = response?.entityData ?? [];
@@ -98,6 +98,8 @@ async function pullEntities(naicsCode, apiKey) {
         domain: 'government',
         data_type: 'entity_list',
         frequency: 'on-demand',
+        signal_status: 'clear',
+        signals: [],
         tags: ['sam-gov', 'entities', naicsCode],
       }),
       sections: [
@@ -120,7 +122,7 @@ async function pullEntities(naicsCode, apiKey) {
 
   } catch (err) {
     console.error(`  ❌ pullEntities failed: ${err.message}`);
-    return Object.freeze({ filePath: '', signals: Object.freeze([]) });
+    throw new Error(`SAM entity pull failed: ${err.message}`);
   }
 }
 
@@ -134,16 +136,23 @@ async function pullOpportunities(keyword, apiKey) {
   console.log('📋 SAM.gov: Pulling opportunities for "' + keyword + '"');
 
   try {
-    const thirtyDaysAgo = (() => {
+    const postedFrom = (() => {
       const d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
       const mm = String(d.getMonth() + 1).padStart(2, '0');
       const dd = String(d.getDate()).padStart(2, '0');
       const yyyy = d.getFullYear();
       return `${mm}/${dd}/${yyyy}`;
     })();
+    const postedTo = (() => {
+      const d = new Date();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const yyyy = d.getFullYear();
+      return `${mm}/${dd}/${yyyy}`;
+    })();
 
-    const url = `https://api.sam.gov/prod/opportunity/v2/search?keyword=${encodeURIComponent(keyword)}&postedFrom=${thirtyDaysAgo}&limit=25&offset=0`;
-    const response = await getJson(url, { headers: { 'x-api-key': apiKey } });
+    const url = `https://api.sam.gov/prod/opportunities/v2/search?limit=25&offset=0&api_key=${apiKey}&postedFrom=${postedFrom}&postedTo=${postedTo}&title=${encodeURIComponent(keyword)}`;
+    const response = await getJson(url);
 
     const opportunitiesData = response?.opportunitiesData ?? [];
     console.log(`  ${opportunitiesData.length} opportunities found`);
@@ -192,7 +201,8 @@ async function pullOpportunities(keyword, apiKey) {
         source: 'SAM.gov Opportunities API v2',
         date_pulled: today(),
         keyword,
-        posted_from: thirtyDaysAgo,
+        posted_from: postedFrom,
+        posted_to: postedTo,
         domain: 'government',
         data_type: 'opportunity_list',
         frequency: 'on-demand',
@@ -208,7 +218,7 @@ async function pullOpportunities(keyword, apiKey) {
         ...(signals.length > 0 ? [{ heading: 'Signals', content: formatSignalsSection(signals) }] : []),
         {
           heading: 'Source',
-          content: `- **API**: SAM.gov Opportunities v2\n- **Filter**: keyword="${keyword}", posted since ${thirtyDaysAgo}\n- **Auth**: x-api-key header\n- **Auto-pulled**: ${today()}`,
+          content: `- **API**: SAM.gov Opportunities v2\n- **Filter**: title="${keyword}", posted ${postedFrom} to ${postedTo}\n- **Auth**: api_key query parameter\n- **Auto-pulled**: ${today()}`,
         },
       ],
     });
@@ -238,6 +248,6 @@ async function pullOpportunities(keyword, apiKey) {
 
   } catch (err) {
     console.error(`  ❌ pullOpportunities failed: ${err.message}`);
-    return Object.freeze({ filePath: '', signals: Object.freeze([]) });
+    throw new Error(`SAM opportunities pull failed: ${err.message}`);
   }
 }

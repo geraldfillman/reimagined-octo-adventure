@@ -19,6 +19,7 @@ import {
   buildNote, buildTable, writeNote, formatNumber,
   today, dateStampedFilename,
 } from '../lib/markdown.mjs';
+import { setProperties } from '../lib/obsidian-cli.mjs';
 import {
   evaluateYieldCurve, evaluateUnemploymentSpike,
   evaluateHousingStarts, evaluateMortgageRate,
@@ -112,11 +113,22 @@ export async function pull(flags = {}) {
   let groupName = null;
   let group = null;
 
+  if (flags.group === 'macro') {
+    // 'macro' is an alias that runs all groups sequentially
+    console.log(`📊 FRED: Running all groups (macro alias)...\n`);
+    const allResults = [];
+    for (const key of Object.keys(SERIES_GROUPS)) {
+      const result = await pull({ ...flags, group: key });
+      allResults.push(result);
+    }
+    return allResults;
+  }
+
   if (flags.group) {
     group = SERIES_GROUPS[flags.group];
     if (!group) {
       throw new Error(
-        `Unknown FRED group: "${flags.group}". Available: ${Object.keys(SERIES_GROUPS).join(', ')}`
+        `Unknown FRED group: "${flags.group}". Available: macro (all), ${Object.keys(SERIES_GROUPS).join(', ')}`
       );
     }
     groupName = flags.group;
@@ -267,6 +279,7 @@ export async function pull(flags = {}) {
   // Write note
   const filePath = join(getPullsDir(), domain, dateStampedFilename(noteName));
   writeNote(filePath, note);
+  setProperties(filePath, { signal_status: signalStatus, date_pulled: today() });
   console.log(`\n📝 Wrote: ${filePath}`);
 
   // Write signal logs if any fired

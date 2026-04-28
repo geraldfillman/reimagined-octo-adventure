@@ -6,9 +6,11 @@
  * This enables MoM and YoY change detection without any external database.
  */
 
-import { readdirSync, readFileSync, existsSync } from 'fs';
+import { readdirSync, readFileSync, existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { getPullsDir } from './config.mjs';
+
+const DATE_PREFIX_RE = /^(\d{4}-\d{2}-\d{2})_(.+)$/;
 
 /**
  * Find the most recent prior pull file for a given domain and source pattern.
@@ -40,6 +42,108 @@ export function findLatestPull(domain, pattern, excludeDate = null) {
   }
 
   return null;
+}
+
+/**
+ * List pull files for a domain with parsed frontmatter and filename family.
+ * @param {string} domain
+ * @returns {readonly { path: string, file: string, family: string, datePrefix: string|null, frontmatter: object|null }[]}
+ */
+export function listPullFiles(domain) {
+  const dir = join(getPullsDir(), domain);
+  if (!existsSync(dir)) return Object.freeze([]);
+
+  const entries = readdirSync(dir)
+    .filter(file => file.endsWith('.md'))
+    .map(file => {
+      const filePath = join(dir, file);
+      const content = readFileSync(filePath, 'utf-8');
+      const frontmatter = parseFrontmatter(content);
+      const match = file.replace(/\.md$/i, '').match(DATE_PREFIX_RE);
+
+      return Object.freeze({
+        path: filePath,
+        file,
+        family: match ? `${match[2]}.md` : file,
+        datePrefix: match ? match[1] : null,
+        frontmatter,
+      });
+    })
+    .sort((left, right) => right.file.localeCompare(left.file));
+
+  return Object.freeze(entries);
+}
+
+/**
+ * Prune older pull files by family, keeping the newest N for matching entries.
+ * @param {string} domain
+ * @param {{
+ *   matcher?: (entry: { path: string, file: string, family: string, datePrefix: string|null, frontmatter: object|null }) => boolean,
+ *   keepByFamily?: number | ((entries: readonly object[]) => number),
+ *   dryRun?: boolean,
+ * }} [options]
+ * @returns {{
+ *   domain: string,
+ *   dryRun: boolean,
+ *   kept: readonly object[],
+ *   removed: readonly object[],
+ *   groups: readonly { family: string, total: number, keepCount: number, removedCount: number }[],
+ * }}
+ */
+export function prunePullFiles(domain, options = {}) {
+  const {
+    matcher = () => true,
+    keepByFamily = 1,
+    dryRun = false,
+  } = options;
+
+  const groups = new Map();
+  for (const entry of listPullFiles(domain).filter(matcher)) {
+    const familyEntries = groups.get(entry.family) || [];
+    familyEntries.push(entry);
+    groups.set(entry.family, familyEntries);
+  }
+
+  const kept = [];
+  const removed = [];
+  const summaries = [];
+
+  for (const [family, familyEntries] of [...groups.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+    const sortedEntries = [...familyEntries].sort((left, right) => right.file.localeCompare(left.file));
+    const requestedKeepCount = typeof keepByFamily === 'function'
+      ? keepByFamily(Object.freeze([...sortedEntries]))
+      : keepByFamily;
+    const keepCount = Number.isFinite(requestedKeepCount)
+      ? Math.max(0, Math.floor(requestedKeepCount))
+      : 1;
+
+    const familyKept = sortedEntries.slice(0, keepCount);
+    const familyRemoved = sortedEntries.slice(keepCount);
+
+    kept.push(...familyKept);
+    removed.push(...familyRemoved);
+
+    if (!dryRun) {
+      for (const entry of familyRemoved) {
+        unlinkSync(entry.path);
+      }
+    }
+
+    summaries.push(Object.freeze({
+      family,
+      total: sortedEntries.length,
+      keepCount,
+      removedCount: familyRemoved.length,
+    }));
+  }
+
+  return Object.freeze({
+    domain,
+    dryRun,
+    kept: Object.freeze(kept),
+    removed: Object.freeze(removed),
+    groups: Object.freeze(summaries),
+  });
 }
 
 /**
@@ -179,7 +283,9 @@ export function pointChange(current, prior) {
  * @returns {object|null}
  */
 function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  // Normalize CRLF to LF so the regex works regardless of the file's line ending
+  const normalized = content.replace(/\r\n/g, '\n');
+  const match = normalized.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return null;
 
   const yaml = match[1];
@@ -200,8 +306,7 @@ function parseFrontmatter(content) {
 
     // Parse arrays (simple inline style)
     if (value.startsWith('[') && value.endsWith(']')) {
-      value = value.slice(1, -1)
-        .split(',')
+      value = splitInlineArray(value.slice(1, -1))
         .map(v => v.trim().replace(/^["']|["']$/g, ''))
         .filter(Boolean);
     }
@@ -215,6 +320,40 @@ function parseFrontmatter(content) {
   }
 
   return fields;
+}
+
+function splitInlineArray(value) {
+  const items = [];
+  let current = '';
+  let quote = null;
+
+  for (let index = 0; index < value.length; index += 1) {
+    const char = value[index];
+
+    if ((char === '"' || char === "'")) {
+      if (quote === char) {
+        quote = null;
+      } else if (quote === null) {
+        quote = char;
+      }
+      current += char;
+      continue;
+    }
+
+    if (char === ',' && quote === null) {
+      items.push(current);
+      current = '';
+      continue;
+    }
+
+    current += char;
+  }
+
+  if (current.trim()) {
+    items.push(current);
+  }
+
+  return items;
 }
 
 export { parseFrontmatter };

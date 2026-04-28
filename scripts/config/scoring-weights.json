@@ -1,0 +1,38 @@
+{
+  "agentWeights": {
+    "price": 1.2,
+    "risk": 1.4,
+    "sentiment": 0.8,
+    "microstructure": 0.9,
+    "macro": 1.1,
+    "fundamentals": 1.1,
+    "prediction_market": 0.7,
+    "default": 0.8
+  },
+  "downsideBoost": 1.25,
+  "downsideBoostedAgents": ["risk", "macro"],
+  "verdictThresholds": {
+    "bullish": 0.18,
+    "bearish": -0.18
+  },
+  "confidenceFormula": {
+    "scoreMultiplier": 1.25,
+    "coverageWeight": 0.18,
+    "disagreementPenalty": 0.12,
+    "maxConfidence": 0.95
+  },
+  "statusThresholds": {
+    "critical": { "bearishCluster": true, "minConfidence": 0.70 },
+    "alertCluster": { "bearishCluster": true, "minConfidence": 0.45 },
+    "alertHigh": { "minConfidence": 0.75 },
+    "watch": { "minConfidence": 0.45 },
+    "watchLow": { "minConfidence": 0.35 },
+    "watchFailedAgents": { "minFailed": 3 }
+  },
+  "bearishRiskCluster": {
+    "primaryAgent": "risk",
+    "primaryMinConfidence": 0.60,
+    "confirmationAgents": ["macro", "price", "microstructure"],
+    "confirmationMinConfidence": 0.45
+  }
+}

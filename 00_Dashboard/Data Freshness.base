@@ -1,0 +1,43 @@
+filters:
+  and:
+    - file.inFolder("05_Data_Pulls")
+formulas:
+  days_stale: if(date_pulled, (today() - date(date_pulled)).days, 999)
+  freshness: if(date_pulled, if((today() - date(date_pulled)).days <= 3, "🟢 Fresh", if((today() - date(date_pulled)).days <= 7, "🟡 Aging", "🔴 Stale")), "⚪ Never")
+properties:
+  formula.days_stale:
+    displayName: Days Stale
+  formula.freshness:
+    displayName: Freshness
+  date_pulled:
+    displayName: Last Pull
+views:
+  - type: table
+    name: Freshness Overview
+    groupBy:
+      property: domain
+      direction: ASC
+    order:
+      - formula.freshness
+      - file.name
+      - domain
+      - source
+      - date_pulled
+      - formula.days_stale
+    summaries:
+      formula.days_stale: Average
+  - type: table
+    name: Stale (7+ Days)
+    filters: if(date_pulled, (today() - date(date_pulled)).days > 7, true)
+    order:
+      - file.name
+      - domain
+      - date_pulled
+      - formula.days_stale
+  - type: table
+    name: Fresh (Last 3 Days)
+    filters: if(date_pulled, (today() - date(date_pulled)).days <= 3, false)
+    order:
+      - file.name
+      - domain
+      - date_pulled

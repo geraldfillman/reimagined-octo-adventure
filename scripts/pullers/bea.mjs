@@ -16,12 +16,12 @@ export async function pull(flags = {}) {
   const baseUrl = getBaseUrl('bea');
 
   if (flags.gdp) {
-    await pullGDP(apiKey, baseUrl);
+    return pullGDP(apiKey, baseUrl);
   } else if (flags.income) {
-    await pullPersonalIncome(apiKey, baseUrl);
+    return pullPersonalIncome(apiKey, baseUrl);
   } else {
     // Default to GDP
-    await pullGDP(apiKey, baseUrl);
+    return pullGDP(apiKey, baseUrl);
   }
 }
 
@@ -85,6 +85,7 @@ async function pullGDP(apiKey, baseUrl) {
 
   const filePath = join(getPullsDir(), 'Macro', dateStampedFilename('BEA_GDP'));
   writeNote(filePath, note);
+  return { filePath, signals: [] };
   console.log(`📝 Wrote: ${filePath}`);
 }
 
@@ -140,5 +141,6 @@ async function pullPersonalIncome(apiKey, baseUrl) {
 
   const filePath = join(getPullsDir(), 'Macro', dateStampedFilename('BEA_Personal_Income'));
   writeNote(filePath, note);
+  return { filePath, signals: [] };
   console.log(`📝 Wrote: ${filePath}`);
 }

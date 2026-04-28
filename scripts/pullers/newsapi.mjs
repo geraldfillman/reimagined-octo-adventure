@@ -69,12 +69,13 @@ export async function pull(flags = {}) {
       source: 'NewsAPI',
       topic: topic,
       date_pulled: today(),
-      domain: domain,
+      domain: 'news',
+      domain_hint: domain,
       data_type: 'event_list',
       frequency: 'on-demand',
-      signal_status: 'clear',
-      signals: [],
-      tags: ['news', 'sentiment', topicSlug.toLowerCase(), 'newsapi'],
+      signal_status: articles.length > 0 ? 'watch' : 'clear',
+      signals: articles.length > 0 ? [{ id: 'NEWS_HEADLINES', severity: 'watch', value: articles.length, message: `${articles.length} headlines found for "${topic}"` }] : [],
+      tags: ['news', 'sentiment', topicSlug.toLowerCase(), 'newsapi', domain],
     },
     sections: [
       {
@@ -88,8 +89,7 @@ export async function pull(flags = {}) {
     ],
   });
 
-  const pullDomain = domain.charAt(0).toUpperCase() + domain.slice(1);
-  const filePath = join(getPullsDir(), pullDomain, dateStampedFilename(`News_${topicSlug}`));
+  const filePath = join(getPullsDir(), 'News', dateStampedFilename(`News_${topicSlug}`));
   writeNote(filePath, note);
   console.log(`📝 Wrote: ${filePath}`);
   return { filePath, signals: [] };

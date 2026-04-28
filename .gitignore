@@ -17,6 +17,18 @@ scripts/node_modules/
 Thumbs.db
 .DS_Store
 
+# Telegram session (stores auth credentials — never commit)
+scripts/telegram.session
+scripts/telegram.session-journal
+
 # Pull history (machine-local runtime data)
 scripts/.pull-history.jsonl
 scripts/.regime-history.jsonl
+scripts/.cache/
+
+# Qlib
+.qlib_data/
+scripts/qlib/.venv/
+scripts/qlib/__pycache__/
+scripts/qlib/tests/__pycache__/
+scripts/qlib/tests/tmp*/

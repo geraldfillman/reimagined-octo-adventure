@@ -13,7 +13,7 @@ import { evaluateFEMASpike, highestSeverity, formatSignalsSection } from '../lib
 
 export async function pull(flags = {}) {
   if (flags.recent || !Object.keys(flags).length) {
-    await pullRecent();
+    return pullRecent();
   } else {
     throw new Error('Specify --recent');
   }

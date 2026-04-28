@@ -75,7 +75,7 @@ export async function pull(flags = {}) {
   else if (flags.longevity)  topicKey = 'longevity';
   else if (flags.query)      { customQuery = flags.query; topicKey = null; }
 
-  await pullTrials(topicKey, customQuery, flags);
+  return pullTrials(topicKey, customQuery, flags);
 }
 
 async function pullTrials(topicKey, customQuery, flags) {

@@ -25,6 +25,8 @@ import {
 } from '../lib/signals.mjs';
 import { findLatestPull } from '../lib/history.mjs';
 
+const MARKET_HISTORY_RETENTION = Object.freeze([{ policy: 'market-history' }]);
+
 /** CBOE data groups — each answers an investment question */
 const DATA_GROUPS = Object.freeze({
   skew: Object.freeze({
@@ -208,7 +210,7 @@ async function pullPutCall() {
   const csv = await fetchCSV(group.url, 'Put/Call Ratio');
   if (!csv) {
     console.warn('    Note: CBOE restricted public access to put/call CSV data.');
-    console.warn('    Stub note will be created. Consider FMP or Alpha Vantage for options data.');
+    console.warn('    Stub note will be created. Consider FMP options data for a richer chain snapshot.');
     return Object.freeze({ data: Object.freeze([]), latest: null, signals: [] });
   }
 
@@ -425,7 +427,7 @@ function buildPutCallNote(result) {
         content: [
           `- **Provider**: CBOE`,
           `- **Feed**: CBOE put/call CSV (currently restricted — data unavailable)`,
-          `- **Fallback**: Use FMP or Alpha Vantage options chain for put/call data`,
+          `- **Fallback**: Use FMP options chain for put/call data`,
           `- **Auto-pulled**: ${today()}`,
         ].join('\n'),
       },
@@ -485,7 +487,7 @@ function resolveGroups(flags) {
 /**
  * Main pull function.
  * @param {object} flags — CLI flags
- * @returns {Promise<{ filePath: string, signals: object[] }>}
+ * @returns {Promise<{ filePath: string, signals: object[], retention: readonly object[] }>}
  */
 export async function pull(flags = {}) {
   const groups = resolveGroups(flags);
@@ -561,5 +563,9 @@ export async function pull(flags = {}) {
     allSignals.push(...signals);
   }
 
-  return Object.freeze({ filePath: lastFilePath, signals: Object.freeze(allSignals) });
+  return Object.freeze({
+    filePath: lastFilePath,
+    signals: Object.freeze(allSignals),
+    retention: lastFilePath ? MARKET_HISTORY_RETENTION : Object.freeze([]),
+  });
 }

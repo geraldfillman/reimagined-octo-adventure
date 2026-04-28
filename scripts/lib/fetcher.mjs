@@ -13,6 +13,49 @@ const DEFAULT_TIMEOUT_MS = 30_000;
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1_000;
 
+// ── FMP token-bucket rate limiter ─────────────────────────────────────────────
+// Default: 700 calls/min (safe buffer below the 750 FMP Premium limit).
+// Override with FMP_CALLS_PER_MINUTE env var.
+const FMP_HOST = 'financialmodelingprep.com';
+const FMP_CALLS_PER_MINUTE = Math.min(
+  750,
+  parseInt(process.env.FMP_CALLS_PER_MINUTE ?? '700', 10)
+);
+// Refill rate in tokens per millisecond
+const FMP_TOKENS_PER_MS = FMP_CALLS_PER_MINUTE / 60_000;
+// Allow a short burst (up to 20 tokens) before throttling kicks in
+const FMP_MAX_TOKENS = 20;
+
+const _fmpBucket = {
+  tokens: FMP_MAX_TOKENS,
+  lastRefill: Date.now(),
+};
+
+async function acquireFmpToken() {
+  while (true) {
+    const now = Date.now();
+    const elapsed = now - _fmpBucket.lastRefill;
+    _fmpBucket.tokens = Math.min(
+      FMP_MAX_TOKENS,
+      _fmpBucket.tokens + elapsed * FMP_TOKENS_PER_MS
+    );
+    _fmpBucket.lastRefill = now;
+
+    if (_fmpBucket.tokens >= 1) {
+      _fmpBucket.tokens -= 1;
+      return;
+    }
+
+    // Wait until the next token is available
+    const waitMs = Math.ceil((1 - _fmpBucket.tokens) / FMP_TOKENS_PER_MS);
+    await sleep(waitMs);
+  }
+}
+
+function isFmpUrl(url) {
+  try { return new URL(url).hostname.includes(FMP_HOST); } catch { return false; }
+}
+
 /**
  * Fetch a URL with retry and timeout.
  * @param {string} url
@@ -45,6 +88,9 @@ export async function fetchWithRetry(url, options = {}) {
   const fetchBody = body && typeof body === 'object' ? JSON.stringify(body) : body;
 
   let lastError = null;
+
+  // Proactively throttle FMP requests before the first attempt
+  if (isFmpUrl(url)) await acquireFmpToken();
 
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
@@ -155,6 +201,6 @@ function parseRetryAfter(header) {
 }
 
 /** Promise-based sleep */
-function sleep(ms) {
+export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }

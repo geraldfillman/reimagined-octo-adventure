@@ -12,9 +12,10 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = resolve(__dirname, '..', '..');
+const MY_DATA_ROOT = resolve(VAULT_ROOT, '..', 'My_Data');
 
 // Load .env from vault root
-config({ path: resolve(VAULT_ROOT, '.env') });
+config({ path: resolve(MY_DATA_ROOT, '.env') });
 
 /** API source registry — maps source names to config */
 const SOURCES = Object.freeze({
@@ -28,30 +29,15 @@ const SOURCES = Object.freeze({
     keyVar: 'FDA_OPEN_DATA_API_KEY',
     baseUrl: 'https://api.fda.gov',
   },
-  bls: {
-    name: 'BLS API',
-    keyVar: 'BLS_API_KEY',
-    baseUrl: 'https://api.bls.gov/publicAPI/v2',
-  },
   bea: {
     name: 'BEA API',
     keyVar: 'BEA_API_KEY',
     baseUrl: 'https://apps.bea.gov/api/data',
   },
-  census: {
-    name: 'Census API',
-    keyVar: 'CENSUS_API_KEY',
-    baseUrl: 'https://api.census.gov/data',
-  },
   eia: {
     name: 'EIA API',
     keyVar: 'EIA_API_KEY',
     baseUrl: 'https://api.eia.gov/v2',
-  },
-  alphavantage: {
-    name: 'Alpha Vantage',
-    keyVar: 'ALPHA_VANTAGE_API_KEY',
-    baseUrl: 'https://www.alphavantage.co/query',
   },
   fmp: {
     name: 'Financial Modeling Prep',
@@ -104,16 +90,6 @@ const SOURCES = Object.freeze({
     keyVar: null,
     baseUrl: 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils',
   },
-  noaa: {
-    name: 'NOAA Storm Events',
-    keyVar: null,
-    baseUrl: 'https://www.ncdc.noaa.gov/stormevents',
-  },
-  worldbank: {
-    name: 'World Bank',
-    keyVar: null,
-    baseUrl: 'https://api.worldbank.org/v2',
-  },
   socrata: {
     name: 'Socrata Open Data',
     keyVar: 'SOCRATA_APP_TOKEN',
@@ -128,6 +104,27 @@ const SOURCES = Object.freeze({
     name: 'SAM.gov',
     keyVar: 'SAM_GOV_API_KEY',
     baseUrl: 'https://api.sam.gov',
+  },
+  // OSINT sources
+  otx: {
+    name: 'OTX AlienVault',
+    keyVar: 'OTX_API_KEY',
+    baseUrl: 'https://otx.alienvault.com/api/v1',
+  },
+  opencorporates: {
+    name: 'OpenCorporates',
+    keyVar: 'OPENCORPORATES_API_KEY',
+    baseUrl: 'https://api.opencorporates.com/v0.4',
+  },
+  vesselfinder: {
+    name: 'VesselFinder AIS',
+    keyVar: 'VESSELFINDER_API_KEY',
+    baseUrl: 'https://api.vesselfinder.com',
+  },
+  spiderfoot: {
+    name: 'SpiderFoot (local)',
+    keyVar: 'SPIDERFOOT_API_KEY',
+    baseUrl: null,  // self-hosted; SPIDERFOOT_HOST/SPIDERFOOT_PORT env vars used instead
   },
 });
 
@@ -199,6 +196,26 @@ export function listSources() {
     requiresKey: !!s.keyVar,
     hasKey: s.keyVar ? !!process.env[s.keyVar]?.trim() : true,
   }));
+}
+
+/** Get the learning vault root path */
+export function getLearningVaultRoot() {
+  return process.env.LEARNING_VAULT_ROOT || VAULT_ROOT;
+}
+
+/** Get the learning root path */
+export function getLearningRoot() {
+  return resolve(getLearningVaultRoot(), '11_Learning');
+}
+
+/** Get the KB vault root path */
+export function getKBVaultRoot() {
+  return process.env.KB_VAULT_ROOT || VAULT_ROOT;
+}
+
+/** Get the KB root path */
+export function getKBRoot() {
+  return resolve(getKBVaultRoot(), '12_Knowledge_Bases');
 }
 
 export { SOURCES };

@@ -1,7 +1,18 @@
 ---
+title: Data Freshness
+type: dashboard
 tags: [dashboard, freshness, maintenance]
+last_updated: 2026-03-27
 ---
 # Data Freshness
+
+Summary:
+- Freshness monitor for generated pull notes across all domains.
+- Use this dashboard before rerunning pullers so refresh effort stays targeted.
+
+## Base View
+
+![[Data Freshness.base]]
 
 ## Stale Data (7+ Days Old)
 
@@ -56,7 +67,7 @@ SORT length(rows) DESC
 | Biotech | Monthly | `node run.mjs fda --recent-approvals` |
 | Government | Monthly | `node run.mjs openfema --recent` |
 | Government | Monthly | `node run.mjs usaspending --recent` |
-| Market Quotes | On-demand | `node run.mjs alphavantage --quote SPY` |
+| Market Quotes | On-demand | `node run.mjs fmp --quote SPY` |
 | News | Weekly | `node run.mjs newsapi --topic business` |
 | Local Data | Monthly | `node run.mjs socrata --permits` |
 | Treasury | Monthly | `node run.mjs treasury --yields` |

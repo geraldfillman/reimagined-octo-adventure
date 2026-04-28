@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>Investment Summary</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --panel: #ffffff;
+    --panel-2: #f0f4f3;
+    --ink: #171717;
+    --muted: #68706b;
+    --border: #d8ddd8;
+    --line: #e7ebe7;
+    --green: #16794c;
+    --green-bg: #e7f5ed;
+    --amber: #9a5a00;
+    --amber-bg: #fff3d7;
+    --red: #af1e2d;
+    --red-bg: #fde7e9;
+    --blue: #1f5f99;
+    --blue-bg: #e8f1fb;
+    --violet: #6f4aa8;
+    --violet-bg: #f0eafa;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "Cascadia Code", "Consolas", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 13px;
+  }
+
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(246, 245, 241, 0.96);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 17px;
+    letter-spacing: 0;
+  }
+  .brand span, .freshness, .meta {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .search {
+    width: min(520px, 100%);
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel);
+    padding: 0 12px;
+    color: var(--ink);
+  }
+  .btn, .seg button {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--ink);
+    border-radius: 6px;
+    min-height: 34px;
+    padding: 7px 11px;
+  }
+  .btn:hover, .seg button:hover { border-color: #aab5ae; }
+  .seg {
+    display: inline-grid;
+    grid-auto-flow: column;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    overflow: hidden;
+    background: var(--panel);
+  }
+  .seg button {
+    border: 0;
+    border-right: 1px solid var(--border);
+    border-radius: 0;
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(360px, 0.8fr);
+    gap: 14px;
+    padding: 14px;
+  }
+  .metrics {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .metric, .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .metric {
+    padding: 12px;
+    min-height: 82px;
+  }
+  .metric .label {
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .metric .value {
+    margin-top: 7px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .metric .hint {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .panel { overflow: hidden; }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 48px;
+    padding: 10px 12px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .table-wrap {
+    overflow: auto;
+    max-height: 520px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--panel);
+    color: var(--muted);
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    padding: 8px;
+  }
+  td {
+    border-bottom: 1px solid var(--line);
+    padding: 8px;
+    vertical-align: top;
+  }
+  tr { min-height: 48px; }
+  tbody tr:hover td, tbody tr.selected td { background: #f8faf8; }
+  .name {
+    font-weight: 650;
+    line-height: 1.25;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 20px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .high, .bullish, .clear, .core { color: var(--green); background: var(--green-bg); border-color: #b6dfc8; }
+  .medium, .watch, .active { color: var(--amber); background: var(--amber-bg); border-color: #eed18f; }
+  .low, .risk, .alert, .critical, .bearish { color: var(--red); background: var(--red-bg); border-color: #efb4bb; }
+  .mixed, .hold { color: var(--blue); background: var(--blue-bg); border-color: #b7d2ed; }
+  .review { color: var(--violet); background: var(--violet-bg); border-color: #d7c4f1; }
+  .mono { font-family: var(--mono); font-size: 12px; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .detail-body {
+    padding: 12px;
+    display: grid;
+    gap: 12px;
+  }
+  .detail-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .detail-title h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .fact {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 9px;
+    min-height: 62px;
+    background: #fbfbf9;
+  }
+  .fact label {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .fact strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .text-block {
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+  }
+  .text-block h3 {
+    margin: 0 0 5px;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .text-block p {
+    margin: 0;
+    color: #2c302e;
+    line-height: 1.45;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 8px;
+    color: #29302c;
+    background: var(--panel);
+    font-size: 11px;
+  }
+  .empty {
+    padding: 18px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 1180px) {
+    .topbar { grid-template-columns: 1fr; }
+    .toolbar { justify-content: flex-start; }
+    main { grid-template-columns: 1fr; }
+    .metrics { grid-template-columns: repeat(3, minmax(120px, 1fr)); }
+  }
+  @media (max-width: 720px) {
+    .metrics { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    .toolbar { flex-direction: column; align-items: stretch; }
+    .seg { grid-auto-flow: row; }
+    .detail-grid { grid-template-columns: 1fr; }
+    th, td { padding: 7px 6px; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Investment Summary</h1>
+      <span id="asof">Loading data...</span>
+    </div>
+    <div class="toolbar">
+      <input class="search" id="search" type="search" placeholder="Search thesis, ticker, catalyst, or tag">
+      <div class="seg" id="view-seg">
+        <button data-view="theses" class="active">Theses</button>
+        <button data-view="positions">Positions</button>
+      </div>
+      <div class="seg" id="filter-seg">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="high">High</button>
+        <button data-filter="alerts">Alerts</button>
+        <button data-filter="events">Events</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
+      <a class="btn" href="/">Dashboard</a>
+      <button class="btn" id="refresh">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics" id="metrics"></section>
+
+    <section class="split">
+      <section class="panel" id="thesis-panel">
+        <div class="panel-head">
+          <span class="panel-title">Thesis Book</span>
+          <span class="freshness" id="thesis-count">0 rows</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:44px">Rank</th>
+                <th>Thesis</th>
+                <th style="width:88px">Priority</th>
+                <th style="width:92px">Conv</th>
+                <th style="width:100px">Monitor</th>
+                <th style="width:90px">Primary</th>
+                <th style="width:100px">Tape</th>
+                <th style="width:104px">Event</th>
+              </tr>
+            </thead>
+            <tbody id="thesis-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" id="position-panel">
+        <div class="panel-head">
+          <span class="panel-title">Investment Positions</span>
+          <span class="freshness" id="position-count">0 rows</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:64px">Score</th>
+                <th style="width:76px">Ticker</th>
+                <th>Primary Thesis</th>
+                <th style="width:104px">Stance</th>
+                <th style="width:92px">Signal</th>
+                <th style="width:100px">Tape</th>
+                <th style="width:78px">P/E</th>
+                <th style="width:92px">Upside</th>
+                <th style="width:104px">Event</th>
+              </tr>
+            </thead>
+            <tbody id="position-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-head">
+        <span class="panel-title" id="detail-label">Selected Summary</span>
+        <span class="freshness" id="freshness"></span>
+      </div>
+      <div class="detail-body" id="detail"></div>
+    </aside>
+  </main>
+
+<script>
+const state = {
+  data: null,
+  view: "theses",
+  filter: "all",
+  query: "",
+  selectedThesis: null,
+  selectedPosition: null,
+};
+
+const API = "";
+
+document.getElementById("refresh").addEventListener("click", load);
+document.getElementById("search").addEventListener("input", event => {
+  state.query = event.target.value.trim().toLowerCase();
+  render();
+});
+document.getElementById("view-seg").addEventListener("click", event => {
+  const button = event.target.closest("button[data-view]");
+  if (!button) return;
+  state.view = button.dataset.view;
+  for (const item of document.querySelectorAll("#view-seg button")) item.classList.toggle("active", item === button);
+  render();
+});
+document.getElementById("filter-seg").addEventListener("click", event => {
+  const button = event.target.closest("button[data-filter]");
+  if (!button) return;
+  state.filter = button.dataset.filter;
+  for (const item of document.querySelectorAll("#filter-seg button")) item.classList.toggle("active", item === button);
+  render();
+});
+
+async function load() {
+  setLoading();
+  const res = await fetch(API + "/api/investment-summary");
+  if (!res.ok) throw new Error("Failed to load investment summary");
+  state.data = await res.json();
+  state.selectedThesis = state.data.theses.find(item => item.name === "Biosecurity Compute Convergence") || state.data.theses[0] || null;
+  state.selectedPosition = state.data.positions[0] || null;
+  render();
+}
+
+function setLoading() {
+  document.getElementById("metrics").innerHTML = "";
+  document.getElementById("thesis-rows").innerHTML = `<tr><td colspan="8" class="empty">Loading...</td></tr>`;
+  document.getElementById("position-rows").innerHTML = `<tr><td colspan="9" class="empty">Loading...</td></tr>`;
+  document.getElementById("detail").innerHTML = `<div class="empty">Loading...</div>`;
+}
+
+function render() {
+  if (!state.data) return;
+  renderMetrics();
+  renderTheses();
+  renderPositions();
+  renderDetail();
+  document.getElementById("position-panel").style.display = state.view === "positions" ? "block" : "none";
+  document.getElementById("thesis-panel").style.display = state.view === "theses" ? "block" : "none";
+  document.getElementById("asof").textContent = `Data as of ${formatDateTime(state.data.asOf)}`;
+  document.getElementById("freshness").textContent = `FMP ${state.data.dataFreshness.latestFmpSync || "N/A"} | catalysts ${state.data.dataFreshness.latestCatalystDate || "N/A"}`;
+}
+
+function renderMetrics() {
+  const m = state.data.metrics;
+  document.getElementById("metrics").innerHTML = [
+    metric("Theses", m.thesisCount, `${m.highPriorityTheses} high priority`),
+    metric("Positions", m.positionCount, "derived from thesis watchlists"),
+    metric("Alerts", m.alertPositions, "critical or alert signals"),
+    metric("Near Events", m.nearTermEarnings, "earnings inside 14 days"),
+    metric("Review Queue", m.staleReviews, "monitor reviews older than 7 days"),
+    metric("Watch Theses", m.watchPriorityTheses, `${m.mediumPriorityTheses} medium priority`),
+  ].join("");
+}
+
+function metric(label, value, hint) {
+  return `<div class="metric"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div><div class="hint">${esc(hint)}</div></div>`;
+}
+
+function renderTheses() {
+  const rows = filteredTheses();
+  document.getElementById("thesis-count").textContent = `${rows.length} rows`;
+  document.getElementById("thesis-rows").innerHTML = rows.length ? rows.map(thesis => `
+    <tr class="${state.selectedThesis?.name === thesis.name ? "selected" : ""}" data-thesis="${escAttr(thesis.name)}">
+      <td class="mono">${esc(thesis.allocation_rank ?? "")}</td>
+      <td><div class="name">${esc(thesis.name)}</div><div class="sub">${esc(thesis.why_now || thesis.next_catalyst || "")}</div></td>
+      <td>${pill(thesis.allocation_priority || "none")}</td>
+      <td>${pill(thesis.conviction || "none")}</td>
+      <td>${pill(thesis.monitor_status || "none", thesis.monitor_status === "on-track" ? "clear" : thesis.monitor_status)}</td>
+      <td class="mono">${esc(thesis.fmp.primary_symbol || "")}</td>
+      <td>${pill(thesis.fmp.technical_status || "n/a", thesis.fmp.technical_status)}<div class="sub">${esc(thesis.fmp.technical_bias || "")}</div></td>
+      <td class="mono">${esc(thesis.fmp.next_earnings_date || "")}</td>
+    </tr>`).join("") : `<tr><td colspan="8" class="empty">No theses match the current filter.</td></tr>`;
+  for (const row of document.querySelectorAll("#thesis-rows tr[data-thesis]")) {
+    row.addEventListener("click", () => {
+      state.selectedThesis = state.data.theses.find(item => item.name === row.dataset.thesis);
+      state.view = "theses";
+      render();
+    });
+  }
+}
+
+function renderPositions() {
+  const rows = filteredPositions();
+  document.getElementById("position-count").textContent = `${rows.length} rows`;
+  document.getElementById("position-rows").innerHTML = rows.length ? rows.map(position => `
+    <tr class="${state.selectedPosition?.symbol === position.symbol ? "selected" : ""}" data-symbol="${escAttr(position.symbol)}">
+      <td class="num mono">${esc(position.score)}</td>
+      <td><div class="name mono">${esc(position.symbol)}</div><div class="sub">${esc(position.price || "")}</div></td>
+      <td><div class="name">${esc(position.primary_thesis || "")}</div><div class="sub">${esc(position.summary)}</div></td>
+      <td>${pill(position.stance, stanceClass(position.stance))}</td>
+      <td>${pill(position.signal_status || "clear", position.signal_status)}</td>
+      <td>${pill(position.technical_status || "n/a", position.technical_status)}<div class="sub">${esc(position.technical_bias || "")}</div></td>
+      <td class="num mono">${fmt(position.trailing_pe, 1)}</td>
+      <td class="num mono">${pct(position.target_upside_pct)}</td>
+      <td class="mono">${esc(position.next_earnings_date || "")}</td>
+    </tr>`).join("") : `<tr><td colspan="9" class="empty">No positions match the current filter.</td></tr>`;
+  for (const row of document.querySelectorAll("#position-rows tr[data-symbol]")) {
+    row.addEventListener("click", () => {
+      state.selectedPosition = state.data.positions.find(item => item.symbol === row.dataset.symbol);
+      state.view = "positions";
+      render();
+    });
+  }
+}
+
+function renderDetail() {
+  if (state.view === "positions") return renderPositionDetail();
+  return renderThesisDetail();
+}
+
+function renderThesisDetail() {
+  const thesis = state.selectedThesis || filteredTheses()[0] || state.data.theses[0];
+  state.selectedThesis = thesis;
+  document.getElementById("detail-label").textContent = "Thesis Summary";
+  if (!thesis) {
+    document.getElementById("detail").innerHTML = `<div class="empty">No thesis selected.</div>`;
+    return;
+  }
+  document.getElementById("detail").innerHTML = `
+    <div class="detail-title">
+      <div><h2>${esc(thesis.name)}</h2><div class="meta">${esc(thesis.filename)}</div></div>
+      <div class="chips">${pill(thesis.allocation_priority || "none")} ${pill(thesis.conviction || "none")}</div>
+    </div>
+    <div class="detail-grid">
+      ${fact("Primary", thesis.fmp.primary_symbol || "N/A")}
+      ${fact("Tape", `${thesis.fmp.technical_status || "N/A"} / ${thesis.fmp.technical_bias || "N/A"}`)}
+      ${fact("Target Upside", pct(thesis.fmp.target_upside_pct))}
+      ${fact("Next Event", thesis.fmp.next_earnings_date || "N/A")}
+      ${fact("Monitor", thesis.monitor_status || "N/A")}
+      ${fact("Break Risk", thesis.break_risk_status || "N/A")}
+    </div>
+    ${textBlock("Investment Summary", thesis.summary)}
+    ${textBlock("Variant Perception", thesis.variant_perception)}
+    ${textBlock("Disconfirming Evidence", thesis.disconfirming_evidence)}
+    ${textBlock("Expected Range", `${thesis.expected_upside || ""} ${thesis.expected_downside || ""}`)}
+    <div class="text-block"><h3>Watchlist</h3><div class="chips">${thesis.symbols.map(symbol => `<span class="chip mono">${esc(symbol)}</span>`).join("") || `<span class="chip">No symbols</span>`}</div></div>
+    <div class="text-block"><h3>Core Entities</h3><div class="chips">${thesis.core_entities.map(item => `<span class="chip">${esc(item)}</span>`).join("") || `<span class="chip">None</span>`}</div></div>
+  `;
+}
+
+function renderPositionDetail() {
+  const position = state.selectedPosition || filteredPositions()[0] || state.data.positions[0];
+  state.selectedPosition = position;
+  document.getElementById("detail-label").textContent = "Position Summary";
+  if (!position) {
+    document.getElementById("detail").innerHTML = `<div class="empty">No position selected.</div>`;
+    return;
+  }
+  document.getElementById("detail").innerHTML = `
+    <div class="detail-title">
+      <div><h2 class="mono">${esc(position.symbol)}</h2><div class="meta">${esc(position.primary_thesis || "")}</div></div>
+      <div class="chips">${pill(position.stance, stanceClass(position.stance))} ${pill(position.signal_status || "clear", position.signal_status)}</div>
+    </div>
+    <div class="detail-grid">
+      ${fact("Score", position.score)}
+      ${fact("Price", position.price || "N/A")}
+      ${fact("Tape", `${position.technical_status || "N/A"} / ${position.technical_bias || "N/A"}`)}
+      ${fact("RSI", fmt(position.rsi14, 1))}
+      ${fact("P/E", fmt(position.trailing_pe, 1))}
+      ${fact("EV/Sales", fmt(position.ev_to_sales, 1))}
+      ${fact("ROE", pct(position.roe_pct))}
+      ${fact("Target Upside", pct(position.target_upside_pct))}
+      ${fact("Next Event", position.next_earnings_date || "N/A")}
+      ${fact("Catalyst", position.catalyst_urgency || "N/A")}
+    </div>
+    ${textBlock("Investment Summary", position.summary)}
+    <div class="text-block"><h3>Linked Theses</h3><div class="chips">${position.related_theses.map(t => `<span class="chip">${esc(t.name)} (${esc(t.allocation_priority || "n/a")}/${esc(t.conviction || "n/a")})</span>`).join("") || `<span class="chip">None</span>`}</div></div>
+    <div class="text-block"><h3>Signals</h3><div class="chips">${position.signals.map(signal => `<span class="chip">${esc(signal)}</span>`).join("") || `<span class="chip">Clear</span>`}</div></div>
+  `;
+}
+
+function filteredTheses() {
+  return state.data.theses.filter(thesis => {
+    if (!matchesQuery([thesis.name, thesis.why_now, thesis.next_catalyst, thesis.fmp.primary_symbol, thesis.tags.join(" ")])) return false;
+    if (state.filter === "high") return thesis.allocation_priority === "high";
+    if (state.filter === "alerts") return thesis.fmp.nonclear_count > 0 || !["on-track", "strengthening"].includes(thesis.monitor_status);
+    if (state.filter === "events") return Boolean(thesis.fmp.next_earnings_date);
+    return true;
+  });
+}
+
+function filteredPositions() {
+  return state.data.positions.filter(position => {
+    if (!matchesQuery([position.symbol, position.primary_thesis, position.summary, position.signals.join(" ")])) return false;
+    if (state.filter === "high") return position.related_theses.some(thesis => thesis.allocation_priority === "high");
+    if (state.filter === "alerts") return ["critical", "alert"].includes(position.signal_status) || position.technical_status === "alert";
+    if (state.filter === "events") return Number(position.days_to_earnings) >= 0 && Number(position.days_to_earnings) <= 21;
+    return true;
+  });
+}
+
+function matchesQuery(values) {
+  if (!state.query) return true;
+  return values.some(value => String(value || "").toLowerCase().includes(state.query));
+}
+
+function pill(label, cls = label) {
+  return `<span class="pill ${safeClass(cls)}">${esc(label || "n/a")}</span>`;
+}
+
+function fact(label, value) {
+  return `<div class="fact"><label>${esc(label)}</label><strong>${esc(value == null || value === "" ? "N/A" : value)}</strong></div>`;
+}
+
+function textBlock(title, text) {
+  if (!text) return "";
+  return `<div class="text-block"><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
+}
+
+function stanceClass(value) {
+  const text = String(value || "").toLowerCase();
+  if (text.includes("core")) return "core";
+  if (text.includes("active")) return "active";
+  if (text.includes("risk") || text.includes("event")) return "risk";
+  return "review";
+}
+
+function safeClass(value) {
+  return String(value || "mixed").toLowerCase().replace(/[^a-z0-9_-]+/g, "-");
+}
+
+function fmt(value, digits = 1) {
+  if (value == null || value === "" || Number.isNaN(Number(value))) return "N/A";
+  return Number(value).toFixed(digits);
+}
+
+function pct(value) {
+  if (value == null || value === "" || Number.isNaN(Number(value))) return "N/A";
+  const n = Number(value);
+  return `${n > 0 ? "+" : ""}${n.toFixed(1)}%`;
+}
+
+function esc(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function escAttr(value) {
+  return esc(value).replace(/'/g, "&#39;");
+}
+
+function formatDateTime(value) {
+  if (!value) return "N/A";
+  try {
+    return new Date(value).toLocaleString();
+  } catch {
+    return value;
+  }
+}
+
+load().catch(error => {
+  document.getElementById("detail").innerHTML = `<div class="empty">Error: ${esc(error.message)}</div>`;
+});
+</script>
+</body>
+</html>

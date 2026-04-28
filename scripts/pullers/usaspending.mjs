@@ -13,7 +13,7 @@ import { evaluateLargeContract, highestSeverity, formatSignalsSection } from '..
 
 export async function pull(flags = {}) {
   if (flags.recent || !Object.keys(flags).length) {
-    await pullRecent();
+    return pullRecent();
   } else {
     throw new Error('Specify --recent');
   }
@@ -94,5 +94,5 @@ async function pullRecent() {
   const filePath = join(getPullsDir(), 'Government', dateStampedFilename('USASpending_Awards'));
   writeNote(filePath, note);
   console.log(`📝 Wrote: ${filePath}`);
-  return { signals };
+  return { filePath, signals };
 }

@@ -56,16 +56,16 @@ export async function pull(flags = {}) {
   }
 
   if (flags.permits) {
-    await pullDataset('permits', appToken, flags);
+    return pullDataset('permits', appToken, flags);
   } else if (flags['311']) {
-    await pullDataset('311', appToken, flags);
+    return pullDataset('311', appToken, flags);
   } else if (flags['chi-permits']) {
-    await pullDataset('chi-permits', appToken, flags);
+    return pullDataset('chi-permits', appToken, flags);
   } else if (flags.custom) {
-    await pullCustom(flags.custom, appToken, flags);
+    return pullCustom(flags.custom, appToken, flags);
   } else {
     // Default to NYC permits
-    await pullDataset('permits', appToken, flags);
+    return pullDataset('permits', appToken, flags);
   }
 }
 

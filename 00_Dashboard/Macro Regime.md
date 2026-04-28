@@ -1,7 +1,18 @@
 ---
+title: Macro Regime Dashboard
+type: dashboard
 tags: [dashboard, macro, regime]
+last_updated: 2026-03-27
 ---
 # Macro Regime Dashboard
+
+Summary:
+- Current macro evidence board for rates, labor, inflation, growth, and related news.
+- Start here when you need regime context before opening specific indicators or pull notes.
+
+## Base View
+
+![[Macro Regime.base]]
 
 ## Latest Macro Data
 

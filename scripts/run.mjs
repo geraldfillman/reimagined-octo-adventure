@@ -1,20 +1,22 @@
 #!/usr/bin/env node
 /**
- * run.mjs — CLI entry point for data pull scripts
+ * run.mjs — CLI entry point
  *
- * Usage:
- *   node run.mjs <puller> [options]
- *   node run.mjs fred --group housing
- *   node run.mjs fred --series HOUST,MORTGAGE30US
- *   node run.mjs fda --recent-approvals
- *   node run.mjs treasury --yields
- *   node run.mjs openfema --recent
- *   node run.mjs usaspending --recent
- *   node run.mjs playbook housing-cycle
- *   node run.mjs status                    # show configured sources
+ * New grouped grammar:
+ *   node run.mjs <group> <command> [options]
+ *
+ * Examples:
+ *   node run.mjs system status
+ *   node run.mjs scan sectors --dry-run
+ *   node run.mjs pull fred --group housing
+ *   node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
+ *
+ * Legacy flat commands still work but print a deprecation notice.
+ * Run "node run.mjs help" for a full overview.
  */
 
 import { listSources } from './lib/config.mjs';
+import { isGroupCommand, routeGrouped, printGroupHelp } from './cmd/router.mjs';
 
 const [, , command, ...args] = process.argv;
 
@@ -23,25 +25,158 @@ if (!command || command === 'help') {
   process.exit(0);
 }
 
+// ── New grouped grammar: node run.mjs <group> <subcommand> [options] ──────────
+if (isGroupCommand(command)) {
+  const groupStartTime = Date.now();
+  const flags = parseArgs(args);
+  const subcommand = args.find(a => !a.startsWith('--')) ?? null;
+
+  // "node run.mjs <group> --help" → show group help
+  if (flags.help) {
+    printGroupHelp(command);
+    process.exit(0);
+  }
+
+  // Raw args after subcommand — forwarded as-is to Python (quant group)
+  const rawAfterSub = subcommand ? args.slice(args.indexOf(subcommand) + 1) : args;
+
+  try {
+    await routeGrouped(command, subcommand, rawAfterSub, flags);
+    if (command !== 'system') {
+      const elapsed = ((Date.now() - groupStartTime) / 1000).toFixed(1);
+      console.log(`\n✅ Done in ${elapsed}s`);
+    }
+  } catch (err) {
+    console.error(`\n❌ Error: ${err.message}`);
+    if (process.env.DEBUG) console.error(err.stack);
+    process.exit(1);
+  }
+  process.exit(process.exitCode ?? 0);
+}
+
+// ── Compat aliases — legacy flat commands (print deprecation notice, then run) ─
+
+function deprecated(oldCmd, newCmd) {
+  console.warn(`⚠  Deprecated: use "node run.mjs ${newCmd}" instead of "${oldCmd}"`);
+}
+
 if (command === 'status') {
+  deprecated('status', 'system status');
   printStatus();
   process.exit(0);
 }
 
 if (command === 'validate') {
+  deprecated('validate', 'system validate');
   const validator = await import('./validate-vault.mjs');
   await validator.run();
   process.exit(process.exitCode ?? 0);
 }
 
+if (command === 'learning-session') {
+  deprecated('learning-session', 'learn session');
+  const { pathToFileURL } = await import('url');
+  const { join } = await import('path');
+  const { getLearningVaultRoot } = await import('./lib/config.mjs');
+  const learningSession = await import(pathToFileURL(join(getLearningVaultRoot(), 'scripts', 'learning-session.mjs')).href);
+  const flags = parseArgs(args);
+  await learningSession.run(flags);
+  process.exit(process.exitCode ?? 0);
+}
+
+if (command === 'cleanup') {
+  deprecated('cleanup', 'system cleanup');
+  const cleanup = await import('./cleanup.mjs');
+  const flags = parseArgs(args);
+  await cleanup.run(flags);
+  process.exit(process.exitCode ?? 0);
+}
+
 if (command === 'infranodus') {
+  deprecated('infranodus', 'system infranodus');
   const measurement = await import('./infranodus.mjs');
   const flags = parseArgs(args);
   await measurement.run(flags);
   process.exit(process.exitCode ?? 0);
 }
 
-// Parse flags from args
+if (command === 'dashboard') {
+  deprecated('dashboard', 'system dashboard');
+  const { startServer } = await import('./dashboard/server.mjs');
+  const port = parseInt(process.env.DASHBOARD_PORT ?? '3737', 10);
+  startServer(port);
+}
+
+if (command === 'conviction-delta') {
+  deprecated('conviction-delta', 'scan conviction');
+  const tracker = await import('./lib/conviction-tracker.mjs');
+  const flags = parseArgs(args);
+  const result = await tracker.run(flags);
+  if (flags.json) {
+    console.log(JSON.stringify(result, null, 2));
+  }
+  process.exit(process.exitCode ?? 0);
+}
+
+if (command === 'thesis-fmp-sync') {
+  deprecated('thesis-fmp-sync', 'thesis sync');
+  const sync = await import('./sync-thesis-fmp.mjs');
+  const flags = parseArgs(args);
+  await sync.run(flags);
+  process.exit(process.exitCode ?? 0);
+}
+
+if (command === 'thesis-catalysts') {
+  deprecated('thesis-catalysts', 'thesis catalysts');
+  const catalysts = await import('./thesis-catalysts.mjs');
+  const flags = parseArgs(args);
+  await catalysts.run(flags);
+  process.exit(process.exitCode ?? 0);
+}
+
+if (command === 'thesis-full-picture') {
+  deprecated('thesis-full-picture', 'thesis full-picture');
+  const reports = await import('./thesis-full-picture.mjs');
+  const flags = parseArgs(args);
+  await reports.run(flags);
+  process.exit(process.exitCode ?? 0);
+}
+
+if (command === 'qlib') {
+  deprecated('qlib', 'quant');
+  const { spawnSync } = await import('child_process');
+  const { join } = await import('path');
+
+  const qlibDir = join(import.meta.dirname, 'qlib');
+  const qlibCli = join(qlibDir, 'cli.py');
+  const subcommand = args[0];
+  if (!subcommand) {
+    console.error('Error: Specify a qlib subcommand. Example: node scripts/run.mjs qlib setup');
+    console.log('\nAvailable subcommands: setup, status, universe, factors, backtest, sim, score, refresh, update-theses');
+    process.exit(1);
+  }
+
+  const { existsSync } = await import('fs');
+  const venvPython = join(qlibDir, '.venv', 'Scripts', 'python.exe');
+  const python = existsSync(venvPython) ? venvPython : 'python';
+
+  const pythonArgs = [qlibCli, ...args];
+  const result = spawnSync(python, pythonArgs, {
+    cwd: import.meta.dirname,
+    stdio: 'inherit',
+    env: { ...process.env },
+  });
+
+  if (result.error) {
+    console.error(`\n❌ Failed to run Python: ${result.error.message}`);
+    console.error('Ensure Python 3.8+ is installed and on PATH.');
+    process.exit(1);
+  }
+  process.exit(result.status ?? 0);
+}
+
+// ── Shared utilities ───────────────────────────────────────────────────────────
+
 function parseArgs(args) {
   const flags = {};
   for (let i = 0; i < args.length; i++) {
@@ -61,9 +196,55 @@ function parseArgs(args) {
 
 const flags = parseArgs(args);
 
-// Dynamic puller/playbook loading
+function normalizeRetentionJobs(result) {
+  if (!Array.isArray(result?.retention)) return [];
+
+  const seenPolicies = new Set();
+  const jobs = [];
+
+  for (const job of result.retention) {
+    const normalized = typeof job === 'string' ? { policy: job } : job;
+    const policy = normalized?.policy;
+    if (!policy || seenPolicies.has(policy)) continue;
+    seenPolicies.add(policy);
+    jobs.push(normalized);
+  }
+
+  return jobs;
+}
+
+async function applyAutomaticRetention(result, flags) {
+  if (flags['skip-retention']) return;
+
+  const jobs = normalizeRetentionJobs(result);
+  if (jobs.length === 0) return;
+
+  const retention = await import('./lib/retention.mjs');
+
+  for (const job of jobs) {
+    if (job.policy !== 'market-history') continue;
+
+    const summary = retention.formatMarketHistoryRetentionSummary(
+      retention.pruneMarketHistory({
+        keepDaily: job.keepDaily,
+        keepQuotes: job.keepQuotes,
+      }),
+      {
+        label: 'Auto cleanup: Market history retention',
+        verbose: false,
+      }
+    );
+
+    for (const line of summary) {
+      console.log(line);
+    }
+  }
+}
+
+// ── Dynamic puller / playbook loader (legacy flat command fallthrough) ─────────
 async function run() {
   const startTime = Date.now();
+  let result;
 
   try {
     if (command === 'playbook') {
@@ -73,21 +254,22 @@ async function run() {
         process.exit(1);
       }
       const playbook = await import(`./playbooks/${playbookName}.mjs`);
-      await playbook.run(flags);
+      result = await playbook.run(flags);
     } else {
-      // Load puller module
       let puller;
       try {
         puller = await import(`./pullers/${command}.mjs`);
       } catch (err) {
         if (err.code === 'ERR_MODULE_NOT_FOUND') {
-          console.error(`Error: Unknown puller "${command}". Run "node run.mjs help" for available commands.`);
+          console.error(`Error: Unknown command "${command}". Run "node run.mjs help" for available commands.`);
           process.exit(1);
         }
         throw err;
       }
-      await puller.pull(flags);
+      result = await puller.pull(flags);
     }
+
+    await applyAutomaticRetention(result, flags);
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.log(`\n✅ Done in ${elapsed}s`);
@@ -98,148 +280,44 @@ async function run() {
   }
 }
 
+// ── Help & status ──────────────────────────────────────────────────────────────
+
 function printHelp() {
   console.log(`
-My_Data Pull Scripts
-====================
+My_Data CLI
+===========
 
-Usage: node run.mjs <command> [options]
+Usage:
+  node run.mjs <group> <command> [options]
 
-Utilities:
-  help              Show this help message
-  status            Show API key configuration status
-  validate          Check vault note schemas and pull-note layout
-  infranodus        Run an InfraNodus graph measurement session
-                    --path <scope>        Folder or note, e.g. 10_Theses
-                    --question <text>     Optional framing question
-                    --output <dir>        Optional output dir
+Groups:
+  system    Status, validation, dashboard, cleanup, infranodus
+  learn     Daily learning sessions
+  scan      Sector scan, company-risk, conviction delta
+  thesis    FMP sync, catalysts, full-picture reports
+  pull      External data pullers (fred, fmp, sec, arxiv, ...)
+  playbook  Multi-step workflows
+  quant     Quantitative analysis (Qlib)
+  kb        Knowledge base pipeline (ingest → normalize → classify → compile → query)
 
-Playbooks:
-  playbook <name>   Run a multi-puller playbook
-    housing-cycle   Housing market regime assessment
+Examples:
+  node run.mjs system status
+  node run.mjs system validate
+  node run.mjs learn session --candidate 5 --topic-id macro-rate-transmission
+  node run.mjs scan sectors --sector industrials --dry-run
+  node run.mjs scan company-risk --watchlist --update-score
+  node run.mjs thesis sync --dry-run
+  node run.mjs pull fmp --quote AAPL,MSFT
+  node run.mjs pull fred --group housing
+  node run.mjs playbook housing-cycle
+  node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
+  node run.mjs kb ingest --file ./article.md --kind article
+  node run.mjs kb query --query "What is the energy regime?" --save
 
-Pullers:
-  alphavantage      Pull Alpha Vantage market data (ALPHA_VANTAGE_API_KEY)
-                    --quote <SYMBOL>       Market quote snapshot
-                    --overview <SYMBOL>    Company overview
+Run "node run.mjs <group> --help" for group detail.
 
-  arxiv             Pull arXiv preprints - no API key required
-                    --drones
-                    --defense
-                    --amr
-                    --psychedelics
-                    --glp1
-                    --geneediting
-                    --alzheimers
-                    --longevity
-                    --nuclear
-                    --quantum
-                    --humanoid
-                    --space
-                    --all
-
-  bea               Pull BEA macro data (BEA_API_KEY)
-                    --gdp                  GDP growth snapshot
-                    --income               Personal income snapshot
-
-  cboe              Pull CBOE market positioning data - no API key required
-                    --skew                 CBOE SKEW index
-                    --vix                  VIX term structure
-                    --all                  All active groups
-
-  clinicaltrials    Pull ClinicalTrials.gov recruiting studies - no API key required
-                    --oncology
-                    --cardio
-                    --neuro
-                    --amr
-                    --glp1
-                    --geneediting
-                    --alzheimers
-                    --longevity
-                    --query <term>
-
-  eia               Pull EIA energy data (EIA_API_KEY)
-                    --electricity-demand
-                    --generation-mix
-                    --regional-load
-                    --all
-
-  fda               Pull FDA drug data
-                    --recent-approvals    Pull recent original drug approvals
-
-  fmp               Pull Financial Modeling Prep data (FINANCIAL_MODELING_PREP_API_KEY)
-                    --profile <SYMBOL>    Company profile snapshot
-                    --income <SYMBOL>     Annual income statement
-                    --options <SYMBOL>    Options chain + unusual activity
-
-  fred              Pull FRED economic data (FRED_API_KEY)
-                    --group <name>        housing, labor, inflation, rates, credit, liquidity
-                    --series <ids>        Specific series list, e.g. HOUST,UNRATE,DGS10
-                    --limit <n>           Number of observations (default: 12)
-
-  newsapi           Pull NewsAPI headlines (NEWSAPI_API_KEY)
-                    --topic <topic>       Topic or category
-                    --limit <n>           Number of articles
-
-  openfema          Pull FEMA disaster data - no API key required
-                    --recent              Recent disaster declarations
-
-  pubmed            Pull PubMed research - no API key required
-                    --amr
-                    --psychedelics
-                    --glp1
-                    --geneediting
-                    --alzheimers
-                    --longevity
-                    --all
-
-  sam               Pull SAM.gov entity and opportunity data (SAM_GOV_API_KEY)
-                    --entities <naics>    Search entities by NAICS code
-                    --opportunities <kw>  Search active solicitations by keyword
-                    --all                  Both entities and opportunities
-
-  sec               Pull SEC EDGAR 8-K filings - no API key required
-                    --thesis
-                    --drones
-                    --defense
-                    --amr
-                    --psychedelics
-                    --glp1
-                    --geneediting
-                    --alzheimers
-                    --longevity
-                    --nuclear
-                    --storage
-                    --aipower
-                    --humanoid
-                    --quantum
-                    --semis
-                    --housing
-                    --hardmoney
-                    --space
-                    --hypersonics
-                    --sectors [name]      tech, health, energy, finance,
-                                          industrial, consumer, realestate, clean
-
-  socrata           Pull Socrata open data (SOCRATA_APP_TOKEN optional)
-                    --permits             NYC DOB job applications
-                    --311                 NYC 311 service requests
-                    --chi-permits         Chicago building permits
-                    --custom <url>        Custom Socrata dataset URL
-
-  treasury          Pull Treasury fiscal data - no API key required
-                    --yields              Pull daily yield curve rates
-
-  usaspending       Pull federal contract awards - no API key required
-                    --recent              Recent new contract awards
-
-  uspto             Pull USPTO patent data (PATENTSVIEW_API_KEY)
-                    --ptab                PTAB proceedings
-                    --filings             Recent filing scan with thesis keyword filter
-                    --all                 Both PTAB and filings
-
-Environment:
-  DEBUG=1           Show full error stack traces
+Note: Legacy flat commands (sector-scan, thesis-fmp-sync, qlib, etc.) still work
+      but print a deprecation hint. See 90_System/CLI Command Audit.md.
 `);
 }
 
@@ -259,4 +337,6 @@ function printStatus() {
   console.log(`\n  ${configured}/${sources.length} sources ready\n`);
 }
 
-run();
+if (command !== 'dashboard') {
+  run();
+}

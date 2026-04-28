@@ -14,6 +14,7 @@ signals:
     severity: "alert"
     message: "5 Phase 3 industry-sponsored trials recruiting in GLP-1 & Metabolic Disease"
 tags: ["biotech", "clinical-trials", "glp1", "metabolic", "obesity"]
+signal_state: new
 ---
 
 ## Recruiting GLP-1 & Metabolic Disease Trials (20)

@@ -13,7 +13,7 @@ import { evaluateFDAApprovals, highestSeverity, formatSignalsSection } from '../
 
 export async function pull(flags = {}) {
   if (flags['recent-approvals'] || flags.recent || !Object.keys(flags).length) {
-    await pullRecentApprovals();
+    return pullRecentApprovals();
   } else {
     throw new Error('Specify --recent-approvals');
   }

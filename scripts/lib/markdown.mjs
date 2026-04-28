@@ -7,6 +7,7 @@
 
 import { writeFileSync, mkdirSync } from 'fs';
 import { dirname } from 'path';
+import { writeRaw } from './kb-bridge.mjs';
 
 /**
  * Build YAML frontmatter string from a fields object.
@@ -75,6 +76,13 @@ export function buildNote({ frontmatter, sections }) {
 export function writeNote(filePath, content) {
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, content, 'utf-8');
+
+  // Mirror into KB raw if this is a 05_Data_Pulls note.
+  // Domain is inferred from the folder segment: 05_Data_Pulls/{Domain}/...
+  const domainMatch = filePath.match(/05_Data_Pulls[/\\]([^/\\]+)[/\\]/i);
+  if (domainMatch) {
+    writeRaw(filePath, domainMatch[1].toLowerCase());
+  }
 }
 
 /**
@@ -116,7 +124,11 @@ export function formatNumber(value, options = {}) {
  * @returns {string}
  */
 export function today() {
-  return new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**

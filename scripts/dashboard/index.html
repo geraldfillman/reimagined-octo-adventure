@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My_Data Operator Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3248;
+    --text: #e2e8f0;
+    --text-muted: #7a8299;
+    --accent: #4f8ef7;
+
+    --critical: #f87171;
+    --critical-bg: #2d1515;
+    --alert: #fb923c;
+    --alert-bg: #2d1d10;
+    --watch: #fbbf24;
+    --watch-bg: #2a2010;
+    --clear: #4ade80;
+    --clear-bg: #102a18;
+
+    --fresh: #4ade80;
+    --stale: #fbbf24;
+    --never: #f87171;
+
+    --high: #4ade80;
+    --medium: #fbbf24;
+    --low: #94a3b8;
+
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  #header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  #header h1 { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.02em; }
+  #header-right { display: flex; align-items: center; gap: 12px; }
+  #last-refresh { color: var(--text-muted); font-size: 11px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font);
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .btn:hover { border-color: var(--accent); background: #1e2540; }
+  .btn-primary { background: #1e3a6e; border-color: var(--accent); color: var(--accent); }
+  .btn-primary:hover { background: #243f78; }
+  .btn-danger { background: #2d1515; border-color: var(--critical); color: var(--critical); }
+
+  /* ── Main layout ── */
+  #main { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ── Top row: 3 columns ── */
+  #top-row {
+    display: grid;
+    grid-template-columns: 320px 1fr 260px;
+    gap: 12px;
+    align-items: start;
+  }
+  #market-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  /* ── Panels ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .panel-body { padding: 10px; }
+
+  /* ── Signal Board ── */
+  #signal-board .panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  .severity-section { display: flex; flex-direction: column; gap: 4px; }
+  .severity-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 2px 0;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 16px;
+    padding: 0 5px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .signal-card {
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  .signal-card .event { font-weight: 600; word-break: break-all; }
+  .signal-card .meta { color: var(--text-muted); font-size: 10px; margin-top: 2px; }
+
+  .sev-critical .severity-header { color: var(--critical); }
+  .sev-critical .badge { background: var(--critical-bg); color: var(--critical); }
+  .sev-critical .signal-card { background: var(--critical-bg); border: 1px solid #5a2020; }
+
+  .sev-alert .severity-header { color: var(--alert); }
+  .sev-alert .badge { background: var(--alert-bg); color: var(--alert); }
+  .sev-alert .signal-card { background: var(--alert-bg); border: 1px solid #5a3010; }
+
+  .sev-watch .severity-header { color: var(--watch); }
+  .sev-watch .badge { background: var(--watch-bg); color: var(--watch); }
+  .sev-watch .signal-card { background: var(--watch-bg); border: 1px solid #4a3a10; }
+
+  .sev-clear .severity-header { color: var(--clear); }
+  .sev-clear .badge { background: var(--clear-bg); color: var(--clear); }
+  .sev-clear .signal-card { background: var(--clear-bg); border: 1px solid #103a20; }
+
+  /* ── Thesis Status ── */
+  #thesis-status .panel-body { padding: 0; }
+  #thesis-table { width: 100%; border-collapse: collapse; }
+  #thesis-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--surface2);
+  }
+  #thesis-table td { padding: 5px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  #thesis-table tr:last-child td { border-bottom: none; }
+  #thesis-table tr:hover td { background: var(--surface2); }
+  .thesis-name { font-weight: 500; max-width: 200px; }
+  .thesis-name small { display: block; color: var(--text-muted); font-size: 10px; font-weight: 400; }
+  .conviction-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .conv-high { background: #102a18; color: var(--high); border: 1px solid #1f4a28; }
+  .conv-medium { background: #2a2010; color: var(--medium); border: 1px solid #4a3a10; }
+  .conv-low { background: #1e2130; color: var(--low); border: 1px solid #2e3248; }
+  .qlib-badge {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .qlib-strong_buy { background: #102a18; color: #4ade80; }
+  .qlib-buy { background: #10241a; color: #86efac; }
+  .qlib-hold { background: #1e2130; color: #94a3b8; }
+  .qlib-sell { background: #2d1d10; color: var(--alert); }
+  .qlib-strong_sell { background: #2d1515; color: var(--critical); }
+  .qlib-none { color: var(--text-muted); font-size: 10px; }
+  .thesis-scroll { max-height: 420px; overflow-y: auto; }
+
+  /* ── Pull Health ── */
+  #pull-health .panel-body { max-height: 420px; overflow-y: auto; }
+  .puller-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .puller-card {
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+  }
+  .puller-card .puller-name { font-size: 11px; font-weight: 600; }
+  .puller-card .puller-meta { font-size: 10px; margin-top: 1px; }
+  .ph-fresh { background: #0d2218; border-color: #1f4a28; }
+  .ph-fresh .puller-meta { color: var(--fresh); }
+  .ph-stale { background: #211a08; border-color: #4a3a10; }
+  .ph-stale .puller-meta { color: var(--watch); }
+  .ph-never { background: #1e0f0f; border-color: #4a2020; }
+  .ph-never .puller-meta { color: var(--critical); }
+
+  /* Technical Risk & Earnings */
+  #technical-risk .panel-body,
+  #earnings-calendar .panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .market-card {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .market-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .market-card-title {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .market-card-meta {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+  .market-card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .mini-pill,
+  .mini-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 2px 7px;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .mini-pill { border: 1px solid var(--border); text-transform: uppercase; }
+  .mini-chip { background: #171b28; color: var(--text); }
+  .pill-critical { background: var(--critical-bg); border-color: #5a2020; color: var(--critical); }
+  .pill-alert { background: var(--alert-bg); border-color: #5a3010; color: var(--alert); }
+  .pill-watch { background: var(--watch-bg); border-color: #4a3a10; color: var(--watch); }
+  .pill-clear { background: var(--clear-bg); border-color: #103a20; color: var(--clear); }
+  .pill-bullish { background: #102a18; border-color: #1f4a28; color: var(--high); }
+  .pill-mixed { background: #1e2130; border-color: #2e3248; color: var(--low); }
+  .pill-bearish { background: #2d1515; border-color: #5a2020; color: var(--critical); }
+  .pill-upcoming { background: #10241a; border-color: #1f4a28; color: #86efac; }
+  .pill-today { background: #1e3a6e; border-color: #365da1; color: #bfdbfe; }
+  .pill-reported { background: #1e2130; border-color: #2e3248; color: var(--low); }
+
+  @media (max-width: 1200px) {
+    #top-row { grid-template-columns: 1fr; }
+    #market-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    #header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    #main { padding: 12px; }
+    .puller-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Data Collection ── */
+  #data-collection .panel-body { display: flex; flex-direction: column; gap: 12px; }
+  .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quick-actions .btn { padding: 7px 14px; font-size: 12px; }
+  .puller-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .puller-buttons { display: flex; flex-wrap: wrap; gap: 5px; }
+  .puller-buttons .btn { padding: 4px 9px; font-size: 11px; }
+
+  /* ── Terminal ── */
+  #terminal .panel-body { padding: 0; }
+  #terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    background: #0d1117;
+    border-bottom: 1px solid var(--border);
+  }
+  #terminal-label { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+  #terminal-output {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 10px 14px;
+    height: 220px;
+    overflow-y: auto;
+    background: #080b10;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .out-stdout { color: #c9d1d9; }
+  .out-stderr { color: #fca5a5; }
+  .out-info { color: #60a5fa; font-style: italic; }
+  .out-success { color: #4ade80; font-weight: 600; }
+  .out-fail { color: #f87171; font-weight: 600; }
+
+  /* ── Misc ── */
+  .empty { color: var(--text-muted); font-size: 11px; padding: 8px 4px; font-style: italic; }
+  .rank-num { color: var(--text-muted); font-size: 10px; min-width: 20px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div id="header">
+  <div style="display:flex;align-items:center;"><h1>My_Data Dashboard</h1>
+  <div id="nav-tabs" style="display:flex;gap:15px;margin-left:20px;flex-grow:1;">
+    <button class="btn btn-primary" id="tab-research" type="button">Research</button>
+    <a class="btn" id="tab-investments" href="/investments">Investments</a>
+  </div>
+</div>
+  <div id="header-right">
+    <span id="last-refresh">Loading...</span>
+    <button class="btn btn-primary" onclick="loadAll()">&#8635; Refresh</button>
+  </div>
+</div>
+
+<!-- ── Main ── -->
+<div id="main-research">
+
+  <!-- Top row: Signal Board | Thesis Status | Pull Health -->
+  <div id="top-row">
+
+    <!-- Signal Board -->
+    <div class="panel" id="signal-board">
+      <div class="panel-header">
+        <span class="panel-title">Signal Board</span>
+        <span id="signal-count" style="font-size:10px;color:var(--text-muted)"></span>
+      </div>
+      <div class="panel-body" id="signal-board-body">
+        <div class="empty">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Thesis Status -->
+    <div class="panel" id="thesis-status">
+      <div class="panel-header">
+        <span class="panel-title">Thesis Status</span>
+        <span id="thesis-count" style="font-size:10px;color:var(--text-muted)"></span>
+      </div>
+      <div class="thesis-scroll">
+        <table id="thesis-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Thesis</th>
+              <th>Conv</th>
+              <th>Monitor</th>
+              <th>Qlib</th>
+              <th>Last Review</th>
+            </tr>
+          </thead>
+          <tbody id="thesis-tbody">
+            <tr><td colspan="6" class="empty" style="padding:12px">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pull Health -->
+    <div class="panel" id="pull-health">
+      <div class="panel-header">
+        <span class="panel-title">Pull Health</span>
+        <span id="health-summary" style="font-size:10px;color:var(--text-muted)"></span>
+      </div>
+      <div class="panel-body">
+        <div class="puller-grid" id="puller-grid">
+          <div class="empty">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /top-row -->
+
+  <div id="market-row">
+    <div class="panel" id="technical-risk">
+      <div class="panel-header">
+        <span class="panel-title">Technical Risk</span>
+        <span id="technical-summary" style="font-size:10px;color:var(--text-muted)"></span>
+      </div>
+      <div class="panel-body" id="technical-risk-body">
+        <div class="empty">Loading...</div>
+      </div>
+    </div>
+
+    <div class="panel" id="earnings-calendar">
+      <div class="panel-header">
+        <span class="panel-title">Earnings Calendar</span>
+        <span id="earnings-summary" style="font-size:10px;color:var(--text-muted)"></span>
+      </div>
+      <div class="panel-body" id="earnings-calendar-body">
+        <div class="empty">Loading...</div>
+      </div>
+    </div>
+  </div><!-- /market-row -->
+
+  <!-- Data Collection -->
+  <div class="panel" id="data-collection">
+    <div class="panel-header">
+      <span class="panel-title">Data Collection</span>
+    </div>
+    <div class="panel-body">
+      <div class="puller-section-title">Quick Actions</div>
+      <div class="quick-actions">
+        <button class="btn btn-primary" onclick="runCommand('sector-scan')">Sector Scan</button>
+        <button class="btn btn-primary" onclick="runCommand('conviction-delta')">Conviction Delta</button>
+        <button class="btn btn-primary" onclick="runCommand('company-risk-scan --watchlist')">Risk Scan Watchlist</button>
+        <button class="btn" onclick="runCommand('validate')">Validate Vault</button>
+        <button class="btn" onclick="runCommand('cleanup --market-history --dry-run')">Cleanup (dry run)</button>
+        <button class="btn btn-danger" onclick="runCommand('cleanup --market-history')">Cleanup</button>
+        <button class="btn" onclick="runCommand('status')">API Status</button>
+      </div>
+      <div style="margin-top:12px">
+        <div class="puller-section-title">Macro &amp; Rates</div>
+        <div class="puller-buttons">
+          <button class="btn" onclick="runCommand('fred --group rates')">FRED Rates</button>
+          <button class="btn" onclick="runCommand('fred --group labor')">FRED Labor</button>
+          <button class="btn" onclick="runCommand('fred --group housing')">FRED Housing</button>
+          <button class="btn" onclick="runCommand('bea --gdp')">BEA GDP</button>
+          <button class="btn" onclick="runCommand('treasury --yields')">Treasury</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="puller-section-title">Market</div>
+        <div class="puller-buttons">
+          <button class="btn" onclick="runCommand('fmp --quote SPY')">FMP Quote SPY</button>
+          <button class="btn" onclick="runCommand('fmp --technical SPY')">FMP Technical SPY</button>
+          <button class="btn" onclick="runCommand('fmp --earnings-calendar')">FMP Earnings Cal</button>
+          <button class="btn" onclick="runCommand('cboe --vix')">CBOE VIX</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="puller-section-title">Biotech &amp; Research</div>
+        <div class="puller-buttons">
+          <button class="btn" onclick="runCommand('clinicaltrials --oncology')">ClinicalTrials</button>
+          <button class="btn" onclick="runCommand('fda --recent-approvals')">FDA Drugs</button>
+          <button class="btn" onclick="runCommand('pubmed --amr')">PubMed</button>
+          <button class="btn" onclick="runCommand('arxiv --drones')">arXiv</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="puller-section-title">Government &amp; Energy</div>
+        <div class="puller-buttons">
+          <button class="btn" onclick="runCommand('usaspending --recent')">USASpending</button>
+          <button class="btn" onclick="runCommand('openfema --recent')">OpenFEMA</button>
+          <button class="btn" onclick="runCommand('sam --opportunities defense')">SAM.gov</button>
+          <button class="btn" onclick="runCommand('sec --thesis')">SEC 8-K</button>
+          <button class="btn" onclick="runCommand('eia --electricity-demand')">EIA</button>
+          <button class="btn" onclick="runCommand('newsapi --topic markets')">NewsAPI</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="puller-section-title">Qlib Quant</div>
+        <div class="puller-buttons">
+          <button class="btn" onclick="runCommand('qlib status')">Qlib Status</button>
+          <button class="btn" onclick="runCommand('qlib refresh --all')">Qlib Refresh All</button>
+          <button class="btn" onclick="runCommand('qlib update-theses')">Qlib Update Theses</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="puller-section-title">Company Risk</div>
+        <div class="puller-buttons">
+          <button class="btn btn-primary" onclick="runCommand('company-risk-scan --watchlist')">Scan All</button>
+          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain fundamental')">Fundamentals</button>
+          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain regulatory')">Regulatory + FDA</button>
+          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain sentiment')">Sentiment</button>
+          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --update-score')">Scan + Update Scores</button>
+          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --dry-run')">Dry Run</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terminal -->
+  <div class="panel" id="terminal">
+    <div class="panel-header">
+      <span class="panel-title">Live Output</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="terminal-label" style="font-family:var(--mono);font-size:11px;color:var(--text-muted)">Idle</span>
+        <button class="btn" onclick="clearTerminal()" style="padding:3px 8px;font-size:10px">Clear</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <pre id="terminal-output"><span class="out-info">Ready. Click a button above to run a command.</span>
+</pre>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+const API = '';
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+
+async function loadAll() {
+  const now = new Date().toLocaleTimeString();
+  document.getElementById('last-refresh').textContent = 'Refreshed ' + now;
+  await Promise.all([
+    loadSignalBoard(),
+    loadTheses(),
+    loadPullHealth(),
+    loadTechnicalRisk(),
+    loadEarningsCalendar(),
+  ]);
+}
+
+async function apiFetch(path) {
+  const res = await fetch(API + path);
+  if (!res.ok) throw new Error(`${path} → ${res.status}`);
+  return res.json();
+}
+
+// ── Signal Board ──────────────────────────────────────────────────────────────
+
+async function loadSignalBoard() {
+  const el = document.getElementById('signal-board-body');
+  try {
+    const data = await apiFetch('/api/signal-board');
+    renderSignalBoard(data);
+  } catch (e) {
+    el.innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+  }
+}
+
+function renderSignalBoard(data) {
+  const el = document.getElementById('signal-board-body');
+  const total = (data.critical?.length ?? 0) + (data.alert?.length ?? 0) + (data.watch?.length ?? 0);
+  document.getElementById('signal-count').textContent =
+    total > 0 ? `${total} active` : 'All clear';
+
+  const order = ['critical', 'alert', 'watch', 'clear'];
+  const labels = { critical: 'Critical', alert: 'Alert', watch: 'Watch', clear: 'Clear' };
+
+  el.innerHTML = order.map(sev => {
+    const items = data[sev] ?? [];
+    if (sev === 'clear' && items.length === 0) return '';
+    const cards = items.slice(0, 10).map(s => `
+      <div class="signal-card">
+        <div class="event">${esc(s.title ?? s.filename)}</div>
+        <div class="meta">${esc(s.domain ?? '')}${s.date ? ' · ' + esc(s.date) : ''}</div>
+      </div>`).join('');
+    const empty = items.length === 0 ? `<div class="empty" style="font-size:10px;padding:4px">None</div>` : '';
+    const more = items.length > 10 ? `<div class="empty" style="font-size:10px;padding:4px">+${items.length - 10} more</div>` : '';
+    return `
+      <div class="severity-section sev-${sev}">
+        <div class="severity-header">
+          ${labels[sev]}
+          <span class="badge">${items.length}</span>
+        </div>
+        ${cards}${empty}${more}
+      </div>`;
+  }).join('');
+}
+
+// ── Thesis Status ─────────────────────────────────────────────────────────────
+
+async function loadTheses() {
+  const tbody = document.getElementById('thesis-tbody');
+  try {
+    const data = await apiFetch('/api/theses');
+    renderTheses(data);
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty">Error: ${e.message}</td></tr>`;
+  }
+}
+
+function renderTheses(theses) {
+  const tbody = document.getElementById('thesis-tbody');
+  document.getElementById('thesis-count').textContent = theses.length + ' theses';
+
+  if (!theses.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="empty">No theses found</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = theses.map((t, i) => {
+    const conv = t.conviction ?? 'low';
+    const qlib = t.qlib_signal_status;
+    const qlibEl = qlib
+      ? `<span class="qlib-badge qlib-${qlib.toLowerCase().replace(' ', '_')}">${esc(qlib)}</span>`
+      : `<span class="qlib-none">—</span>`;
+    const review = t.monitor_last_review
+      ? formatDate(t.monitor_last_review)
+      : '<span style="color:var(--text-muted)">—</span>';
+    const monitor = t.monitor_status
+      ? `<span style="font-size:10px">${esc(t.monitor_status)}</span>`
+      : '<span style="color:var(--text-muted);font-size:10px">—</span>';
+    return `
+      <tr>
+        <td class="rank-num">${t.allocation_rank !== 999 ? t.allocation_rank : '—'}</td>
+        <td class="thesis-name">
+          ${esc(t.name)}
+          ${t.next_catalyst ? `<small>${esc(t.next_catalyst)}</small>` : ''}
+        </td>
+        <td><span class="conviction-badge conv-${conv}">${conv}</span></td>
+        <td>${monitor}</td>
+        <td>${qlibEl}</td>
+        <td style="font-size:10px;color:var(--text-muted)">${review}</td>
+      </tr>`;
+  }).join('');
+}
+
+// ── Pull Health ───────────────────────────────────────────────────────────────
+
+async function loadPullHealth() {
+  const grid = document.getElementById('puller-grid');
+  try {
+    const data = await apiFetch('/api/pull-health');
+    renderPullHealth(data);
+  } catch (e) {
+    grid.innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+  }
+}
+
+function renderPullHealth(pullers) {
+  const grid = document.getElementById('puller-grid');
+  const fresh = pullers.filter(p => p.status === 'fresh').length;
+  const stale = pullers.filter(p => p.status === 'stale').length;
+  const never = pullers.filter(p => p.status === 'never').length;
+  document.getElementById('health-summary').textContent =
+    `${fresh} fresh · ${stale} stale · ${never} never`;
+
+  grid.innerHTML = pullers.map(p => {
+    const cls = `ph-${p.status}`;
+    const meta = p.status === 'fresh'
+      ? 'Today'
+      : p.status === 'stale'
+        ? `${p.daysStale}d ago (${p.lastRun})`
+        : 'Never run';
+    return `
+      <div class="puller-card ${cls}">
+        <div class="puller-name">${esc(p.name)}</div>
+        <div class="puller-meta">${meta}</div>
+      </div>`;
+  }).join('');
+}
+
+// ── Terminal & command runner ─────────────────────────────────────────────────
+
+async function loadTechnicalRisk() {
+  const body = document.getElementById('technical-risk-body');
+  try {
+    const data = await apiFetch('/api/technical-risk');
+    renderTechnicalRisk(data);
+  } catch (e) {
+    body.innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+  }
+}
+
+function renderTechnicalRisk(data) {
+  const body = document.getElementById('technical-risk-body');
+  const items = data.items ?? [];
+  const active = items.filter(item => item.signal_status !== 'clear').length;
+  document.getElementById('technical-summary').textContent =
+    items.length ? `${active} active · ${items.length} symbols` : 'No technical notes';
+
+  if (!items.length) {
+    body.innerHTML = '<div class="empty">Run fmp --technical &lt;symbol&gt; to populate this panel.</div>';
+    return;
+  }
+
+  body.innerHTML = items.map(item => `
+    <div class="market-card">
+      <div class="market-card-head">
+        <div>
+          <div class="market-card-title">${esc(item.symbol)}</div>
+          <div class="market-card-meta">${esc(item.date || 'No date')} · RSI ${formatNumber(item.rsi14, 1)} · Close ${formatCurrency(item.close)}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+          <span class="mini-pill pill-${esc(item.signal_status || 'clear')}">${esc(item.signal_status || 'clear')}</span>
+          <span class="mini-pill pill-${esc(item.technical_bias || 'mixed')}">${esc(item.technical_bias || 'mixed')}</span>
+        </div>
+      </div>
+      <div class="market-card-stats">
+        <span class="mini-chip">vs 50D ${formatSignedPercent(item.price_vs_50dma_pct)}</span>
+        <span class="mini-chip">vs 200D ${formatSignedPercent(item.price_vs_200dma_pct)}</span>
+        <span class="mini-chip">${esc(item.momentum_state || 'unknown')}</span>
+      </div>
+      ${item.signals?.length
+        ? `<div class="market-card-stats">${item.signals.slice(0, 3).map(signal => `<span class="mini-chip">${esc(signal)}</span>`).join('')}</div>`
+        : '' }
+    </div>`).join('');
+}
+
+async function loadEarningsCalendar() {
+  const body = document.getElementById('earnings-calendar-body');
+  try {
+    const data = await apiFetch('/api/earnings-calendar');
+    renderEarningsCalendar(data);
+  } catch (e) {
+    body.innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+  }
+}
+
+function renderEarningsCalendar(data) {
+  const body = document.getElementById('earnings-calendar-body');
+  const rows = data.rows ?? [];
+  const range = data.from && data.to ? `${data.from} to ${data.to}` : 'No earnings note';
+  document.getElementById('earnings-summary').textContent =
+    rows.length ? `${rows.length} rows · ${range}` : range;
+
+  if (!rows.length) {
+    body.innerHTML = '<div class="empty">Run fmp --earnings-calendar to populate this panel.</div>';
+    return;
+  }
+
+  body.innerHTML = rows.slice(0, 12).map(row => {
+    const badge = getEarningsBadge(row.date);
+    return `
+      <div class="market-card">
+        <div class="market-card-head">
+          <div>
+            <div class="market-card-title">${esc(row.symbol || 'N/A')}</div>
+            <div class="market-card-meta">${esc(row.date || 'No date')}${row.last_updated ? ' · Updated ' + esc(row.last_updated) : ''}</div>
+          </div>
+          <span class="mini-pill ${badge.className}">${badge.label}</span>
+        </div>
+        <div class="market-card-stats">
+          <span class="mini-chip">EPS ${esc(row.eps_est || 'N/A')} / ${esc(row.eps_act || 'N/A')}</span>
+          <span class="mini-chip">Rev ${esc(row.revenue_est || 'N/A')} / ${esc(row.revenue_act || 'N/A')}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+let activeSource = null;
+
+async function runCommand(command) {
+  if (activeSource) {
+    activeSource.close();
+    activeSource = null;
+  }
+
+  const label = document.getElementById('terminal-label');
+  const out = document.getElementById('terminal-output');
+  label.textContent = '▶ ' + command;
+  out.innerHTML = `<span class="out-info">$ node run.mjs ${esc(command)}\n</span>`;
+
+  let res;
+  try {
+    res = await fetch(API + '/api/run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command }),
+    });
+  } catch (e) {
+    appendOutput('Error: ' + e.message, 'fail');
+    return;
+  }
+
+  if (!res.ok) {
+    appendOutput('Server error: ' + res.status, 'fail');
+    return;
+  }
+
+  const { jobId, error } = await res.json();
+  if (error) { appendOutput('Error: ' + error, 'fail'); return; }
+
+  openStream(jobId);
+}
+
+function openStream(jobId) {
+  const label = document.getElementById('terminal-label');
+  const source = new EventSource(API + '/api/stream/' + jobId);
+  activeSource = source;
+
+  source.addEventListener('line', e => {
+    try {
+      const { text, stream } = JSON.parse(e.data);
+      appendOutput(text, stream === 'stderr' ? 'stderr' : 'stdout');
+    } catch {}
+  });
+
+  source.addEventListener('exit', e => {
+    try {
+      const { code } = JSON.parse(e.data);
+      if (code === 0) {
+        appendOutput('\n✓ Completed (exit 0)', 'success');
+        label.textContent = '✓ Done';
+      } else {
+        appendOutput(`\n✗ Exited with code ${code}`, 'fail');
+        label.textContent = `✗ Failed (${code})`;
+      }
+    } catch {}
+    source.close();
+    activeSource = null;
+    // Refresh panels after a successful run
+    setTimeout(loadAll, 1500);
+  });
+
+  source.onerror = () => {
+    source.close();
+    activeSource = null;
+    label.textContent = 'Connection closed';
+  };
+}
+
+function appendOutput(text, type) {
+  const out = document.getElementById('terminal-output');
+  const span = document.createElement('span');
+  span.className = 'out-' + type;
+  span.textContent = text + '\n';
+  out.appendChild(span);
+  out.scrollTop = out.scrollHeight;
+}
+
+function clearTerminal() {
+  if (activeSource) { activeSource.close(); activeSource = null; }
+  document.getElementById('terminal-output').innerHTML =
+    '<span class="out-info">Cleared.\n</span>';
+  document.getElementById('terminal-label').textContent = 'Idle';
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatNumber(value, decimals = 1) {
+  if (value == null || Number.isNaN(Number(value))) return 'N/A';
+  return Number(value).toFixed(decimals);
+}
+
+function formatCurrency(value) {
+  if (value == null || Number.isNaN(Number(value))) return 'N/A';
+  return '$' + Number(value).toFixed(2);
+}
+
+function formatSignedPercent(value) {
+  if (value == null || Number.isNaN(Number(value))) return 'N/A';
+  const number = Number(value);
+  const prefix = number > 0 ? '+' : '';
+  return `${prefix}${number.toFixed(1)}%`;
+}
+
+function getEarningsBadge(dateText) {
+  const today = new Date().toISOString().slice(0, 10);
+  if (!dateText) return { label: 'Unknown', className: 'pill-reported' };
+  if (dateText > today) return { label: 'Upcoming', className: 'pill-upcoming' };
+  if (dateText === today) return { label: 'Today', className: 'pill-today' };
+  return { label: 'Reported', className: 'pill-reported' };
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  // Already YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+    const diff = Math.floor((Date.now() - new Date(d)) / 86400000);
+    if (diff === 0) return 'Today';
+    if (diff === 1) return 'Yesterday';
+    if (diff < 7) return `${diff}d ago`;
+    return d;
+  }
+  return d;
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+loadAll();
+// Auto-refresh every 5 minutes
+setInterval(loadAll, 5 * 60 * 1000);
+</script>
+
+</div>
+<div id="main-learning" style="display:none; padding:14px 16px;">
+  <div class="panel" style="margin-bottom:14px;">
+    <div class="panel-header"><span class="panel-title">Learning Status</span></div>
+    <div class="panel-body" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:14px;font-weight:bold;" id="learning-state">Loading...</div>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="scaffoldLearning()">Scaffold Daily Setup / Wildcard</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div id="check-editor" style="display:none; flex-direction:row; gap:14px; margin-bottom:14px;">
+    <!-- Left panel: Read-only resources -->
+    <div class="panel" style="flex:1;">
+      <div class="panel-header">
+        <span class="panel-title" id="check-title">Knowledge Lock</span>
+      </div>
+      <div class="panel-body" id="check-resources" style="font-family:var(--font);font-size:13px;height:400px;overflow-y:auto;white-space:pre-wrap;line-height:1.6;">
+        Loading prompt...
+      </div>
+    </div>
+    <!-- Right panel: Editor -->
+    <div class="panel" style="flex:1;">
+      <div class="panel-header"><span class="panel-title">Your Answer</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:10px;">
+        <textarea id="check-content" style="width:100%;height:360px;background:#080b10;color:var(--text);border:1px solid var(--border);padding:10px;font-family:var(--mono);font-size:12px;"></textarea>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <button class="btn btn-primary" onclick="saveCheck()">Save Answer</button>
+          <div id="check-save-status" style="font-size:11px;color:var(--clear);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wildcard-editor" style="display:none; flex-direction:row; gap:14px;">
+    <!-- Left panel: Read-only resources -->
+    <div class="panel" style="flex:1;">
+      <div class="panel-header"><span class="panel-title">Wildcard Context & Resources</span></div>
+      <div class="panel-body" id="wildcard-resources" style="font-family:var(--font);font-size:13px;height:600px;overflow-y:auto;white-space:pre-wrap;line-height:1.6;">
+        Loading resources...
+      </div>
+    </div>
+    <!-- Right panel: Editor -->
+    <div class="panel" style="flex:1;">
+      <div class="panel-header"><span class="panel-title">Synthesis Editor</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:10px;">
+        <textarea id="wildcard-content" style="width:100%;height:560px;background:#080b10;color:var(--text);border:1px solid var(--border);padding:10px;font-family:var(--mono);font-size:12px;"></textarea>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <button class="btn btn-primary" onclick="saveWildcard()">Save Wildcard</button>
+          <div id="save-status" style="font-size:11px;color:var(--clear);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="learning-terminal">
+    <div class="panel-header"><span class="panel-title">Agent Output</span></div>
+    <div class="panel-body" id="learning-terminal-output" style="font-family:var(--mono);font-size:12px;background:#080b10;padding:10px;height:300px;overflow-y:auto;white-space:pre-wrap;">
+      <i>Run scaffold to see output here...</i>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.getElementById('main-research').style.display = (tab === 'research') ? 'flex' : 'none';
+  document.getElementById('main-learning').style.display = (tab === 'learning') ? 'block' : 'none';
+  document.getElementById('tab-research').className = (tab === 'research') ? 'btn btn-primary' : 'btn';
+  document.getElementById('tab-learning').className = (tab === 'learning') ? 'btn btn-primary' : 'btn';
+  if (tab === 'learning') loadLearningStatus();
+}
+
+
+
+let currentCheckFilename = '';
+async function loadCheck(type = 'daily') {
+  try {
+    const res = await fetch('/api/learning/active-check?type=' + type);
+    const data = await res.json();
+    if (data.content) {
+      currentCheckFilename = data.filename;
+      
+      document.getElementById('check-title').innerText = type === 'daily' ? 'Surface Check (Knowledge Lock)' : 'Advanced Knowledge Check';
+      
+      // Extract the prompt and hints for the left panel
+      let resourcesText = '';
+      const lines = data.content.split('\n');
+      let capture = false;
+      let inAnswer = false;
+      
+      // Find the answer section
+      let answerSection = '';
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        
+        if (line.startsWith('## Prompt') || line.startsWith('## Hints')) {
+          capture = true;
+          resourcesText += '\n\n**' + line.replace('## ', '') + '**\n';
+          continue;
+        }
+        
+        if (line.startsWith('## ')) {
+          if (capture) capture = false;
+        }
+        
+        if (capture) {
+          resourcesText += line + '\n';
+        }
+      }
+      
+      document.getElementById('check-resources').innerHTML = resourcesText.trim()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      
+      document.getElementById('check-content').value = data.content;
+      
+    } else {
+      document.getElementById('check-resources').innerText = 'No active check found.';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function saveCheck() {
+  const content = document.getElementById('check-content').value;
+  document.getElementById('check-save-status').innerText = 'Saving...';
+  try {
+    const res = await fetch('/api/learning/save-check', {
+      method: 'POST',
+      body: JSON.stringify({ filename: currentCheckFilename, content })
+    });
+    if (res.ok) {
+      document.getElementById('check-save-status').innerText = 'Saved at ' + new Date().toLocaleTimeString() + ' (Tell Agent to Check it)';
+    } else {
+      document.getElementById('check-save-status').innerText = 'Error saving';
+    }
+  } catch(e) {
+    document.getElementById('check-save-status').innerText = 'Network error';
+  }
+}
+
+let currentWildcardFilename = '';
+async function loadWildcard() {
+  try {
+    const res = await fetch('/api/learning/active-wildcard');
+    const data = await res.json();
+    if (data.content) {
+      currentWildcardFilename = data.filename;
+      document.getElementById('wildcard-content').value = data.content;
+      
+      // Parse out the "Resources:" sections for the left panel to make them easy to read
+      let resourcesText = '';
+      const lines = data.content.split('\n');
+      let inResources = false;
+      let currentSection = '';
+      
+      for (const line of lines) {
+        if (line.startsWith('## ')) {
+          currentSection = line;
+        }
+        if (line.startsWith('**Resources:**')) {
+          inResources = true;
+          resourcesText += '\n\n' + currentSection + '\n' + line + '\n';
+          continue;
+        }
+        if (inResources && line.startsWith('### Your Output')) {
+          inResources = false;
+        }
+        if (inResources) {
+          resourcesText += line + '\n';
+        }
+      }
+      
+      if (!resourcesText.trim()) {
+         resourcesText = "Check the editor on the right for full content.";
+      }
+      
+      let htmlText = resourcesText.trim()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+        
+      htmlText = htmlText
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" style="color:var(--accent); text-decoration:underline;">$1</a>')
+        .replace(/\[\[([^\]]+)\]\]/g, '<span style="color:var(--accent);">[[$1]]</span>');
+        
+      document.getElementById('wildcard-resources').innerHTML = htmlText;
+    } else {
+      document.getElementById('wildcard-resources').innerText = 'No active wildcard file found for today.';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function saveWildcard() {
+  const content = document.getElementById('wildcard-content').value;
+  document.getElementById('save-status').innerText = 'Saving...';
+  try {
+    const res = await fetch('/api/learning/save-wildcard', {
+      method: 'POST',
+      body: JSON.stringify({ filename: currentWildcardFilename, content })
+    });
+    if (res.ok) {
+      document.getElementById('save-status').innerText = 'Saved at ' + new Date().toLocaleTimeString();
+    } else {
+      document.getElementById('save-status').innerText = 'Error saving';
+    }
+  } catch(e) {
+    document.getElementById('save-status').innerText = 'Network error';
+  }
+}
+
+async function loadLearningStatus() {
+  try {
+    const res = await fetch('/api/learning/status');
+    const data = await res.json();
+    
+    document.getElementById('learning-state').innerText = `State: ${data.status} (Date: ${data.date})`;
+    document.getElementById('wildcard-editor').style.display = 'none';
+    document.getElementById('check-editor').style.display = 'none';
+    document.getElementById('learning-terminal').style.display = 'block';
+
+    if (data.status === 'Wildcard Active') {
+      document.getElementById('wildcard-editor').style.display = 'flex';
+      document.getElementById('check-editor').style.display = 'flex';
+      document.getElementById('learning-terminal').style.display = 'none';
+      loadWildcard();
+      loadCheck('advanced');
+    } else if (data.status === 'Pending Knowledge Lock') {
+      document.getElementById('check-editor').style.display = 'flex';
+      loadCheck('daily');
+    }
+
+  } catch (e) {
+    document.getElementById('learning-state').innerText = 'Error loading status';
+  }
+}
+
+async function scaffoldLearning() {
+  const out = document.getElementById('learning-terminal-output');
+  out.innerHTML = 'Starting...\n';
+  try {
+    const res = await fetch('/api/learning/scaffold', { method: 'POST', body: JSON.stringify({}) });
+    const data = await res.json();
+    if (data.jobId) {
+      const src = new EventSource(`/api/stream/${data.jobId}`);
+      src.addEventListener('line', e => {
+        const lineData = JSON.parse(e.data);
+        out.innerHTML += lineData.text + '\n';
+        out.scrollTop = out.scrollHeight;
+      });
+      src.addEventListener('exit', () => {
+        src.close();
+        out.innerHTML += '\nDone.\n';
+        loadLearningStatus();
+      });
+    }
+  } catch (err) {
+    out.innerHTML += 'Error: ' + err.message;
+  }
+}
+</script>
+</body>
+</html>

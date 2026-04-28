@@ -12,7 +12,7 @@ import { buildNote, buildTable, writeNote, today, dateStampedFilename } from '..
 
 export async function pull(flags = {}) {
   if (flags.yields || !Object.keys(flags).length) {
-    await pullYields();
+    return pullYields();
   } else {
     throw new Error('Specify --yields');
   }
@@ -68,5 +68,5 @@ async function pullYields() {
 
   const filePath = join(getPullsDir(), 'Macro', dateStampedFilename('Treasury_Rates'));
   writeNote(filePath, note);
-  console.log(`📝 Wrote: ${filePath}`);
+  return { filePath, signals: [] };
 }

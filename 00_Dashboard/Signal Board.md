@@ -1,7 +1,18 @@
 ---
+title: Signal Board
+type: dashboard
 tags: [dashboard, signals]
+last_updated: 2026-03-27
 ---
 # Signal Board
+
+Summary:
+- Active alert surface for non-clear pull notes and recent signal history.
+- Start here when you need the fastest current-state read across domains.
+
+## Base View
+
+![[Signal Board.base]]
 
 ## Active Alerts
 
@@ -52,4 +63,18 @@ LIST
 FROM "05_Data_Pulls"
 WHERE signal_status = "clear"
 GROUP BY domain
+```
+
+## Open Questions
+
+```dataview
+TABLE
+  question_text AS "Question",
+  linked_thesis AS "Thesis",
+  urgency AS "Urgency",
+  owner AS "Owner"
+FROM "15_Questions"
+WHERE node_type = "question" AND status = "open"
+SORT urgency ASC, opened_date ASC
+LIMIT 10
 ```

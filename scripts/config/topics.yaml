@@ -1,0 +1,98 @@
+# Topic Registry
+#
+# Single source of truth for research topic flags shared across pullers.
+# Each topic defines which pullers support it. The actual query/condition
+# strings remain in each puller (they are API-specific), but this registry
+# controls which --flag names are valid and where.
+#
+# Puller keys: arxiv | pubmed | clinicaltrials | sec
+
+topics:
+  # ── Defense & Aerospace ──────────────────────────────────────────────
+  drones:
+    label: Drones & Autonomous Aircraft
+    enabled_pullers: [arxiv, sec]
+
+  defense:
+    label: Defense AI & Autonomous Weapons
+    enabled_pullers: [arxiv, sec]
+
+  space:
+    label: Space & Satellite Systems
+    enabled_pullers: [arxiv, sec]
+
+  hypersonics:
+    label: Hypersonic Weapons
+    enabled_pullers: [sec]
+
+  # ── Biotech & Healthcare ─────────────────────────────────────────────
+  amr:
+    label: Antimicrobial Resistance
+    enabled_pullers: [arxiv, pubmed, clinicaltrials, sec]
+
+  psychedelics:
+    label: Psychedelic Therapeutics
+    enabled_pullers: [arxiv, pubmed, sec]
+
+  glp1:
+    label: GLP-1 & Metabolic Disease
+    enabled_pullers: [arxiv, pubmed, clinicaltrials, sec]
+
+  geneediting:
+    label: Gene Editing & CRISPR
+    enabled_pullers: [arxiv, pubmed, clinicaltrials, sec]
+
+  alzheimers:
+    label: Alzheimer's Disease
+    enabled_pullers: [arxiv, pubmed, clinicaltrials, sec]
+
+  longevity:
+    label: Longevity & Aging Biology
+    enabled_pullers: [arxiv, pubmed, clinicaltrials, sec]
+
+  oncology:
+    label: Oncology
+    enabled_pullers: [clinicaltrials]
+
+  cardio:
+    label: Cardiovascular Disease
+    enabled_pullers: [clinicaltrials]
+
+  neuro:
+    label: Neurology & CNS
+    enabled_pullers: [clinicaltrials]
+
+  # ── Energy & Physical Technology ─────────────────────────────────────
+  nuclear:
+    label: Nuclear Energy & SMRs
+    enabled_pullers: [arxiv, sec]
+
+  storage:
+    label: Energy Storage & Batteries
+    enabled_pullers: [sec]
+
+  # ── Technology & Computing ────────────────────────────────────────────
+  quantum:
+    label: Quantum Computing
+    enabled_pullers: [arxiv, sec]
+
+  humanoid:
+    label: Humanoid Robotics
+    enabled_pullers: [arxiv, sec]
+
+  aipower:
+    label: AI Power & Data Center Infrastructure
+    enabled_pullers: [sec]
+
+  semis:
+    label: Semiconductors
+    enabled_pullers: [sec]
+
+  # ── Macro & Finance ───────────────────────────────────────────────────
+  housing:
+    label: Housing & Real Estate
+    enabled_pullers: [sec]
+
+  hardmoney:
+    label: Hard Money & Alternative Assets
+    enabled_pullers: [sec]
