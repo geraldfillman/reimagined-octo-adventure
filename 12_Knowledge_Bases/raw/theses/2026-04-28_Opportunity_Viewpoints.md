@@ -20,7 +20,7 @@ tags: ["opportunity-viewpoints", "synthesis", "thesis", "market", "sec", "sector
 - **Top Viewpoint**: Strong Thesis, Bad Tape - Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.
 - **Lens Mix**: Strong Thesis, Bad Tape 4; Stressed Sector Small-Cap Queue 2; Do-Not-Chase / Pair-Trade Watch 2; Risk Signal First 2; Conviction Momentum Before Upgrade 2
 - **Posture Mix**: opportunity 8; risk-first 4
-- **Data Base**: 2364 pull notes and 40 signal notes inside the window.
+- **Data Base**: 2367 pull notes and 40 signal notes inside the window.
 - **Use**: Treat this as a research map, not a buy list. Each viewpoint needs the listed confirmation step before it graduates.
 
 ## Viewpoint Queue
@@ -326,7 +326,7 @@ tags: ["opportunity-viewpoints", "synthesis", "thesis", "market", "sec", "sector
 | Conviction delta rows | 2 | Evidence-flow changes before thesis upgrades. |
 | Dilution monitor rows | 10 | Financing-risk overlay and coverage gaps. |
 | Signal notes | 40 | Risk and confirmation overlays. |
-| All pull notes in window | 2364 | Coverage base across market, macro, sectors, government, research, and fundamentals. |
+| All pull notes in window | 2367 | Coverage base across market, macro, sectors, government, research, and fundamentals. |
 
 ## Method
 
