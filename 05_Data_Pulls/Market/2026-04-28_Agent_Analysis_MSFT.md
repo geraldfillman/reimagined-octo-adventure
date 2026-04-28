@@ -14,7 +14,7 @@ frequency: "on-demand"
 signal_status: "clear"
 signals: ["AGENT_RISK_BEARISH", "AGENT_SENTIMENT_BULLISH", "AGENT_MACRO_BULLISH", "AGENT_FUNDAMENTALS_BULLISH"]
 final_verdict: "NEUTRAL"
-final_confidence: 0.19
+final_confidence: 0.21
 synthesis_mode: "deterministic"
 agent_count: 7
 failed_agent_count: 0
@@ -25,24 +25,24 @@ tags: ["agent-analysis", "market", "msft"]
 ## Verdict
 
 - **Final verdict**: NEUTRAL
-- **Final confidence**: 19%
+- **Final confidence**: 21%
 - **Attention status**: clear
 - **Synthesis mode**: deterministic
-- **Reasoning**: Deterministic synthesis is neutral at 19% confidence. Drivers: fundamentals, macro. Risks: risk. 3 neutral layer(s).
-- **Top drivers**: fundamentals, macro, sentiment
+- **Reasoning**: Deterministic synthesis is neutral at 21% confidence. Drivers: fundamentals, sentiment. Risks: risk. 3 neutral layer(s).
+- **Top drivers**: fundamentals, sentiment, macro
 - **Top risks**: risk
 
 ## Agent Signal Matrix
 
 | Agent | Signal | Confidence | Runtime | Summary |
 | --- | --- | --- | --- | --- |
-| price | NEUTRAL | 33% | 36ms | MSFT closed at 425.98. 7d 0.8%, 30d 6.5%. RSI 64, MACD positive. |
-| risk | BEARISH | 61% | 286ms | Risk read: 30d vol 29.9%, max drawdown -34.2%, 30d return 6.5%. |
-| sentiment | BULLISH | 46% | 411ms | 20 headline(s): 2 positive, 0 negative, net score 3. |
-| microstructure | NEUTRAL | 24% | 724ms | Volume ratio 0.24x, price change 0.2%, short/float N/A. |
-| macro | BULLISH | 36% | 180ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
-| fundamentals | BULLISH | 50% | 2001ms | Revenue growth 14.9%, net margin 36.1%, trailing FCF 77.4B. |
-| prediction_market | NEUTRAL | 12% | 483ms | No relevant prediction markets found for "AI Power Defense Stack". |
+| price | NEUTRAL | 33% | 35ms | MSFT closed at 426.46. 7d 0.9%, 30d 6.6%. RSI 64.2, MACD positive. |
+| risk | BEARISH | 61% | 265ms | Risk read: 30d vol 29.9%, max drawdown -34.2%, 30d return 6.6%. |
+| sentiment | BULLISH | 62% | 390ms | 20 headline(s): 4 positive, 0 negative, net score 5. |
+| microstructure | NEUTRAL | 24% | 696ms | Volume ratio 0.28x, price change 0.3%, short/float N/A. |
+| macro | BULLISH | 36% | 174ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
+| fundamentals | BULLISH | 50% | 1060ms | Revenue growth 14.9%, net margin 36.1%, trailing FCF 77.4B. |
+| prediction_market | NEUTRAL | 12% | 507ms | No relevant prediction markets found for "AI Power Defense Stack". |
 
 ## Follow Up Actions
 
@@ -53,7 +53,7 @@ tags: ["agent-analysis", "market", "msft"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 33%
-- **Summary**: MSFT closed at 425.98. 7d 0.8%, 30d 6.5%. RSI 64, MACD positive.
+- **Summary**: MSFT closed at 426.46. 7d 0.9%, 30d 6.6%. RSI 64.2, MACD positive.
 - **Evidence**:
   - Close vs SMA50: above
   - Close vs SMA200: below
@@ -63,18 +63,18 @@ tags: ["agent-analysis", "market", "msft"]
 {
   "api_symbol": "MSFT",
   "bars": 260,
-  "close": 425.98,
-  "change_7d_pct": 0.75,
-  "change_30d_pct": 6.51,
-  "sma20": 398.7255,
-  "sma50": 395.0098,
-  "sma200": 469.3252,
-  "ema21": 406.4613,
-  "rsi14": 64.04,
-  "macd": 10.5341,
-  "macd_signal": 6.6909,
+  "close": 426.465,
+  "change_7d_pct": 0.87,
+  "change_30d_pct": 6.63,
+  "sma20": 398.7498,
+  "sma50": 395.0195,
+  "sma200": 469.3276,
+  "ema21": 406.5054,
+  "rsi14": 64.24,
+  "macd": 10.5728,
+  "macd_signal": 6.6986,
   "macd_crossover": "positive",
-  "bollinger_position": 0.781
+  "bollinger_position": 0.786
 }
 ```
 
@@ -82,23 +82,23 @@ tags: ["agent-analysis", "market", "msft"]
 
 - **Signal**: BEARISH
 - **Confidence**: 61%
-- **Summary**: Risk read: 30d vol 29.9%, max drawdown -34.2%, 30d return 6.5%.
+- **Summary**: Risk read: 30d vol 29.9%, max drawdown -34.2%, 30d return 6.6%.
 - **Evidence**:
   - Max drawdown: -34.2%
   - 30d realized volatility: 29.9%
-  - Sharpe-like score: -0.84
+  - Sharpe-like score: -0.83
 - **Warnings**:
   - Short interest unavailable: HTTP 404: []
 
 ```json
 {
   "bars": 260,
-  "realized_vol_30d": 0.2993,
+  "realized_vol_30d": 0.2994,
   "realized_vol_90d": 0.3119,
   "max_drawdown_pct": -34.18,
   "atr14": null,
-  "change_30d_pct": 6.51,
-  "sharpe_like_90d": -0.84,
+  "change_30d_pct": 6.63,
+  "sharpe_like_90d": -0.83,
   "beta": 1.107,
   "days_to_cover": null
 }
@@ -107,27 +107,27 @@ tags: ["agent-analysis", "market", "msft"]
 ## Sentiment Agent
 
 - **Signal**: BULLISH
-- **Confidence**: 46%
-- **Summary**: 20 headline(s): 2 positive, 0 negative, net score 3.
+- **Confidence**: 62%
+- **Summary**: 20 headline(s): 4 positive, 0 negative, net score 5.
 - **Evidence**:
+  - Microsoft has conceded more ground to OpenAI in win for Amazon, says UBS
+  - Will Strong AWS Performance Boost Amazon's Q1 Earnings Report?
+  - Azure Drives Microsoft's AI Strategy: Wait for Q3 Before Buying
   - Wall Street analyst updates Microsoft (MSFT) stock price target
   - Microsoft's AI Moat Holds up Even After the OpenAI Reset
-  - Earnings Growth & Price Strength Make Microsoft (MSFT) a Stock to Watch
-  - Commvault Systems (CVLT) Beats Q4 Earnings and Revenue Estimates
-  - KULR Welcomes Microsoft Director and Pricing Optimization Specialist to Board of Directors
 
 ```json
 {
   "headline_count": 20,
-  "positive_count": 2,
+  "positive_count": 4,
   "negative_count": 0,
-  "net_score": 3,
+  "net_score": 5,
   "sample_headlines": [
+    "Microsoft has conceded more ground to OpenAI in win for Amazon, says UBS",
+    "Will Strong AWS Performance Boost Amazon's Q1 Earnings Report?",
+    "Azure Drives Microsoft's AI Strategy: Wait for Q3 Before Buying",
     "Wall Street analyst updates Microsoft (MSFT) stock price target",
-    "Microsoft's AI Moat Holds up Even After the OpenAI Reset",
-    "Earnings Growth & Price Strength Make Microsoft (MSFT) a Stock to Watch",
-    "Commvault Systems (CVLT) Beats Q4 Earnings and Revenue Estimates",
-    "KULR Welcomes Microsoft Director and Pricing Optimization Specialist to Board of Directors"
+    "Microsoft's AI Moat Holds up Even After the OpenAI Reset"
   ]
 }
 ```
@@ -136,9 +136,9 @@ tags: ["agent-analysis", "market", "msft"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 24%
-- **Summary**: Volume ratio 0.24x, price change 0.2%, short/float N/A.
+- **Summary**: Volume ratio 0.28x, price change 0.3%, short/float N/A.
 - **Evidence**:
-  - Volume: 9.1M vs avg 37.8M
+  - Volume: 10.6M vs avg 37.8M
   - Market cap: 3.2T
   - Short percent float: N/A
 - **Warnings**:
@@ -146,12 +146,12 @@ tags: ["agent-analysis", "market", "msft"]
 
 ```json
 {
-  "price": 425.78,
-  "change_pct": 0.23,
-  "volume": 9053767,
+  "price": 426.11,
+  "change_pct": 0.3,
+  "volume": 10632093,
   "avg_volume": 37823058,
-  "volume_ratio": 0.24,
-  "market_cap": 3161684732336,
+  "volume_ratio": 0.28,
+  "market_cap": 3164135199300,
   "beta": 1.107,
   "short_pct_float": null
 }
@@ -204,7 +204,7 @@ tags: ["agent-analysis", "market", "msft"]
   "company_name": "Microsoft Corporation",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 3161350588050,
+  "market_cap": 3164209455600,
   "revenue_growth_pct": 14.93,
   "gross_margin_pct": 68.82,
   "net_margin_pct": 36.15,

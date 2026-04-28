@@ -14,7 +14,7 @@ frequency: "on-demand"
 signal_status: "watch"
 signals: ["AGENT_PRICE_BULLISH", "AGENT_MACRO_BULLISH", "AGENT_FUNDAMENTALS_BULLISH"]
 final_verdict: "BULLISH"
-final_confidence: 0.46
+final_confidence: 0.47
 synthesis_mode: "deterministic"
 agent_count: 7
 failed_agent_count: 0
@@ -25,10 +25,10 @@ tags: ["agent-analysis", "market", "amzn"]
 ## Verdict
 
 - **Final verdict**: BULLISH
-- **Final confidence**: 46%
+- **Final confidence**: 47%
 - **Attention status**: watch
 - **Synthesis mode**: deterministic
-- **Reasoning**: Deterministic synthesis is bullish at 46% confidence. Drivers: price, fundamentals. 4 neutral layer(s).
+- **Reasoning**: Deterministic synthesis is bullish at 47% confidence. Drivers: price, fundamentals. 4 neutral layer(s).
 - **Top drivers**: price, fundamentals, macro
 - **Top risks**: N/A
 
@@ -36,13 +36,13 @@ tags: ["agent-analysis", "market", "amzn"]
 
 | Agent | Signal | Confidence | Runtime | Summary |
 | --- | --- | --- | --- | --- |
-| price | BULLISH | 61% | 400ms | AMZN closed at 260.07. 7d 3.8%, 30d 22.8%. RSI 74.3, MACD positive. |
-| risk | NEUTRAL | 33% | 650ms | Risk read: 30d vol 32.8%, max drawdown -21.7%, 30d return 22.8%. |
-| sentiment | NEUTRAL | 30% | 775ms | 20 headline(s): 0 positive, 1 negative, net score -1. |
-| microstructure | NEUTRAL | 24% | 1093ms | Volume ratio 0.30x, price change -0.5%, short/float N/A. |
-| macro | BULLISH | 31% | 3355ms | Macro backdrop: VIX 18.02, curve N/A, HY spread 2.9%. |
-| fundamentals | BULLISH | 50% | 1432ms | Revenue growth 12.4%, net margin 10.8%, trailing FCF 7.7B. |
-| prediction_market | NEUTRAL | 12% | 491ms | No relevant prediction markets found for "AI Power Defense Stack". |
+| price | BULLISH | 61% | 985ms | AMZN closed at 259.75. 7d 3.7%, 30d 22.7%. RSI 73.8, MACD positive. |
+| risk | NEUTRAL | 33% | 1237ms | Risk read: 30d vol 32.9%, max drawdown -21.7%, 30d return 22.7%. |
+| sentiment | NEUTRAL | 30% | 1377ms | 20 headline(s): 2 positive, 1 negative, net score 1. |
+| microstructure | NEUTRAL | 24% | 1664ms | Volume ratio 0.35x, price change -0.5%, short/float N/A. |
+| macro | BULLISH | 36% | 221ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
+| fundamentals | BULLISH | 50% | 2026ms | Revenue growth 12.4%, net margin 10.8%, trailing FCF 7.7B. |
+| prediction_market | NEUTRAL | 12% | 444ms | No relevant prediction markets found for "AI Power Defense Stack". |
 
 ## Follow Up Actions
 
@@ -52,7 +52,7 @@ tags: ["agent-analysis", "market", "amzn"]
 
 - **Signal**: BULLISH
 - **Confidence**: 61%
-- **Summary**: AMZN closed at 260.07. 7d 3.8%, 30d 22.8%. RSI 74.3, MACD positive.
+- **Summary**: AMZN closed at 259.75. 7d 3.7%, 30d 22.7%. RSI 73.8, MACD positive.
 - **Evidence**:
   - Close vs SMA50: above
   - Close vs SMA200: above
@@ -62,18 +62,18 @@ tags: ["agent-analysis", "market", "amzn"]
 {
   "api_symbol": "AMZN",
   "bars": 260,
-  "close": 260.07,
-  "change_7d_pct": 3.8,
-  "change_30d_pct": 22.83,
-  "sma20": 238.9965,
-  "sma50": 221.097,
-  "sma200": 226.7736,
-  "ema21": 242.0087,
-  "rsi14": 74.29,
-  "macd": 12.2415,
-  "macd_signal": 10.4111,
+  "close": 259.745,
+  "change_7d_pct": 3.67,
+  "change_30d_pct": 22.67,
+  "sma20": 238.9802,
+  "sma50": 221.0905,
+  "sma200": 226.772,
+  "ema21": 241.9792,
+  "rsi14": 73.8,
+  "macd": 12.2156,
+  "macd_signal": 10.4059,
   "macd_crossover": "positive",
-  "bollinger_position": 0.782
+  "bollinger_position": 0.778
 }
 ```
 
@@ -81,23 +81,23 @@ tags: ["agent-analysis", "market", "amzn"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 33%
-- **Summary**: Risk read: 30d vol 32.8%, max drawdown -21.7%, 30d return 22.8%.
+- **Summary**: Risk read: 30d vol 32.9%, max drawdown -21.7%, 30d return 22.7%.
 - **Evidence**:
   - Max drawdown: -21.7%
-  - 30d realized volatility: 32.8%
-  - Sharpe-like score: 1.58
+  - 30d realized volatility: 32.9%
+  - Sharpe-like score: 1.56
 - **Warnings**:
   - Short interest unavailable: HTTP 404: []
 
 ```json
 {
   "bars": 260,
-  "realized_vol_30d": 0.3282,
-  "realized_vol_90d": 0.3069,
+  "realized_vol_30d": 0.3286,
+  "realized_vol_90d": 0.307,
   "max_drawdown_pct": -21.74,
   "atr14": null,
-  "change_30d_pct": 22.83,
-  "sharpe_like_90d": 1.58,
+  "change_30d_pct": 22.67,
+  "sharpe_like_90d": 1.56,
   "beta": 1.383,
   "days_to_cover": null
 }
@@ -107,26 +107,26 @@ tags: ["agent-analysis", "market", "amzn"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 30%
-- **Summary**: 20 headline(s): 0 positive, 1 negative, net score -1.
+- **Summary**: 20 headline(s): 2 positive, 1 negative, net score 1.
 - **Evidence**:
+  - Will Strong AWS Performance Boost Amazon's Q1 Earnings Report?
   - FDX Aims to Trim Costs Amid Weak Demand: What Lies Ahead?
   - Should You Buy, Sell or Hold Roku Stock Ahead of Q1 Earnings?
   - Amazon Takes a Bite Out of Hims: What Its GLP-1 Entrance Means
   - Amazon Technical: Uptrend And Outperformance Factor Intact Above 231.00 Key Support
-  - Amazon Can Leverage Its Strengths To $400 By 2028
 
 ```json
 {
   "headline_count": 20,
-  "positive_count": 0,
+  "positive_count": 2,
   "negative_count": 1,
-  "net_score": -1,
+  "net_score": 1,
   "sample_headlines": [
+    "Will Strong AWS Performance Boost Amazon's Q1 Earnings Report?",
     "FDX Aims to Trim Costs Amid Weak Demand: What Lies Ahead?",
     "Should You Buy, Sell or Hold Roku Stock Ahead of Q1 Earnings?",
     "Amazon Takes a Bite Out of Hims: What Its GLP-1 Entrance Means",
-    "Amazon Technical: Uptrend And Outperformance Factor Intact Above 231.00 Key Support",
-    "Amazon Can Leverage Its Strengths To $400 By 2028"
+    "Amazon Technical: Uptrend And Outperformance Factor Intact Above 231.00 Key Support"
   ]
 }
 ```
@@ -135,9 +135,9 @@ tags: ["agent-analysis", "market", "amzn"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 24%
-- **Summary**: Volume ratio 0.30x, price change -0.5%, short/float N/A.
+- **Summary**: Volume ratio 0.35x, price change -0.5%, short/float N/A.
 - **Evidence**:
-  - Volume: 15.3M vs avg 51.5M
+  - Volume: 17.9M vs avg 51.5M
   - Market cap: 2.8T
   - Short percent float: N/A
 - **Warnings**:
@@ -145,12 +145,12 @@ tags: ["agent-analysis", "market", "amzn"]
 
 ```json
 {
-  "price": 259.865,
-  "change_pct": -0.48,
-  "volume": 15336302.72176,
+  "price": 259.7765,
+  "change_pct": -0.51,
+  "volume": 17936242.78304,
   "avg_volume": 51525785,
-  "volume_ratio": 0.3,
-  "market_cap": 2794653514594,
+  "volume_ratio": 0.35,
+  "market_cap": 2793701763354,
   "beta": 1.383,
   "short_pct_float": null
 }
@@ -159,19 +159,24 @@ tags: ["agent-analysis", "market", "amzn"]
 ## Macro Agent
 
 - **Signal**: BULLISH
-- **Confidence**: 31%
-- **Summary**: Macro backdrop: VIX 18.02, curve N/A, HY spread 2.9%.
+- **Confidence**: 36%
+- **Summary**: Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%.
 - **Evidence**:
-  - Fed funds: N/A
-  - 10Y-2Y: N/A
+  - Fed funds: 3.6%
+  - 10Y-2Y: 0.6%
   - VIX: 18.02
   - HY spread: 2.9%
-- **Warnings**:
-  - DFF unavailable: Failed after 2 attempts: Server error 500: Internal Server Error
-  - T10Y2Y unavailable: Failed after 2 attempts: Server error 500: Internal Server Error
 
 ```json
 {
+  "DFF": {
+    "date": "2026-04-24",
+    "value": 3.64
+  },
+  "T10Y2Y": {
+    "date": "2026-04-27",
+    "value": 0.57
+  },
   "VIXCLS": {
     "date": "2026-04-27",
     "value": 18.02
@@ -198,7 +203,7 @@ tags: ["agent-analysis", "market", "amzn"]
   "company_name": "Amazon.com, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Specialty Retail",
-  "market_cap": 2794493276250,
+  "market_cap": 2793701763354,
   "revenue_growth_pct": 12.38,
   "gross_margin_pct": 50.29,
   "net_margin_pct": 10.83,

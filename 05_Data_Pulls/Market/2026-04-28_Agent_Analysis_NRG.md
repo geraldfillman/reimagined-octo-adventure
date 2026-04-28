@@ -11,13 +11,13 @@ date_pulled: "2026-04-28"
 domain: "market"
 data_type: "agent_analysis"
 frequency: "on-demand"
-signal_status: "watch"
-signals: []
+signal_status: "clear"
+signals: ["AGENT_PRICE_BEARISH", "AGENT_RISK_BEARISH", "AGENT_SENTIMENT_BULLISH", "AGENT_MICROSTRUCTURE_BEARISH", "AGENT_MACRO_BULLISH"]
 final_verdict: "NEUTRAL"
-final_confidence: 0.1
+final_confidence: 0.26
 synthesis_mode: "deterministic"
 agent_count: 7
-failed_agent_count: 3
+failed_agent_count: 0
 agent_names: ["price", "risk", "sentiment", "microstructure", "macro", "fundamentals", "prediction-market"]
 tags: ["agent-analysis", "market", "nrg"]
 ---
@@ -25,119 +25,193 @@ tags: ["agent-analysis", "market", "nrg"]
 ## Verdict
 
 - **Final verdict**: NEUTRAL
-- **Final confidence**: 10%
-- **Attention status**: watch
+- **Final confidence**: 26%
+- **Attention status**: clear
 - **Synthesis mode**: deterministic
-- **Reasoning**: Deterministic synthesis is neutral at 10% confidence. 4 neutral layer(s). 3 layer(s) failed and were treated as neutral.
-- **Top drivers**: N/A
-- **Top risks**: N/A
+- **Reasoning**: Deterministic synthesis is neutral at 26% confidence. Drivers: sentiment, macro. Risks: risk, price. 2 neutral layer(s).
+- **Top drivers**: sentiment, macro
+- **Top risks**: risk, price, microstructure
 
 ## Agent Signal Matrix
 
 | Agent | Signal | Confidence | Runtime | Summary |
 | --- | --- | --- | --- | --- |
-| price | NEUTRAL | 0% | 1ms | price agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
-| risk | NEUTRAL | 0% | 1ms | risk agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
-| sentiment | NEUTRAL | 15% | 1ms | No recent headlines were available for sentiment scoring. |
-| microstructure | NEUTRAL | 0% | 1ms | microstructure agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
-| macro | NEUTRAL | 10% | 0ms | FRED key is unavailable, so macro context was skipped. |
-| fundamentals | NEUTRAL | 24% | 1ms | Revenue growth N/A, net margin N/A, trailing FCF 0.0. |
-| prediction_market | NEUTRAL | 12% | 910ms | No relevant prediction markets found for "AI Power Infrastructure". |
+| price | BEARISH | 57% | 2016ms | NRG closed at 155.93. 7d -7.0%, 30d 2.3%. RSI 47.8, MACD negative. |
+| risk | BEARISH | 45% | 2190ms | Risk read: 30d vol 51.6%, max drawdown -23.3%, 30d return 2.3%. |
+| sentiment | BULLISH | 70% | 1041ms | 20 headline(s): 5 positive, 1 negative, net score 6. |
+| microstructure | BEARISH | 31% | 1690ms | Volume ratio 0.23x, price change -2.7%, short/float N/A. |
+| macro | BULLISH | 36% | 1234ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
+| fundamentals | NEUTRAL | 26% | 1347ms | Revenue growth 9.2%, net margin 2.8%, trailing FCF 766.0M. |
+| prediction_market | NEUTRAL | 12% | 446ms | No relevant prediction markets found for "AI Power Infrastructure". |
 
 ## Follow Up Actions
 
-- Rerun failed agents or inspect API keys.
+- Review bearish layers before increasing exposure.
+- Check drawdown, volatility, and position sizing.
 
 ## Price Agent
 
-- **Signal**: NEUTRAL
-- **Confidence**: 0%
-- **Summary**: price agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad
-- **Warnings**:
-  - API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
+- **Signal**: BEARISH
+- **Confidence**: 57%
+- **Summary**: NRG closed at 155.93. 7d -7.0%, 30d 2.3%. RSI 47.8, MACD negative.
+- **Evidence**:
+  - Close vs SMA50: below
+  - Close vs SMA200: below
+  - MACD crossover: negative
 
 ```json
-{}
+{
+  "api_symbol": "NRG",
+  "bars": 260,
+  "close": 155.93,
+  "change_7d_pct": -7.04,
+  "change_30d_pct": 2.26,
+  "sma20": 158.534,
+  "sma50": 160.3308,
+  "sma200": 159.7533,
+  "ema21": 158.0575,
+  "rsi14": 47.81,
+  "macd": 0.1248,
+  "macd_signal": 0.6017,
+  "macd_crossover": "negative",
+  "bollinger_position": 0.415
+}
 ```
 
 ## Risk Agent
 
-- **Signal**: NEUTRAL
-- **Confidence**: 0%
-- **Summary**: risk agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad
+- **Signal**: BEARISH
+- **Confidence**: 45%
+- **Summary**: Risk read: 30d vol 51.6%, max drawdown -23.3%, 30d return 2.3%.
+- **Evidence**:
+  - Max drawdown: -23.3%
+  - 30d realized volatility: 51.6%
+  - Sharpe-like score: 0.09
 - **Warnings**:
-  - API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
+  - Short interest unavailable: HTTP 404: []
 
 ```json
-{}
+{
+  "bars": 260,
+  "realized_vol_30d": 0.5156,
+  "realized_vol_90d": 0.4819,
+  "max_drawdown_pct": -23.26,
+  "atr14": null,
+  "change_30d_pct": 2.26,
+  "sharpe_like_90d": 0.09,
+  "beta": 1.338,
+  "days_to_cover": null
+}
 ```
 
 ## Sentiment Agent
 
-- **Signal**: NEUTRAL
-- **Confidence**: 15%
-- **Summary**: No recent headlines were available for sentiment scoring.
-- **Warnings**:
-  - FMP stock news unavailable: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
+- **Signal**: BULLISH
+- **Confidence**: 70%
+- **Summary**: 20 headline(s): 5 positive, 1 negative, net score 6.
+- **Evidence**:
+  - NRG Energy, Inc. Announces Early Results of Cash Tender Offer and Consent Solicitation
+  - Here's Why NRG Energy (NRG) is a Strong Growth Stock
+  - Cwm LLC Has $4.51 Million Stake in NRG Energy, Inc. $NRG
+  - NRG Energy Inc (NRG) Stock Down 4.7% but Still Overvalued -- GF Score: 81/100
+  - NRG Energy, Inc. Announces Quarterly Dividend
 
 ```json
 {
-  "headline_count": 0
+  "headline_count": 20,
+  "positive_count": 5,
+  "negative_count": 1,
+  "net_score": 6,
+  "sample_headlines": [
+    "NRG Energy, Inc. Announces Early Results of Cash Tender Offer and Consent Solicitation",
+    "Here's Why NRG Energy (NRG) is a Strong Growth Stock",
+    "Cwm LLC Has $4.51 Million Stake in NRG Energy, Inc. $NRG",
+    "NRG Energy Inc (NRG) Stock Down 4.7% but Still Overvalued -- GF Score: 81/100",
+    "NRG Energy, Inc. Announces Quarterly Dividend"
+  ]
 }
 ```
 
 ## Microstructure Agent
 
-- **Signal**: NEUTRAL
-- **Confidence**: 0%
-- **Summary**: microstructure agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad
+- **Signal**: BEARISH
+- **Confidence**: 31%
+- **Summary**: Volume ratio 0.23x, price change -2.7%, short/float N/A.
+- **Evidence**:
+  - Volume: 633.0K vs avg 2.7M
+  - Market cap: 33.4B
+  - Short percent float: N/A
 - **Warnings**:
-  - API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
+  - Short interest unavailable: HTTP 404: []
 
 ```json
-{}
+{
+  "price": 155.875,
+  "change_pct": -2.67,
+  "volume": 633045,
+  "avg_volume": 2742324,
+  "volume_ratio": 0.23,
+  "market_cap": 33444072375,
+  "beta": 1.338,
+  "short_pct_float": null
+}
 ```
 
 ## Macro Agent
 
-- **Signal**: NEUTRAL
-- **Confidence**: 10%
-- **Summary**: FRED key is unavailable, so macro context was skipped.
-- **Warnings**:
-  - API key not configured for FRED API. Set FRED_API_KEY in /home/user/reimagined-octo-adventure/.env
+- **Signal**: BULLISH
+- **Confidence**: 36%
+- **Summary**: Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%.
+- **Evidence**:
+  - Fed funds: 3.6%
+  - 10Y-2Y: 0.6%
+  - VIX: 18.02
+  - HY spread: 2.9%
 
 ```json
-{}
+{
+  "DFF": {
+    "date": "2026-04-24",
+    "value": 3.64
+  },
+  "T10Y2Y": {
+    "date": "2026-04-27",
+    "value": 0.57
+  },
+  "VIXCLS": {
+    "date": "2026-04-27",
+    "value": 18.02
+  },
+  "BAMLH0A0HYM2": {
+    "date": "2026-04-24",
+    "value": 2.86
+  }
+}
 ```
 
 ## Fundamentals Agent
 
 - **Signal**: NEUTRAL
-- **Confidence**: 24%
-- **Summary**: Revenue growth N/A, net margin N/A, trailing FCF 0.0.
+- **Confidence**: 26%
+- **Summary**: Revenue growth 9.2%, net margin 2.8%, trailing FCF 766.0M.
 - **Evidence**:
-  - Sector: N/A
-  - Revenue growth: N/A
-  - Net cash: N/A
-- **Warnings**:
-  - Profile unavailable: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
-  - Income statements unavailable: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
-  - Cash flows unavailable: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
-  - Balance sheet unavailable: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-adventure/.env
+  - Sector: Utilities
+  - Revenue growth: 9.2%
+  - Net cash: -12.0B
 
 ```json
 {
-  "company_name": null,
-  "sector": null,
-  "industry": null,
-  "market_cap": null,
-  "revenue_growth_pct": null,
-  "gross_margin_pct": null,
-  "net_margin_pct": null,
-  "trailing_fcf": 0,
-  "cash": null,
-  "total_debt": 0,
-  "net_cash": null
+  "company_name": "NRG Energy, Inc.",
+  "sector": "Utilities",
+  "industry": "Independent Power Producers",
+  "market_cap": 33444072375,
+  "revenue_growth_pct": 9.17,
+  "gross_margin_pct": 21.85,
+  "net_margin_pct": 2.81,
+  "trailing_fcf": 766000000,
+  "cash": 4738000000,
+  "total_debt": 16766000000,
+  "net_cash": -12028000000
 }
 ```
 

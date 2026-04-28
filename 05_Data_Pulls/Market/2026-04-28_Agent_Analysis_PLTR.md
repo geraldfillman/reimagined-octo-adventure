@@ -36,13 +36,13 @@ tags: ["agent-analysis", "market", "pltr"]
 
 | Agent | Signal | Confidence | Runtime | Summary |
 | --- | --- | --- | --- | --- |
-| price | BEARISH | 60% | 40ms | PLTR closed at 141.38. 7d -3.4%, 30d -7.4%. RSI 47, MACD positive. |
-| risk | BEARISH | 61% | 933ms | Risk read: 30d vol 57.0%, max drawdown -38.2%, 30d return -7.4%. |
-| sentiment | NEUTRAL | 22% | 1051ms | 20 headline(s): 1 positive, 1 negative, net score 0. |
-| microstructure | NEUTRAL | 24% | 1355ms | Volume ratio 0.20x, price change -1.4%, short/float N/A. |
-| macro | BULLISH | 36% | 204ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
-| fundamentals | BULLISH | 60% | 1704ms | Revenue growth 56.2%, net margin 36.3%, trailing FCF 2.1B. |
-| prediction_market | NEUTRAL | 12% | 526ms | No relevant prediction markets found for "AI Power Defense Stack". |
+| price | BEARISH | 60% | 46ms | PLTR closed at 141.38. 7d -3.4%, 30d -7.4%. RSI 47, MACD positive. |
+| risk | BEARISH | 61% | 1250ms | Risk read: 30d vol 57.0%, max drawdown -38.2%, 30d return -7.4%. |
+| sentiment | NEUTRAL | 30% | 1379ms | 20 headline(s): 2 positive, 2 negative, net score -1. |
+| microstructure | NEUTRAL | 24% | 1685ms | Volume ratio 0.23x, price change -1.3%, short/float N/A. |
+| macro | BULLISH | 36% | 1238ms | Macro backdrop: VIX 18.02, curve 0.57, HY spread 2.9%. |
+| fundamentals | BULLISH | 60% | 2026ms | Revenue growth 56.2%, net margin 36.3%, trailing FCF 2.1B. |
+| prediction_market | NEUTRAL | 12% | 540ms | No relevant prediction markets found for "AI Power Defense Stack". |
 
 ## Follow Up Actions
 
@@ -63,10 +63,10 @@ tags: ["agent-analysis", "market", "pltr"]
 {
   "api_symbol": "PLTR",
   "bars": 260,
-  "close": 141.385,
+  "close": 141.3843,
   "change_7d_pct": -3.42,
   "change_30d_pct": -7.42,
-  "sma20": 142.5768,
+  "sma20": 142.5767,
   "sma50": 144.8307,
   "sma200": 164.4337,
   "ema21": 143.7755,
@@ -107,27 +107,27 @@ tags: ["agent-analysis", "market", "pltr"]
 ## Sentiment Agent
 
 - **Signal**: NEUTRAL
-- **Confidence**: 22%
-- **Summary**: 20 headline(s): 1 positive, 1 negative, net score 0.
+- **Confidence**: 30%
+- **Summary**: 20 headline(s): 2 positive, 2 negative, net score -1.
 - **Evidence**:
+  - Citi Cuts Palantir Price Target to $210: Is the AI Software Multiple Compression Catching Up?
   - Wall Street sets Palantir stock price for the next 12 months
   - Here is What to Know Beyond Why Palantir Technologies Inc. (PLTR) is a Trending Stock
   - Michael Burry Thinks Tech Stocks are Pricier Than They Seem. Is the Value Case Just an Illusion?
   - If Palantir Keeps Proving the Skeptics Wrong, PTIR Could Go Vertical Again
-  - Palantir Is Down 30%: Noise? Or a Signal to Accumulate?
 
 ```json
 {
   "headline_count": 20,
-  "positive_count": 1,
-  "negative_count": 1,
-  "net_score": 0,
+  "positive_count": 2,
+  "negative_count": 2,
+  "net_score": -1,
   "sample_headlines": [
+    "Citi Cuts Palantir Price Target to $210: Is the AI Software Multiple Compression Catching Up?",
     "Wall Street sets Palantir stock price for the next 12 months",
     "Here is What to Know Beyond Why Palantir Technologies Inc. (PLTR) is a Trending Stock",
     "Michael Burry Thinks Tech Stocks are Pricier Than They Seem. Is the Value Case Just an Illusion?",
-    "If Palantir Keeps Proving the Skeptics Wrong, PTIR Could Go Vertical Again",
-    "Palantir Is Down 30%: Noise? Or a Signal to Accumulate?"
+    "If Palantir Keeps Proving the Skeptics Wrong, PTIR Could Go Vertical Again"
   ]
 }
 ```
@@ -136,22 +136,22 @@ tags: ["agent-analysis", "market", "pltr"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 24%
-- **Summary**: Volume ratio 0.20x, price change -1.4%, short/float N/A.
+- **Summary**: Volume ratio 0.23x, price change -1.3%, short/float N/A.
 - **Evidence**:
-  - Volume: 10.9M vs avg 53.4M
-  - Market cap: 323.2B
+  - Volume: 12.3M vs avg 53.4M
+  - Market cap: 323.6B
   - Short percent float: N/A
 - **Warnings**:
   - Short interest unavailable: HTTP 404: []
 
 ```json
 {
-  "price": 141.04,
-  "change_pct": -1.44,
-  "volume": 10941322,
+  "price": 141.2,
+  "change_pct": -1.33,
+  "volume": 12331317,
   "avg_volume": 53441050,
-  "volume_ratio": 0.2,
-  "market_cap": 323188928800,
+  "volume_ratio": 0.23,
+  "market_cap": 323555564000,
   "beta": 1.674,
   "short_pct_float": null
 }
@@ -204,7 +204,7 @@ tags: ["agent-analysis", "market", "pltr"]
   "company_name": "Palantir Technologies Inc.",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 323211843500,
+  "market_cap": 323555564000,
   "revenue_growth_pct": 56.18,
   "gross_margin_pct": 82.37,
   "net_margin_pct": 36.31,
