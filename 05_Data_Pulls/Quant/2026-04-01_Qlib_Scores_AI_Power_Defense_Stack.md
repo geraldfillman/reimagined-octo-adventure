@@ -22,6 +22,7 @@ watch_count: 1
 avoid_count: 2
 top_factor: "MAX30"
 top_factor_weight: 0.0751
+signal_state: new
 ---
 
 ## Ranked Watchlist

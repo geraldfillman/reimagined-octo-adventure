@@ -24,6 +24,7 @@ train_window: "2020-01-01 → 2024-12-31"
 test_window: "2025-01-01 → 2026-04-01"
 skipped_tickers: []
 benchmark: "SPY"
+signal_state: new
 ---
 
 ## Performance Summary

@@ -1,12 +1,12 @@
 ---
-title: "NRG Agent Analysis"
+title: "PRTA Agent Analysis"
 source: "Agent Analyst"
 agent_owner: "Market Agent"
 agent_scope: "pull"
-symbol: "NRG"
+symbol: "PRTA"
 asset_type: "stock"
-thesis_name: "AI Power Infrastructure"
-related_theses: ["[[AI Power Infrastructure]]"]
+thesis_name: "Alzheimer's Disease Modification"
+related_theses: ["[[Alzheimer's Disease Modification]]"]
 date_pulled: "2026-04-28"
 domain: "market"
 data_type: "agent_analysis"
@@ -19,7 +19,7 @@ synthesis_mode: "deterministic"
 agent_count: 7
 failed_agent_count: 3
 agent_names: ["price", "risk", "sentiment", "microstructure", "macro", "fundamentals", "prediction-market"]
-tags: ["agent-analysis", "market", "nrg"]
+tags: ["agent-analysis", "market", "prta"]
 ---
 
 ## Verdict
@@ -36,13 +36,13 @@ tags: ["agent-analysis", "market", "nrg"]
 
 | Agent | Signal | Confidence | Runtime | Summary |
 | --- | --- | --- | --- | --- |
-| price | NEUTRAL | 0% | 1ms | price agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
+| price | NEUTRAL | 0% | 0ms | price agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
 | risk | NEUTRAL | 0% | 1ms | risk agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
 | sentiment | NEUTRAL | 15% | 1ms | No recent headlines were available for sentiment scoring. |
 | microstructure | NEUTRAL | 0% | 1ms | microstructure agent failed: API key not configured for Financial Modeling Prep. Set FINANCIAL_MODELING_PREP_API_KEY in /home/user/reimagined-octo-ad |
 | macro | NEUTRAL | 10% | 0ms | FRED key is unavailable, so macro context was skipped. |
 | fundamentals | NEUTRAL | 24% | 1ms | Revenue growth N/A, net margin N/A, trailing FCF 0.0. |
-| prediction_market | NEUTRAL | 12% | 910ms | No relevant prediction markets found for "AI Power Infrastructure". |
+| prediction_market | NEUTRAL | 12% | 856ms | No relevant prediction markets found for "Alzheimer's Disease Modification". |
 
 ## Follow Up Actions
 
@@ -145,11 +145,11 @@ tags: ["agent-analysis", "market", "nrg"]
 
 - **Signal**: NEUTRAL
 - **Confidence**: 12%
-- **Summary**: No relevant prediction markets found for "AI Power Infrastructure".
+- **Summary**: No relevant prediction markets found for "Alzheimer's Disease Modification".
 
 ```json
 {
-  "query": "AI Power Infrastructure",
+  "query": "Alzheimer's Disease Modification",
   "market_count": 0,
   "live_enabled": false
 }
