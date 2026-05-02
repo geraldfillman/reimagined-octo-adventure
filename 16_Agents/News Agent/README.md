@@ -21,9 +21,9 @@ Purpose: Own news headline intelligence, topic-based sentiment sweeps, and Reddi
 
 ```powershell
 # NewsAPI headline sweep by topic
-node run.mjs newsapi --topic "fed rates"
-node run.mjs newsapi --topic "housing market"
-node run.mjs newsapi --topic "biotech fda"
+node run.mjs pull newsapi --topic "fed rates"
+node run.mjs pull newsapi --topic "housing market"
+node run.mjs pull newsapi --topic "biotech fda"
 
 # Reddit sentiment by subreddit or thesis
 node run.mjs pull reddit --subreddit wallstreetbets --query AAPL

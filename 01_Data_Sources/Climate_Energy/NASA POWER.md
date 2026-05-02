@@ -29,9 +29,9 @@ integrated: false
 notes: "Satellite-derived data for any location on Earth. Great for site-specific renewable energy assessment."
 ---
 
-## Overview
+## Summary
 
-NASA POWER provides solar resource data, wind resource data, meteorological data by location, building energy parameters. Satellite-derived data for any location on Earth. Great for site-specific renewable energy assessment.
+- NASA POWER provides solar resource data, wind resource data, meteorological data by location, building energy parameters. Satellite-derived data for any location on Earth. Great for site-specific renewable energy assessment.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ NASA POWER provides solar resource data, wind resource data, meteorological data
 
 - [[NOAA Climate Data Online]]
 - [[EIA API]]
+

@@ -28,9 +28,9 @@ integrated: false
 notes: "Open-source VC database. Useful for mapping the investor landscape. Community-maintained."
 ---
 
-## Overview
+## Summary
 
-OpenVC provides vc fund profiles, investment focus areas, stage preferences, geographic focus. Open-source VC database. Useful for mapping the investor landscape. Community-maintained.
+- OpenVC provides vc fund profiles, investment focus areas, stage preferences, geographic focus. Open-source VC database. Useful for mapping the investor landscape. Community-maintained.
 
 ## What It Provides
 
@@ -57,3 +57,4 @@ OpenVC provides vc fund profiles, investment focus areas, stage preferences, geo
 
 - [[Crunchbase]]
 - [[Y Combinator Public Batch Data]]
+

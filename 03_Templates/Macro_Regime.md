@@ -9,11 +9,18 @@ hurts_sectors: []
 bullish_drivers: []
 bearish_drivers: []
 related_entities: []
+reviewed_by: ""
+review_date: ""
+human_confidence: ""
+agrees_with_machine: null
+disagreement_notes: ""
+next_review_date: ""
 tags: [macro, regime]
 ---
 
-## Definition
-What defines this macro regime and how to identify it.
+## Summary
+- What defines this macro regime and how to identify it.
+- State the current evidence and confidence level before the threshold table.
 
 ## Indicator Thresholds
 | Indicator | Trigger Level | Current | Signal |

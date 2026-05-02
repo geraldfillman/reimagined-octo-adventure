@@ -1,0 +1,63 @@
+{
+  "auction": {
+    "bin_size_pct": 0.002,
+    "value_area_pct": 0.70,
+    "relative_volume_breakout": 1.5,
+    "avwap_distance_warn_pct": 8.0,
+    "avwap_anchor_days_default": 30
+  },
+  "pairs": {
+    "z_stretch_threshold": 2.0,
+    "z_extreme_threshold": 3.0,
+    "min_correlation_stable": 0.65,
+    "broken_correlation": 0.35,
+    "min_half_life_days": 3,
+    "max_half_life_days": 90,
+    "lookback_calendar_days": 180
+  },
+  "cfq": {
+    "high_quality_min": 3.5,
+    "acceptable_min": 2.5,
+    "low_quality_max": 1.5,
+    "weights": {
+      "ocf_durability":      0.17,
+      "fcf_conversion":      0.17,
+      "fcf_margin":          0.12,
+      "capital_intensity":   0.12,
+      "pricing_power":       0.13,
+      "balance_sheet":       0.13,
+      "share_count_quality": 0.07,
+      "margin_stability":    0.09
+    }
+  },
+  "pead": {
+    "eps_surprise_positive_min_pct": 5.0,
+    "eps_surprise_negative_max_pct": -3.0,
+    "avwap_distance_max_pct": 6.0,
+    "min_cfq_for_quality_drift": 3.5,
+    "lookback_earnings_days": 90
+  },
+  "crowding": {
+    "low_max":     1.5,
+    "normal_max":  2.5,
+    "monitor_max": 3.5,
+    "high_max":    4.5
+  },
+  "scoring": {
+    "review_min": 55,
+    "watch_min":  65,
+    "alert_min":  75,
+    "weights": {
+      "edge_clarity":         15,
+      "strategy_fit":         10,
+      "auction_confirmation": 15,
+      "volume_participation": 10,
+      "trend_regime":         10,
+      "fundamental_quality":  10,
+      "catalyst_event":       10,
+      "liquidity_execution":  10,
+      "crowding_max_penalty": 10,
+      "defined_risk":         10
+    }
+  }
+}

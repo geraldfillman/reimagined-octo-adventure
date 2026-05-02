@@ -22,6 +22,11 @@ notes: "Detailed operating note for the SAM.gov integration and pull commands."
 
 # SAM.gov
 
+## Summary
+
+- Federal government's primary pre-award contracting database covering entity registrations, solicitations, and pre-solicitation notices.
+- Best used alongside `[[USASpending API]]` to track budget intent before awards are recorded post-award.
+
 System for Award Management — the federal government's primary pre-award contracting database. Covers entity registrations, solicitations, and pre-solicitation notices. Complements USASpending (post-award) by providing visibility into the contracting pipeline before awards are made.
 
 ## Data Groups

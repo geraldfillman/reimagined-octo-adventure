@@ -4,13 +4,65 @@ name: "Quantum Computing"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "watch"
+allocation_rank: 3
+why_now: "Government contracts and cloud access keep the category investable while hardware milestones continue."
+variant_perception: "The market alternates between dismissing quantum as too early and overpaying for every milestone headline."
+next_catalyst: "Hardware error-correction milestones and government contract awards over the next year."
+disconfirming_evidence: "Commercial traction fails to emerge and hardware milestones stop translating into useful systems."
+expected_upside: "A real logical-qubit or major-government-contract milestone could drive outsized rerating."
+expected_downside: "Long timelines and speculative multiples can destroy capital in risk-off regimes."
+position_sizing: "Optional 0.5-1.5% sleeve, preferably via diversified exposure."
+required_sources: ["[[USASpending API]]", "[[SEC EDGAR API]]", "[[PubMed API]]", "[[NewsAPI]]"]
+required_pull_families: ["usaspending --recent", "sec --quantum", "arxiv --quantum", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Keep small and review only when a catalyst or signal meaningfully changes."
 core_entities: ["[[IONQ]]", "[[RGTI]]", "[[QUBT]]", "[[GOOGL]]", "[[Quantum Computing]]", "[[USA]]"]
 supporting_regimes: ["[[Innovation Cycle]]", "[[Defense Budget Supercycle]]", "[[AI Infrastructure Buildout]]"]
 key_indicators: ["[[Qubit Count]]", "[[Quantum Error Correction Progress]]", "[[Government QC Contracts]]", "[[Pharmaceutical QC Applications]]", "[[Cryptographic Migration Timeline]]"]
 bullish_drivers: ["[[Google Willow Chip Breakthrough]]", "[[Post-NISQ Error Correction]]", "[[NIST PQC Standards Final]]", "[[Pharma Drug Discovery Use Case]]", "[[DARPA/DOE QC Funding]]"]
 bearish_drivers: ["[[Decoherence Time Limitations]]", "[[Classical Simulation Competition]]", "[[Long Commercialization Timeline]]", "[[Talent Scarcity]]"]
 invalidation_triggers: ["Classical simulation algorithms (e.g., tensor networks) scale to solve same problems as quantum without hardware — removes competitive moat", "Error correction overhead keeps fault-tolerant quantum decades away — NISQ apps remain niche", "China achieves quantum supremacy in cryptography-relevant algorithms — national security trigger for export controls that hurt US companies", "Investor patience expires after 5+ years without commercial revenue — sector defunded"]
-tags: [thesis, quantum, computing, technology, deep-tech, long-dated]
+fmp_watchlist_symbols: ["IONQ", "RGTI", "QUBT", "GOOGL"]
+fmp_watchlist_symbol_count: 4
+fmp_primary_symbol: "IONQ"
+fmp_technical_symbol_count: 4
+fmp_technical_nonclear_count: 4
+fmp_technical_bearish_count: 3
+fmp_technical_overbought_count: 1
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "positive"
+fmp_primary_rsi14: 57.89
+fmp_primary_price_vs_sma200_pct: -9.44
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 15439242235
+fmp_primary_trailing_pe: -25.97
+fmp_primary_price_to_sales: 118.75
+fmp_primary_price_to_book: 3.83
+fmp_primary_ev_to_sales: 111.05
+fmp_primary_ev_to_ebitda: -30.42
+fmp_primary_roe_pct: -28.03
+fmp_primary_roic_pct: -9.88
+fmp_primary_operating_margin_pct: -487.41
+fmp_primary_net_margin_pct: -431.12
+fmp_primary_current_ratio: 15.5
+fmp_primary_debt_to_equity: 0.01
+fmp_primary_price_target: 60
+fmp_primary_analyst_count: 13
+fmp_primary_target_upside_pct: 42.48
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 3
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-06"
+fmp_next_earnings_symbols: ["IONQ"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "quantum", "computing", "technology", "deep-tech", "long-dated"]
 ---
 
 ## Thesis Statement
@@ -70,6 +122,29 @@ Quantum computing is moving from physics experiment to nascent commercial platfo
 - China demonstrates quantum supremacy in RSA-2048 factoring → triggers export controls and hardware restriction on US quantum hardware
 - Revenue stagnates below $100M for IonQ 3 years after commercialization claims → investor defunding risk
 
+## Investment Scorecard
+
+- **Allocation Priority**: watch (3)
+- **Why now**: Government contracts and cloud access keep the category investable while hardware milestones continue.
+- **Variant perception**: The market alternates between dismissing quantum as too early and overpaying for every milestone headline.
+- **Next catalyst**: Hardware error-correction milestones and government contract awards over the next year.
+- **Disconfirming evidence**: Commercial traction fails to emerge and hardware milestones stop translating into useful systems.
+- **Expected upside**: A real logical-qubit or major-government-contract milestone could drive outsized rerating.
+- **Expected downside**: Long timelines and speculative multiples can destroy capital in risk-off regimes.
+- **Sizing rule**: Optional 0.5-1.5% sleeve, preferably via diversified exposure.
+
+## Required Evidence
+
+- **Source notes**: [[USASpending API]], [[SEC EDGAR API]], [[PubMed API]], [[NewsAPI]]
+- **Pull families**: usaspending --recent, sec --quantum, arxiv --quantum, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Keep small and review only when a catalyst or signal meaningfully changes.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[IONQ]] as only name with meaningful government revenue; [[GOOGL]] for indirect exposure with less binary risk
 - **Size**: 1–2% speculative (IONQ); < 1% each for RGTI, QUBT
@@ -90,3 +165,6 @@ WHERE contains(string(tags), "quantum") OR contains(string(tags), "IONQ") OR con
 SORT date DESC
 LIMIT 5
 ```
+
+
+

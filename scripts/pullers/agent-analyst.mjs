@@ -5,6 +5,7 @@
  *   node run.mjs pull agent-analyst --symbol SPY --skip-llm
  *   node run.mjs pull agent-analyst --symbol AAPL --agents price,risk
  *   node run.mjs pull agent-analyst --thesis "Housing Supply Correction" --limit 5
+ *   node run.mjs pull agent-analyst --strategy "Simons Style Quant Momentum Breadth" --limit 5
  */
 
 import { join } from 'node:path';
@@ -23,13 +24,14 @@ export async function pull(flags = {}) {
   const agentNames = resolveAgentNames(flags.agents);
   const assetType = String(flags.asset || flags['asset-type'] || 'stock').toLowerCase();
 
-  if (flags.thesis || flags['all-thesis']) {
+  if (flags.thesis || flags['all-thesis'] || flags.strategy || flags['all-strategies']) {
     return pullThesisBatch({ flags, agentNames, assetType });
   }
 
   const symbol = normalizeSymbol(flags.symbol || flags.ticker);
   if (!symbol) {
-    throw new Error('Specify --symbol <TICKER> or --thesis <name>.');
+    // No flags → daily default: lightweight all-thesis rollup (no LLM, limit 5)
+    return pullThesisBatch({ flags: { ...flags, 'all-thesis': true, 'skip-llm': true, limit: flags.limit ?? 5 }, agentNames, assetType });
   }
 
   const result = await analyzeSymbol({
@@ -45,14 +47,19 @@ export async function pull(flags = {}) {
 }
 
 async function pullThesisBatch({ flags, agentNames, assetType }) {
-  const thesisFilter = flags.thesis ? String(flags.thesis) : '';
+  const strategyMode = Boolean(flags.strategy || flags['all-strategies']);
+  const thesisFilter = strategyMode
+    ? (flags.strategy ? String(flags.strategy) : '')
+    : (flags.thesis ? String(flags.thesis) : '');
+  const scopeLabel = strategyMode ? 'strategy' : 'thesis';
   const watchlists = await loadThesisWatchlists({
-    includeBaskets: Boolean(flags['include-baskets']),
+    includeBaskets: Boolean(flags['include-baskets'] || strategyMode),
     thesisFilter,
+    strategyOnly: strategyMode,
   });
 
   if (!watchlists.length) {
-    throw new Error(`No thesis watchlists matched "${thesisFilter || 'all theses'}".`);
+    throw new Error(`No ${scopeLabel} watchlists matched "${thesisFilter || `all ${scopeLabel}s`}".`);
   }
 
   const limit = Math.max(1, Number(flags.limit) || DEFAULT_BATCH_LIMIT);
@@ -66,7 +73,7 @@ async function pullThesisBatch({ flags, agentNames, assetType }) {
   }
 
   const uniqueTargets = dedupeTargets(targets).slice(0, limit);
-  console.log(`Agent Analyst: ${uniqueTargets.length} symbol(s), ${agentNames.join(', ')} agent(s).`);
+  console.log(`Agent Analyst: ${uniqueTargets.length} symbol(s), ${agentNames.join(', ')} agent(s), ${scopeLabel} scope.`);
 
   const results = await mapWithConcurrency(uniqueTargets, concurrency, async target => analyzeSymbol({
     symbol: target.symbol,
@@ -78,8 +85,8 @@ async function pullThesisBatch({ flags, agentNames, assetType }) {
     thesisNote: target.watchlist.note,
   }));
 
-  const rollup = buildRollupNote({ results, watchlists, flags, agentNames });
-  const rollupName = thesisFilter ? `Agent_Analysis_${slugify(thesisFilter)}` : 'Agent_Analysis_All_Theses';
+  const rollup = buildRollupNote({ results, watchlists, flags, agentNames, scopeLabel });
+  const rollupName = resolveRollupName({ thesisFilter, strategyMode });
   const rollupPath = join(getPullsDir(), 'Theses', dateStampedFilename(rollupName));
 
   if (flags['dry-run']) {
@@ -128,6 +135,7 @@ async function analyzeSymbol({ symbol, assetType, agentNames, flags, relatedThes
 }
 
 function buildAgentAnalysisNote({ state, agentSignals, synthesis, signals, agentNames }) {
+  const microstructureEntropy = extractMicrostructureEntropy(agentSignals);
   const rows = agentSignals.map(signal => [
     signal.agent,
     signal.signal,
@@ -170,6 +178,11 @@ function buildAgentAnalysisNote({ state, agentSignals, synthesis, signals, agent
       final_verdict: synthesis.final_verdict,
       final_confidence: synthesis.final_confidence,
       synthesis_mode: synthesis.synthesis_mode || 'deterministic',
+      entropy_level: synthesis.entropy_level,
+      entropy_score: synthesis.entropy_score,
+      entropy_dominant_signal: synthesis.entropy_dominant_signal,
+      microstructure_entropy_level: microstructureEntropy.level,
+      microstructure_entropy_score: microstructureEntropy.score,
       agent_count: agentSignals.length,
       failed_agent_count: agentSignals.filter(signal => signal.confidence === 0 && signal.warnings?.length).length,
       agent_names: agentNames,
@@ -186,6 +199,18 @@ function buildAgentAnalysisNote({ state, agentSignals, synthesis, signals, agent
           `- **Reasoning**: ${synthesis.reasoning}`,
           `- **Top drivers**: ${synthesis.top_drivers.join(', ') || 'N/A'}`,
           `- **Top risks**: ${synthesis.top_risks.join(', ') || 'N/A'}`,
+        ].join('\n'),
+      },
+      {
+        heading: 'Entropy Levels',
+        content: [
+          `- **Orchestrator entropy**: ${formatEntropy(synthesis.entropy_level, synthesis.entropy_score)}`,
+          `- **Dominant signal bucket**: ${synthesis.entropy_dominant_signal || 'N/A'}`,
+          `- **Distribution**: ${formatEntropyDistribution(synthesis.entropy_distribution)}`,
+          `- **Interpretation**: ${synthesis.entropy_interpretation || 'N/A'}`,
+          `- **Microstructure entropy**: ${formatEntropy(microstructureEntropy.level, microstructureEntropy.score)}`,
+          `- **Microstructure read**: ${microstructureEntropy.read || 'N/A'}`,
+          '- **Paper linkage**: Low entropy is treated as magnitude/attention compression, not directional certainty.',
         ].join('\n'),
       },
       {
@@ -218,7 +243,7 @@ async function resolveSynthesis({ state, agentSignals, deterministic }) {
 
   try {
     const llm = await synthesizeWithLlm({ state, agentSignals, deterministic });
-    if (llm) return { ...llm, synthesis_mode: 'llm' };
+    if (llm) return { ...extractSynthesisDiagnostics(deterministic), ...llm, synthesis_mode: 'llm' };
   } catch (error) {
     return {
       ...deterministic,
@@ -230,22 +255,26 @@ async function resolveSynthesis({ state, agentSignals, deterministic }) {
   return { ...deterministic, synthesis_mode: 'deterministic' };
 }
 
-function buildRollupNote({ results, watchlists, flags, agentNames }) {
+function buildRollupNote({ results, watchlists, flags, agentNames, scopeLabel = 'thesis' }) {
   const rows = results.map(result => [
     result.symbol,
     result.synthesis.final_verdict,
     `${Math.round(result.synthesis.final_confidence * 100)}%`,
+    formatEntropy(result.synthesis.entropy_level, result.synthesis.entropy_score),
     result.synthesis.signal_status,
     result.filePath ? filePathToWikiLink(result.filePath) : 'dry-run',
   ]);
   const status = summarizeBatchStatus(results);
+  const title = scopeLabel === 'strategy' ? 'Agent Analysis Strategy Rollup' : 'Agent Analysis Thesis Rollup';
+  const matchedLabel = scopeLabel === 'strategy' ? 'Strategies' : 'Theses';
 
   return buildNote({
     frontmatter: {
-      title: 'Agent Analysis Thesis Rollup',
+      title,
       source: 'Agent Analyst',
-      agent_owner: 'Thesis Agent',
+      agent_owner: scopeLabel === 'strategy' ? 'Research Agent' : 'Thesis Agent',
       agent_scope: 'pull',
+      analysis_scope: scopeLabel,
       date_pulled: today(),
       domain: 'market',
       data_type: 'agent_analysis_rollup',
@@ -253,21 +282,23 @@ function buildRollupNote({ results, watchlists, flags, agentNames }) {
       signal_status: status,
       signals: results.flatMap(result => buildSignalNames(result.agentSignals)),
       thesis_filter: flags.thesis || null,
+      strategy_filter: flags.strategy || null,
       thesis_count: watchlists.length,
       symbol_count: results.length,
       agent_names: agentNames,
-      tags: ['agent-analysis', 'thesis-rollup', 'market'],
+      entropy_levels: [...new Set(results.map(result => result.synthesis.entropy_level).filter(Boolean))],
+      tags: ['agent-analysis', `${scopeLabel}-rollup`, 'market'],
     },
     sections: [
       {
         heading: 'Rollup',
-        content: buildTable(['Symbol', 'Verdict', 'Confidence', 'Status', 'Note'], rows),
+        content: buildTable(['Symbol', 'Verdict', 'Confidence', 'Entropy', 'Status', 'Note'], rows),
       },
       {
         heading: 'Source',
         content: [
           '- **System**: native vault agent puller, no LangChain',
-          `- **Theses matched**: ${watchlists.map(w => w.name).join(', ')}`,
+          `- **${matchedLabel} matched**: ${watchlists.map(w => w.name).join(', ')}`,
           `- **Auto-pulled**: ${today()}`,
         ].join('\n'),
       },
@@ -288,6 +319,47 @@ function collectThesisKeywords(data = {}) {
     ...(Array.isArray(data.supporting_regimes) ? data.supporting_regimes : []),
     ...(Array.isArray(data.invalidation_triggers) ? data.invalidation_triggers : []),
   ].filter(Boolean);
+}
+
+function resolveRollupName({ thesisFilter, strategyMode }) {
+  if (strategyMode && thesisFilter) return `Agent_Analysis_Strategy_${slugify(thesisFilter)}`;
+  if (strategyMode) return 'Agent_Analysis_All_Strategies';
+  return thesisFilter ? `Agent_Analysis_${slugify(thesisFilter)}` : 'Agent_Analysis_All_Theses';
+}
+
+function extractSynthesisDiagnostics(deterministic = {}) {
+  return {
+    score: deterministic.score,
+    disagreement: deterministic.disagreement,
+    entropy_score: deterministic.entropy_score,
+    entropy_level: deterministic.entropy_level,
+    entropy_dominant_signal: deterministic.entropy_dominant_signal,
+    entropy_distribution: deterministic.entropy_distribution,
+    entropy_interpretation: deterministic.entropy_interpretation,
+  };
+}
+
+function extractMicrostructureEntropy(agentSignals = []) {
+  const signal = agentSignals.find(item => item?.agent === 'microstructure');
+  const raw = signal?.raw_data || {};
+  return {
+    level: raw.order_flow_entropy_level || null,
+    score: raw.order_flow_entropy_score ?? null,
+    read: raw.order_flow_entropy_read || null,
+  };
+}
+
+function formatEntropy(level, score) {
+  if (!level || level === 'unknown' || score === null || score === undefined) return 'N/A';
+  return `${level} (${score})`;
+}
+
+function formatEntropyDistribution(distribution = {}) {
+  const keys = ['bullish', 'bearish', 'neutral'];
+  const values = keys
+    .filter(key => distribution[key] !== undefined)
+    .map(key => `${key} ${Math.round(Number(distribution[key] || 0) * 100)}%`);
+  return values.length ? values.join(', ') : 'N/A';
 }
 
 function dedupeTargets(targets) {

@@ -9,7 +9,6 @@
  *   node run.mjs system status
  *   node run.mjs scan sectors --dry-run
  *   node run.mjs pull fred --group housing
- *   node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
  *
  * Legacy flat commands still work but print a deprecation notice.
  * Run "node run.mjs help" for a full overview.
@@ -37,7 +36,7 @@ if (isGroupCommand(command)) {
     process.exit(0);
   }
 
-  // Raw args after subcommand — forwarded as-is to Python (quant group)
+  // Raw args after subcommand are forwarded as-is to grouped handlers.
   const rawAfterSub = subcommand ? args.slice(args.indexOf(subcommand) + 1) : args;
 
   try {
@@ -143,36 +142,8 @@ if (command === 'thesis-full-picture') {
 }
 
 if (command === 'qlib') {
-  deprecated('qlib', 'quant');
-  const { spawnSync } = await import('child_process');
-  const { join } = await import('path');
-
-  const qlibDir = join(import.meta.dirname, 'qlib');
-  const qlibCli = join(qlibDir, 'cli.py');
-  const subcommand = args[0];
-  if (!subcommand) {
-    console.error('Error: Specify a qlib subcommand. Example: node scripts/run.mjs qlib setup');
-    console.log('\nAvailable subcommands: setup, status, universe, factors, backtest, sim, score, refresh, update-theses');
-    process.exit(1);
-  }
-
-  const { existsSync } = await import('fs');
-  const venvPython = join(qlibDir, '.venv', 'Scripts', 'python.exe');
-  const python = existsSync(venvPython) ? venvPython : 'python';
-
-  const pythonArgs = [qlibCli, ...args];
-  const result = spawnSync(python, pythonArgs, {
-    cwd: import.meta.dirname,
-    stdio: 'inherit',
-    env: { ...process.env },
-  });
-
-  if (result.error) {
-    console.error(`\n❌ Failed to run Python: ${result.error.message}`);
-    console.error('Ensure Python 3.8+ is installed and on PATH.');
-    process.exit(1);
-  }
-  process.exit(result.status ?? 0);
+  console.error('Qlib has been retired from this vault. Reinstall or restore it only when a concrete quant use case returns.');
+  process.exit(1);
 }
 
 // ── Shared utilities ───────────────────────────────────────────────────────────
@@ -297,7 +268,7 @@ Groups:
   thesis    FMP sync, catalysts, full-picture reports
   pull      External data pullers (fred, fmp, sec, arxiv, ...)
   playbook  Multi-step workflows
-  quant     Quantitative analysis (Qlib)
+  routine   Daily, weekly, monthly, quarterly, yearly pull cadences
   kb        Knowledge base pipeline (ingest → normalize → classify → compile → query)
 
 Examples:
@@ -310,13 +281,13 @@ Examples:
   node run.mjs pull fmp --quote AAPL,MSFT
   node run.mjs pull fred --group housing
   node run.mjs playbook housing-cycle
-  node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
+  node run.mjs routine daily --dry-run
   node run.mjs kb ingest --file ./article.md --kind article
   node run.mjs kb query --query "What is the energy regime?" --save
 
 Run "node run.mjs <group> --help" for group detail.
 
-Note: Legacy flat commands (sector-scan, thesis-fmp-sync, qlib, etc.) still work
+Note: Legacy flat commands (sector-scan, thesis-fmp-sync, etc.) still work
       but print a deprecation hint. See 90_System/CLI Command Audit.md.
 `);
 }

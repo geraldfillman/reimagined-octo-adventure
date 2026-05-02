@@ -4,13 +4,65 @@ name: "Nuclear Renaissance & Small Modular Reactors"
 status: "Active"
 conviction: "high"
 timeframe: "long"
+allocation_priority: "high"
+allocation_rank: 1
+why_now: "Power scarcity, grid reliability needs, and energy-security policy are reviving nuclear as dispatchable clean baseload."
+variant_perception: "Markets still treat nuclear as politically stalled rather than as the cleanest answer to rising power demand."
+next_catalyst: "SMR licensing, utility procurement, and data-center power deals."
+disconfirming_evidence: "Permitting delays or cost overruns keep nuclear out of real project pipelines."
+expected_upside: "Utilities, fuel, and nuclear-enablement names rerate as projects move from concept to funded build."
+expected_downside: "The thesis remains too early and capital gets trapped in long-duration promises."
+position_sizing: "Core 2-4% thematic sleeve, scaled only on real permitting or procurement progress."
+required_sources: ["[[EIA_Electricity]]", "[[USASpending API]]", "[[SEC EDGAR API]]"]
+required_pull_families: ["eia --all", "usaspending --recent", "sec --nuclear", "newsapi --topic business"]
+monitor_status: "mixed"
+monitor_last_review: "2026-03-27"
+monitor_change: "Power scarcity strengthened with the EIA reserve-margin alert, but nuclear-specific SEC flow stayed mixed as CEG was active and SMR showed both a material contract and a contract termination."
+break_risk_status: "watch"
+monitor_action: "Keep the thesis active, but only add on real licensing, procurement, or utility-contract progress rather than narrative spillover from AI power."
 core_entities: ["[[CEG]]", "[[VST]]", "[[CCJ]]", "[[NNE]]", "[[SMR]]", "[[OKLO]]", "[[Nuclear Energy]]", "[[USA]]"]
 supporting_regimes: ["[[AI Infrastructure Buildout]]", "[[Energy Security]]", "[[Defense Budget Supercycle]]"]
 key_indicators: ["[[Nuclear Capacity Factor]]", "[[Uranium Spot Price]]", "[[NRC SMR Approvals]]", "[[AI Data Center Power Demand]]", "[[PPA Signings]]"]
 bullish_drivers: ["[[AI Data Center Power Demand]]", "[[Net Zero Carbon Commitments]]", "[[Bipartisan Nuclear Support]]", "[[Uranium Supply Squeeze]]", "[[Three Mile Island Restart]]"]
 bearish_drivers: ["[[NRC Permitting Delays]]", "[[Construction Cost Overruns]]", "[[Renewable Overbuild]]", "[[Public Opposition]]"]
 invalidation_triggers: ["Major nuclear accident globally triggers regulatory freeze (Fukushima-level)", "NRC denies first SMR construction permit — sets back entire sector 5+ years", "Grid-scale batteries + renewable overbuild makes nuclear LCOE uncompetitive by 2030", "Natural gas prices stay below $3/MMBtu for 3+ years — nuclear economics marginal vs. gas"]
-tags: [thesis, energy, nuclear, smr, infrastructure, uranium, ai-power]
+fmp_watchlist_symbols: ["CEG", "VST", "CCJ", "NNE", "SMR", "OKLO"]
+fmp_watchlist_symbol_count: 6
+fmp_primary_symbol: "CEG"
+fmp_technical_symbol_count: 6
+fmp_technical_nonclear_count: 5
+fmp_technical_bearish_count: 5
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 50.59
+fmp_primary_price_vs_sma200_pct: -9.21
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 92750150790
+fmp_primary_trailing_pe: 40.09
+fmp_primary_price_to_sales: 3.63
+fmp_primary_price_to_book: 6.4
+fmp_primary_ev_to_sales: 3.84
+fmp_primary_ev_to_ebitda: 16.91
+fmp_primary_roe_pct: 16.78
+fmp_primary_roic_pct: 3.99
+fmp_primary_operating_margin_pct: 12.09
+fmp_primary_net_margin_pct: 9.08
+fmp_primary_current_ratio: 1.53
+fmp_primary_debt_to_equity: 0.62
+fmp_primary_price_target: 399.57
+fmp_primary_analyst_count: 14
+fmp_primary_target_upside_pct: 34.54
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 6
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-05"
+fmp_next_earnings_symbols: ["CCJ"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "energy", "nuclear", "smr", "infrastructure", "uranium", "ai-power"]
 ---
 
 ## Thesis Statement
@@ -71,6 +123,29 @@ Nuclear power is experiencing its most important policy and commercial renaissan
 - AI data center buildout stalls (demand destruction scenario) → primary use case for nuclear PPAs evaporates
 - Uranium oversupply: Kazakhstan reverses production cuts and new mines come online → CCJ thesis impaired
 
+## Investment Scorecard
+
+- **Allocation Priority**: high (1)
+- **Why now**: Power scarcity, grid reliability needs, and energy-security policy are reviving nuclear as dispatchable clean baseload.
+- **Variant perception**: Markets still treat nuclear as politically stalled rather than as the cleanest answer to rising power demand.
+- **Next catalyst**: SMR licensing, utility procurement, and data-center power deals.
+- **Disconfirming evidence**: Permitting delays or cost overruns keep nuclear out of real project pipelines.
+- **Expected upside**: Utilities, fuel, and nuclear-enablement names rerate as projects move from concept to funded build.
+- **Expected downside**: The thesis remains too early and capital gets trapped in long-duration promises.
+- **Sizing rule**: Core 2-4% thematic sleeve, scaled only on real permitting or procurement progress.
+
+## Required Evidence
+
+- **Source notes**: [[EIA_Electricity]], [[USASpending API]], [[SEC EDGAR API]]
+- **Pull families**: eia --all, usaspending --recent, sec --nuclear, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Power scarcity strengthened with the EIA reserve-margin alert, but nuclear-specific SEC flow stayed mixed as CEG was active and SMR showed both a material contract and a contract termination.
+- **Break risk status**: watch
+- **Action**: Keep the thesis active, but only add on real licensing, procurement, or utility-contract progress rather than narrative spillover from AI power.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[CEG]] and [[CCJ]] for high-conviction core (operating assets, not greenfield risk)
 - **Size**: 3–5% core (CEG + CCJ split); 0.5–1% speculative (OKLO, NNE, SMR each)
@@ -92,3 +167,6 @@ WHERE contains(string(tags), "nuclear") OR contains(string(tags), "CEG") OR cont
 SORT date DESC
 LIMIT 5
 ```
+
+
+

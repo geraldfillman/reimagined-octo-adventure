@@ -20,9 +20,9 @@ last_reviewed: "2026-03-26"
 notes: "Disaster declarations feed used in the morning sequence and housing risk overlays."
 ---
 
-## Overview
+## Summary
 
-OpenFEMA provides data on disaster declarations, individual and public assistance, hazard mitigation grants, and National Flood Insurance Program claims. Critical for understanding which areas face recurring disaster exposure — directly connects climate risk to housing value.
+- OpenFEMA provides data on disaster declarations, individual and public assistance, hazard mitigation grants, and National Flood Insurance Program claims. Critical for understanding which areas face recurring disaster exposure — directly connects climate risk to housing value.
 
 ## What It Provides
 
@@ -56,3 +56,4 @@ OpenFEMA provides data on disaster declarations, individual and public assistanc
 - [[NOAA Storm Events]]
 - [[Census API]]
 - [[FRED Housing Series]]
+

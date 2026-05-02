@@ -4,13 +4,63 @@ name: "Housing Supply Correction"
 status: "Active"
 conviction: "high"
 timeframe: "medium"
+allocation_priority: "high"
+allocation_rank: 1
+why_now: "Rate cuts, lock-in relief, and chronic underbuilding can re-open demand while keeping supply structurally tight."
+variant_perception: "Consensus still frames housing as a pure rate trade instead of a prolonged supply-shortage cycle."
+next_catalyst: "Mortgage-rate moves, builder confidence, and housing starts through the next Fed easing steps."
+disconfirming_evidence: "Unemployment-led demand destruction overwhelms the structural supply shortage."
+expected_upside: "Earnings and multiple expansion for builders as qualified-buyer volume reaccelerates."
+expected_downside: "A recession or persistent 7%+ mortgage rates would hit volumes and margins together."
+position_sizing: "Core 3-5% housing basket led by DHI and NVR, with smaller exposures in LEN, TOL, TMHC, and SKY."
+required_sources: ["[[FRED Housing Series]]", "[[Census Bureau Housing Data]]", "[[FHFA House Price Index]]", "[[OpenFEMA API]]"]
+required_pull_families: ["fred --group housing", "fred --group rates", "openfema --recent", "playbook housing-cycle"]
+monitor_status: "mixed"
+monitor_last_review: "2026-03-27"
+monitor_change: "Starts rose 7.2% to 1.487M, but permits fell 5.4%, mortgage rates rose to 6.38%, and the housing playbook shifted to Late Cycle / Peak Risk with a FEMA disaster alert."
+break_risk_status: "watch"
+monitor_action: "Keep exposure selective, but review rate-sensitive builders and regional risk if mortgage rates keep rising or labor weakens."
 core_entities: ["[[DHI]]", "[[LEN]]", "[[NVR]]", "[[TOL]]", "[[TMHC]]", "[[SKY]]", "[[Housing]]", "[[USA]]"]
 supporting_regimes: ["[[Rate Cut Cycle]]", "[[Housing Supply Crisis]]", "[[Affordability Pressure]]"]
 key_indicators: ["[[Housing Starts HOUST]]", "[[Building Permits PERMIT]]", "[[30-Year Mortgage Rate MORTGAGE30US]]", "[[Home Price Index CSUSHPISA]]", "[[Builder Confidence Index]]"]
 bullish_drivers: ["[[3-5M Unit Structural Underbuilding]]", "[[Rate Cuts Unlocking Demand]]", "[[Lock-In Effect Release]]", "[[Millennial Household Formation]]", "[[Builder Margin Resilience]]"]
 bearish_drivers: ["[[Mortgage Rate Lock-In Effect]]", "[[Affordability At Historic Lows]]", "[[Materials Cost Inflation]]", "[[Zoning/Permitting Constraints]]"]
 invalidation_triggers: ["30-year mortgage rate stays above 7% for 3+ consecutive years — affordability permanently impaired for the median buyer", "Recession drives unemployment above 6% — demand destruction despite housing shortage", "Builders overbuild aggressively in the next upcycle, creating supply glut by 2028–2030", "Home price appreciation outpaces wage growth for 5+ more years — demand permanently impaired at current incomes"]
-tags: [thesis, housing, real-estate, homebuilders, macro, rates]
+fmp_watchlist_symbols: ["DHI", "LEN", "NVR", "TOL", "TMHC", "SKY"]
+fmp_watchlist_symbol_count: 6
+fmp_primary_symbol: "DHI"
+fmp_technical_symbol_count: 6
+fmp_technical_nonclear_count: 5
+fmp_technical_bearish_count: 6
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 52.19
+fmp_primary_price_vs_sma200_pct: -1.49
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 43004907000
+fmp_primary_trailing_pe: 13.76
+fmp_primary_price_to_sales: 1.29
+fmp_primary_price_to_book: 1.85
+fmp_primary_ev_to_sales: 1.43
+fmp_primary_ev_to_ebitda: 11.53
+fmp_primary_roe_pct: 13.24
+fmp_primary_roic_pct: 9.65
+fmp_primary_operating_margin_pct: 11.76
+fmp_primary_net_margin_pct: 9.51
+fmp_primary_current_ratio: 6.86
+fmp_primary_debt_to_equity: 0.28
+fmp_primary_price_target: 167.5
+fmp_primary_analyst_count: 18
+fmp_primary_target_upside_pct: 10.45
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-04-07"
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "housing", "real-estate", "homebuilders", "macro", "rates"]
 ---
 
 ## Thesis Statement
@@ -74,6 +124,29 @@ The vault's FRED housing group already tracks the key variables:
 - Builders overbuild into demand — starts consistently above 1.8M for 2+ years without absorption
 - Zoning reform accelerates dramatically → "missing middle" ADUs and infill suddenly add 500K+ units/year → partially resolves shortage
 
+## Investment Scorecard
+
+- **Allocation Priority**: high (1)
+- **Why now**: Rate cuts, lock-in relief, and chronic underbuilding can re-open demand while keeping supply structurally tight.
+- **Variant perception**: Consensus still frames housing as a pure rate trade instead of a prolonged supply-shortage cycle.
+- **Next catalyst**: Mortgage-rate moves, builder confidence, and housing starts through the next Fed easing steps.
+- **Disconfirming evidence**: Unemployment-led demand destruction overwhelms the structural supply shortage.
+- **Expected upside**: Earnings and multiple expansion for builders as qualified-buyer volume reaccelerates.
+- **Expected downside**: A recession or persistent 7%+ mortgage rates would hit volumes and margins together.
+- **Sizing rule**: Core 3-5% housing basket led by DHI and NVR, with smaller exposures in LEN, TOL, TMHC, and SKY.
+
+## Required Evidence
+
+- **Source notes**: [[FRED Housing Series]], [[Census Bureau Housing Data]], [[FHFA House Price Index]], [[OpenFEMA API]]
+- **Pull families**: fred --group housing, fred --group rates, openfema --recent, playbook housing-cycle
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Starts rose 7.2% to 1.487M, but permits fell 5.4%, mortgage rates rose to 6.38%, and the housing playbook shifted to Late Cycle / Peak Risk with a FEMA disaster alert.
+- **Break risk status**: watch
+- **Action**: Keep exposure selective, but review rate-sensitive builders and regional risk if mortgage rates keep rising or labor weakens.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[DHI]] for volume and entry-level demand; [[NVR]] for capital-light model and high ROE
 - **Size**: 2–4% each for DHI, NVR; 1–2% for LEN, TOL; 0.5–1% for TMHC, SKY
@@ -94,3 +167,6 @@ WHERE contains(string(tags), "housing") OR contains(string(tags), "DHI") OR cont
 SORT date DESC
 LIMIT 5
 ```
+
+
+

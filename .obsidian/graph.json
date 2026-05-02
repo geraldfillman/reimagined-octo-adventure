@@ -1,7 +1,7 @@
 {
   "collapse-filter": false,
-  "search": "-path:01_Data_Sources -path:05_Data_Pulls -path:03_Templates -path:00_Dashboard -path:scripts",
-  "showTags": false,
+  "search": "",
+  "showTags": true,
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": false,
@@ -70,10 +70,10 @@
   "nodeSizeMultiplier": 2.6265625,
   "lineSizeMultiplier": 1.12083333333333,
   "collapse-forces": false,
-  "centerStrength": 0.213541666666667,
-  "repelStrength": 8.95833333333333,
+  "centerStrength": 0,
+  "repelStrength": 20,
   "linkStrength": 0.645833333333333,
   "linkDistance": 370,
-  "scale": 0.1316872427983518,
-  "close": true
+  "scale": 0.010952991388875786,
+  "close": false
 }

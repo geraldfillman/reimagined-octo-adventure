@@ -13,7 +13,7 @@
  * Usage:
  *   node run.mjs company-risk-scan --ticker AAPL --company "Apple Inc"
  *   node run.mjs company-risk-scan --ticker NVDA --company "Nvidia" --domain fundamental
- *   node run.mjs company-risk-scan --watchlist
+ *   node run.mjs scan company-risk --watchlist
  *   node run.mjs company-risk-scan --ticker AAPL --company "Apple Inc" --update-score
  *   node run.mjs company-risk-scan --ticker AAPL --company "Apple Inc" --dry-run
  */

@@ -4,13 +4,13 @@
  * Handles the new command grammar:
  *   node run.mjs <group> <subcommand> [options]
  *
- * Groups: system | learn | scan | thesis | pull | playbook | quant | kb
+ * Groups: system | learn | scan | thesis | pull | playbook | routine | kb
  *
  * Each handler delegates to the existing module — no logic is duplicated.
  * The router is purely a dispatch layer.
  */
 
-const KNOWN_GROUPS = ['system', 'learn', 'scan', 'thesis', 'pull', 'playbook', 'quant', 'kb'];
+const KNOWN_GROUPS = ['system', 'learn', 'scan', 'thesis', 'pull', 'playbook', 'quant', 'routine', 'kb'];
 
 /**
  * Returns true if the first argument looks like a group name.
@@ -25,7 +25,7 @@ export function isGroupCommand(command) {
  *
  * @param {string} group       — e.g. 'scan'
  * @param {string} subcommand  — e.g. 'sectors'
- * @param {string[]} args      — raw remaining args (for playbook name, qlib passthrough)
+ * @param {string[]} args      — raw remaining args
  * @param {Record<string,unknown>} flags — parsed flags
  */
 export async function routeGrouped(group, subcommand, args, flags) {
@@ -36,7 +36,8 @@ export async function routeGrouped(group, subcommand, args, flags) {
     case 'thesis':  return routeThesis(subcommand, args, flags);
     case 'pull':    return routePull(subcommand, args, flags);
     case 'playbook':return routePlaybook(subcommand, args, flags);
-    case 'quant':   return routeQuant(subcommand, args, flags);
+    case 'quant':   return routeQuant();
+    case 'routine': return routeRoutine(subcommand, args, flags);
     case 'kb':      return routeKb(subcommand, args, flags);
     default:
       console.error(`Error: Unknown group "${group}". Run "node run.mjs help" for available groups.`);
@@ -86,6 +87,10 @@ async function routeSystem(sub, _args, flags) {
     }
     case 'infranodus': {
       const m = await import('../infranodus.mjs');
+      return m.run(flags);
+    }
+    case 'month-end': {
+      const m = await import('../system/month-end-cleanup.mjs');
       return m.run(flags);
     }
     default:
@@ -270,40 +275,16 @@ async function routePlaybook(sub, args, flags) {
   return playbook.run(flags);
 }
 
-// ── quant ─────────────────────────────────────────────────────────────────────
+// ── retired quant ─────────────────────────────────────────────────────────────
 
-async function routeQuant(sub, args, flags) {
-  // quant is a passthrough to the Python Qlib CLI — same as the legacy "qlib" command
-  const { spawnSync } = await import('child_process');
-  const { join } = await import('path');
-  const { existsSync } = await import('fs');
+async function routeQuant() {
+  console.error('Qlib/quant has been retired from My_Data. Reinstall it later only if a concrete use case comes back.');
+  process.exit(1);
+}
 
-  if (!sub) {
-    console.error('Error: Specify a quant subcommand. Example: node run.mjs quant status');
-    console.log('\nAvailable subcommands: setup, status, universe, factors, score, backtest, sim, refresh, update-theses');
-    process.exit(1);
-  }
-
-  const qlibDir = join(import.meta.dirname, '..', 'qlib');
-  const qlibCli = join(qlibDir, 'cli.py');
-  const venvPython = join(qlibDir, '.venv', 'Scripts', 'python.exe');
-  const python = existsSync(venvPython) ? venvPython : 'python';
-
-  // Pass sub + all remaining raw args (flags already parsed, re-serialize isn't needed
-  // since we forward the raw process.argv slice in run.mjs)
-  const pythonArgs = [qlibCli, sub, ...args];
-  const result = spawnSync(python, pythonArgs, {
-    cwd: join(import.meta.dirname, '..'),
-    stdio: 'inherit',
-    env: { ...process.env },
-  });
-
-  if (result.error) {
-    console.error(`\n❌ Failed to run Python: ${result.error.message}`);
-    console.error('Ensure Python 3.8+ is installed and on PATH.');
-    process.exit(1);
-  }
-  process.exit(result.status ?? 0);
+async function routeRoutine(sub, _args, flags) {
+  const m = await import('../routines/cadence.mjs');
+  return m.run(sub || 'help', flags);
 }
 
 // ── kb ────────────────────────────────────────────────────────────────────────
@@ -360,12 +341,17 @@ Commands:
   infranodus   Run an InfraNodus graph measurement session
                  --path <scope>     Folder or note, e.g. 10_Theses
                  --question <text>  Optional framing question
+  month-end    Build monthly summary + copy pull notes into KB raw archive
+                 --month YYYY-MM    Target month (default: previous month)
+                 --dry-run          Preview without copying or writing files
 
 Examples:
   node run.mjs system status
   node run.mjs system validate
   node run.mjs system cleanup --market-history --dry-run
   node run.mjs system dashboard
+  node run.mjs system month-end --dry-run
+  node run.mjs system month-end --month 2026-04
 `,
     learn: `
 learn — Learning system
@@ -521,50 +507,25 @@ Pullers (no API key required):
   nahb          --builder-confidence | --dry-run
   federalregister --faa-uas | --dry-run
   macro-bridges (no flags required)
-  sports        Daily sports matchup slate via ESPN public scoreboard
-                --date <YYYY-MM-DD>       Single event date
-                --from <date> --to <date> Inclusive date range, max 14 days
-                --days <n>                Pull today forward n days (default: 1)
-                --leagues <CSV>           mlb,nba,wnba,nhl,nfl,ncaaf,ncaamb,epl,mls,ucl,uel,laliga,seriea,bundesliga,ligue1
+  agent-run     Orchestrated multi-agent vault run
+                --agents <CSV>            Optional agent id filter
+                --cadence <name>          Default: daily
+                --interactions            Emit agent interaction threads before final report
+                --skip-llm | --skip-report | --dry-run
+  streamline-report Orchestrator daily decision brief from local pull notes
+                --window <days>           Default: 14
+                --limit <n>               Default: 12
+                --include-interactions    Include latest agent interaction threads
                 --dry-run | --json
-  sports-odds   Experimental OddsHarvester wrapper for local odds cache + source-log notes
-                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>
-                --sports <CSV>            Default: baseball,basketball,ice-hockey
-                --league <slug>           Optional OddsPortal league slug
-                --market <name>           Default: home_away for US sports, 1x2 for football
-                --format json|csv         Default: json
-                --dry-run                 Print commands without running browser scraper
-  sports-predictions Generate pending prediction ledgers from ESPN slate + local odds cache
-                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>
-                --sports <CSV>            Default: baseball,basketball,ice-hockey
-                --min-edge <decimal>      Default: 0; use 0.01 for 1%
-                --include-pass            Include below-threshold rows in CSV
-                --refresh-source          Refresh frozen ESPN source snapshots before scoring
-                --force                   Overwrite existing prediction CSV
+  positioning-report Big money vs retail positioning divergence report
+                --symbols <CSV>           Explicit symbol list
+                --thesis <name>           Score one thesis watchlist
+                --all-thesis              Score all thesis watchlists
+                --include-baskets         Include thesis basket symbols
+                --limit <n>               Default: 25
                 --dry-run | --json
-  sports-horse-racing Kentucky Derby field-event prep + pending win ledger
-                --year <YYYY>             Default: 2026
-                --race-date <YYYY-MM-DD>  Override race date
-                --url <url>               Override official leaderboard URL
-                --dry-run | --json
-  sports-settle Settle prediction ledgers from ESPN final scores
-                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>
-                --ledger <path>           Explicit prediction CSV
-                --capture-closing-lines   Fill closing odds from local fresh sports-odds cache
-                --closing-line-mode <m>    selected|best|average (default: selected; best fallback)
-                --paper-bankroll <n>      Default: 1000 fake dollars
-                --paper-unit <n>          Default: 10 fake dollars per stake unit
-                --force                   Recompute already-settled rows
-                --dry-run | --json
-  sports-backtest Deterministic CSV ledger backtest; no Python configs or pickles loaded
-                --init-ledger             Write a sample ledger template
-                --ledger <path>           CSV with odds, model_probability, result, stake
-                --paper-bankroll <n>      Default: 1000 fake dollars
-                --paper-unit <n>          Default: 10 fake dollars per stake unit
-                --dry-run
-  sports-calibration Per-sport calibration + per-factor IC over the multi-factor prediction ledger
-                --since <YYYY-MM-DD>      Limit to predictions on/after this date
-                --sport <factor_key>      Filter by factor_key (e.g. mlb, nba, rugby)
+  signal-quality-scan Score module reliability from run ledgers
+                --window <days>           Default: 30
                 --dry-run
   month-end-archive Create monthly summary and copy month files into KB raw archive
                 --month <YYYY-MM>         Default: current month
@@ -583,9 +544,19 @@ Pullers (API key required):
                 --symbol <TICKER>        Single symbol analysis
                 --thesis <name>          Analyze symbols from a thesis watchlist
                 --all-thesis             Batch across thesis watchlists
+                --strategy <name>        Analyze one strategy basket from 10_Theses/Baskets
+                --all-strategies         Batch across strategy-tagged baskets
                 --agents <CSV>           price,risk,sentiment,microstructure,macro,fundamentals,prediction-market
                 --skip-llm               Force deterministic synthesis
                 --live-prediction-markets Enable read-only Kalshi/Polymarket live lookup
+                --dry-run | --json
+  entropy-monitor SPY/QQQ entropy shadow ledger
+                --symbols <CSV>          Default: SPY,QQQ
+                --lookback <bars>        1-minute bars for entropy window (default: 120)
+                --backtest               Backtest all returned intraday history
+                --step <n>               Backtest sample step in minutes (default: 5)
+                --near-threshold <n>     Relative watch threshold (default: 0.60)
+                --low-threshold <n>      Stronger watch threshold (default: 0.50)
                 --dry-run | --json
   fred          --group <name> | --series <ids> | --limit <n>
   fmp           --quote <SYMBOLS> | --profile <SYMBOL> | --technical <SYMBOL>
@@ -608,6 +579,14 @@ Pullers (API key required):
   sam           --entities <naics> | --opportunities <kw> | --all
   socrata       --permits | --311 | --chi-permits | --custom <url>
   uspto         --ptab | --filings | --all
+  gdelt         Near-real-time GDELT DOC API news monitor (no key)
+                --topic <name>           markets, macro, credit, energy, housing, defense, biotech, aipower, dilution
+                --topics <CSV>           Multiple named topics
+                --query <query>          Custom GDELT DOC query
+                --all                    Run all default watch topics
+                --timespan <span>        Default: 15min (GDELT minimum)
+                --limit <n>              Default: 75, max 250
+                --dry-run | --json
 
 Dilution & screening pullers (SEC EDGAR free + FMP Premium):
   dilution-monitor  Batch dilution risk across a watchlist (runway, shelf, ATM, compliance)
@@ -654,17 +633,15 @@ Examples:
   node run.mjs pull sec --thesis
   node run.mjs pull arxiv --drones
   node run.mjs pull clinicaltrials --amr
-  node run.mjs pull sports --from 2026-04-27 --to 2026-04-28
-  node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28 --dry-run
-  node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28
-  node run.mjs pull sports-horse-racing --year 2026
-  node run.mjs pull sports-settle --date 2026-04-27 --dry-run
-  node run.mjs pull sports-backtest --init-ledger
   node run.mjs pull biofood --lookback 120
   node run.mjs pull dilution-monitor --tickers SAVA,IMNN,PRTG
   node run.mjs pull filing-digest --lookback 1
   node run.mjs pull disclosure-reality --tickers LDOS,ONTO,RGTI,FLNC,NBIX
   node run.mjs pull opportunity-viewpoints --window 21
+  node run.mjs pull agent-analyst --strategy "Simons Style Quant Momentum Breadth" --limit 5 --skip-llm
+  node run.mjs pull entropy-monitor
+  node run.mjs pull entropy-monitor --backtest
+  node run.mjs pull positioning-report --symbols SPY,QQQ,XOM
   node run.mjs pull capital-raise --lookback 1
   node run.mjs pull dd-report --ticker NVDA
   node run.mjs pull smallcap-screen --float-max 30M --short-min 15 --no-offerings
@@ -679,30 +656,33 @@ Examples:
   node run.mjs playbook housing-cycle
 `,
     quant: `
-quant — Quantitative analysis (Qlib / Python)
+quant — retired
+
+Qlib/quant has been removed from My_Data. Restore or reinstall it only when a concrete quant use case returns.
+`,
+
+    routine: `
+routine - Canonical pull cadences
 
 Commands:
-  setup          Bootstrap Python env & download US market data (~1-2 GB)
-  status         Show Qlib data status & thesis universes
-  universe       List thesis instrument universes
-                   --list | --thesis <name>
-  factors        Run Alpha158 factor analysis
-                   --universe thesis | --thesis <name>
-  score          Score thesis stocks using IC-weighted factors
-                   --thesis <name> | --all | --top-n <n>
-  backtest       Run strategy backtest
-                   --strategy <name> | --thesis <name> | --topk <n>
-  sim            Animated pipeline simulation
-                   --thesis <name> | --tickers T1,T2 | --summary-only | --ascii
-  refresh        Standard reporting workflow
-                   --thesis <name> | --all | --with-backtest
-  update-theses  Update thesis frontmatter with Qlib scores
-                   --thesis <name>
+  daily       Daily macro, market, thesis, scan, cleanup, and validation set
+  weekly      Extended government, clinical, research, deep FMP, risk, and agent set
+  monthly     Conviction, catalysts, full-picture, graph, and archive set
+  quarterly   Disclosure, dilution, viewpoints, and graph set
+  yearly      Annual viewpoints, graph sessions, KB health, and validation set
+
+Options:
+  --dry-run             Print commands without running them
+  --continue-on-error   Keep running after a failed task
+  --skip-sector-scan    Daily only
+  --skip-agent-scan     Daily/weekly
+  --skip-validate       Skip final validation
+  --json                Print summary JSON
 
 Examples:
-  node run.mjs quant status
-  node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
-  node run.mjs quant refresh --all
+  node run.mjs routine daily --dry-run
+  node run.mjs routine weekly
+  node run.mjs routine monthly
 `,
 
   kb: `

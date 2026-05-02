@@ -1,0 +1,85 @@
+{
+  "auction": {
+    "breakout_acceptance": {
+      "condition": "price_above_vah AND price_above_avwap AND relative_volume_gt_1_5",
+      "severity": "watch",
+      "message": "Price above value area, holding above anchored VWAP with participation."
+    },
+    "bullish_acceptance": {
+      "condition": "auction_state == bullish_acceptance",
+      "severity": "watch",
+      "message": "Price accepted above value area and above anchored VWAP."
+    },
+    "failed_upside_auction": {
+      "condition": "auction_state == failed_upside",
+      "severity": "watch",
+      "message": "Price pushed above VAH but fell back inside value. Upside rejected."
+    },
+    "bearish_acceptance": {
+      "condition": "auction_state == bearish_acceptance",
+      "severity": "alert",
+      "message": "Price accepted below value area and below anchored VWAP."
+    },
+    "failed_downside_auction": {
+      "condition": "auction_state == failed_downside",
+      "severity": "watch",
+      "message": "Price pushed below VAL but reclaimed value. Downside rejected."
+    }
+  },
+  "pairs": {
+    "stretched_stable": {
+      "condition": "abs_z60_gte_2 AND corr120_gte_0_65",
+      "severity": "watch",
+      "message": "Pair stretched while relationship remains stable."
+    },
+    "extreme_stable": {
+      "condition": "abs_z60_gte_3 AND corr120_gte_0_65",
+      "severity": "alert",
+      "message": "Pair at extreme stretch with stable relationship. Mean reversion candidate."
+    },
+    "relationship_broken": {
+      "condition": "corr120_lt_0_35",
+      "severity": "alert",
+      "message": "Pair correlation has broken. Do not assume mean reversion."
+    }
+  },
+  "pead": {
+    "quality_positive_drift": {
+      "condition": "eps_surprise_gte_5 AND price_above_earnings_avwap AND cfq_score_gte_3_5",
+      "severity": "watch",
+      "message": "Quality earnings drift candidate: positive surprise, auction acceptance, quality support."
+    },
+    "failed_positive_beat": {
+      "condition": "eps_surprise_gte_5 AND price_below_earnings_avwap",
+      "severity": "watch",
+      "message": "Positive beat failed to hold. Market rejecting the earnings surprise."
+    },
+    "negative_drift": {
+      "condition": "eps_surprise_lte_neg3 AND price_below_earnings_avwap",
+      "severity": "alert",
+      "message": "Negative earnings drift: miss plus bearish auction rejection."
+    },
+    "overreaction_watch": {
+      "condition": "abs_eps_surprise_gte_10 AND avwap_distance_gt_6",
+      "severity": "watch",
+      "message": "Large surprise with extended distance from earnings AVWAP. Possible overreaction."
+    }
+  },
+  "crowding": {
+    "monitor": {
+      "condition": "crowding_score_gte_3_5",
+      "severity": "watch",
+      "message": "Crowding elevated. Monitor before adding exposure."
+    },
+    "high": {
+      "condition": "crowding_score_gte_4",
+      "severity": "watch",
+      "message": "High crowding. Entry requires stronger confirmation."
+    },
+    "exit_door_risk": {
+      "condition": "crowding_score_gte_4_5",
+      "severity": "alert",
+      "message": "Exit-door risk. Avoid or size very small."
+    }
+  }
+}

@@ -350,9 +350,9 @@ function Get-ConvictionSummary {
 
   Push-Location $PSScriptRoot
   try {
-    $output = & node run.mjs conviction-delta --window $WindowDays --dry-run --json
+    $output = & node run.mjs scan conviction --window $WindowDays --dry-run --json
     if ($LASTEXITCODE -ne 0) {
-      throw 'conviction-delta command failed.'
+      throw 'scan conviction command failed.'
     }
 
     return (($output -join "`n") | ConvertFrom-Json)

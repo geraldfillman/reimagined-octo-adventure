@@ -4,13 +4,65 @@ name: "Drone & Autonomous Systems Revolution"
 status: "Active"
 conviction: "high"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Cheap autonomous drones are becoming the new battlefield and surveillance standard, with procurement moving from experimentation to scaled buying."
+variant_perception: "The market still underestimates how much modernization flows through drones, autonomy, and counter-drone stacks."
+next_catalyst: "Replicator, DIU, and allied procurement awards plus visible platform adoption."
+disconfirming_evidence: "Drone procurement fragments without durable software or integrator winners."
+expected_upside: "Winners in autonomy, ISR, and counter-UAS can rerate on recurring procurement."
+expected_downside: "Hardware commoditization can keep value capture low for many players."
+position_sizing: "Medium 1-3% sleeve with emphasis on software and integration over commodity hardware."
+required_sources: ["[[USASpending API]]", "[[SAM_Gov]]", "[[SEC EDGAR API]]", "[[NewsAPI]]"]
+required_pull_families: ["usaspending --recent", "sam --opportunities", "arxiv --drones", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[KTOS]]", "[[ESLT]]", "[[RCAT]]", "[[AVAV]]", "[[LMT]]", "[[AIRO]]", "[[DRO_AX]]", "[[TXT]]", "[[TDY]]", "[[UMAC]]", "[[RTX]]", "[[LHX]]", "[[ONDS]]", "[[DPRO]]", "[[EH]]", "[[EVTL]]", "[[ACHR]]", "[[JOBY]]", "[[HOVR]]", "[[Aerospace & Defense]]", "[[Industrials]]", "[[USA]]", "[[Israel]]"]
 supporting_regimes: ["[[Geopolitical Escalation]]", "[[Risk-On]]", "[[Rate Cut Cycle]]"]
 key_indicators: ["[[Defense Budget]]", "[[FAA Regulatory Progress]]", "[[VIX]]"]
 bullish_drivers: ["[[Geopolitical Escalation]]", "[[Drone Dominance Program]]", "[[Supply Chain Nationalism]]", "[[AI Autonomy Advances]]", "[[eVTOL Certification]]"]
 bearish_drivers: ["[[Peace Negotiations]]", "[[Regulatory Delays]]", "[[Rate Hike Cycle]]", "[[Defense Budget Cuts]]"]
 invalidation_triggers: ["US Drone Dominance program defunded or cancelled", "Multiple eVTOL certifications delayed past 2028", "Major drone safety incident triggers regulatory freeze", "Peace deal ends Ukraine conflict AND Middle East stabilizes"]
-tags: [thesis, defense, drones, evtol, autonomous]
+fmp_watchlist_symbols: ["KTOS", "ESLT", "RCAT", "AVAV", "LMT", "AIRO", "DRO_AX", "TXT", "TDY", "UMAC", "RTX", "LHX", "ONDS", "DPRO", "EH", "EVTL", "ACHR", "JOBY", "HOVR"]
+fmp_watchlist_symbol_count: 19
+fmp_primary_symbol: "KTOS"
+fmp_technical_symbol_count: 18
+fmp_technical_nonclear_count: 12
+fmp_technical_bearish_count: 15
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 2
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 32.17
+fmp_primary_price_vs_sma200_pct: -26.25
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 11162973440
+fmp_primary_trailing_pe: 461.59
+fmp_primary_price_to_sales: 8.29
+fmp_primary_price_to_book: 5.09
+fmp_primary_ev_to_sales: 8.01
+fmp_primary_ev_to_ebitda: 115.56
+fmp_primary_roe_pct: 1.2
+fmp_primary_roic_pct: 0.83
+fmp_primary_operating_margin_pct: 2.06
+fmp_primary_net_margin_pct: 1.63
+fmp_primary_current_ratio: 4.06
+fmp_primary_debt_to_equity: 0.09
+fmp_primary_price_target: 100.73
+fmp_primary_analyst_count: 22
+fmp_primary_target_upside_pct: 69.12
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 12
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-04-30"
+fmp_next_earnings_symbols: ["LHX", "TXT"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "defense", "drones", "evtol", "autonomous"]
 ---
 
 ## Thesis Statement
@@ -108,6 +160,29 @@ Drones and autonomous aerial systems are experiencing a structural inflection po
 | eVTOL/UAM | Launches | $18-23B | $41B+ |
 | US Drone Dominance | 300K+ UAS | — | — |
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Cheap autonomous drones are becoming the new battlefield and surveillance standard, with procurement moving from experimentation to scaled buying.
+- **Variant perception**: The market still underestimates how much modernization flows through drones, autonomy, and counter-drone stacks.
+- **Next catalyst**: Replicator, DIU, and allied procurement awards plus visible platform adoption.
+- **Disconfirming evidence**: Drone procurement fragments without durable software or integrator winners.
+- **Expected upside**: Winners in autonomy, ISR, and counter-UAS can rerate on recurring procurement.
+- **Expected downside**: Hardware commoditization can keep value capture low for many players.
+- **Sizing rule**: Medium 1-3% sleeve with emphasis on software and integration over commodity hardware.
+
+## Required Evidence
+
+- **Source notes**: [[USASpending API]], [[SAM_Gov]], [[SEC EDGAR API]], [[NewsAPI]]
+- **Pull families**: usaspending --recent, sam --opportunities, arxiv --drones, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Defense core**: LMT, RTX, LHX, ESLT for stable defense exposure (3-5% each)
 - **Pure-play growth**: KTOS, AVAV, RCAT for higher-beta drone exposure (1-3% each)
@@ -131,3 +206,6 @@ WHERE contains(string(tags), "drone") OR contains(string(tags), "defense") OR co
 SORT date DESC
 LIMIT 10
 ```
+
+
+

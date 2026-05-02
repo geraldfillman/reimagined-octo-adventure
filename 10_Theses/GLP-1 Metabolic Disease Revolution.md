@@ -4,13 +4,65 @@ name: "GLP-1 Metabolic Disease Revolution"
 status: "Active"
 conviction: "high"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "GLP-1 demand, label expansion, and second-generation metabolic therapeutics are still broadening the obesity and cardiometabolic market."
+variant_perception: "Consensus appreciates the incumbents but may still underprice the breadth of second-order winners and losers."
+next_catalyst: "Label-expansion data, supply normalization, and payer-coverage trends."
+disconfirming_evidence: "Safety, reimbursement, or supply issues materially cap market expansion."
+expected_upside: "Sustained adoption and adjacent-metabolic innovation expand the addressable market."
+expected_downside: "Crowding and valuation risk are high if growth merely normalizes."
+position_sizing: "Medium 1-3% sleeve focused on proven commercial leaders and differentiated challengers."
+required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
+required_pull_families: ["fda --recent-approvals", "clinicaltrials --glp1", "pubmed --glp1", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[LLY]]", "[[VKTX]]", "[[ALVO]]", "[[HIMS]]", "[[AMGN]]", "[[Pharmaceuticals]]", "[[Metabolic Disease]]", "[[USA]]"]
 supporting_regimes: ["[[Goldilocks]]", "[[Risk-On]]", "[[Innovation Cycle]]"]
 key_indicators: ["[[GLP-1 Prescriptions]]", "[[Obesity Drug Revenue]]", "[[Phase 3 Trial Readouts]]", "[[FDA NDA Filings]]"]
 bullish_drivers: ["[[Obesity Epidemic Scale]]", "[[Cardiovascular Outcomes Data]]", "[[Oral GLP-1 Approval]]", "[[NASH/Liver Disease Expansion]]", "[[Medicare Coverage Expansion]]"]
 bearish_drivers: ["[[Manufacturing Shortages]]", "[[Pricing Pressure / IRA Negotiation]]", "[[Competing Drug Classes]]", "[[Side Effect Profile Concerns]]"]
 invalidation_triggers: ["Phase 3 cardiovascular safety failure for a leading agent", "CMS excludes GLP-1s from Medicare coverage for obesity (political)", "Oral bioavailability failure makes injections the only modality — slows adoption", "Compounding market collapses LLY/NVO pricing faster than consensus expects"]
-tags: [thesis, biotech, pharma, glp1, metabolic, obesity, diabetes]
+fmp_watchlist_symbols: ["LLY", "VKTX", "ALVO", "HIMS", "AMGN"]
+fmp_watchlist_symbol_count: 5
+fmp_primary_symbol: "LLY"
+fmp_technical_symbol_count: 5
+fmp_technical_nonclear_count: 4
+fmp_technical_bearish_count: 5
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 33.31
+fmp_primary_price_vs_sma200_pct: -6.43
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 804239380990
+fmp_primary_trailing_pe: 37.04
+fmp_primary_price_to_sales: 12.34
+fmp_primary_price_to_book: 28.81
+fmp_primary_ev_to_sales: 12.88
+fmp_primary_ev_to_ebitda: 30.05
+fmp_primary_roe_pct: 97.85
+fmp_primary_roic_pct: 30.2
+fmp_primary_operating_margin_pct: 45.56
+fmp_primary_net_margin_pct: 31.66
+fmp_primary_current_ratio: 1.58
+fmp_primary_debt_to_equity: 1.6
+fmp_primary_price_target: 1146.62
+fmp_primary_analyst_count: 34
+fmp_primary_target_upside_pct: 34.7
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-04-30"
+fmp_next_earnings_symbols: ["AMGN", "LLY"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "biotech", "pharma", "glp1", "metabolic", "obesity", "diabetes"]
 ---
 
 ## Thesis Statement
@@ -71,6 +123,29 @@ Trials to monitor on ClinicalTrials.gov (`--glp1` query):
 - Congress passes price controls specifically targeting GLP-1 pricing under IRA expansion
 - Manufacturing bottleneck persists 3+ years, constraining LLY/NVO revenue and compounding market gains ground permanently
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: GLP-1 demand, label expansion, and second-generation metabolic therapeutics are still broadening the obesity and cardiometabolic market.
+- **Variant perception**: Consensus appreciates the incumbents but may still underprice the breadth of second-order winners and losers.
+- **Next catalyst**: Label-expansion data, supply normalization, and payer-coverage trends.
+- **Disconfirming evidence**: Safety, reimbursement, or supply issues materially cap market expansion.
+- **Expected upside**: Sustained adoption and adjacent-metabolic innovation expand the addressable market.
+- **Expected downside**: Crowding and valuation risk are high if growth merely normalizes.
+- **Sizing rule**: Medium 1-3% sleeve focused on proven commercial leaders and differentiated challengers.
+
+## Required Evidence
+
+- **Source notes**: [[FDA open data Drugs@FDA]], [[ClinicalTrials API]], [[PubMed API]], [[NewsAPI]]
+- **Pull families**: fda --recent-approvals, clinicaltrials --glp1, pubmed --glp1, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[LLY]] for low-volatility core; [[VKTX]] for high-upside binary catalyst
 - **Size**: 4–8% core (LLY); 1–2% speculative (VKTX, ALVO each)
@@ -93,3 +168,6 @@ WHERE contains(string(tags), "glp1") OR contains(string(tags), "LLY") OR contain
 SORT date DESC
 LIMIT 5
 ```
+
+
+

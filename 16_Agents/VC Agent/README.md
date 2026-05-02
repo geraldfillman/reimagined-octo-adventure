@@ -24,7 +24,7 @@ Purpose: Own private markets deal flow, capital raise activity, Form D filings, 
 node run.mjs pull capital-raise
 
 # Company risk intelligence scan (FMP + EDGAR + NewsAPI + FDA)
-node run.mjs pull company-risk-scan --ticker <TICKER>
+node run.mjs scan company-risk --ticker <TICKER>
 
 # One-click due diligence report (dilution, ownership, filings, news)
 node run.mjs pull dd-report --ticker <TICKER>
@@ -45,4 +45,4 @@ node run.mjs pull dd-report --ticker <TICKER>
 
 - Daily: review new capital-raise sweep notes for emerging offerings.
 - As-needed: run DD report before adding a position or thesis.
-- Weekly: review company-risk-scan outputs for portfolio or watchlist names.
+- Weekly: review company-risk scan outputs for portfolio or watchlist names.

@@ -13,8 +13,9 @@ data_sources: []
 tags: [commodity]
 ---
 
-## Overview
-What drives this commodity's price.
+## Summary
+- What drives this commodity's price.
+- State why it matters now before expanding into supply, demand, and macro sensitivity.
 
 ## Supply/Demand Dynamics
 - **Major Producers**:

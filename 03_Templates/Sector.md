@@ -13,8 +13,9 @@ data_sources: []
 tags: [sector]
 ---
 
-## Overview
-Sector description and current positioning.
+## Summary
+- Sector description and current positioning.
+- Lead with the sector's macro sensitivity and why it matters now.
 
 ## Key Holdings
 -

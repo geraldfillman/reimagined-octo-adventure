@@ -29,9 +29,9 @@ integrated: false
 notes: "Public company directory with filters. Good for tracking YC-backed sectors over time."
 ---
 
-## Overview
+## Summary
 
-Y Combinator Public Batch Data provides yc company directory, batch info, industry tags, company status. Public company directory with filters. Good for tracking YC-backed sectors over time.
+- Y Combinator Public Batch Data provides yc company directory, batch info, industry tags, company status. Public company directory with filters. Good for tracking YC-backed sectors over time.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ Y Combinator Public Batch Data provides yc company directory, batch info, indust
 
 - [[Crunchbase]]
 - [[OpenVC]]
+

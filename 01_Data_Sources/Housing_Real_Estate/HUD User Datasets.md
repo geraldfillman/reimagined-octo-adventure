@@ -29,9 +29,9 @@ integrated: false
 notes: "Essential for affordability and rental market context. FMR data updated annually by metro."
 ---
 
-## Overview
+## Summary
 
-HUD User Datasets provides fair market rents, income limits, assisted housing data, housing affordability. Essential for affordability and rental market context. FMR data updated annually by metro.
+- HUD User Datasets provides fair market rents, income limits, assisted housing data, housing affordability. Essential for affordability and rental market context. FMR data updated annually by metro.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ HUD User Datasets provides fair market rents, income limits, assisted housing da
 
 - [[Census Bureau Housing Data]]
 - [[Zillow Research Data]]
+

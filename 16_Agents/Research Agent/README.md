@@ -16,6 +16,7 @@ Purpose: Own arXiv preprints, PubMed journals, ClinicalTrials activity, and fron
 - [[16_Agents/Research Agent/Pulls]]
 - [[16_Agents/Research Agent/Sources]]
 - [[16_Agents/Research Agent/Signals]]
+- [[16_Agents/Research Agent/Investment Strategies]]
 
 ## Commands
 
@@ -52,6 +53,10 @@ node run.mjs pull arxiv --humanoid
 node run.mjs pull arxiv --quantum
 node run.mjs pull arxiv --space
 node run.mjs pull arxiv --nuclear
+
+# --- Investment Strategy Lab ---
+node run.mjs pull agent-analyst --strategy "Simons Style Quant Momentum Breadth" --limit 5 --skip-llm
+node run.mjs pull agent-analyst --all-strategies --limit 12 --skip-llm
 ```
 
 ## Thesis Coverage Map
@@ -74,5 +79,6 @@ node run.mjs pull arxiv --nuclear
 ## Review Cadence
 
 - Daily: run `arxiv --all` and `pubmed --all`; check Thesis-Linked Research section.
+- Weekly: run the strategy lab for active `strategy` baskets and compare entropy, agent verdicts, Qlib scores, and backtest drift.
 - Weekly: review Active Attention and cross-sector signals for thesis-confirming or thesis-breaking evidence.
 - Monthly: promote repeated research patterns into thesis bridge notes.

@@ -1,0 +1,1801 @@
+{
+  "version": 1,
+  "sessionId": "019dd0fe-f866-74d3-8a50-4c45449e2492",
+  "agentId": "codex-acp",
+  "messages": [
+    {
+      "id": "1aa90d42-9e14-44e2-8a15-38d2fdf0f296",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Review the sports prediction research flow and run the pull system for 4/27/26 and 4/28/26",
+          "autoMentionContext": {
+            "noteName": "2026-04-27_Sports_Predictions_2026-04-27",
+            "notePath": "05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:11:50.653Z"
+    },
+    {
+      "id": "213ef4d7-4859-4bfc-8484-e637e60f918f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I’ll inspect the sports prediction note and the related CLI/puller code first, then I’ll run the dated pulls for April 27 and April 28, 2026 using the repo’s existing command patterns."
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:00.665Z"
+    },
+    {
+      "id": "6972fd05-18ee-4580-ab70-3cd0633bef89",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_m2rMeeEV1dwLsvJxbYFPZo5v",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_m2rMeeEV1dwLsvJxbYFPZo5v",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:05.248Z"
+    },
+    {
+      "id": "ebc083b2-6166-4136-9768-0e5b433ddbf3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_e25mXFvZqr9ibFKYvS38IYBx",
+          "title": "rg --files scripts | rg \"sports|prediction|predict\"",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_e25mXFvZqr9ibFKYvS38IYBx",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "rg --files scripts | rg \"sports|prediction|predict\""
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "rg --files scripts | rg \"sports|prediction|predict\""
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:05.248Z"
+    },
+    {
+      "id": "448dafdf-095f-44ba-a65d-1e4a7113c1e7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_BQAthjlfb0PF5bmLcEp6SwMy",
+          "title": "rg -n \"sports|prediction|predictions|Sports\" scripts 00_Dashboard 04_Reference 05_Data_Pulls -S",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_BQAthjlfb0PF5bmLcEp6SwMy",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "rg -n \"sports|prediction|predictions|Sports\" scripts 00_Dashboard 04_Reference 05_Data_Pulls -S"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "rg -n \"sports|prediction|predictions|Sports\" scripts 00_Dashboard 04_Reference 05_Data_Pulls -S"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The opened ledger shows the 2026-04-27 run produced zero positive-edge predictions, 43 pass rows, and several unmatched odds mostly from future-dated records. `rg` is unavailable in this shell, so I’m switching to PowerShell-native searches."
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:05.248Z"
+    },
+    {
+      "id": "eca63dea-f524-4941-8185-6da9f8a970d4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Q3Bo6GTACVUbxduNzeB4wbDr",
+          "title": "Get-ChildItem -Path scripts -Recurse -File | Where-Object { $_.Name -match 'sports|prediction|predict' } | Select-Object -ExpandProperty FullName",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Q3Bo6GTACVUbxduNzeB4wbDr",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path scripts -Recurse -File | Where-Object { $_.Name -match 'sports|prediction|predict' } | Select-Object -ExpandProperty FullName"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path scripts -Recurse -File | Where-Object { $_.Name -match 'sports|prediction|predict' } | Select-Object -ExpandProperty FullName"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:13.148Z"
+    },
+    {
+      "id": "97b16a36-ce6d-48ad-af15-c270f91b79a7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_V6LjPM8uJsWZdNWeP0xZB2gr",
+          "title": "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,05_Data_Pulls -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern 'sports','prediction','predictions','Sports' -CaseSensitive:$false | Select-Object -First 200 | ForEach-Object { \"$($_.Path):$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_V6LjPM8uJsWZdNWeP0xZB2gr",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,05_Data_Pulls -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern 'sports','prediction','predictions','Sports' -CaseSensitive:$false | Select-Object -First 200 | ForEach-Object { \"$($_.Path):$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,05_Data_Pulls -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern 'sports','prediction','predictions','Sports' -CaseSensitive:$false | Select-Object -First 200 | ForEach-Object { \"$($_.Path):$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:13.148Z"
+    },
+    {
+      "id": "7f400ea2-4028-47a0-bde9-9b8ad6e70610",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_jxQDWCNhRG4WHOVw1FgwRnev",
+          "title": "Get-Content -LiteralPath 'scripts/run.mjs' -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_jxQDWCNhRG4WHOVw1FgwRnev",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/run.mjs' -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/run.mjs' -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:13.265Z"
+    },
+    {
+      "id": "7030d483-4811-41c5-9367-3aa68babc2fe",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_E6baHVSB2uH0aCev1ArzrwWP",
+          "title": "Get-Content -LiteralPath 'scripts/cmd/router.mjs' | Select-Object -Skip 500 -First 160",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_E6baHVSB2uH0aCev1ArzrwWP",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/cmd/router.mjs' | Select-Object -Skip 500 -First 160"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/cmd/router.mjs' | Select-Object -Skip 500 -First 160"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:35.748Z"
+    },
+    {
+      "id": "37e75c46-b566-46ca-92b8-94cd49cd2134",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Sd9igmRQmpJPYoRNFcaXTmlA",
+          "title": "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs' -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Sd9igmRQmpJPYoRNFcaXTmlA",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs' -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs' -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:35.748Z"
+    },
+    {
+      "id": "5b483cc1-7d09-46fc-a8a9-14cac160e31c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ljqEIlohenso6aTeqtHxBtFi",
+          "title": "Get-Content -LiteralPath 'scripts/pullers/sports-odds.mjs' -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ljqEIlohenso6aTeqtHxBtFi",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/pullers/sports-odds.mjs' -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/pullers/sports-odds.mjs' -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:35.748Z"
+    },
+    {
+      "id": "55862830-d2ca-48e6-b748-10cada9fe377",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ET8NsmqnHnUN3uXgquLiEc23",
+          "title": "Get-Content -LiteralPath 'scripts/pullers/sports.mjs' -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ET8NsmqnHnUN3uXgquLiEc23",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/pullers/sports.mjs' -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/pullers/sports.mjs' -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The CLI help confirms the sports research flow is split into three main pulls: ESPN slate, OddsHarvester odds cache, then `sports-predictions` to join the slate and odds into backtestable ledgers. I’m going to run those for the inclusive 2026-04-27 to 2026-04-28 window and use `--force` on predictions because dated ledgers already exist."
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:35.864Z"
+    },
+    {
+      "id": "7d4287a1-dfca-4908-bd64-6ad1f22f86b7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Cr6xDOekDQ4GlV0FMyGFeiY2",
+          "title": "node run.mjs pull sports --from 2026-04-27 --to 2026-04-28",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Cr6xDOekDQ4GlV0FMyGFeiY2",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports --from 2026-04-27 --to 2026-04-28"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports --from 2026-04-27 --to 2026-04-28"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The ESPN slate pull completed: 18 events for April 27 and 22 for April 28. Next I’m refreshing the local odds cache, which is the only browser-scraper-dependent step in this flow."
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:45.281Z"
+    },
+    {
+      "id": "2a4b190d-2038-4de0-aecf-e16725e94ffb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_3unIsK361QNbUrwXhzJGo4IB",
+          "title": "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_3unIsK361QNbUrwXhzJGo4IB",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Odds refresh is blocked because `oddsharvester` is not installed or not on PATH, so I can’t refresh the odds cache from the scraper in this environment. I’ll continue with the existing local odds cache and regenerate the prediction ledgers/notes for both dates."
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:52.714Z"
+    },
+    {
+      "id": "14f8c6cd-87dd-4bd5-a026-198b9c542da8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_qKIdU9RIQk6XxvzBrSuNRDe4",
+          "title": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_qKIdU9RIQk6XxvzBrSuNRDe4",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:12:57.231Z"
+    },
+    {
+      "id": "34154e05-dd95-4dbe-8f1f-f3e18241b2a4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_G0ctWPcvNnFHQVdTh9zw5yeo",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 80",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_G0ctWPcvNnFHQVdTh9zw5yeo",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 80"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 80"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:09.915Z"
+    },
+    {
+      "id": "cb1ace11-6bb5-4740-9789-5e3bc5c3dffd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_CYjilSB2ToSOtaLCp0mxwBwv",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-28.md' -TotalCount 120",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_CYjilSB2ToSOtaLCp0mxwBwv",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-28.md' -TotalCount 120"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-28.md' -TotalCount 120"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:09.915Z"
+    },
+    {
+      "id": "7eea13d2-943d-4918-89bc-28a6de4eb7b8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_qmY5vFW96fMoKdUkhUSDxLXX",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-27.md' -TotalCount 60",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_qmY5vFW96fMoKdUkhUSDxLXX",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-27.md' -TotalCount 60"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-27.md' -TotalCount 60"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:09.915Z"
+    },
+    {
+      "id": "34e98d97-9caa-4e0c-9d0a-5b7273029b3b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_9LtCScBY0zug3k5ua8QfA9hp",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-28.md' -TotalCount 60",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_9LtCScBY0zug3k5ua8QfA9hp",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-28.md' -TotalCount 60"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-28.md' -TotalCount 60"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:10.031Z"
+    },
+    {
+      "id": "700c795a-fd06-4ce2-8988-ecf40c980662",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_HMnaOHrxOWzmNAwkvjxAk8Z8",
+          "title": "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_HMnaOHrxOWzmNAwkvjxAk8Z8",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports-odds --from 2026-04-27 --to 2026-04-28 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:16.231Z"
+    },
+    {
+      "id": "13334ab5-f42d-460d-b151-5045de33d834",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_qbiOPgFmrWruKpEgIy8kvRrC",
+          "title": "git status --short",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_qbiOPgFmrWruKpEgIy8kvRrC",
+            "turn_id": "019dd0ff-af06-77b2-a096-75d13427c3dc",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git status --short"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git status --short"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Reviewed and ran the sports prediction flow for `2026-04-27` and `2026-04-28`.\n\nFlow status:\n- ESPN slate pull succeeded.\n  - `2026-04-27`: 18 events\n  - `2026-04-28`: 22 events\n- Odds refresh did not run because `oddsharvester` is not installed/on PATH: `spawnSync oddsharvester ENOENT`.\n- Prediction generation succeeded using the existing local odds cache, with `--include-pass --force`.\n\nUpdated notes:\n- [2026-04-27 Sports Daily Slate](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-27.md>)\n- [2026-04-28 Sports Daily Slate](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Sports/2026-04-27_Sports_Daily_Slate_2026-04-28.md>)\n- [2026-04-27 Sports Predictions](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md>)\n- [2026-04-28 Sports Predictions](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-28.md>)\n\nPrediction result:\n- `2026-04-27`: 0 prediction candidates, 43 pass rows, 23 unmatched odds\n- `2026-04-28`: 0 prediction candidates, 15 pass rows, 52 unmatched odds\n\nMain review finding: the flow itself is wired correctly, but odds quality is the weak link right now. The existing odds caches include many records whose `match_date` resolves to the adjacent date, plus a recurring bad `2017-03-09` Decin record. Since `oddsharvester` could not refresh, today’s prediction notes are based on stale/local cache rather than a fresh scrape."
+        }
+      ],
+      "timestamp": "2026-04-27T22:13:19.247Z"
+    },
+    {
+      "id": "e7d0feab-4842-4b92-93b6-57ee66c3eec1",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Can we review the flow and workflow because the predictions and data is different each time the flow is run",
+          "autoMentionContext": {
+            "noteName": "2026-04-27_Sports_Predictions_2026-04-27",
+            "notePath": "05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:19.847Z"
+    },
+    {
+      "id": "ea9cd8ef-47b9-4a6e-a811-1a4738b0704b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I’ll trace the sports prediction path end to end and look specifically for nondeterminism: live API fields, cache overwrites, sorting/tie handling, duplicated odds rows, and any run-time defaults that change output."
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:25.165Z"
+    },
+    {
+      "id": "7243c417-fccd-4a0c-8cd0-a2bf9237422f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_acQ7f4e22Ey77akzLaw2oMMs",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_acQ7f4e22Ey77akzLaw2oMMs",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:30.849Z"
+    },
+    {
+      "id": "d88434a0-7acb-47d8-825d-fffd413e9275",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_4Xcrp0xxH5gINoKKwjgovgXa",
+          "title": "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_4Xcrp0xxH5gINoKKwjgovgXa",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/pullers/sports-predictions.mjs'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:30.849Z"
+    },
+    {
+      "id": "ea24118d-e379-4de4-9eb0-1d395ae5ab83",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_EmORxEMKU5GhEs3sHntQt5io",
+          "title": "Get-Content -LiteralPath 'scripts/pullers/sports.mjs'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_EmORxEMKU5GhEs3sHntQt5io",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/pullers/sports.mjs'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/pullers/sports.mjs'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:30.849Z"
+    },
+    {
+      "id": "6065f939-ec3c-40b1-8ba9-a8e7e9ebe31f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_n9ksW6QueYEXRMk5nBvAvIoz",
+          "title": "Get-Content -LiteralPath '04_Reference/Sports Prediction System.md' -ErrorAction SilentlyContinue",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_n9ksW6QueYEXRMk5nBvAvIoz",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '04_Reference/Sports Prediction System.md' -ErrorAction SilentlyContinue"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '04_Reference/Sports Prediction System.md' -ErrorAction SilentlyContinue"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The implementation confirms two separate sources can change between runs: `sports-predictions` fetches ESPN live every time, while odds are read from mutable cache files. I’m checking the cache contents and duplicate records now because the note already shows repeated F5 rows and cross-date odds records."
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:30.965Z"
+    },
+    {
+      "id": "cc783700-e800-4942-83f0-d7c4968daf30",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_UzxR2gity7kkdvSYOy3pqebV",
+          "title": "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'fetchEspnEvents|oddsRecords|includedRows.sort|passes.sort|date_pulled|today\\(|Promise.all|summarizeHomeAwayMarket|prices.reduce|oddsPathFor' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_UzxR2gity7kkdvSYOy3pqebV",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'fetchEspnEvents|oddsRecords|includedRows.sort|passes.sort|date_pulled|today\\(|Promise.all|summarizeHomeAwayMarket|prices.reduce|oddsPathFor' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'fetchEspnEvents|oddsRecords|includedRows.sort|passes.sort|date_pulled|today\\(|Promise.all|summarizeHomeAwayMarket|prices.reduce|oddsPathFor' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:49.115Z"
+    },
+    {
+      "id": "42c3c182-0d6c-452b-aa06-61c89a701657",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ZotQQfAf38AiKNnulg4tkTZC",
+          "title": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-27' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ZotQQfAf38AiKNnulg4tkTZC",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-27' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-27' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:49.231Z"
+    },
+    {
+      "id": "93cfdeb8-da6e-44b6-a052-a69d07dc35d9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_X0uArHVnsnli6hMIba6k2ZNL",
+          "title": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-28' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_X0uArHVnsnli6hMIba6k2ZNL",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-28' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/odds/2026-04-28' -File | ForEach-Object { $json = Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json; [pscustomobject]@{ File=$_.Name; Count=@($json).Count; UniqueEvents=(@($json) | ForEach-Object { \"$($_.away_team) @ $($_.home_team) | $($_.match_date)\" } | Sort-Object -Unique).Count; Dates=(@($json) | ForEach-Object { $_.match_date } | ForEach-Object { if ($_ -match '^(\\d{4}-\\d{2}-\\d{2})') { $matches[1] } else { $_ } } | Sort-Object -Unique) -join ', ' } } | Format-Table -AutoSize"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:49.231Z"
+    },
+    {
+      "id": "6a9cbbc5-c1de-49a3-8df3-634c6d294141",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_T294wg8RdugDhGGjYXGgOmvE",
+          "title": "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Select-Object Count,Name | Format-Table -AutoSize",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_T294wg8RdugDhGGjYXGgOmvE",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Select-Object Count,Name | Format-Table -AutoSize"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Select-Object Count,Name | Format-Table -AutoSize"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The cache check found concrete causes, not just live-data drift: the odds files for each date contain records from multiple dates, and the generated CSV has duplicate `prediction_id` rows. I’m going to inspect the fetch layer and tests so any workflow recommendation maps cleanly to code changes."
+        }
+      ],
+      "timestamp": "2026-04-27T22:14:49.231Z"
+    },
+    {
+      "id": "e6a42f67-ee7b-452b-a947-9520fada9bc8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_iEKzZO0EHUFxMvMZjCJqJayN",
+          "title": "Get-Content -LiteralPath 'scripts/lib/fetcher.mjs'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_iEKzZO0EHUFxMvMZjCJqJayN",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/lib/fetcher.mjs'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/lib/fetcher.mjs'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:00.882Z"
+    },
+    {
+      "id": "6973d31d-15b9-4f4b-9b0a-c16000bb3917",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_GickGGVDwux5Vm4F4OOZie5Z",
+          "title": "Get-Content -LiteralPath 'scripts/tests/sports-predictions-wiring.test.mjs'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_GickGGVDwux5Vm4F4OOZie5Z",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/tests/sports-predictions-wiring.test.mjs'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/tests/sports-predictions-wiring.test.mjs'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:00.911Z"
+    },
+    {
+      "id": "26ffb86a-8bbc-49f7-ba66-d6425f35708e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_UZ2e0uvAqFhYYGsXwOcSDHuo",
+          "title": "Get-Content -LiteralPath 'scripts/tests/sports-pipeline.integration.test.mjs'",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_UZ2e0uvAqFhYYGsXwOcSDHuo",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath 'scripts/tests/sports-pipeline.integration.test.mjs'"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath 'scripts/tests/sports-pipeline.integration.test.mjs'"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:00.998Z"
+    },
+    {
+      "id": "e2c99fae-6cb9-403a-93a4-290fba5d932a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_tU4sKjV8H8npEcEiuMNhZg63",
+          "title": "Get-ChildItem -LiteralPath 'scripts/tests' -File | Select-Object -ExpandProperty Name | Sort-Object",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_tU4sKjV8H8npEcEiuMNhZg63",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -LiteralPath 'scripts/tests' -File | Select-Object -ExpandProperty Name | Sort-Object"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -LiteralPath 'scripts/tests' -File | Select-Object -ExpandProperty Name | Sort-Object"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I’m going to make two focused changes: freeze ESPN inputs for prediction generation so reruns use the same source payload unless explicitly refreshed, and deduplicate generated rows by `prediction_id` so repeated odds records do not create changing/pass-count noise. Then I’ll update the reference workflow to make the intended run order explicit."
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:00.998Z"
+    },
+    {
+      "id": "0f37df4c-94c0-4227-b594-4c11082d2da2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_X9WwsFFgdV8AOy79wOL5TJJy",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "const ODDS_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sports', 'odds');\nconst ESPN_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sports', 'espn');\nconst MODEL_VERSION = 'multi-factor-v1';\n",
+              "oldText": "const ODDS_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sports', 'odds');\nconst MODEL_VERSION = 'multi-factor-v1';\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "  const passes = sourceResults.flatMap(result => result.passes);\n  const unmatchedOdds = dedupeUnmatchedOdds(sourceResults.flatMap(result => result.unmatchedOdds));\n  const sourceErrors = sourceResults.filter(result => result.error);\n",
+              "oldText": "  const passes = sourceResults.flatMap(result => result.passes);\n  const unmatchedOdds = sourceResults.flatMap(result => result.unmatchedOdds);\n  const sourceErrors = sourceResults.filter(result => result.error);\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\n  result.predictions = dedupePredictionRows(result.predictions);\n  result.passes = dedupePredictionRows(result.passes);\n  result.unmatchedOdds = dedupeUnmatchedOdds(result.unmatchedOdds);\n\n  return result;\n",
+              "oldText": "\n  return result;\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\nasync function fetchEspnEvents(eventDate, sport, flags = {}) {\n  const url = espnUrlFor(eventDate, sport);\n  const cachePath = espnCachePathFor(eventDate, sport);\n  const shouldRefresh = Boolean(flags['refresh-source'] || flags.refresh);\n  let data;\n\n  if (!shouldRefresh && existsSync(cachePath)) {\n    data = JSON.parse(readFileSync(cachePath, 'utf8'));\n  } else {\n    data = await getJson(url);\n    mkdirSync(dirname(cachePath), { recursive: true });\n    writeFileSync(cachePath, JSON.stringify(data, null, 2), 'utf8');\n  }\n\n  const events = Array.isArray(data.events) ? data.events : [];\n",
+              "oldText": "\nasync function fetchEspnEvents(eventDate, sport) {\n  const url = espnUrlFor(eventDate, sport);\n  const data = await getJson(url);\n  const events = Array.isArray(data.events) ? data.events : [];\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_X9WwsFFgdV8AOy79wOL5TJJy",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -27,2 +27,3 @@\n const ODDS_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sports', 'odds');\n+const ESPN_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sports', 'espn');\n const MODEL_VERSION = 'multi-factor-v1';\n@@ -138,3 +139,3 @@\n   const passes = sourceResults.flatMap(result => result.passes);\n-  const unmatchedOdds = sourceResults.flatMap(result => result.unmatchedOdds);\n+  const unmatchedOdds = dedupeUnmatchedOdds(sourceResults.flatMap(result => result.unmatchedOdds));\n   const sourceErrors = sourceResults.filter(result => result.error);\n@@ -260,2 +261,6 @@\n \n+  result.predictions = dedupePredictionRows(result.predictions);\n+  result.passes = dedupePredictionRows(result.passes);\n+  result.unmatchedOdds = dedupeUnmatchedOdds(result.unmatchedOdds);\n+\n   return result;\n@@ -263,5 +268,16 @@\n \n-async function fetchEspnEvents(eventDate, sport) {\n+async function fetchEspnEvents(eventDate, sport, flags = {}) {\n   const url = espnUrlFor(eventDate, sport);\n-  const data = await getJson(url);\n+  const cachePath = espnCachePathFor(eventDate, sport);\n+  const shouldRefresh = Boolean(flags['refresh-source'] || flags.refresh);\n+  let data;\n+\n+  if (!shouldRefresh && existsSync(cachePath)) {\n+    data = JSON.parse(readFileSync(cachePath, 'utf8'));\n+  } else {\n+    data = await getJson(url);\n+    mkdirSync(dirname(cachePath), { recursive: true });\n+    writeFileSync(cachePath, JSON.stringify(data, null, 2), 'utf8');\n+  }\n+\n   const events = Array.isArray(data.events) ? data.events : [];\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:24.998Z"
+    },
+    {
+      "id": "82a2407b-effb-47c9-8fc5-3f28ad3aff55",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_GQI5VyPkd9c2nD1fVlLVMeyk",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "  try {\n    result.events = await fetchEspnEvents(eventDate, sport, flags);\n  } catch (err) {\n",
+              "oldText": "  try {\n    result.events = await fetchEspnEvents(eventDate, sport);\n  } catch (err) {\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_GQI5VyPkd9c2nD1fVlLVMeyk",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -208,3 +208,3 @@\n   try {\n-    result.events = await fetchEspnEvents(eventDate, sport);\n+    result.events = await fetchEspnEvents(eventDate, sport, flags);\n   } catch (err) {\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:29.282Z"
+    },
+    {
+      "id": "3f9c80c2-f54c-4929-bdb6-9a81843458d1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_5h7Er3OYyyaKPmaOedSVMk0l",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\nfunction espnCachePathFor(eventDate, sport) {\n  return join(ESPN_CACHE_DIR, eventDate, `${sport.key}_${sport.league}.json`);\n}\n\nfunction espnUrlFor(eventDate, sport) {\n",
+              "oldText": "\nfunction espnUrlFor(eventDate, sport) {\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\nexport function dedupePredictionRows(rows) {\n  const byId = new Map();\n  for (const row of rows) {\n    const current = byId.get(row.prediction_id);\n    if (!current || comparePredictionRowQuality(row, current) < 0) {\n      byId.set(row.prediction_id, row);\n    }\n  }\n  return [...byId.values()].sort(comparePredictionRows);\n}\n\nfunction comparePredictionRowQuality(a, b) {\n  return compareNumbersDesc(a.edge, b.edge)\n    || compareNumbersDesc(a.confidence_score, b.confidence_score)\n    || compareNumbersDesc(a.odds_decimal, b.odds_decimal)\n    || compareStrings(a.selection, b.selection)\n    || compareStrings(a.odds_american, b.odds_american);\n}\n\nfunction comparePredictionRows(a, b) {\n  return compareNumbersDesc(a.edge, b.edge)\n    || compareStrings(a.event, b.event)\n    || compareStrings(a.market, b.market)\n    || compareStrings(a.side, b.side)\n    || compareStrings(a.selection, b.selection)\n    || compareStrings(a.prediction_id, b.prediction_id);\n}\n\nfunction dedupeUnmatchedOdds(rows) {\n  const seen = new Set();\n  const deduped = [];\n  for (const row of rows) {\n    const key = [row.sport, row.event, row.home, row.away, row.reason].join('\\u0001');\n    if (seen.has(key)) continue;\n    seen.add(key);\n    deduped.push(row);\n  }\n  return deduped.sort((a, b) =>\n    compareStrings(a.sport, b.sport)\n    || compareStrings(a.event, b.event)\n    || compareStrings(a.reason, b.reason)\n  );\n}\n\nfunction toCsv(rows) {\n",
+              "oldText": "\nfunction toCsv(rows) {\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\nfunction compareNumbersDesc(a, b) {\n  return (Number(b) || 0) - (Number(a) || 0);\n}\n\nfunction compareStrings(a, b) {\n  return String(a || '').localeCompare(String(b || ''));\n}\n\nfunction round(value, decimals) {\n",
+              "oldText": "\nfunction round(value, decimals) {\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_5h7Er3OYyyaKPmaOedSVMk0l",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -796,2 +796,6 @@\n \n+function espnCachePathFor(eventDate, sport) {\n+  return join(ESPN_CACHE_DIR, eventDate, `${sport.key}_${sport.league}.json`);\n+}\n+\n function espnUrlFor(eventDate, sport) {\n@@ -871,2 +875,46 @@\n \n+export function dedupePredictionRows(rows) {\n+  const byId = new Map();\n+  for (const row of rows) {\n+    const current = byId.get(row.prediction_id);\n+    if (!current || comparePredictionRowQuality(row, current) < 0) {\n+      byId.set(row.prediction_id, row);\n+    }\n+  }\n+  return [...byId.values()].sort(comparePredictionRows);\n+}\n+\n+function comparePredictionRowQuality(a, b) {\n+  return compareNumbersDesc(a.edge, b.edge)\n+    || compareNumbersDesc(a.confidence_score, b.confidence_score)\n+    || compareNumbersDesc(a.odds_decimal, b.odds_decimal)\n+    || compareStrings(a.selection, b.selection)\n+    || compareStrings(a.odds_american, b.odds_american);\n+}\n+\n+function comparePredictionRows(a, b) {\n+  return compareNumbersDesc(a.edge, b.edge)\n+    || compareStrings(a.event, b.event)\n+    || compareStrings(a.market, b.market)\n+    || compareStrings(a.side, b.side)\n+    || compareStrings(a.selection, b.selection)\n+    || compareStrings(a.prediction_id, b.prediction_id);\n+}\n+\n+function dedupeUnmatchedOdds(rows) {\n+  const seen = new Set();\n+  const deduped = [];\n+  for (const row of rows) {\n+    const key = [row.sport, row.event, row.home, row.away, row.reason].join('\\u0001');\n+    if (seen.has(key)) continue;\n+    seen.add(key);\n+    deduped.push(row);\n+  }\n+  return deduped.sort((a, b) =>\n+    compareStrings(a.sport, b.sport)\n+    || compareStrings(a.event, b.event)\n+    || compareStrings(a.reason, b.reason)\n+  );\n+}\n+\n function toCsv(rows) {\n@@ -889,2 +937,10 @@\n \n+function compareNumbersDesc(a, b) {\n+  return (Number(b) || 0) - (Number(a) || 0);\n+}\n+\n+function compareStrings(a, b) {\n+  return String(a || '').localeCompare(String(b || ''));\n+}\n+\n function round(value, decimals) {\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:45.465Z"
+    },
+    {
+      "id": "52e27eb8-05ea-4d13-8a08-d54759398975",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_NsVb2KRTL3V99O9JFpRhdY3O",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs",
+              "newText": "\n  includedRows.sort(comparePredictionRows);\n  passes.sort(comparePredictionRows);\n\n",
+              "oldText": "\n  includedRows.sort((a, b) => b.edge - a.edge || a.event.localeCompare(b.event));\n  passes.sort((a, b) => b.edge - a.edge || a.event.localeCompare(b.event));\n\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_NsVb2KRTL3V99O9JFpRhdY3O",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\sports-predictions.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -143,4 +143,4 @@\n \n-  includedRows.sort((a, b) => b.edge - a.edge || a.event.localeCompare(b.event));\n-  passes.sort((a, b) => b.edge - a.edge || a.event.localeCompare(b.event));\n+  includedRows.sort(comparePredictionRows);\n+  passes.sort(comparePredictionRows);\n \n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:15:51.432Z"
+    },
+    {
+      "id": "4a4cd2d5-ac65-4c41-be48-8ed6c46d3a60",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_8UwVegj89Z0J9B4X8a96DUVk",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\tests\\sports-predictions-wiring.test.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\tests\\sports-predictions-wiring.test.mjs",
+              "newText": "} from '../lib/sports/registry-all.mjs';\nimport {\n  computeMultiFactorPrediction,\n  dedupePredictionRows,\n} from '../pullers/sports-predictions.mjs';\n\n",
+              "oldText": "} from '../lib/sports/registry-all.mjs';\nimport { computeMultiFactorPrediction } from '../pullers/sports-predictions.mjs';\n\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\tests\\sports-predictions-wiring.test.mjs",
+              "newText": "});\n\nrunTest('dedupePredictionRows: repeated odds records collapse to one stable prediction row', () => {\n  const rows = [\n    {\n      prediction_id: 'same',\n      event: 'A @ B',\n      market: 'home_away',\n      side: 'home',\n      selection: 'B',\n      edge: -0.02,\n      confidence_score: 50,\n      odds_decimal: 1.8,\n      odds_american: '-125',\n    },\n    {\n      prediction_id: 'same',\n      event: 'A @ B',\n      market: 'home_away',\n      side: 'home',\n      selection: 'B',\n      edge: -0.01,\n      confidence_score: 50,\n      odds_decimal: 1.9,\n      odds_american: '-111',\n    },\n    {\n      prediction_id: 'other',\n      event: 'C @ D',\n      market: 'home_away',\n      side: 'away',\n      selection: 'C',\n      edge: -0.03,\n      confidence_score: 60,\n      odds_decimal: 2.1,\n      odds_american: '+110',\n    },\n  ];\n\n  const deduped = dedupePredictionRows(rows);\n  assert.equal(deduped.length, 2);\n  assert.equal(deduped[0].prediction_id, 'same');\n  assert.equal(deduped[0].odds_american, '-111');\n});\n",
+              "oldText": "});\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\tests\\sports-predictions-wiring.test.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_8UwVegj89Z0J9B4X8a96DUVk",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\tests\\sports-predictions-wiring.test.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -15,3 +15,6 @@\n } from '../lib/sports/registry-all.mjs';\n-import { computeMultiFactorPrediction } from '../pullers/sports-predictions.mjs';\n+import {\n+  computeMultiFactorPrediction,\n+  dedupePredictionRows,\n+} from '../pullers/sports-predictions.mjs';\n \n@@ -184 +187,44 @@\n });\n+\n+runTest('dedupePredictionRows: repeated odds records collapse to one stable prediction row', () => {\n+  const rows = [\n+    {\n+      prediction_id: 'same',\n+      event: 'A @ B',\n+      market: 'home_away',\n+      side: 'home',\n+      selection: 'B',\n+      edge: -0.02,\n+      confidence_score: 50,\n+      odds_decimal: 1.8,\n+      odds_american: '-125',\n+    },\n+    {\n+      prediction_id: 'same',\n+      event: 'A @ B',\n+      market: 'home_away',\n+      side: 'home',\n+      selection: 'B',\n+      edge: -0.01,\n+      confidence_score: 50,\n+      odds_decimal: 1.9,\n+      odds_american: '-111',\n+    },\n+    {\n+      prediction_id: 'other',\n+      event: 'C @ D',\n+      market: 'home_away',\n+      side: 'away',\n+      selection: 'C',\n+      edge: -0.03,\n+      confidence_score: 60,\n+      odds_decimal: 2.1,\n+      odds_american: '+110',\n+    },\n+  ];\n+\n+  const deduped = dedupePredictionRows(rows);\n+  assert.equal(deduped.length, 2);\n+  assert.equal(deduped[0].prediction_id, 'same');\n+  assert.equal(deduped[0].odds_american, '-111');\n+});\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:02.515Z"
+    },
+    {
+      "id": "0d4b2f7a-c84a-42e4-93b9-0ea49b5945c4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Il1iS4fhTR3KR3O2tt1rhXyx",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs",
+              "newText": "                --dry-run                 Print commands without running browser scraper\r\n  sports-predictions Generate pending prediction ledgers from ESPN slate + local odds cache\n                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>\n                --sports <CSV>            Default: baseball,basketball,ice-hockey\n                --min-edge <decimal>      Default: 0; use 0.01 for 1%\n                --include-pass            Include below-threshold rows in CSV\n                --refresh-source          Refresh frozen ESPN source snapshots before scoring\n                --force                   Overwrite existing prediction CSV\n                --dry-run | --json\n  sports-settle Settle prediction ledgers from ESPN final scores\r\n",
+              "oldText": "                --dry-run                 Print commands without running browser scraper\r\n  sports-predictions Generate pending prediction ledgers from ESPN slate + local odds cache\r\n                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>\r\n                --sports <CSV>            Default: baseball,basketball,ice-hockey\r\n                --min-edge <decimal>      Default: 0; use 0.01 for 1%\r\n                --include-pass            Include below-threshold rows in CSV\r\n                --force                   Overwrite existing prediction CSV\r\n                --dry-run | --json\r\n  sports-settle Settle prediction ledgers from ESPN final scores\r\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_Il1iS4fhTR3KR3O2tt1rhXyx",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -532,9 +532,10 @@\n                 --dry-run                 Print commands without running browser scraper\r\n-  sports-predictions Generate pending prediction ledgers from ESPN slate + local odds cache\r\n-                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>\r\n-                --sports <CSV>            Default: baseball,basketball,ice-hockey\r\n-                --min-edge <decimal>      Default: 0; use 0.01 for 1%\r\n-                --include-pass            Include below-threshold rows in CSV\r\n-                --force                   Overwrite existing prediction CSV\r\n-                --dry-run | --json\r\n+  sports-predictions Generate pending prediction ledgers from ESPN slate + local odds cache\n+                --date <YYYY-MM-DD> | --from <date> --to <date> | --days <n>\n+                --sports <CSV>            Default: baseball,basketball,ice-hockey\n+                --min-edge <decimal>      Default: 0; use 0.01 for 1%\n+                --include-pass            Include below-threshold rows in CSV\n+                --refresh-source          Refresh frozen ESPN source snapshots before scoring\n+                --force                   Overwrite existing prediction CSV\n+                --dry-run | --json\n   sports-settle Settle prediction ledgers from ESPN final scores\r\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:07.465Z"
+    },
+    {
+      "id": "7160ce6d-856f-44f5-925b-2ff4be119acb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_hfdQOFOZLgMv4VmKx6SagbzY",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md",
+              "newText": "- `sports-odds` harvests local OddsHarvester JSON caches for market context.\n- `sports-predictions` creates pending CSV ledgers from frozen ESPN event snapshots plus odds-cache prices.\n- `sports-settle` updates prediction ledgers with final ESPN scores and fake-money tracking.\n",
+              "oldText": "- `sports-odds` harvests local OddsHarvester JSON caches for market context.\n- `sports-predictions` creates pending CSV ledgers from ESPN event matches plus odds-cache prices.\n- `sports-settle` updates prediction ledgers with final ESPN scores and fake-money tracking.\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md",
+              "newText": "\nDeterministic rerun rule:\n- Run `sports-odds` once to create the odds cache for the target date.\n- Run `sports-predictions` once to freeze ESPN source snapshots under `scripts/.cache/sports/espn/YYYY-MM-DD/`.\n- Rerunning `sports-predictions` uses those frozen ESPN snapshots by default, so the same odds cache should produce the same prediction ledger.\n- Use `--refresh-source` only when you intentionally want to resnapshot ESPN data before lock time.\n- Use `--force` only when intentionally replacing the existing prediction ledger.\n\n## Prediction Ledger\n",
+              "oldText": "\n## Prediction Ledger\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md",
+              "newText": "- Existing ledgers are not overwritten unless `--force` is passed.\n- ESPN scoreboard inputs are snapshotted for prediction generation; reruns reuse the snapshot unless `--refresh-source` is passed.\n- Repeated odds records collapse to one row per `prediction_id` before the CSV is written.\n- Settlement only recomputes already-settled rows when `--force` is passed.\n",
+              "oldText": "- Existing ledgers are not overwritten unless `--force` is passed.\n- Settlement only recomputes already-settled rows when `--force` is passed.\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_hfdQOFOZLgMv4VmKx6SagbzY",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Sports Prediction System.md": {
+                "type": "update",
+                "unified_diff": "@@ -27,3 +27,3 @@\n - `sports-odds` harvests local OddsHarvester JSON caches for market context.\n-- `sports-predictions` creates pending CSV ledgers from ESPN event matches plus odds-cache prices.\n+- `sports-predictions` creates pending CSV ledgers from frozen ESPN event snapshots plus odds-cache prices.\n - `sports-settle` updates prediction ledgers with final ESPN scores and fake-money tracking.\n@@ -31,2 +31,9 @@\n \n+Deterministic rerun rule:\n+- Run `sports-odds` once to create the odds cache for the target date.\n+- Run `sports-predictions` once to freeze ESPN source snapshots under `scripts/.cache/sports/espn/YYYY-MM-DD/`.\n+- Rerunning `sports-predictions` uses those frozen ESPN snapshots by default, so the same odds cache should produce the same prediction ledger.\n+- Use `--refresh-source` only when you intentionally want to resnapshot ESPN data before lock time.\n+- Use `--force` only when intentionally replacing the existing prediction ledger.\n+\n ## Prediction Ledger\n@@ -102,2 +109,4 @@\n - Existing ledgers are not overwritten unless `--force` is passed.\n+- ESPN scoreboard inputs are snapshotted for prediction generation; reruns reuse the snapshot unless `--refresh-source` is passed.\n+- Repeated odds records collapse to one row per `prediction_id` before the CSV is written.\n - Settlement only recomputes already-settled rows when `--force` is passed.\n",
+                "move_path": null
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "The code now has the determinism hooks: prediction generation snapshots ESPN JSON under `.cache/sports/espn`, and duplicate prediction rows are collapsed before writing. I’m running the targeted test and then regenerating the two ledgers to verify counts stabilize."
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:19.049Z"
+    },
+    {
+      "id": "1625531f-8c52-4e44-bd54-5432e498f163",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_8JwdCYiutWzCK9VJuJUCcbD8",
+          "title": "node scripts/tests/sports-predictions-wiring.test.mjs",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_8JwdCYiutWzCK9VJuJUCcbD8",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node scripts/tests/sports-predictions-wiring.test.mjs"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node scripts/tests/sports-predictions-wiring.test.mjs"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:25.532Z"
+    },
+    {
+      "id": "98430e86-1d8f-43a7-82e7-147346a67082",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_IQXyc8ymzEgTdnZp878PJMgy",
+          "title": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_IQXyc8ymzEgTdnZp878PJMgy",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:25.532Z"
+    },
+    {
+      "id": "ecadd1ad-95da-4a38-bedb-e70b6295a38c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_qp4gBpHOCh3VSyqh9fIG3mQC",
+          "title": "Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_qp4gBpHOCh3VSyqh9fIG3mQC",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:34.650Z"
+    },
+    {
+      "id": "eaf9741a-9a6c-4341-92e8-6f5db68fed23",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_k6XD3XrqwCvI8qqJF9KF0hEX",
+          "title": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 45",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_k6XD3XrqwCvI8qqJF9KF0hEX",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 45"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '05_Data_Pulls/Sports/2026-04-27_Sports_Predictions_2026-04-27.md' -TotalCount 45"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:34.650Z"
+    },
+    {
+      "id": "2760589f-77a4-44b6-ad55-8005644cf121",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_xp30qlfRmQjqjSscVL6DD7Xy",
+          "title": "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Measure-Object | Select-Object -ExpandProperty Count",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_xp30qlfRmQjqjSscVL6DD7Xy",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Measure-Object | Select-Object -ExpandProperty Count"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Import-Csv -LiteralPath 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv' | Group-Object prediction_id | Where-Object Count -gt 1 | Measure-Object | Select-Object -ExpandProperty Count"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:34.650Z"
+    },
+    {
+      "id": "c6891715-125a-49a5-9229-a8393db99099",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_VIJDsHH6eqtVjFlV4YQLGqox",
+          "title": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/espn' -Recurse -File | Select-Object -First 20 -ExpandProperty FullName",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_VIJDsHH6eqtVjFlV4YQLGqox",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -LiteralPath 'scripts/.cache/sports/espn' -Recurse -File | Select-Object -First 20 -ExpandProperty FullName"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -LiteralPath 'scripts/.cache/sports/espn' -Recurse -File | Select-Object -First 20 -ExpandProperty FullName"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The regenerated April 27 note now drops from 43 pass rows to 26 after deduplication, and duplicate prediction IDs are gone. I’m doing one more forced rerun and hashing the CSVs again; if the hashes match, the prediction step is stable against repeated execution."
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:34.765Z"
+    },
+    {
+      "id": "59fbd28f-7c75-43e5-807e-21cfdc9529f6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_n7ofectTj0zV9LgCSCkYMQBv",
+          "title": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force > $null; Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_n7ofectTj0zV9LgCSCkYMQBv",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force > $null; Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sports-predictions --from 2026-04-27 --to 2026-04-28 --include-pass --force > $null; Get-FileHash -Algorithm SHA256 'scripts/.cache/sports/predictions/2026-04-27_predictions.csv','scripts/.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:40.349Z"
+    },
+    {
+      "id": "d632824d-194b-4999-900a-a7d8d5fc12e3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_aZOmwpVPkUU4khljemvKH3Z4",
+          "title": "Get-FileHash -Algorithm SHA256 '.cache/sports/predictions/2026-04-27_predictions.csv','.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_aZOmwpVPkUU4khljemvKH3Z4",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-FileHash -Algorithm SHA256 '.cache/sports/predictions/2026-04-27_predictions.csv','.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-FileHash -Algorithm SHA256 '.cache/sports/predictions/2026-04-27_predictions.csv','.cache/sports/predictions/2026-04-28_predictions.csv' | Select-Object Path,Hash | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:46.517Z"
+    },
+    {
+      "id": "bf148da2-4b01-486a-bdc5-f0d293e4bbc8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_kByCSKG3wSL9AbnXY2mqAshU",
+          "title": "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'ESPN_CACHE_DIR|fetchEspnEvents|refresh-source|dedupePredictionRows|dedupeUnmatchedOdds|espnCachePathFor|comparePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_kByCSKG3wSL9AbnXY2mqAshU",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'ESPN_CACHE_DIR|fetchEspnEvents|refresh-source|dedupePredictionRows|dedupeUnmatchedOdds|espnCachePathFor|comparePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path 'scripts/pullers/sports-predictions.mjs' -Pattern 'ESPN_CACHE_DIR|fetchEspnEvents|refresh-source|dedupePredictionRows|dedupeUnmatchedOdds|espnCachePathFor|comparePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:56.167Z"
+    },
+    {
+      "id": "96e797f0-de14-4134-9c63-cc15fc154dab",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Px64FdYzRV3HgvdQ620DmFrO",
+          "title": "Select-String -Path '04_Reference/Sports Prediction System.md' -Pattern 'Deterministic rerun|refresh-source|snapshotted|Repeated odds' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Px64FdYzRV3HgvdQ620DmFrO",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path '04_Reference/Sports Prediction System.md' -Pattern 'Deterministic rerun|refresh-source|snapshotted|Repeated odds' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path '04_Reference/Sports Prediction System.md' -Pattern 'Deterministic rerun|refresh-source|snapshotted|Repeated odds' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:56.167Z"
+    },
+    {
+      "id": "6b8bcb00-7df9-4864-8445-047d1104cdda",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_cQLGLFR4qSU7VApHCh17Sopl",
+          "title": "Select-String -Path 'scripts/tests/sports-predictions-wiring.test.mjs' -Pattern 'dedupePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_cQLGLFR4qSU7VApHCh17Sopl",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path 'scripts/tests/sports-predictions-wiring.test.mjs' -Pattern 'dedupePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path 'scripts/tests/sports-predictions-wiring.test.mjs' -Pattern 'dedupePredictionRows' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:56.167Z"
+    },
+    {
+      "id": "d879d173-a7f0-4726-b89a-df9cea0cca7a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_S10ysJpXwKfiVt8IVtK5vUYo",
+          "title": "Select-String -Path 'scripts/cmd/router.mjs' -Pattern 'refresh-source' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_S10ysJpXwKfiVt8IVtK5vUYo",
+            "turn_id": "019dd101-f5d0-7342-9f4c-378e4f9171f9",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path 'scripts/cmd/router.mjs' -Pattern 'refresh-source' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path 'scripts/cmd/router.mjs' -Pattern 'refresh-source' | ForEach-Object { \"$($_.LineNumber):$($_.Line.Trim())\" }"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Reviewed the flow and tightened the unstable parts.\n\nRoot causes found:\n- `sports-predictions` fetched live ESPN scoreboard data every run, so probables/status/odds exposed by ESPN could drift.\n- Odds cache files are mutable and currently contain mixed-date records.\n- Duplicate OddsHarvester records were producing duplicate `prediction_id` rows, especially F5 baseball rows.\n\nChanges made:\n- [sports-predictions.mjs](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/scripts/pullers/sports-predictions.mjs:28>) now freezes ESPN prediction inputs under `scripts/.cache/sports/espn/YYYY-MM-DD/` and reuses them on reruns.\n- Added `--refresh-source` when you intentionally want to resnapshot ESPN before scoring.\n- Added deduping so repeated odds records collapse to one stable row per `prediction_id`.\n- Updated the workflow docs in [Sports Prediction System.md](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/04_Reference/Sports Prediction System.md:32>).\n- Added a targeted test in [sports-predictions-wiring.test.mjs](<C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/scripts/tests/sports-predictions-wiring.test.mjs:189>).\n\nValidation:\n- Targeted sports prediction tests passed.\n- Forced rerun produced identical CSV hashes:\n  - `2026-04-27_predictions.csv`: `EB94CE999F5D8966CDD676A2694224495FFC23D617E2BF6139C8E3A2701FBF22`\n  - `2026-04-28_predictions.csv`: `EA3CB9F3867809788479EF120B63E666A5770155E8F6A981363E1E3D487126E6`\n- April 27 prediction note now has `26` pass rows instead of `43`, with duplicate prediction IDs removed.\n\nRemaining issue: `sports-odds` still cannot refresh because `oddsharvester` is not installed/on PATH. Until that is fixed, predictions are deterministic against the existing local odds cache, but the odds cache itself may still be stale or mixed-date."
+        }
+      ],
+      "timestamp": "2026-04-27T22:16:56.167Z"
+    }
+  ],
+  "savedAt": "2026-04-27T22:17:07.444Z"
+}

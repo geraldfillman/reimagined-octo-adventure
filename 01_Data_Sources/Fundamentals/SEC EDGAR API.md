@@ -23,9 +23,9 @@ integrated: false
 notes: Primary-source gold mine
 ---
 
-## Overview
+## Summary
 
-SEC EDGAR API provides company filings like 10-k, 10-q, 8-k. Primary-source gold mine
+- SEC EDGAR API provides company filings like 10-k, 10-q, 8-k. Primary-source gold mine
 
 ## What It Provides
 
@@ -49,4 +49,4 @@ SEC EDGAR API provides company filings like 10-k, 10-q, 8-k. Primary-source gold
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

@@ -4,13 +4,65 @@ name: "Alzheimer's Disease Modification"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Disease-modifying Alzheimer's therapies are entering a stage where real adoption and outcomes can finally be measured."
+variant_perception: "Investors still distrust the space after decades of failures, which leaves upside if efficacy and access improve."
+next_catalyst: "Label changes, payer access, and confirmatory-trial data over the next 12-18 months."
+disconfirming_evidence: "Efficacy remains marginal or safety burdens prevent broad adoption."
+expected_upside: "A validated disease-modification story could reset revenue expectations across the category."
+expected_downside: "Trial disappointment or slow uptake keeps the thesis a value trap."
+position_sizing: "Satellite 0.5-2% sleeve with disciplined event-risk sizing."
+required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
+required_pull_families: ["fda --recent-approvals", "clinicaltrials --alzheimers", "pubmed --alzheimers", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[BIIB]]", "[[LLY]]", "[[PRTA]]", "[[ACAD]]", "[[Neurology]]", "[[Rare Disease]]", "[[USA]]"]
 supporting_regimes: ["[[Innovation Cycle]]", "[[Goldilocks]]"]
 key_indicators: ["[[Lecanemab Prescriptions]]", "[[Donanemab Revenue]]", "[[Amyloid PET Adoption]]", "[[CMS Coverage Expansion]]"]
 bullish_drivers: ["[[First Disease-Modifying Approvals]]", "[[Blood Biomarker Diagnostics]]", "[[Earlier Stage Treatment Shift]]", "[[Tau Target Pipeline]]", "[[GLP-1 Metabolic Connection]]"]
 bearish_drivers: ["[[ARIA Safety Events]]", "[[Slow Ramp Due to Infusion Requirements]]", "[[Diagnostic Bottleneck]]", "[[Reimbursement Friction]]"]
 invalidation_triggers: ["ARIA (brain microhemorrhage) safety signal leads to black box warning or label restriction that guts prescribing", "Head-to-head lecanemab vs. donanemab shows one is clearly superior — winner-take-all dynamic hurts loser", "Tau antibody programs in Phase 3 all fail — narrows pipeline to amyloid only (already validated)", "Blood biomarker (p-tau 217) diagnostics not adopted at scale — bottleneck on patient identification"]
-tags: [thesis, biotech, neurology, alzheimers, cns, disease-modification]
+fmp_watchlist_symbols: ["BIIB", "LLY", "PRTA", "ACAD"]
+fmp_watchlist_symbol_count: 4
+fmp_primary_symbol: "BIIB"
+fmp_technical_symbol_count: 4
+fmp_technical_nonclear_count: 2
+fmp_technical_bearish_count: 2
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "bullish"
+fmp_primary_momentum_state: "positive"
+fmp_primary_rsi14: 61.03
+fmp_primary_price_vs_sma200_pct: 18.64
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 28527014420
+fmp_primary_trailing_pe: 20.78
+fmp_primary_price_to_sales: 2.89
+fmp_primary_price_to_book: 1.53
+fmp_primary_ev_to_sales: 3.22
+fmp_primary_ev_to_ebitda: 10.99
+fmp_primary_roe_pct: 7.55
+fmp_primary_roic_pct: 5.66
+fmp_primary_operating_margin_pct: 16.28
+fmp_primary_net_margin_pct: 13.92
+fmp_primary_current_ratio: 3.06
+fmp_primary_debt_to_equity: 0.35
+fmp_primary_price_target: 201.49
+fmp_primary_analyst_count: 35
+fmp_primary_target_upside_pct: 3.66
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-04-30"
+fmp_next_earnings_symbols: ["LLY"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "biotech", "neurology", "alzheimers", "cns", "disease-modification"]
 ---
 
 ## Thesis Statement
@@ -69,6 +121,29 @@ Non-equity signals to monitor:
 - Tau antibody programs (PRX005, BMS-986446) all fail in Phase 3 → narrows pipeline to amyloid only
 - Blood biomarker false-positive rate > 20% → misdiagnosis risk kills primary care prescribing
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Disease-modifying Alzheimer's therapies are entering a stage where real adoption and outcomes can finally be measured.
+- **Variant perception**: Investors still distrust the space after decades of failures, which leaves upside if efficacy and access improve.
+- **Next catalyst**: Label changes, payer access, and confirmatory-trial data over the next 12-18 months.
+- **Disconfirming evidence**: Efficacy remains marginal or safety burdens prevent broad adoption.
+- **Expected upside**: A validated disease-modification story could reset revenue expectations across the category.
+- **Expected downside**: Trial disappointment or slow uptake keeps the thesis a value trap.
+- **Sizing rule**: Satellite 0.5-2% sleeve with disciplined event-risk sizing.
+
+## Required Evidence
+
+- **Source notes**: [[FDA open data Drugs@FDA]], [[ClinicalTrials API]], [[PubMed API]], [[NewsAPI]]
+- **Pull families**: fda --recent-approvals, clinicaltrials --alzheimers, pubmed --alzheimers, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[BIIB]] for revenue-generating stability; [[PRTA]] for binary pipeline upside
 - **Size**: 2–4% (BIIB); 1–2% (PRTA); ACAD as a < 1% speculation on neuropsychiatric symptoms market
@@ -90,3 +165,6 @@ WHERE contains(string(tags), "alzheimers") OR contains(string(tags), "BIIB") OR 
 SORT date DESC
 LIMIT 5
 ```
+
+
+

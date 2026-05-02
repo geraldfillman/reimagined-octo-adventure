@@ -16,9 +16,9 @@ integrated: false
 notes: ""
 ---
 
-## Overview
+## Summary
 
-The Treasury Fiscal Data API provides direct access to U.S. Treasury auction results, debt outstanding, interest rates, and fiscal data. Complements FRED for rate and yield data with more granular auction-level detail.
+- The Treasury Fiscal Data API provides direct access to U.S. Treasury auction results, debt outstanding, interest rates, and fiscal data. Complements FRED for rate and yield data with more granular auction-level detail.
 
 ## What It Provides
 
@@ -48,3 +48,4 @@ The Treasury Fiscal Data API provides direct access to U.S. Treasury auction res
 - [[FRED API]]
 - [[BEA API]]
 - [[BLS API]]
+

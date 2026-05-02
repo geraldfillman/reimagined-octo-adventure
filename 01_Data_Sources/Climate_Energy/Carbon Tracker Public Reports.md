@@ -28,9 +28,9 @@ integrated: false
 notes: "Think tank focused on fossil fuel financial risk. Reports are free and well-cited."
 ---
 
-## Overview
+## Summary
 
-Carbon Tracker Public Reports provides stranded asset risk analysis, fossil fuel company exposure, climate scenario analysis. Think tank focused on fossil fuel financial risk. Reports are free and well-cited.
+- Carbon Tracker Public Reports provides stranded asset risk analysis, fossil fuel company exposure, climate scenario analysis. Think tank focused on fossil fuel financial risk. Reports are free and well-cited.
 
 ## What It Provides
 
@@ -56,3 +56,4 @@ Carbon Tracker Public Reports provides stranded asset risk analysis, fossil fuel
 
 - [[EPA GHGRP]]
 - [[IRENA]]
+

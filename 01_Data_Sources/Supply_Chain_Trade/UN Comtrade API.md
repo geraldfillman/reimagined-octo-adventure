@@ -20,9 +20,9 @@ integrated: false
 notes: "Great macro trade backbone"
 ---
 
-## Overview
+## Summary
 
-UN Comtrade API provides country-level trade flows. Great macro trade backbone
+- UN Comtrade API provides country-level trade flows. Great macro trade backbone
 
 ## What It Provides
 
@@ -43,4 +43,4 @@ UN Comtrade API provides country-level trade flows. Great macro trade backbone
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

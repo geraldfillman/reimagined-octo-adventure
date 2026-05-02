@@ -4,13 +4,51 @@ name: "Psychedelic Mental Health Revolution"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "watch"
+allocation_rank: 3
+why_now: "Mental-health burden and regulatory openness keep the category alive, but capital markets remain selective."
+variant_perception: "The market still swings between dismissing psychedelics entirely and overpricing single-trial optimism."
+next_catalyst: "Phase readouts, FDA scheduling progress, and payer-reimbursement clarity."
+disconfirming_evidence: "Clinical setbacks or regulatory pushback stall commercialization."
+expected_upside: "Strong efficacy and workable delivery models can drive sharp asymmetric upside."
+expected_downside: "Binary trial and regulatory risk remain very high."
+position_sizing: "Optional 0.25-1% sleeve only."
+required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
+required_pull_families: ["clinicaltrials --psychedelics", "pubmed --psychedelics", "fda --recent-approvals", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Keep small and review only when a catalyst or signal meaningfully changes."
 core_entities: ["[[PSIL]]", "[[ATAI]]", "[[DFTX]]", "[[CMPS]]", "[[ALKS]]", "[[GHRS]]", "[[HELP]]", "[[NBIX]]", "[[JNJ]]", "[[ABBV]]", "[[Healthcare]]", "[[USA]]"]
 supporting_regimes: ["[[Rate Cut Cycle]]", "[[Risk-On]]"]
 key_indicators: ["[[Fed Funds Rate]]", "[[VIX]]"]
 bullish_drivers: ["[[FDA Regulatory Tailwind]]", "[[Mental Health Epidemic]]", "[[Single-Dose Economics]]"]
 bearish_drivers: ["[[Clinical Trial Failure Risk]]", "[[DEA Scheduling Obstacles]]", "[[Rate Hike Cycle]]"]
 invalidation_triggers: ["Multiple Phase 3 failures across top holdings (ATAI + DFTX + CMPS)", "FDA reverses psychedelic regulatory pathway", "PSIL AUM drops below $10M (fund viability risk)", "Trump admin actively blocks psychedelic drug approvals"]
-tags: [thesis, biotech, psychedelics]
+fmp_watchlist_symbols: ["PSIL", "ATAI", "DFTX", "CMPS", "ALKS", "GHRS", "HELP", "NBIX", "JNJ", "ABBV"]
+fmp_watchlist_symbol_count: 10
+fmp_primary_symbol: "PSIL"
+fmp_technical_symbol_count: 10
+fmp_technical_nonclear_count: 3
+fmp_technical_bearish_count: 4
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "bullish"
+fmp_primary_momentum_state: "positive"
+fmp_primary_rsi14: 58.37
+fmp_primary_price_vs_sma200_pct: 8.35
+fmp_primary_fundamentals_status: "partial"
+fmp_primary_market_cap: 19528257
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 8
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-05"
+fmp_next_earnings_symbols: ["ALKS", "NBIX"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "biotech", "psychedelics"]
 ---
 
 ## Thesis Statement
@@ -90,6 +128,29 @@ What would prove this thesis wrong?
 - Cash runway falls below 12 months, forcing dilutive raise at low prices
 - Efficacy durability concern from Phase 2b (Week 4→Week 6 decline) confirmed in Phase 3
 
+## Investment Scorecard
+
+- **Allocation Priority**: watch (3)
+- **Why now**: Mental-health burden and regulatory openness keep the category alive, but capital markets remain selective.
+- **Variant perception**: The market still swings between dismissing psychedelics entirely and overpricing single-trial optimism.
+- **Next catalyst**: Phase readouts, FDA scheduling progress, and payer-reimbursement clarity.
+- **Disconfirming evidence**: Clinical setbacks or regulatory pushback stall commercialization.
+- **Expected upside**: Strong efficacy and workable delivery models can drive sharp asymmetric upside.
+- **Expected downside**: Binary trial and regulatory risk remain very high.
+- **Sizing rule**: Optional 0.25-1% sleeve only.
+
+## Required Evidence
+
+- **Source notes**: [[FDA open data Drugs@FDA]], [[ClinicalTrials API]], [[PubMed API]], [[NewsAPI]]
+- **Pull families**: clinicaltrials --psychedelics, pubmed --psychedelics, fda --recent-approvals, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Keep small and review only when a catalyst or signal meaningfully changes.
+
 ## Position Sizing & Risk
 - **Vehicle**: [[PSIL]] ETF for diversified exposure vs. single-stock binary risk
 - **Size**: Small position (1-3% of portfolio) given clinical-stage concentration
@@ -106,3 +167,6 @@ WHERE contains(string(tags), "ATAI") OR contains(string(tags), "biotech") OR con
 SORT date DESC
 LIMIT 5
 ```
+
+
+

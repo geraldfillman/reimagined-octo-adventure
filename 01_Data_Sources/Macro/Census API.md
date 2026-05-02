@@ -16,9 +16,9 @@ integrated: false
 notes: ""
 ---
 
-## Overview
+## Summary
 
-The Census Bureau API provides access to American Community Survey (ACS), decennial census, population estimates, and housing data at national, state, county, and ZIP-code levels. Essential for understanding who lives where and how communities are changing.
+- The Census Bureau API provides access to American Community Survey (ACS), decennial census, population estimates, and housing data at national, state, county, and ZIP-code levels. Essential for understanding who lives where and how communities are changing.
 
 ## What It Provides
 
@@ -49,3 +49,4 @@ The Census Bureau API provides access to American Community Survey (ACS), decenn
 - [[FRED API]]
 - [[BLS API]]
 - [[HUD User Datasets]]
+

@@ -4,13 +4,65 @@ name: "Gene Editing & CRISPR Therapeutics"
 status: "Active"
 conviction: "high"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "First-wave commercial gene-editing approvals are shifting the category from proof-of-concept to platform economics."
+variant_perception: "The market still prices gene editing as perpetual science optionality instead of a maturing therapeutic platform."
+next_catalyst: "Additional indications, manufacturing scale, and reimbursement evidence."
+disconfirming_evidence: "Durability, safety, or manufacturability issues prevent the platform from scaling."
+expected_upside: "Platform validation can drive multi-year rerating across the leaders."
+expected_downside: "Binary trial setbacks remain severe and can impair the whole group."
+position_sizing: "Satellite 1-2% basket with strict single-name limits."
+required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[SEC EDGAR API]]"]
+required_pull_families: ["fda --recent-approvals", "clinicaltrials --geneediting", "pubmed --geneediting", "sec --biotech"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[NTLA]]", "[[BEAM]]", "[[EDIT]]", "[[CRSP]]", "[[Gene Editing]]", "[[Rare Disease]]", "[[USA]]"]
 supporting_regimes: ["[[Innovation Cycle]]", "[[Risk-On]]"]
 key_indicators: ["[[CRISPR Approvals]]", "[[In Vivo Editing Trials]]", "[[Base Editing Phase 2 Data]]", "[[Patent Landscape]]"]
 bullish_drivers: ["[[CASGEVY Approval Precedent]]", "[[In Vivo Delivery Advances]]", "[[Base Editing Precision]]", "[[Prime Editing Breadth]]", "[[BARDA Pandemic Preparedness Contracts]]"]
 bearish_drivers: ["[[Off-Target Editing Concerns]]", "[[Manufacturing Complexity]]", "[[IP Interference Proceedings]]", "[[Pricing / Access Controversy]]"]
 invalidation_triggers: ["Major off-target editing safety event in a clinical trial triggers FDA clinical hold across multiple programs", "CRISPR/Cas9 IP interference proceeding at USPTO permanently clouds foundational patents", "In vivo delivery (LNP, AAV) fails for liver targets — limits reach beyond ex vivo", "Reimbursement agencies (NICE, CMS) refuse coverage for >$2M one-time therapies"]
-tags: [thesis, biotech, gene-editing, crispr, rare-disease, genomics]
+fmp_watchlist_symbols: ["NTLA", "BEAM", "EDIT", "CRSP"]
+fmp_watchlist_symbol_count: 4
+fmp_primary_symbol: "NTLA"
+fmp_technical_symbol_count: 4
+fmp_technical_nonclear_count: 2
+fmp_technical_bearish_count: 2
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 40.75
+fmp_primary_price_vs_sma200_pct: -5.27
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 1470171980
+fmp_primary_trailing_pe: -3.27
+fmp_primary_price_to_sales: 21.73
+fmp_primary_price_to_book: 2.01
+fmp_primary_ev_to_sales: 20.81
+fmp_primary_ev_to_ebitda: -3.37
+fmp_primary_roe_pct: -56.63
+fmp_primary_roic_pct: -57.67
+fmp_primary_operating_margin_pct: -651.67
+fmp_primary_net_margin_pct: -609.85
+fmp_primary_current_ratio: 5.08
+fmp_primary_debt_to_equity: 0.14
+fmp_primary_price_target: 20.29
+fmp_primary_analyst_count: 21
+fmp_primary_target_upside_pct: 63.04
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-05"
+fmp_next_earnings_symbols: ["BEAM"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "biotech", "gene-editing", "crispr", "rare-disease", "genomics"]
 ---
 
 ## Thesis Statement
@@ -70,6 +122,29 @@ PTAB proceedings to monitor (`--ptab` query, tech center 1600):
 - CMS refuses to cover CASGEVY at $2.2M — reimbursement model fails (blocks all successor therapies)
 - In vivo delivery fails to achieve durable editing in non-liver tissues — limits TAM to rare liver diseases only
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: First-wave commercial gene-editing approvals are shifting the category from proof-of-concept to platform economics.
+- **Variant perception**: The market still prices gene editing as perpetual science optionality instead of a maturing therapeutic platform.
+- **Next catalyst**: Additional indications, manufacturing scale, and reimbursement evidence.
+- **Disconfirming evidence**: Durability, safety, or manufacturability issues prevent the platform from scaling.
+- **Expected upside**: Platform validation can drive multi-year rerating across the leaders.
+- **Expected downside**: Binary trial setbacks remain severe and can impair the whole group.
+- **Sizing rule**: Satellite 1-2% basket with strict single-name limits.
+
+## Required Evidence
+
+- **Source notes**: [[FDA open data Drugs@FDA]], [[ClinicalTrials API]], [[PubMed API]], [[SEC EDGAR API]]
+- **Pull families**: fda --recent-approvals, clinicaltrials --geneediting, pubmed --geneediting, sec --biotech
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[CRSP]] for only commercial-stage name; [[NTLA]] for best in vivo pipeline
 - **Size**: 1–3% speculative each — high conviction platform, but binary clinical and IP risk
@@ -91,3 +166,6 @@ WHERE contains(string(tags), "geneediting") OR contains(string(tags), "CRSP") OR
 SORT date DESC
 LIMIT 5
 ```
+
+
+

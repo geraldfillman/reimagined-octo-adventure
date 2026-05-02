@@ -16,9 +16,9 @@ integrated: false
 notes: ""
 ---
 
-## Overview
+## Summary
 
-NOAA Storm Events Database records severe weather events with property and crop damage estimates at the county level going back to 1950. Connects directly to housing risk analysis — which areas face recurring tornado, hurricane, flood, or wildfire damage.
+- NOAA Storm Events Database records severe weather events with property and crop damage estimates at the county level going back to 1950. Connects directly to housing risk analysis — which areas face recurring tornado, hurricane, flood, or wildfire damage.
 
 ## What It Provides
 
@@ -49,3 +49,4 @@ NOAA Storm Events Database records severe weather events with property and crop 
 - [[OpenFEMA API]]
 - [[EIA API]]
 - [[NOAA Climate Data Online]]
+

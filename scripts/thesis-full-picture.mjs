@@ -96,7 +96,6 @@ function buildReportContext(thesis, deps) {
   const keyIndicatorRows = buildIndicatorRows(noteData.key_indicators, deps.macroContext);
   const regimeRows = buildRegimeRows(noteData.supporting_regimes, deps.macroContext);
 
-  const qlibSignalStatus = normalizeSignalStatus(noteData.qlib_signal_status) || 'clear';
   const technicalSignalStatus = normalizeSignalStatus(primaryTechnical?.data?.signal_status) || 'clear';
   const macroSignalStatus = resolveMaxSignalStatus(keyIndicatorRows.map(row => row.signalStatus));
   const catalystSignalStatus = resolveMaxSignalStatus(catalystRows.map(row => row.signalStatus));
@@ -117,7 +116,6 @@ function buildReportContext(thesis, deps) {
   });
   const structuralView = resolveStructuralView(noteData, primaryFundamentals);
   const tacticalView = resolveTacticalView({
-    qlibSignalStatus,
     technicalSignalStatus,
     catalystSignalStatus,
     nextEarningsDate: catalystRows[0]?.nextEarningsDate || null,
@@ -130,7 +128,6 @@ function buildReportContext(thesis, deps) {
   ]);
 
   const overallSignalStatus = resolveOverallSignalStatus({
-    qlibSignalStatus,
     technicalSignalStatus,
     macroSignalStatus,
     catalystSignalStatus,
@@ -151,7 +148,6 @@ function buildReportContext(thesis, deps) {
     catalystRows,
     keyIndicatorRows,
     regimeRows,
-    qlibSignalStatus,
     technicalSignalStatus,
     macroSignalStatus,
     catalystSignalStatus,
@@ -185,7 +181,6 @@ function buildFullPictureNote(context) {
     conviction: context.noteData.conviction || null,
     monitor_status: context.noteData.monitor_status || null,
     break_risk_status: context.noteData.break_risk_status || null,
-    qlib_signal_status: context.qlibSignalStatus,
     technical_status: context.technicalSignalStatus,
     technical_bias: context.primaryTechnical?.data?.technical_bias || null,
     fundamentals_status: context.fundamentalsStatus,
@@ -224,8 +219,8 @@ function buildFullPictureNote(context) {
       content: buildStructuralContent(context),
     },
     {
-      heading: 'Quant And Tape',
-      content: buildQuantAndTapeContent(context),
+      heading: 'Tape And Catalysts',
+      content: buildTapeAndCatalystContent(context),
     },
     {
       heading: 'Fundamentals',
@@ -268,7 +263,7 @@ function buildSnapshotContent(context) {
     `- **Primary Symbol**: ${context.primarySymbol || 'N/A'}`,
     `- **Priority / Conviction**: ${(context.noteData.allocation_priority || 'N/A')} / ${(context.noteData.conviction || 'N/A')}`,
     `- **Monitor / Break Risk**: ${(context.noteData.monitor_status || 'N/A')} / ${(context.noteData.break_risk_status || 'N/A')}`,
-    `- **Quant / Tape / Indicators**: ${context.qlibSignalStatus} / ${context.technicalSignalStatus} / ${context.macroSignalStatus}`,
+    `- **Tape / Indicators**: ${context.technicalSignalStatus} / ${context.macroSignalStatus}`,
     `- **Fundamentals**: ${context.fundamentalsStatus} (${context.fundamentalsSymbolCount}/${context.symbols.length} watchlist symbol(s) cached)`,
     `- **Next Earnings**: ${formatDateValue(context.nextEarningsDate)}`,
     `- **Overall Status**: ${context.overallSignalStatus}`,
@@ -300,17 +295,10 @@ function buildStructuralContent(context) {
   return `${summaryLines.join('\n')}\n\n${regimeTable}`;
 }
 
-function buildQuantAndTapeContent(context) {
+function buildTapeAndCatalystContent(context) {
   const summaryTable = buildTable(
     ['Layer', 'Status', 'Metric 1', 'Metric 2', 'Metric 3'],
     [
-      [
-        'Qlib',
-        context.qlibSignalStatus,
-        formatValue(context.noteData.qlib_best_ic, { decimals: 3 }),
-        formatCount(context.noteData.qlib_positive_factor_count),
-        formatValue(context.noteData.qlib_backtest_sharpe, { decimals: 2 }),
-      ],
       [
         'Primary Tape',
         context.technicalSignalStatus,
@@ -578,8 +566,8 @@ function resolveStructuralView(noteData, primaryFundamentals) {
   return 'fragile';
 }
 
-function resolveTacticalView({ qlibSignalStatus, technicalSignalStatus, catalystSignalStatus, nextEarningsDate }) {
-  const maxSignal = resolveMaxSignalStatus([qlibSignalStatus, technicalSignalStatus, catalystSignalStatus]);
+function resolveTacticalView({ technicalSignalStatus, catalystSignalStatus, nextEarningsDate }) {
+  const maxSignal = resolveMaxSignalStatus([technicalSignalStatus, catalystSignalStatus]);
   const days = nextEarningsDate ? daysUntil(nextEarningsDate) : null;
 
   if (maxSignal === 'critical' || maxSignal === 'alert') return 'risky';
@@ -588,9 +576,8 @@ function resolveTacticalView({ qlibSignalStatus, technicalSignalStatus, catalyst
   return 'constructive';
 }
 
-function resolveOverallSignalStatus({ qlibSignalStatus, technicalSignalStatus, macroSignalStatus, catalystSignalStatus, fundamentalsStatus, coverageGapCount }) {
+function resolveOverallSignalStatus({ technicalSignalStatus, macroSignalStatus, catalystSignalStatus, fundamentalsStatus, coverageGapCount }) {
   let status = resolveMaxSignalStatus([
-    qlibSignalStatus,
     technicalSignalStatus,
     macroSignalStatus,
     catalystSignalStatus,
@@ -625,9 +612,6 @@ function buildFrontmatterSignals(context) {
     `TACTICAL_${context.tacticalView.toUpperCase()}`,
   ];
 
-  if (context.qlibSignalStatus !== 'clear') {
-    signals.push(`QLIB_${context.qlibSignalStatus.toUpperCase()}`);
-  }
   if (context.technicalSignalStatus !== 'clear') {
     signals.push(`TECHNICAL_${context.technicalSignalStatus.toUpperCase()}`);
   }

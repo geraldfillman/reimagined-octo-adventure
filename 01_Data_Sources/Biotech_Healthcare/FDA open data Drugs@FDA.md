@@ -26,9 +26,9 @@ last_reviewed: "2026-03-26"
 notes: Core biotech foundation
 ---
 
-## Overview
+## Summary
 
-FDA open data / Drugs@FDA provides approvals, labels, drug information. Core biotech foundation
+- FDA open data / Drugs@FDA provides approvals, labels, drug information. Core biotech foundation
 
 ## What It Provides
 
@@ -54,4 +54,4 @@ FDA open data / Drugs@FDA provides approvals, labels, drug information. Core bio
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

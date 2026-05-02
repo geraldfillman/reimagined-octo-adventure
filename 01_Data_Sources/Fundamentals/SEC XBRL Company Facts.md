@@ -22,9 +22,9 @@ integrated: false
 notes: "Excellent for systematic factor work"
 ---
 
-## Overview
+## Summary
 
-SEC XBRL Company Facts provides structured financial statement data. Excellent for systematic factor work
+- SEC XBRL Company Facts provides structured financial statement data. Excellent for systematic factor work
 
 ## What It Provides
 
@@ -47,4 +47,4 @@ SEC XBRL Company Facts provides structured financial statement data. Excellent f
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

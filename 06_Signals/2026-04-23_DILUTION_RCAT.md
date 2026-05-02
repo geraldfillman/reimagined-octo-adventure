@@ -16,6 +16,7 @@ shelf_headroom_usd: 0
 atm_to_float: 0
 nasdaq_compliant: true
 tags: ["signal", "dilution", "rcat"]
+ack_status: "reviewed"
 ---
 
 ## Triggers

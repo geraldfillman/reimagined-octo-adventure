@@ -22,9 +22,9 @@ integrated: false
 notes: "Useful for quick builds"
 ---
 
-## Overview
+## Summary
 
-Twelve Data provides equities, forex, crypto, indicators. Useful for quick builds
+- Twelve Data provides equities, forex, crypto, indicators. Useful for quick builds
 
 ## What It Provides
 
@@ -47,4 +47,4 @@ Twelve Data provides equities, forex, crypto, indicators. Useful for quick build
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

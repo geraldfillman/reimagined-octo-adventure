@@ -1,8 +1,15 @@
 ---
+title: Graph Conventions
+type: reference
 tags: [reference, conventions, graph]
+last_updated: 2026-03-27
 ---
 
 # Network Graph Conventions
+
+Summary:
+- Link protocol for the three-layer research graph: macro, entities, and theses.
+- Read this before renaming graph nodes, changing wiki links, or editing graph-facing templates.
 
 ## Architecture
 

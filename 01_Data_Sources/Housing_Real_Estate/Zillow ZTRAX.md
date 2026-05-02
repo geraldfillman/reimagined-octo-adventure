@@ -1,5 +1,5 @@
 ---
-name: "Zillow ZTRAX (Academic)"
+name: "Zillow ZTRAX"
 category: "Housing_Real_Estate"
 type: "Download"
 provider: "Zillow Group"
@@ -16,9 +16,9 @@ integrated: false
 notes: ""
 ---
 
-## Overview
+## Summary
 
-ZTRAX (Zillow Transaction and Assessment Dataset) provides property-level deed transfers and tax assessment data for academic and research use. Covers 400M+ property records. Much more granular than Zillow's public research CSV downloads.
+- ZTRAX (Zillow Transaction and Assessment Dataset) provides property-level deed transfers and tax assessment data for academic and research use. Covers 400M+ property records. Much more granular than Zillow's public research CSV downloads.
 
 ## What It Provides
 
@@ -48,3 +48,4 @@ ZTRAX (Zillow Transaction and Assessment Dataset) provides property-level deed t
 - [[Zillow Research Data]]
 - [[ATTOM Data]]
 - [[Census API]]
+

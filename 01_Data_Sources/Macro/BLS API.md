@@ -22,9 +22,9 @@ integrated: false
 notes: "Core macro feed"
 ---
 
-## Overview
+## Summary
 
-BLS API provides cpi, ppi, employment, wages. Core macro feed
+- BLS API provides cpi, ppi, employment, wages. Core macro feed
 
 ## What It Provides
 
@@ -47,4 +47,4 @@ BLS API provides cpi, ppi, employment, wages. Core macro feed
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

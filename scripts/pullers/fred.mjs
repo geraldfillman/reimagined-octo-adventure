@@ -141,7 +141,8 @@ export async function pull(flags = {}) {
     groupName = 'custom';
     console.log(`📊 FRED: Pulling ${ids.length} custom series\n`);
   } else {
-    throw new Error('Specify --group <name> or --series <IDS>. Run "node run.mjs help" for options.');
+    // No flags → default to macro alias (runs all groups)
+    return pull({ ...flags, group: 'macro' });
   }
 
   // Fetch all series

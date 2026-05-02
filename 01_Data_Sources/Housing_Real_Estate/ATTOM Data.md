@@ -16,9 +16,9 @@ integrated: false
 notes: ""
 ---
 
-## Overview
+## Summary
 
-ATTOM provides property-level data including valuations, tax assessments, deed transfers, foreclosure filings, and natural hazard risk scores. Goes deeper than Zillow/Redfin aggregates — individual property intelligence.
+- ATTOM provides property-level data including valuations, tax assessments, deed transfers, foreclosure filings, and natural hazard risk scores. Goes deeper than Zillow/Redfin aggregates — individual property intelligence.
 
 ## What It Provides
 
@@ -49,3 +49,4 @@ ATTOM provides property-level data including valuations, tax assessments, deed t
 - [[Zillow Research Data]]
 - [[Redfin Data Center]]
 - [[FHFA House Price Index]]
+

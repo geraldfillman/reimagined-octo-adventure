@@ -21,9 +21,9 @@ integrated: false
 notes: "Great for economic scaffolding"
 ---
 
-## Overview
+## Summary
 
-BEA API provides gdp, pce, industry accounts. Great for economic scaffolding
+- BEA API provides gdp, pce, industry accounts. Great for economic scaffolding
 
 ## What It Provides
 
@@ -45,4 +45,4 @@ BEA API provides gdp, pce, industry accounts. Great for economic scaffolding
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

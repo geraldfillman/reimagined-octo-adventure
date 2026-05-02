@@ -4,13 +4,65 @@ name: "Grid-Scale Battery Storage"
 status: "Active"
 conviction: "medium"
 timeframe: "medium"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Storage economics are improving as AI load, renewables penetration, and grid instability all increase the value of flexibility."
+variant_perception: "The market still sees storage as a commoditized renewable add-on rather than a grid-control asset."
+next_catalyst: "Battery deployment data, utility procurement, and interconnection-driven grid stress."
+disconfirming_evidence: "Battery oversupply crushes margins without corresponding project uptake."
+expected_upside: "Storage operators and key suppliers gain from rising grid-balancing demand."
+expected_downside: "Commodity pricing and execution risk keep value capture thin."
+position_sizing: "Satellite 1-3% sleeve sized only where project economics are visible."
+required_sources: ["[[EIA_Electricity]]", "[[IRENA]]", "[[SEC EDGAR API]]"]
+required_pull_families: ["eia --generation-mix", "eia --regional-load", "sec --battery", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[FLNC]]", "[[STEM]]", "[[ENVX]]", "[[Grid Storage]]", "[[Clean Energy]]", "[[USA]]"]
 supporting_regimes: ["[[Energy Transition]]", "[[AI Infrastructure Buildout]]", "[[IRA Incentives]]"]
 key_indicators: ["[[BESS Deployment GWh]]", "[[Battery Cost $/kWh]]", "[[IRA Investment Tax Credit Utilization]]", "[[Grid Interconnection Queue]]", "[[Utility Scale Storage Orders]]"]
 bullish_drivers: ["[[IRA Battery Storage ITC (30%)]]", "[[Renewable Intermittency Driving BESS Demand]]", "[[LFP Cost Decline]]", "[[AI Data Center Behind-the-Meter Storage]]", "[[Grid Resilience Investment]]"]
 bearish_drivers: ["[[Chinese LFP Battery Dumping]]", "[[IRA Political Risk]]", "[[Interconnection Queue Backlogs]]", "[[Interest Rate Sensitivity]]"]
 invalidation_triggers: ["IRA Investment Tax Credit repealed or restricted — removes the 30% subsidy that makes most BESS projects economic", "Chinese LFP battery exports maintain cost 40%+ below US/Western alternatives indefinitely — destroys margins for US integrators", "Grid interconnection queues extend beyond 7 years nationally — pipeline never converts to revenue", "Nuclear + gas dominates the AI power buildout, reducing BESS to backup role rather than primary dispatch asset"]
-tags: [thesis, energy, storage, battery, grid, clean-energy, ira]
+fmp_watchlist_symbols: ["FLNC", "STEM", "ENVX"]
+fmp_watchlist_symbol_count: 3
+fmp_primary_symbol: "FLNC"
+fmp_technical_symbol_count: 3
+fmp_technical_nonclear_count: 3
+fmp_technical_bearish_count: 3
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 33.96
+fmp_primary_price_vs_sma200_pct: -25.13
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 2172304523
+fmp_primary_trailing_pe: -29.97
+fmp_primary_price_to_sales: 0.85
+fmp_primary_price_to_book: 4.01
+fmp_primary_ev_to_sales: 0.83
+fmp_primary_ev_to_ebitda: -95.58
+fmp_primary_roe_pct: -12.87
+fmp_primary_roic_pct: -5.99
+fmp_primary_operating_margin_pct: -2.18
+fmp_primary_net_margin_pct: -2.03
+fmp_primary_current_ratio: 1.48
+fmp_primary_debt_to_equity: 1.01
+fmp_primary_price_target: 16.72
+fmp_primary_analyst_count: 32
+fmp_primary_target_upside_pct: 41.34
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 3
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-06"
+fmp_next_earnings_symbols: ["FLNC", "STEM"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "energy", "storage", "battery", "grid", "clean-energy", "ira"]
 ---
 
 ## Thesis Statement
@@ -69,6 +121,29 @@ Battery energy storage systems (BESS) are the fastest-growing segment of grid in
 - FERC/state regulatory reversal on storage compensation (ancillary services) removes the revenue stack
 - Interest rates stay above 6% for 3+ years → BESS project NPVs turn negative; pipeline stalls
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Storage economics are improving as AI load, renewables penetration, and grid instability all increase the value of flexibility.
+- **Variant perception**: The market still sees storage as a commoditized renewable add-on rather than a grid-control asset.
+- **Next catalyst**: Battery deployment data, utility procurement, and interconnection-driven grid stress.
+- **Disconfirming evidence**: Battery oversupply crushes margins without corresponding project uptake.
+- **Expected upside**: Storage operators and key suppliers gain from rising grid-balancing demand.
+- **Expected downside**: Commodity pricing and execution risk keep value capture thin.
+- **Sizing rule**: Satellite 1-3% sleeve sized only where project economics are visible.
+
+## Required Evidence
+
+- **Source notes**: [[EIA_Electricity]], [[IRENA]], [[SEC EDGAR API]]
+- **Pull families**: eia --generation-mix, eia --regional-load, sec --battery, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[FLNC]] for pure-play BESS integrator exposure; [[STEM]] for software/recurring revenue differentiation
 - **Size**: 1–3% each — medium conviction; high policy risk (IRA)
@@ -90,3 +165,6 @@ WHERE contains(string(tags), "storage") OR contains(string(tags), "FLNC") OR con
 SORT date DESC
 LIMIT 5
 ```
+
+
+

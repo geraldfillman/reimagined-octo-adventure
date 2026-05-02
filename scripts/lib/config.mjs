@@ -49,6 +49,11 @@ const SOURCES = Object.freeze({
     keyVar: 'NEWSAPI_API_KEY',
     baseUrl: 'https://newsapi.org/v2',
   },
+  gdelt: {
+    name: 'GDELT DOC API',
+    keyVar: null,
+    baseUrl: 'https://api.gdeltproject.org/api/v2/doc/doc',
+  },
   patentsview: {
     name: 'USPTO PatentsView',
     keyVar: 'PATENTSVIEW_API_KEY',

@@ -23,9 +23,8 @@ This is the top-level operating layer for the vault's domain agents. It organize
 | [[16_Agents/Government Agent/README|Government Agent]] | [[16_Agents/Government Agent/Pulls|Pulls]] | [[16_Agents/Government Agent/Sources|Sources]] | [[16_Agents/Government Agent/Signals|Signals]] |
 | [[16_Agents/Housing Agent/README|Housing Agent]] | [[16_Agents/Housing Agent/Pulls|Pulls]] | [[16_Agents/Housing Agent/Sources|Sources]] | [[16_Agents/Housing Agent/Signals|Signals]] |
 | [[16_Agents/Energy Agent/README|Energy Agent]] | [[16_Agents/Energy Agent/Pulls|Pulls]] | [[16_Agents/Energy Agent/Sources|Sources]] | [[16_Agents/Energy Agent/Signals|Signals]] |
-| [[16_Agents/Research Agent/README|Research Agent]] | [[16_Agents/Research Agent/Pulls|Pulls]] | [[16_Agents/Research Agent/Sources|Sources]] | [[16_Agents/Research Agent/Signals|Signals]] |
+| [[16_Agents/Research Agent/README|Research Agent]] | [[16_Agents/Research Agent/Pulls|Pulls]] / [[16_Agents/Research Agent/Investment Strategies|Strategies]] | [[16_Agents/Research Agent/Sources|Sources]] | [[16_Agents/Research Agent/Signals|Signals]] |
 | [[16_Agents/Sectors Agent/README|Sectors Agent]] | [[16_Agents/Sectors Agent/Pulls|Pulls]] | [[16_Agents/Sectors Agent/Sources|Sources]] | [[16_Agents/Sectors Agent/Signals|Signals]] |
-| [[16_Agents/Sports Agent/README|Sports Agent]] | [[16_Agents/Sports Agent/Pulls|Pulls]] | [[16_Agents/Sports Agent/Sources|Sources]] | [[16_Agents/Sports Agent/Signals|Signals]] |
 | [[16_Agents/OSINT Agent/README|OSINT Agent]] | [[16_Agents/OSINT Agent/Pulls|Pulls]] | [[16_Agents/OSINT Agent/Sources|Sources]] | [[16_Agents/OSINT Agent/Signals|Signals]] |
 | [[16_Agents/VC Agent/README|VC Agent]] | [[16_Agents/VC Agent/Pulls|Pulls]] | [[16_Agents/VC Agent/Sources|Sources]] | [[16_Agents/VC Agent/Signals|Signals]] |
 | [[16_Agents/News Agent/README|News Agent]] | [[16_Agents/News Agent/Pulls|Pulls]] | [[16_Agents/News Agent/Sources|Sources]] | [[16_Agents/News Agent/Signals|Signals]] |
@@ -44,9 +43,8 @@ const routes = [
   ["Government Agent", ["05_Data_Pulls/Government"], ["government"]],
   ["Housing Agent", ["05_Data_Pulls/Housing"], ["housing"]],
   ["Energy Agent", ["05_Data_Pulls/Energy"], ["energy"]],
-  ["Research Agent", ["05_Data_Pulls/Research"], ["research"]],
+  ["Research Agent", ["05_Data_Pulls/Research", "05_Data_Pulls/Theses"], ["research", "strategy-rollup"]],
   ["Sectors Agent", ["05_Data_Pulls/Sectors"], ["sectors", "sector"]],
-  ["Sports Agent", ["05_Data_Pulls/Sports"], ["sports"]],
   ["OSINT Agent", ["05_Data_Pulls/osint", "05_Data_Pulls/social"], ["osint", "social"]],
   ["VC Agent", ["05_Data_Pulls/VC"], ["vc", "capital-raise", "deal-flow"]],
   ["News Agent", ["05_Data_Pulls/News"], ["news", "media", "sentiment", "reddit"]],

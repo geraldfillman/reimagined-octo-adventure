@@ -1,5 +1,6 @@
-import { fetchProfile, fetchQuote, fetchSharesFloat, fetchShortInterest } from '../../lib/fmp-client.mjs';
+import { fetchIntradayPrices, fetchProfile, fetchQuote, fetchSharesFloat, fetchShortInterest } from '../../lib/fmp-client.mjs';
 import { classifyDirectionalScore, confidenceFromScore, makeAgentSignal } from './schemas.mjs';
+import { computeTransitionEntropyFromBars } from './entropy.mjs';
 import { compactNumber, formatPercent } from './utils.mjs';
 
 export async function runMicrostructureAgent(state) {
@@ -15,11 +16,12 @@ export async function runMicrostructureAgent(state) {
   }
 
   const symbol = String(state.symbol || '').toUpperCase();
-  const [quoteResult, profileResult, floatResult, shortResult] = await Promise.allSettled([
+  const [quoteResult, profileResult, floatResult, shortResult, intradayResult] = await Promise.allSettled([
     fetchQuote(symbol),
     fetchProfile(symbol),
     fetchSharesFloat(symbol),
     fetchShortInterest(symbol),
+    fetchIntradayPrices(symbol, { interval: '1min' }),
   ]);
 
   if (quoteResult.status !== 'fulfilled' || !quoteResult.value) {
@@ -30,6 +32,8 @@ export async function runMicrostructureAgent(state) {
   const profile = profileResult.status === 'fulfilled' ? profileResult.value : null;
   const floatData = floatResult.status === 'fulfilled' ? floatResult.value : null;
   const shortData = shortResult.status === 'fulfilled' ? shortResult.value : null;
+  const intradayRows = intradayResult.status === 'fulfilled' ? normalizeIntradayRows(intradayResult.value) : [];
+  const entropy = computeTransitionEntropyFromBars(intradayRows, { lookback: 120 });
 
   const volume = Number(quote.volume);
   const avgVolume = Number(quote.avgVolume ?? quote.averageVolume ?? profile?.averageVolume);
@@ -59,16 +63,18 @@ export async function runMicrostructureAgent(state) {
     agent: 'microstructure',
     signal,
     confidence,
-    summary: `Volume ratio ${formatRatio(volumeRatio)}, price change ${formatPercent(changePct)}, short/float ${formatPercent(shortPctFloat)}.`,
+    summary: `Volume ratio ${formatRatio(volumeRatio)}, price change ${formatPercent(changePct)}, short/float ${formatPercent(shortPctFloat)}, entropy ${entropy.level}.`,
     evidence: [
       `Volume: ${compactNumber(volume, 1)} vs avg ${compactNumber(avgVolume, 1)}`,
       `Market cap: ${compactNumber(marketCap, 1)}`,
       `Short percent float: ${formatPercent(shortPctFloat)}`,
+      ...(entropy.score !== null ? [`Order-flow entropy: ${entropy.level} (${entropy.score}) from ${entropy.transitions} transitions`] : []),
     ],
     warnings: [
       ...(profileResult.status === 'rejected' ? [`Profile unavailable: ${profileResult.reason?.message || profileResult.reason}`] : []),
       ...(floatResult.status === 'rejected' ? [`Float unavailable: ${floatResult.reason?.message || floatResult.reason}`] : []),
       ...(shortResult.status === 'rejected' ? [`Short interest unavailable: ${shortResult.reason?.message || shortResult.reason}`] : []),
+      ...(intradayResult.status === 'rejected' ? [`Intraday entropy unavailable: ${intradayResult.reason?.message || intradayResult.reason}`] : []),
     ],
     raw_data: {
       price: Number(quote.price ?? quote.open ?? 0) || null,
@@ -79,6 +85,11 @@ export async function runMicrostructureAgent(state) {
       market_cap: Number.isFinite(marketCap) ? marketCap : null,
       beta: Number.isFinite(beta) ? beta : null,
       short_pct_float: Number.isFinite(shortPctFloat) ? Number(shortPctFloat.toFixed(2)) : null,
+      order_flow_entropy_score: entropy.score,
+      order_flow_entropy_level: entropy.level,
+      order_flow_entropy_transitions: entropy.transitions,
+      order_flow_entropy_method: entropy.method,
+      order_flow_entropy_read: entropy.interpretation,
     },
   });
 }
@@ -90,4 +101,15 @@ function normalizePercent(value) {
 
 function formatRatio(value) {
   return Number.isFinite(value) ? `${value.toFixed(2)}x` : 'N/A';
+}
+
+function normalizeIntradayRows(rows = []) {
+  return rows
+    .map(row => ({
+      date: row.date || row.datetime || null,
+      close: Number(row.close),
+      volume: Number(row.volume),
+    }))
+    .filter(row => row.date && Number.isFinite(row.close) && Number.isFinite(row.volume))
+    .sort((left, right) => String(left.date).localeCompare(String(right.date)));
 }

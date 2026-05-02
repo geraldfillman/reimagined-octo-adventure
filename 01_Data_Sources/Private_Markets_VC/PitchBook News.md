@@ -28,9 +28,9 @@ integrated: false
 notes: "News and commentary are free. Full platform data requires enterprise subscription."
 ---
 
-## Overview
+## Summary
 
-PitchBook News provides vc deal flow commentary, league tables, industry analysis, fund performance context. News and commentary are free. Full platform data requires enterprise subscription.
+- PitchBook News provides vc deal flow commentary, league tables, industry analysis, fund performance context. News and commentary are free. Full platform data requires enterprise subscription.
 
 ## What It Provides
 
@@ -57,3 +57,4 @@ PitchBook News provides vc deal flow commentary, league tables, industry analysi
 
 - [[Crunchbase]]
 - [[NVCA Public Reports]]
+

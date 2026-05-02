@@ -14,6 +14,7 @@ import { parseFrontmatter } from '../lib/frontmatter.mjs';
 
 const DEFAULT_SCOPE = '05_Data_Pulls';
 const ARCHIVE_KIND = 'monthly_archive';
+const SKIPPED_PULL_DIRS = new Set(['_archive']);
 
 export async function pull(flags = {}) {
   const month = validateMonth(String(flags.month || currentMonth()));
@@ -76,6 +77,7 @@ function collectMonthlyFiles(scopeRoots, month) {
       if (!filePath.endsWith('.md')) return;
       if (!basename(filePath).startsWith(month)) return;
       if (isMonthlySummaryPath(filePath)) return;
+      if (isArchivedPullPath(filePath)) return;
       if (filePath.includes(`${ARCHIVE_KIND}${month}`)) return;
       results.push(filePath);
     });
@@ -87,7 +89,10 @@ function walk(dir, onFile) {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     const info = statSync(full);
-    if (info.isDirectory()) walk(full, onFile);
+    if (info.isDirectory()) {
+      if (SKIPPED_PULL_DIRS.has(entry)) continue;
+      walk(full, onFile);
+    }
     else if (info.isFile()) onFile(full);
   }
 }
@@ -95,6 +100,11 @@ function walk(dir, onFile) {
 function isMonthlySummaryPath(filePath) {
   return /[/\\]05_Data_Pulls[/\\]Monthly[/\\]/i.test(filePath)
     || /_Month_End_Summary\.md$/i.test(filePath);
+}
+
+function isArchivedPullPath(filePath) {
+  const parts = relative(getVaultRoot(), filePath).split(/[\\/]/);
+  return parts.includes('_archive');
 }
 
 function readMonthlyRecord(filePath) {

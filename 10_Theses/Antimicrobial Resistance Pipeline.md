@@ -4,13 +4,65 @@ name: "Antimicrobial Resistance Pipeline"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "AMR remains an underfunded but urgent therapeutic area where regulation and public funding can quickly shift sentiment."
+variant_perception: "Most investors ignore AMR because commercial models have been poor, leaving room for asymmetric upside if incentives improve."
+next_catalyst: "Clinical readouts, BARDA-style support, and FDA progress in resistant-pathogen programs."
+disconfirming_evidence: "Clinical failures or policy inaction keep the category commercially uninvestable."
+expected_upside: "A small number of winners can rerate hard if incentives and efficacy data align."
+expected_downside: "Binary clinical and reimbursement risk can impair the whole sleeve."
+position_sizing: "Satellite 0.5-2% basket diversified across pipelines rather than concentrated in one name."
+required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
+required_pull_families: ["fda --recent-approvals", "clinicaltrials --amr", "pubmed --amr", "arxiv --amr"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[INVA]]", "[[SPRO]]", "[[PFE]]", "[[MRK]]", "[[JNJ]]", "[[RPRX]]", "[[BIIB]]", "[[Healthcare]]", "[[USA]]", "[[BARDA]]", "[[WHO]]"]
 supporting_regimes: ["[[Rate Cut Cycle]]", "[[Risk-On]]", "[[Biosecurity Spending]]"]
 key_indicators: ["[[BARDA Contract Awards]]", "[[FDA QIDP Designations]]", "[[ClinicalTrials AMR Pipeline]]", "[[WHO Priority Pathogen List]]"]
 bullish_drivers: ["[[BARDA Funding Acceleration]]", "[[FDA LPAD Pathway]]", "[[WHO Priority Pathogen Escalation]]", "[[Hospital Formulary Adoption]]", "[[PASTEUR Act Passage]]"]
 bearish_drivers: ["[[Commercial Reimbursement Failure]]", "[[Clinical Trial Failure Risk]]", "[[Generic Competition]]", "[[Rate Hike Cycle]]"]
 invalidation_triggers: ["PASTEUR Act permanently shelved — no pull incentive mechanism enacted", "BARDA AMR budget cut >30% (deficit pressure)", "Multiple Phase 3 failures in carbapenem-resistant pathogen programs", "FDA withdraws QIDP/LPAD accelerated pathways for antibiotics"]
-tags: [thesis, biotech, amr, antibiotics, barda, government]
+fmp_watchlist_symbols: ["INVA", "SPRO", "PFE", "MRK", "JNJ", "RPRX", "BIIB"]
+fmp_watchlist_symbol_count: 7
+fmp_primary_symbol: "INVA"
+fmp_technical_symbol_count: 7
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 3
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 46.38
+fmp_primary_price_vs_sma200_pct: 12.14
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 1482929103
+fmp_primary_trailing_pe: 6.36
+fmp_primary_price_to_sales: 3.58
+fmp_primary_price_to_book: 1.47
+fmp_primary_ev_to_sales: 2.9
+fmp_primary_ev_to_ebitda: 3.22
+fmp_primary_roe_pct: 30.6
+fmp_primary_roic_pct: -0.87
+fmp_primary_operating_margin_pct: -4.01
+fmp_primary_net_margin_pct: 65.38
+fmp_primary_current_ratio: 14.64
+fmp_primary_debt_to_equity: 0.23
+fmp_primary_price_target: 33
+fmp_primary_analyst_count: 5
+fmp_primary_target_upside_pct: 43.17
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 7
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-04-30"
+fmp_next_earnings_symbols: ["MRK"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "biotech", "amr", "antibiotics", "barda", "government"]
 ---
 
 ## Thesis Statement
@@ -96,6 +148,29 @@ What would prove this thesis wrong?
 - FDA withdraws QIDP/LPAD pathways under political pressure
 - Large pharma (PFE, MRK, JNJ) exits all antibiotic programs — removes acquisition premium
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: AMR remains an underfunded but urgent therapeutic area where regulation and public funding can quickly shift sentiment.
+- **Variant perception**: Most investors ignore AMR because commercial models have been poor, leaving room for asymmetric upside if incentives improve.
+- **Next catalyst**: Clinical readouts, BARDA-style support, and FDA progress in resistant-pathogen programs.
+- **Disconfirming evidence**: Clinical failures or policy inaction keep the category commercially uninvestable.
+- **Expected upside**: A small number of winners can rerate hard if incentives and efficacy data align.
+- **Expected downside**: Binary clinical and reimbursement risk can impair the whole sleeve.
+- **Sizing rule**: Satellite 0.5-2% basket diversified across pipelines rather than concentrated in one name.
+
+## Required Evidence
+
+- **Source notes**: [[FDA open data Drugs@FDA]], [[ClinicalTrials API]], [[PubMed API]], [[NewsAPI]]
+- **Pull families**: fda --recent-approvals, clinicaltrials --amr, pubmed --amr, arxiv --amr
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[INVA]] for diversified AMR pipeline exposure; [[RPRX]] for royalty-based lower-risk entry; [[PFE]] or [[MRK]] for large-cap AMR optionality
 - **Size**: Small position (1-3% of portfolio) — binary clinical risk, thin public market liquidity
@@ -117,3 +192,6 @@ WHERE contains(string(tags), "amr") OR contains(string(tags), "barda") OR contai
 SORT date DESC
 LIMIT 5
 ```
+
+
+

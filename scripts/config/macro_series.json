@@ -1,0 +1,32 @@
+{
+  "rates": {
+    "fed_funds":      "FEDFUNDS",
+    "t10y":           "DGS10",
+    "t2y":            "DGS2",
+    "t10y_t2y_spread":"T10Y2Y",
+    "t10y_t3m_spread":"T10Y3M",
+    "real_t10y":      "DFII10"
+  },
+  "inflation": {
+    "cpi_yoy":    "CPIAUCSL",
+    "core_pce":   "PCEPILFE",
+    "ppi_final":  "PPIACO"
+  },
+  "labor": {
+    "unemployment":    "UNRATE",
+    "initial_claims":  "ICSA",
+    "nonfarm_payrolls":"PAYEMS"
+  },
+  "credit_stress": {
+    "hy_oas":    "BAMLH0A0HYM2",
+    "ig_oas":    "BAMLC0A0CM",
+    "ted_spread":"TEDRATE"
+  },
+  "activity": {
+    "industrial_production":"INDPRO",
+    "retail_sales":          "RSAFS"
+  },
+  "dollar": {
+    "dxy": "DTWEXBGS"
+  }
+}

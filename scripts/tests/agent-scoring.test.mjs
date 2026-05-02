@@ -24,6 +24,8 @@ runTest('bullish majority produces bullish verdict', () => {
     makeAgentSignal({ agent: 'macro', signal: 'NEUTRAL', confidence: 0.3 }),
   ]);
   assert.equal(result.final_verdict, 'BULLISH');
+  assert.ok(result.entropy_level);
+  assert.ok(result.entropy_score !== undefined);
   assert.ok(['watch', 'alert'].includes(result.signal_status));
 });
 

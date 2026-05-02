@@ -13,13 +13,13 @@ import { evaluateFEMASpike, highestSeverity, formatSignalsSection } from '../lib
 
 export async function pull(flags = {}) {
   if (flags.recent || !Object.keys(flags).length) {
-    return pullRecent();
+    return pullRecent(flags);
   } else {
     throw new Error('Specify --recent');
   }
 }
 
-async function pullRecent() {
+async function pullRecent(flags = {}) {
   console.log(`🌊 OpenFEMA: Fetching recent disaster declarations...`);
 
   const url = 'https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?$orderby=declarationDate%20desc&$top=25&$select=disasterNumber,declarationDate,state,declarationTitle,incidentType,designatedArea';
@@ -80,6 +80,11 @@ async function pullRecent() {
   });
 
   const filePath = join(getPullsDir(), 'Government', dateStampedFilename('FEMA_Declarations'));
+  if (!shouldWriteArtifacts(flags)) {
+    console.log(`[dry-run] Would write: ${filePath}`);
+    return { filePath: null, signals };
+  }
+
   writeNote(filePath, note);
   console.log(`📝 Wrote: ${filePath}`);
 
@@ -100,4 +105,8 @@ async function pullRecent() {
   }
 
   return { filePath, signals };
+}
+
+export function shouldWriteArtifacts(flags = {}) {
+  return !Boolean(flags['dry-run']);
 }

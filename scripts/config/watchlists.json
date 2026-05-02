@@ -1,0 +1,34 @@
+{
+  "indexes": ["SPY", "QQQ", "IWM", "DIA"],
+  "sectors": ["XLK", "XLE", "XLF", "KRE", "XLY", "XLP", "XLU", "XLI", "SMH", "XBI"],
+  "rates_credit": ["TLT", "IEF", "SHY", "HYG", "LQD", "TIP"],
+  "commodities_safe_haven": ["GLD", "SLV", "USO", "UNG", "UUP"],
+  "pairs": [
+    { "id": "SPY_QQQ",  "a": "SPY",  "b": "QQQ"  },
+    { "id": "SPY_IWM",  "a": "SPY",  "b": "IWM"  },
+    { "id": "QQQ_IWM",  "a": "QQQ",  "b": "IWM"  },
+    { "id": "XLY_XLP",  "a": "XLY",  "b": "XLP"  },
+    { "id": "XLE_XLK",  "a": "XLE",  "b": "XLK"  },
+    { "id": "XLF_KRE",  "a": "XLF",  "b": "KRE"  },
+    { "id": "XLU_XLK",  "a": "XLU",  "b": "XLK"  },
+    { "id": "HYG_LQD",  "a": "HYG",  "b": "LQD"  },
+    { "id": "TLT_IEF",  "a": "TLT",  "b": "IEF"  },
+    { "id": "GLD_SLV",  "a": "GLD",  "b": "SLV"  },
+    { "id": "USO_XLE",  "a": "USO",  "b": "XLE"  },
+    { "id": "KO_PEP",   "a": "KO",   "b": "PEP"  },
+    { "id": "V_MA",     "a": "V",    "b": "MA"   },
+    { "id": "HD_LOW",   "a": "HD",   "b": "LOW"  },
+    { "id": "XOM_CVX",  "a": "XOM",  "b": "CVX"  },
+    { "id": "JPM_BAC",  "a": "JPM",  "b": "BAC"  },
+    { "id": "COST_WMT", "a": "COST", "b": "WMT"  }
+  ],
+  "cash_flow_quality": {
+    "digital_payment_rails":          ["V", "MA"],
+    "data_indices_ratings":           ["SPGI", "MCO", "MSCI", "FDS", "FICO"],
+    "software_workflow":              ["MSFT", "ADBE", "INTU", "ADP", "PAYX", "NOW", "ORCL"],
+    "consumer_habit":                 ["AAPL", "COST", "MCD", "KO", "PEP", "PG"],
+    "market_infrastructure":          ["CME", "ICE", "NDAQ"],
+    "capital_allocator":              ["BRK.B"],
+    "powerful_but_headline_sensitive": ["META", "AMZN", "NVDA", "AVGO", "UNH", "ACN"]
+  }
+}

@@ -28,9 +28,9 @@ integrated: false
 notes: "Good for global-level carbon emissions context. Country-level granularity."
 ---
 
-## Overview
+## Summary
 
-Global Carbon Atlas provides country-level co2 emissions, carbon budgets, fossil fuel emissions by country. Good for global-level carbon emissions context. Country-level granularity.
+- Global Carbon Atlas provides country-level co2 emissions, carbon budgets, fossil fuel emissions by country. Good for global-level carbon emissions context. Country-level granularity.
 
 ## What It Provides
 
@@ -56,3 +56,4 @@ Global Carbon Atlas provides country-level co2 emissions, carbon budgets, fossil
 
 - [[EPA GHGRP]]
 - [[IRENA]]
+

@@ -24,9 +24,9 @@ integrated: false
 notes: "One of the best free datasets anywhere"
 ---
 
-## Overview
+## Summary
 
-FRED API provides rates, inflation, labor, credit, macro series. One of the best free datasets anywhere
+- FRED API provides rates, inflation, labor, credit, macro series. One of the best free datasets anywhere
 
 ## What It Provides
 
@@ -51,4 +51,4 @@ FRED API provides rates, inflation, labor, credit, macro series. One of the best
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

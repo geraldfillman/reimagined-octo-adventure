@@ -20,7 +20,8 @@ const NON_SYMBOL_LINKS = new Set([
 ]);
 
 export async function loadThesisWatchlists(options = {}) {
-  const includeBaskets = Boolean(options.includeBaskets);
+  const strategyOnly = Boolean(options.strategyOnly);
+  const includeBaskets = Boolean(options.includeBaskets || strategyOnly);
   const thesisFilter = String(options.thesisFilter || '').trim().toLowerCase();
   const stockSymbolMap = await loadStockSymbolMap();
   const thesisNotes = await readFolder(THESES_DIR, true);
@@ -31,16 +32,19 @@ export async function loadThesisWatchlists(options = {}) {
       const relativePath = relative(THESES_DIR, note.path).split(sep).join('/');
       const name = String(note.data.name || note.filename.replace(/\.md$/i, ''));
       const isBasket = relativePath.startsWith('Baskets/');
+      const isStrategy = isStrategyBasket(note.data, name, isBasket);
       return {
         name,
         note,
         path: note.path,
         relativePath,
         isBasket,
+        isStrategy,
         symbols: resolveThesisSymbols(note.data.core_entities, stockSymbolMap),
       };
     })
     .filter(entry => includeBaskets || !entry.isBasket)
+    .filter(entry => !strategyOnly || entry.isStrategy)
     .filter(entry =>
       !thesisFilter ||
       entry.name.toLowerCase().includes(thesisFilter) ||
@@ -101,4 +105,10 @@ function extractWikiLinkTarget(value) {
 
 function isTickerLike(value) {
   return /^[A-Z][A-Z0-9]{0,4}(?:[._-][A-Z0-9]{1,5})?$/.test(value);
+}
+
+function isStrategyBasket(data = {}, name = '', isBasket = false) {
+  const tags = Array.isArray(data.tags) ? data.tags.map(tag => String(tag).toLowerCase()) : [];
+  if (tags.includes('strategy')) return true;
+  return Boolean(isBasket && /\b(style|strategy|quant|garp|value|compounder|momentum|all-weather)\b/i.test(name));
 }

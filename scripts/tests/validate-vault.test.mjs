@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
-import { join } from 'node:path';
 
 import {
-  validateQuantReport,
+  isIgnoredPathPart,
   validateThesisFrontmatter,
 } from '../validate-vault.mjs';
 
@@ -16,6 +15,14 @@ function parsedFrontmatter(raw) {
   return { raw, fields };
 }
 
+const BASE_THESIS_FRONTMATTER =
+  'node_type: "thesis"\n' +
+  'conviction: "medium"\n' +
+  'timeframe: "medium-term"\n' +
+  'core_entities: []\n' +
+  'supporting_regimes: []\n' +
+  'invalidation_triggers: []\n';
+
 function runTest(name, fn) {
   try {
     fn();
@@ -27,10 +34,10 @@ function runTest(name, fn) {
   }
 }
 
-runTest('standalone qlib_signal_status does not require a full thesis rollup', () => {
+runTest('retired qlib fields are ignored by thesis validation', () => {
   const errors = [];
   validateThesisFrontmatter(
-    parsedFrontmatter('qlib_signal_status: "clear"\n'),
+    parsedFrontmatter(BASE_THESIS_FRONTMATTER + 'qlib_signal_status: "clear"\nqlib_last_run: "not-a-date"\n'),
     'Example Thesis.md',
     errors,
   );
@@ -38,32 +45,22 @@ runTest('standalone qlib_signal_status does not require a full thesis rollup', (
   assert.deepEqual(errors, []);
 });
 
-runTest('full thesis rollups still require the core qlib contract', () => {
+runTest('conviction rollup fields are validated independently of retired qlib', () => {
   const errors = [];
   validateThesisFrontmatter(
     parsedFrontmatter(
-      'qlib_last_run: "2026-04-01"\n' +
-      'qlib_signal_status: "watch"\n',
+      BASE_THESIS_FRONTMATTER +
+      'suggested_conviction: "aggressive"\n' +
+      'conviction_signal_count_7d: -1\n',
     ),
     'Example Thesis.md',
     errors,
   );
 
-  assert.ok(errors.some(error => error.includes('qlib_best_ic')));
-  assert.ok(errors.some(error => error.includes('qlib_positive_factor_count')));
+  assert.ok(errors.some(error => error.includes('Invalid suggested_conviction')));
+  assert.ok(errors.some(error => error.includes('conviction_signal_count_7d')));
 });
 
-runTest('quant notes with schema version 2 must include report-specific frontmatter', () => {
-  const errors = [];
-  validateQuantReport(
-    parsedFrontmatter(
-      'data_type: "backtest"\n' +
-      'qlib_schema_version: 2\n',
-    ),
-    join('Quant', '2026-04-01_Qlib_Backtest_Test.md'),
-    errors,
-  );
-
-  assert.ok(errors.some(error => error.includes('Quant note missing "universe_size"')));
-  assert.ok(errors.some(error => error.includes('Quant note missing "avg_turnover"')));
+runTest('pull archive folders are excluded from active validation walks', () => {
+  assert.equal(isIgnoredPathPart('_archive'), true);
 });

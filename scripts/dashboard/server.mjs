@@ -12,11 +12,27 @@ import { createServer } from 'http';
 import { readFile, readdir, stat, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { spawn } from 'child_process';
-import { join, resolve, dirname, basename } from 'path';
+import { join, resolve, dirname, basename, relative } from 'path';
 import { fileURLToPath } from 'url';
+
+const STREAMLINE_SIDECAR_DIR    = resolve(dirname(fileURLToPath(import.meta.url)), '..', '.cache', 'orchestrator', 'streamline-reports');
+const CONFLUENCE_SIDECAR_DIR    = resolve(dirname(fileURLToPath(import.meta.url)), '..', '.cache', 'orchestrator', 'confluence-scans');
+const POSITIONING_SIDECAR_DIR   = resolve(dirname(fileURLToPath(import.meta.url)), '..', '.cache', 'positioning');
+const RUN_LEDGER_DIR            = resolve(dirname(fileURLToPath(import.meta.url)), '..', '.cache', 'orchestrator', 'run-ledgers');
+const SIGNAL_QUALITY_SIDECAR_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..', '.cache', 'orchestrator', 'signal-quality');
+const AGENT_MANIFEST_PATH    = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '16_Agents', 'agent-manifest.json');
 
 import { getVaultRoot, getLearningRoot, getPullsDir, getSignalsDir, listSources, SOURCES } from '../lib/config.mjs';
 import { readFolder, readNote } from '../lib/frontmatter.mjs';
+import {
+  controlWorkflowRun,
+  getWorkflowRunGraph,
+  handleRoutines,
+  handleRuns,
+  startWorkflowRun,
+  streamWorkflowRunEvents,
+} from './workflow-runs.mjs';
+import { loadAgentThreads, loadLatestAgentThreads } from '../lib/agent-interactions.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SCRIPTS_DIR = resolve(__dirname, '..');
@@ -28,6 +44,10 @@ const jobs = new Map();
 
 function makeJobId() {
   return `job_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+function makeRunId(cadence = 'routine') {
+  return `run_${cadence}_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
 }
 
 const SIGNAL_STATUS_ORDER = Object.freeze({
@@ -74,6 +94,13 @@ function normalizeSignalList(value) {
   if (Array.isArray(value)) return value.filter(Boolean).map(item => String(item));
   if (value == null || value === '') return [];
   return [String(value)];
+}
+
+function slugifyThreadId(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 function parseNumericValue(value) {
@@ -127,6 +154,23 @@ function parseMarkdownTable(content, heading) {
     .map(line => splitMarkdownTableRow(line))
     .filter(cells => cells.some(Boolean))
     .map(cells => Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ''])));
+}
+
+function extractSectionBullets(content, heading, limit = 6) {
+  if (!content) return [];
+  const lines = String(content).split(/\r?\n/);
+  const headingIndex = lines.findIndex(line => line.trim() === `## ${heading}`);
+  if (headingIndex === -1) return [];
+
+  const bullets = [];
+  for (let index = headingIndex + 1; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (line.startsWith('## ')) break;
+    if (!line.startsWith('- ')) continue;
+    bullets.push(line.slice(2).replace(/\*\*/g, ''));
+    if (bullets.length >= limit) break;
+  }
+  return bullets;
 }
 
 function getTableMetric(rows, label) {
@@ -273,8 +317,6 @@ async function handleTheses() {
       monitor_status: n.data.monitor_status ?? null,
       monitor_last_review: n.data.monitor_last_review ?? null,
       break_risk_status: n.data.break_risk_status ?? null,
-      qlib_signal_status: n.data.qlib_signal_status ?? null,
-      qlib_last_run: n.data.qlib_last_run ?? null,
       why_now: n.data.why_now ?? null,
       next_catalyst: n.data.next_catalyst ?? null,
       tags: n.data.tags ?? [],
@@ -390,13 +432,6 @@ async function handleInvestmentSummary() {
         next_earnings_date: data.fmp_next_earnings_date ?? null,
         next_earnings_symbols: normalizeArray(data.fmp_next_earnings_symbols).map(normalizeSymbol),
         last_sync: data.fmp_last_sync ?? null,
-      },
-      qlib: {
-        status: data.qlib_signal_status ?? null,
-        best_ic: parseNumericValue(data.qlib_best_ic),
-        positive_factor_count: parseNumericValue(data.qlib_positive_factor_count),
-        universe_size: parseNumericValue(data.qlib_universe_size),
-        last_run: data.qlib_last_run ?? null,
       },
     };
 
@@ -771,6 +806,411 @@ async function handleEarningsCalendar() {
   };
 }
 
+/** GET /api/streamline-report - latest orchestrator streamline report */
+async function handleStreamlineReport() {
+  const dir = join(getPullsDir(), 'Orchestrator');
+  const notes = await readFolder(dir, false);
+  const latest = notes
+    .filter(note => note.data.data_type === 'streamline_report')
+    .sort(compareFilenameDesc)[0];
+
+  if (!latest) {
+    return {
+      available: false,
+      summary: 'No streamline report generated yet.',
+      executive: [],
+      questions: [],
+      reviewQueue: [],
+      fullReviewQueue: [],
+      coverage: [],
+      coverageAll: [],
+    };
+  }
+
+  const activeReviewCount = parseNumericValue(latest.data.active_review_count) ?? 0;
+  const quietDay = activeReviewCount === 0;
+
+  const severityOrder = { HIGH: 0, MED: 1, LOW: 2, '—': 3 };
+  const allReviewRows = parseMarkdownTable(latest.content, 'Active Alerts And Review Queue');
+  const sortedReviewRows = [...allReviewRows].sort((a, b) => {
+    const sa = severityOrder[a.Severity] ?? 9;
+    const sb = severityOrder[b.Severity] ?? 9;
+    if (sa !== sb) return sa - sb;
+    const ca = Number(String(a.Confidence ?? '0').replace('%', '')) || 0;
+    const cb = Number(String(b.Confidence ?? '0').replace('%', '')) || 0;
+    return cb - ca;
+  });
+  const reviewQueue = sortedReviewRows.slice(0, 5);
+
+  const allCoverageRows = parseMarkdownTable(latest.content, 'Coverage Gaps From Guide');
+
+  const staleSummary = quietDay ? {
+    coverageGapCount: parseNumericValue(latest.data.coverage_gap_count) ?? 0,
+    message: 'No active queue. Focus on filling module gaps and running daily pulls.',
+  } : null;
+
+  return {
+    available: true,
+    title: latest.data.title ?? latest.filename.replace('.md', ''),
+    date: latest.data.date_pulled ?? latest.filename.slice(0, 10),
+    cadence: latest.data.cadence ?? 'daily',
+    focus: latest.data.focus ?? 'all',
+    signal_status: latest.data.signal_status ?? 'clear',
+    active_review_count: activeReviewCount,
+    coverage_gap_count: parseNumericValue(latest.data.coverage_gap_count) ?? 0,
+    new_since_last_report: parseNumericValue(latest.data.new_since_last_report) ?? 0,
+    resolved_since_last_report: parseNumericValue(latest.data.resolved_since_last_report) ?? 0,
+    report_since: latest.data.report_since ?? null,
+    report_window_days: parseNumericValue(latest.data.report_window_days),
+    signals: normalizeSignalList(latest.data.signals),
+    path: relative(getVaultRoot(), latest.path).replace(/\\/g, '/'),
+    quiet_day: quietDay,
+    staleSummary,
+    executive: extractSectionBullets(latest.content, 'Executive Brief', 6),
+    questions: parseMarkdownTable(latest.content, 'Daily Operating Questions').slice(0, 10),
+    reviewQueue,
+    fullReviewQueue: sortedReviewRows,
+    learning: parseMarkdownTable(latest.content, 'Deeper Learning Queue').slice(0, 8),
+    coverage: allCoverageRows.slice(0, 8),
+    coverageAll: allCoverageRows,
+  };
+}
+
+/** GET /api/signal-quality?date=YYYY-MM-DD — signal quality scores for a given date (defaults to today) */
+async function handleSignalQuality(req) {
+  const url  = new URL(req.url, 'http://localhost');
+  const date = url.searchParams.get('date') ?? new Date().toISOString().slice(0, 10);
+  if (!existsSync(SIGNAL_QUALITY_SIDECAR_DIR)) return { available: false, error: 'no signal quality data yet' };
+  const filePath = join(SIGNAL_QUALITY_SIDECAR_DIR, `${date}.json`);
+  if (!existsSync(filePath)) {
+    // Fall back to the most recent file
+    let files;
+    try {
+      files = (await readdir(SIGNAL_QUALITY_SIDECAR_DIR))
+        .filter(f => f.endsWith('.json'))
+        .sort()
+        .reverse();
+    } catch { return { available: false, error: 'no signal quality data yet' }; }
+    if (!files.length) return { available: false, error: 'no signal quality data yet' };
+    try {
+      const raw = JSON.parse(await readFile(join(SIGNAL_QUALITY_SIDECAR_DIR, files[0]), 'utf8'));
+      return { available: true, ...raw };
+    } catch { return { available: false, error: 'failed to parse signal quality data' }; }
+  }
+  try {
+    const raw = JSON.parse(await readFile(filePath, 'utf8'));
+    return { available: true, ...raw };
+  } catch { return { available: false, error: 'failed to parse signal quality data' }; }
+}
+
+/** GET /api/confluence — latest confluence scan sidecar */
+async function handleConfluence() {
+  if (!existsSync(CONFLUENCE_SIDECAR_DIR)) return { available: false };
+  let files;
+  try {
+    files = (await readdir(CONFLUENCE_SIDECAR_DIR))
+      .filter(f => f.endsWith('.json'))
+      .sort()
+      .reverse();
+  } catch { return { available: false }; }
+  if (!files.length) return { available: false };
+  try {
+    const raw = JSON.parse(await readFile(join(CONFLUENCE_SIDECAR_DIR, files[0]), 'utf8'));
+    return { available: true, ...raw };
+  } catch { return { available: false }; }
+}
+
+/** GET /api/positioning - latest big money vs retail positioning sidecar */
+async function handlePositioning() {
+  if (!existsSync(POSITIONING_SIDECAR_DIR)) return { available: false };
+  let files;
+  try {
+    files = (await readdir(POSITIONING_SIDECAR_DIR))
+      .filter(f => f.endsWith('.json'))
+      .sort()
+      .reverse();
+  } catch { return { available: false }; }
+  if (!files.length) return { available: false };
+  try {
+    const raw = JSON.parse(await readFile(join(POSITIONING_SIDECAR_DIR, files[0]), 'utf8'));
+    return { available: true, ...raw };
+  } catch { return { available: false }; }
+}
+
+/** GET /api/streamline-report/history?limit=N — last N sidecar summaries */
+async function handleStreamlineReportHistory(req) {
+  const url = new URL(req.url, 'http://localhost');
+  const limit = Math.max(1, Math.min(60, parseInt(url.searchParams.get('limit') ?? '30', 10)));
+  if (!existsSync(STREAMLINE_SIDECAR_DIR)) return { items: [] };
+  let files;
+  try {
+    files = (await readdir(STREAMLINE_SIDECAR_DIR))
+      .filter(f => f.endsWith('.json'))
+      .sort()
+      .reverse()
+      .slice(0, limit);
+  } catch { return { items: [] }; }
+  const items = await Promise.all(files.map(async file => {
+    try {
+      const raw = await readFile(join(STREAMLINE_SIDECAR_DIR, file), 'utf-8');
+      const d = JSON.parse(raw);
+      return {
+        date: d.date,
+        run_id: d.run_id ?? null,
+        signal_status: d.signal_status ?? 'clear',
+        active_review_count: d.active_review_count ?? 0,
+        coverage_gap_count: d.coverage_gap_count ?? 0,
+        new_since_last_report: d.new_since_last_report ?? 0,
+        resolved_since_last_report: d.resolved_since_last_report ?? 0,
+        cadence: d.cadence ?? 'daily',
+        focus: d.focus ?? 'all',
+      };
+    } catch { return null; }
+  }));
+  return { items: items.filter(Boolean) };
+}
+
+/** GET /api/streamline-report/full?date=YYYY-MM-DD — full sidecar for a specific date */
+async function handleStreamlineReportFull(req) {
+  const url = new URL(req.url, 'http://localhost');
+  const date = url.searchParams.get('date') ?? new Date().toISOString().slice(0, 10);
+  const filePath = join(STREAMLINE_SIDECAR_DIR, `${date}.json`);
+  if (!existsSync(filePath)) return { error: `No sidecar found for ${date}` };
+  try {
+    return JSON.parse(await readFile(filePath, 'utf-8'));
+  } catch {
+    return { error: `Failed to read sidecar for ${date}` };
+  }
+}
+
+/** POST /api/streamline-report/acknowledge — write ack_status to vault note frontmatter */
+async function handleStreamlineReportAcknowledge(body) {
+  const { note_path, ack_status } = body;
+  if (!note_path || !ack_status) return { error: 'note_path and ack_status required' };
+  const validStatuses = ['unreviewed', 'reviewed', 'journaled', 'ignored'];
+  if (!validStatuses.includes(ack_status)) return { error: `ack_status must be one of: ${validStatuses.join(', ')}` };
+
+  // Resolve wikilink to file path: [[2026-05-01_FEMA_Declarations]] -> filename
+  const stem = note_path.replace(/^\[\[/, '').replace(/\]\]$/, '').trim();
+  const filename = stem.endsWith('.md') ? stem : `${stem}.md`;
+
+  // Search pulls and signals directories
+  const searchDirs = [getPullsDir(), getSignalsDir()];
+  let foundPath = null;
+
+  for (const baseDir of searchDirs) {
+    if (!existsSync(baseDir)) continue;
+    let domains;
+    try { domains = await readdir(baseDir); } catch { continue; }
+    for (const domain of domains) {
+      const domainPath = join(baseDir, domain);
+      let info;
+      try { info = await stat(domainPath); } catch { continue; }
+      if (info.isDirectory()) {
+        const candidate = join(domainPath, filename);
+        if (existsSync(candidate)) { foundPath = candidate; break; }
+      }
+    }
+    if (foundPath) break;
+    // Also check direct children (signals dir has no subfolders)
+    const directCandidate = join(baseDir, filename);
+    if (existsSync(directCandidate)) { foundPath = directCandidate; break; }
+  }
+
+  if (!foundPath) return { error: `Could not resolve ${note_path} to a vault file` };
+
+  // Read the file, update frontmatter, write back
+  try {
+    const raw = await readFile(foundPath, 'utf-8');
+    let updated;
+    if (raw.startsWith('---')) {
+      const closeIdx = raw.indexOf('\n---', 3);
+      if (closeIdx === -1) return { error: 'Malformed frontmatter' };
+      const fmBlock = raw.slice(0, closeIdx);
+      const afterFm = raw.slice(closeIdx);
+      // Remove existing ack_status line if present
+      const cleanedFm = fmBlock.split('\n').filter(line => !line.startsWith('ack_status:')).join('\n');
+      updated = cleanedFm + `\nack_status: "${ack_status}"` + afterFm;
+    } else {
+      // No frontmatter — prepend it
+      updated = `---\nack_status: "${ack_status}"\n---\n${raw}`;
+    }
+    await writeFile(foundPath, updated, 'utf-8');
+    return { success: true, path: foundPath, ack_status };
+  } catch (err) {
+    return { error: `Failed to write: ${err.message}` };
+  }
+}
+
+/** GET /api/streamline-report/diff?from=YYYY-MM-DD&to=YYYY-MM-DD */
+async function handleStreamlineReportDiff(req) {
+  const url = new URL(req.url, 'http://localhost');
+  const fromDate = url.searchParams.get('from');
+  const toDate = url.searchParams.get('to') ?? new Date().toISOString().slice(0, 10);
+  if (!fromDate) return { error: 'from parameter required (YYYY-MM-DD)' };
+
+  async function loadSidecar(date) {
+    const filePath = join(STREAMLINE_SIDECAR_DIR, `${date}.json`);
+    if (!existsSync(filePath)) return null;
+    try { return JSON.parse(await readFile(filePath, 'utf-8')); } catch { return null; }
+  }
+
+  const [fromSidecar, toSidecar] = await Promise.all([loadSidecar(fromDate), loadSidecar(toDate)]);
+  if (!fromSidecar && !toSidecar) return { error: `No sidecars found for ${fromDate} or ${toDate}` };
+
+  const fromItems = fromSidecar?.review_items ?? [];
+  const toItems = toSidecar?.review_items ?? [];
+  const fromPaths = new Set(fromItems.map(i => i.note_path));
+  const toPaths = new Set(toItems.map(i => i.note_path));
+
+  return {
+    from: fromDate,
+    to: toDate,
+    from_status: fromSidecar?.signal_status ?? null,
+    to_status: toSidecar?.signal_status ?? null,
+    new_alerts: toItems.filter(i => !fromPaths.has(i.note_path)),
+    resolved_alerts: fromItems.filter(i => !toPaths.has(i.note_path)),
+    from_coverage_gaps: fromSidecar?.coverage_gap_count ?? null,
+    to_coverage_gaps: toSidecar?.coverage_gap_count ?? null,
+  };
+}
+
+/** GET /api/run-ledger?date=YYYY-MM-DD — latest (or specific) run ledger summary */
+async function handleRunLedger(req) {
+  const url  = new URL(req.url, 'http://localhost');
+  const date = url.searchParams.get('date');
+
+  if (!existsSync(RUN_LEDGER_DIR)) return { ledger: null, message: 'No run ledgers found. Run `node run.mjs pull agent-run` first.' };
+
+  let files;
+  try {
+    files = (await readdir(RUN_LEDGER_DIR)).filter(f => f.endsWith('.json')).sort().reverse();
+  } catch { return { ledger: null }; }
+
+  const target = date ? `${date}.json` : files[0];
+  if (!target || !files.includes(target)) return { ledger: null, message: `No ledger for ${date ?? 'today'}` };
+
+  try {
+    const ledger = JSON.parse(await readFile(join(RUN_LEDGER_DIR, target), 'utf-8'));
+    return {
+      run_id:        ledger.run_id,
+      date:          ledger.date,
+      cadence:       ledger.cadence,
+      started_at:    ledger.started_at,
+      completed_at:  ledger.completed_at,
+      total_duration_ms: ledger.total_duration_ms,
+      agent_count:   ledger.agent_count,
+      success_count: ledger.success_count,
+      failed_count:  ledger.failed_count,
+      blocked_count: ledger.blocked_count,
+      entries:       ledger.entries ?? [],
+    };
+  } catch { return { ledger: null }; }
+}
+
+/** GET /api/agent-threads?date=YYYY-MM-DD&limit=N - latest interaction threads */
+async function handleAgentThreads(req) {
+  const url = new URL(req.url, 'http://localhost');
+  const date = url.searchParams.get('date') ?? new Date().toISOString().slice(0, 10);
+  const limit = Math.max(1, Math.min(100, Number(url.searchParams.get('limit')) || 25));
+  const threads = await loadLatestAgentThreads({ date, limit });
+  return {
+    date,
+    count: threads.length,
+    unresolved_count: threads.filter(thread => thread.status === 'unresolved').length,
+    threads,
+  };
+}
+
+/** GET /api/agent-threads/:id?date=YYYY-MM-DD - one interaction thread by id or slug */
+async function handleAgentThread(req, id) {
+  const url = new URL(req.url, 'http://localhost');
+  const date = url.searchParams.get('date') ?? new Date().toISOString().slice(0, 10);
+  const needle = decodeURIComponent(id || '').toLowerCase();
+  const threads = await loadAgentThreads(date);
+  const thread = threads.find(item =>
+    String(item.thread_id || '').toLowerCase() === needle ||
+    slugifyThreadId(item.thread_id).toLowerCase() === needle ||
+    slugifyThreadId(item.topic).toLowerCase() === needle
+  );
+  return thread ? { date, thread } : { error: `No agent thread found for ${id}`, date };
+}
+
+/** GET /api/lineage?title=...&note_path=... — trace why a review item is in the queue */
+async function handleLineage(req) {
+  const url      = new URL(req.url, 'http://localhost');
+  const title    = url.searchParams.get('title');
+  const notePath = url.searchParams.get('note_path');
+  if (!title && !notePath) return { error: 'Provide title or note_path query parameter.' };
+
+  // Load latest sidecar
+  let sidecar = null;
+  try {
+    const files = (await readdir(STREAMLINE_SIDECAR_DIR)).filter(f => f.endsWith('.json')).sort().reverse();
+    if (files.length) sidecar = JSON.parse(await readFile(join(STREAMLINE_SIDECAR_DIR, files[0]), 'utf-8'));
+  } catch { /* no sidecar */ }
+
+  if (!sidecar) return { error: 'No streamline report sidecar found.' };
+
+  // Find the matching review item
+  const item = (sidecar.review_items ?? []).find(r =>
+    (title    && r.title?.toLowerCase().includes(title.toLowerCase())) ||
+    (notePath && r.note_path?.includes(notePath))
+  );
+  if (!item) return { error: `No review item found matching "${title ?? notePath}"`, available_count: sidecar.review_items?.length ?? 0 };
+
+  // Load agent manifest to resolve which agent produced this note
+  let agents = [];
+  try {
+    const manifest = JSON.parse(await readFile(AGENT_MANIFEST_PATH, 'utf-8'));
+    agents = manifest.agents ?? [];
+  } catch { /* manifest unavailable */ }
+
+  function agentForNote(notePathStr) {
+    if (!notePathStr) return null;
+    const normalized = notePathStr.replace(/\[\[|\]\]/g, '').replace(/\\/g, '/');
+    return agents.find(a => (a.output_dirs ?? []).some(d => normalized.includes(d))) ?? null;
+  }
+
+  // Load latest run ledger entry for cross-reference
+  let ledgerEntry = null;
+  try {
+    const lFiles = (await readdir(RUN_LEDGER_DIR)).filter(f => f.endsWith('.json')).sort().reverse();
+    if (lFiles.length) {
+      const ledger = JSON.parse(await readFile(join(RUN_LEDGER_DIR, lFiles[0]), 'utf-8'));
+      const ownerAgent = agentForNote(item.note_path);
+      if (ownerAgent) {
+        ledgerEntry = (ledger.entries ?? []).find(e => e.agent_id === ownerAgent.id) ?? null;
+      }
+    }
+  } catch { /* no ledger */ }
+
+  const producerAgent = agentForNote(item.note_path);
+
+  const explanation = [
+    `**${item.title}** entered the review queue on ${sidecar.date}.`,
+    producerAgent ? `Produced by: **${producerAgent.name}** (output dir: ${(producerAgent.output_dirs ?? []).join(', ')}).` : 'Producing agent unknown — note may be from a manual pull.',
+    `Edge type: ${item.edge_type ?? 'unclassified'}. Strategy: ${item.strategy_family ?? 'unclassified'}.`,
+    `Signal status: **${item.signal_status}** | Disposition: ${item.disposition ?? 'Review'}.`,
+    `Invalidation: ${item.invalidation ?? 'not specified'}.`,
+    item.signals?.length ? `Signals: ${item.signals.slice(0, 5).join(', ')}.` : null,
+  ].filter(Boolean).join(' ');
+
+  return {
+    item,
+    producer_agent:  producerAgent ? { id: producerAgent.id, name: producerAgent.name, output_dirs: producerAgent.output_dirs } : null,
+    ledger_entry:    ledgerEntry,
+    report_date:     sidecar.date,
+    report_run_id:   sidecar.run_id,
+    explanation,
+    lineage: [
+      { stage: 'source_pull', label: item.note_path ?? 'unknown note', agent: producerAgent?.id ?? 'unknown' },
+      { stage: 'streamline_report', label: `orchestrator-${sidecar.cadence}-${sidecar.date}`, agent: 'orchestrator' },
+      { stage: 'review_queue', label: `${item.disposition ?? 'Review'} — ${item.severity ?? 'MED'}`, agent: 'operator' },
+    ],
+  };
+}
+
 async function handleRun(body) {
   const command = (body.command ?? '').trim();
   if (!command) return { error: 'command required' };
@@ -1058,6 +1498,88 @@ async function handleRequest(req, res) {
 
     if (path === '/api/earnings-calendar' && method === 'GET') {
       return sendJson(res, await handleEarningsCalendar());
+    }
+
+    if (path === '/api/streamline-report' && method === 'GET') {
+      return sendJson(res, await handleStreamlineReport());
+    }
+
+    if (path === '/api/streamline-report/history' && method === 'GET') {
+      return sendJson(res, await handleStreamlineReportHistory(req));
+    }
+
+    if (path === '/api/streamline-report/full' && method === 'GET') {
+      return sendJson(res, await handleStreamlineReportFull(req));
+    }
+
+    if (path === '/api/streamline-report/acknowledge' && method === 'POST') {
+      const body = await readBody(req);
+      return sendJson(res, await handleStreamlineReportAcknowledge(body));
+    }
+
+    if (path === '/api/streamline-report/diff' && method === 'GET') {
+      return sendJson(res, await handleStreamlineReportDiff(req));
+    }
+
+    if (path === '/api/signal-quality' && method === 'GET') {
+      return sendJson(res, await handleSignalQuality(req));
+    }
+
+    if (path === '/api/run-ledger' && method === 'GET') {
+      return sendJson(res, await handleRunLedger(req));
+    }
+
+    if (path === '/api/agent-threads' && method === 'GET') {
+      return sendJson(res, await handleAgentThreads(req));
+    }
+
+    if (path.startsWith('/api/agent-threads/') && method === 'GET') {
+      const id = path.slice('/api/agent-threads/'.length);
+      return sendJson(res, await handleAgentThread(req, id));
+    }
+
+    if (path === '/api/confluence' && method === 'GET') {
+      return sendJson(res, await handleConfluence());
+    }
+
+    if (path === '/api/positioning' && method === 'GET') {
+      return sendJson(res, await handlePositioning());
+    }
+
+    if (path === '/api/lineage' && method === 'GET') {
+      return sendJson(res, await handleLineage(req));
+    }
+
+    if (path === '/api/routines' && method === 'GET') {
+      return sendJson(res, handleRoutines());
+    }
+
+    if (path === '/api/runs' && method === 'GET') {
+      return sendJson(res, handleRuns());
+    }
+
+    if (path === '/api/runs' && method === 'POST') {
+      const body = await readBody(req);
+      return sendJson(res, startWorkflowRun(body));
+    }
+
+    if (path.startsWith('/api/runs/') && method === 'GET') {
+      const parts = path.split('/').filter(Boolean);
+      const runId = parts[2];
+      const action = parts[3];
+      if (action === 'events') return streamWorkflowRunEvents(res, runId);
+      if (action === 'graph') {
+        const graph = getWorkflowRunGraph(runId);
+        return graph ? sendJson(res, graph) : sendError(res, 'Run not found', 404);
+      }
+    }
+
+    if (path.startsWith('/api/runs/') && method === 'POST') {
+      const parts = path.split('/').filter(Boolean);
+      const runId = parts[2];
+      const action = parts[3];
+      const graph = controlWorkflowRun(runId, action);
+      return graph ? sendJson(res, graph) : sendError(res, 'Run not found', 404);
     }
 
     if (path === '/api/run' && method === 'POST') {

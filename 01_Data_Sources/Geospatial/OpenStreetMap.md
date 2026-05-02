@@ -21,9 +21,9 @@ integrated: false
 notes: "Excellent base map layer"
 ---
 
-## Overview
+## Summary
 
-OpenStreetMap provides maps and location layers. Excellent base map layer
+- OpenStreetMap provides maps and location layers. Excellent base map layer
 
 ## What It Provides
 
@@ -45,4 +45,4 @@ OpenStreetMap provides maps and location layers. Excellent base map layer
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

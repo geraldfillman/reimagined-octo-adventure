@@ -240,7 +240,7 @@ function buildSnapshotContent(context) {
 
 function buildEarningsContent(context, windowDays) {
   if (!context.earnings) {
-    return `No earnings row found in the latest FMP calendar notes. Run \`node run.mjs fmp --thesis-watchlists\` or \`node run.mjs fmp --earnings-calendar --from ${today()} --to ${shiftDate(today(), windowDays)}\` for fresh catalyst timing.`;
+    return `No earnings row found in the latest FMP calendar notes. Run \`node run.mjs pull fmp --thesis-watchlists\` or \`node run.mjs pull fmp --earnings-calendar --from ${today()} --to ${shiftDate(today(), windowDays)}\` for fresh catalyst timing.`;
   }
 
   return buildTable(
@@ -261,7 +261,7 @@ function buildEarningsContent(context, windowDays) {
 function buildTechnicalContent(context) {
   const technical = context.technical?.data;
   if (!technical) {
-    return `No daily technical snapshot was found for ${context.symbol}. Run \`node run.mjs fmp --technical ${context.symbol}\` or refresh watchlists before relying on tape damage here.`;
+    return `No daily technical snapshot was found for ${context.symbol}. Run \`node run.mjs pull fmp --technical ${context.symbol}\` or refresh watchlists before relying on tape damage here.`;
   }
 
   return buildTable(

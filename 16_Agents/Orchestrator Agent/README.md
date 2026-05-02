@@ -33,6 +33,20 @@ node run.mjs pull agent-analyst --all-thesis --skip-llm
 node run.mjs thesis canvas
 ```
 
+## Entropy Overlay
+
+Paper reviewed: `10.48550_arxiv.2512.15720.pdf` ("Hidden Order in Trades Predicts the Size of Price Moves").
+
+Operator guide: [[04_Reference/Entropy Strategy Monitoring Cheat Sheet]]
+
+Orchestrator implementation:
+- `entropy_level` scores cross-agent signal concentration: `compressed`, `ordered`, `mixed`, `diffuse`.
+- `microstructure_entropy_level` approximates the paper's 15-state sign x volume transition entropy from FMP 1-minute bars when available.
+- Low entropy is a magnitude/attention flag, not a directional edge. A compressed bullish stack and a compressed bearish stack both mean "movement risk is organized"; direction still comes from the specialist evidence.
+- High entropy means the specialist stack is dispersed and should be reconciled before conviction changes.
+- `node run.mjs pull entropy-monitor` runs the dedicated SPY/QQQ shadow ledger for tracking future movement after low-entropy windows.
+- `node run.mjs pull entropy-monitor --backtest` builds the historical baseline from the full 1-minute range FMP returns.
+
 ## Investment Research Commands
 
 ```powershell
@@ -47,24 +61,25 @@ node run.mjs pull agent-analyst --thesis "Defense AI Autonomous Warfare"
 node run.mjs pull agent-analyst --thesis "GLP-1 Metabolic Disease Revolution"
 node run.mjs pull agent-analyst --thesis "Housing Supply Correction"
 
+# Strategy basket testing
+node run.mjs pull agent-analyst --strategy "Simons Style Quant Momentum Breadth" --limit 5 --skip-llm
+node run.mjs pull agent-analyst --all-strategies --limit 12 --skip-llm
+node run.mjs pull entropy-monitor
+node run.mjs pull entropy-monitor --backtest
+
 # Cross-sector sector scan
 node run.mjs scan sectors --dry-run
-node run.mjs scan conviction-delta
+node run.mjs scan conviction
 ```
 
-## Backtesting Commands
+## Review Commands
 
 ```powershell
-# Thesis quantitative simulation
-node run.mjs quant sim --thesis "Housing Supply Correction" --summary-only
-node run.mjs quant sim --thesis "Defense AI Autonomous Warfare" --summary-only
-
-# Sports model calibration + backtest
-node run.mjs pull sports-calibration
-node run.mjs pull sports-backtest
-
 # Filing-based dilution risk across watchlist
 node run.mjs pull dilution-monitor
+
+# Thesis conviction review
+node run.mjs scan conviction --window 30
 ```
 
 ## Orchestration Tiers
@@ -73,11 +88,11 @@ node run.mjs pull dilution-monitor
 |---|---|---|
 | **Post-pull (daily)** | After every full system pull | `opportunity-viewpoints` → `agent-analyst --skip-llm` → `thesis-canvas` |
 | **Deep research (weekly)** | Sunday / pre-market Monday | `agent-analyst --all-thesis` + `disclosure-reality --all` |
-| **Backtesting (weekly)** | Friday close | `quant sim` for each active thesis + `sports-calibration` |
-| **Conviction review (monthly)** | Month-end | `scan conviction-delta` + `month-end-archive` |
+| **Review (weekly)** | Friday close | `scan conviction --window 30` + `confluence-scan` |
+| **Conviction review (monthly)** | Month-end | `routine monthly` or `scan conviction` + `pull month-end-archive` |
 
 ## Review Cadence
 
 - Daily: check Priority Queue in Pulls; act on critical/alert items.
 - Weekly: run deep research sequence; review backtest drift.
-- Monthly: conviction-delta scan; promote/demote thesis ratings.
+- Monthly: conviction scan; promote/demote thesis ratings.

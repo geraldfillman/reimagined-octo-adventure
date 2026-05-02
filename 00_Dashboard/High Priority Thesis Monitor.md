@@ -19,8 +19,8 @@ TABLE WITHOUT ID
   conviction AS "Conviction",
   next_catalyst AS "Next Catalyst",
   monitor_status AS "Monitor",
-  qlib_signal_status AS "Quant",
-  qlib_last_run AS "Quant Run",
+  fmp_primary_technical_status AS "Technical",
+  fmp_last_sync AS "FMP Sync",
   break_risk_status AS "Break Risk",
   monitor_last_review AS "Last Review"
 FROM "10_Theses"
@@ -55,8 +55,8 @@ SORT allocation_rank ASC, file.name ASC
 TABLE WITHOUT ID
   file.link AS "Thesis",
   monitor_change AS "Change This Week",
-  qlib_signal_status AS "Quant",
-  qlib_best_ic AS "Best IC",
+  fmp_primary_technical_status AS "Technical",
+  fmp_primary_technical_bias AS "Bias",
   break_risk_status AS "Break Risk",
   next_catalyst AS "Next Catalyst"
 FROM "10_Theses"
@@ -66,21 +66,20 @@ WHERE node_type = "thesis" AND file.folder = "10_Theses"
 SORT date(monitor_last_review) DESC, file.name ASC
 ```
 
-## Quant Overlay
+## Tape Overlay
 
 ```dataview
 TABLE WITHOUT ID
   file.link AS "Thesis",
-  qlib_signal_status AS "Quant",
-  qlib_best_ic AS "Best IC",
-  qlib_positive_factor_count AS "+IC",
-  qlib_universe_size AS "Universe",
-  qlib_backtest_sharpe AS "Sharpe",
-  qlib_last_score_date AS "Score Date",
-  qlib_last_backtest_date AS "Backtest Date"
+  fmp_primary_technical_status AS "Technical",
+  fmp_primary_technical_bias AS "Bias",
+  fmp_primary_rsi14 AS "RSI",
+  fmp_primary_price_vs_sma200_pct AS "Vs SMA200",
+  fmp_next_earnings_date AS "Next Earnings",
+  fmp_last_sync AS "Last Sync"
 FROM "10_Theses"
-WHERE node_type = "thesis" AND file.folder = "10_Theses" AND allocation_priority = "high" AND qlib_last_run != null
-SORT qlib_last_run DESC, file.name ASC
+WHERE node_type = "thesis" AND file.folder = "10_Theses" AND allocation_priority = "high"
+SORT fmp_last_sync DESC, file.name ASC
 ```
 
 ## Break-Risk Watch

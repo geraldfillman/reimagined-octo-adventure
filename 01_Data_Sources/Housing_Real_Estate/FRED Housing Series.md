@@ -31,9 +31,9 @@ integrated: false
 notes: "Subset of FRED focused on housing — dozens of series including S&P/Case-Shiller. Foundation source for national-level housing data."
 ---
 
-## Overview
+## Summary
 
-FRED Housing Series provides housing starts, building permits, case-shiller home price indices, mortgage rates, homeownership rates. Subset of FRED focused on housing — dozens of series including S&P/Case-Shiller. Foundation source for national-level housing data.
+- FRED Housing Series provides housing starts, building permits, case-shiller home price indices, mortgage rates, homeownership rates. Subset of FRED focused on housing — dozens of series including S&P/Case-Shiller. Foundation source for national-level housing data.
 
 ## What It Provides
 
@@ -62,3 +62,4 @@ FRED Housing Series provides housing starts, building permits, case-shiller home
 - [[FRED API]]
 - [[FHFA House Price Index]]
 - [[Census Bureau Housing Data]]
+

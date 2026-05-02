@@ -26,7 +26,6 @@ const routes = [
   ["Energy",       ["05_Data_Pulls/Energy"],        ["energy"]],
   ["Research",     ["05_Data_Pulls/Research"],      ["research", "arxiv", "pubmed"]],
   ["Sectors",      ["05_Data_Pulls/Sectors"],       ["sectors", "sector"]],
-  ["Sports",       ["05_Data_Pulls/Sports"],        ["sports"]],
   ["OSINT",        ["05_Data_Pulls/osint", "05_Data_Pulls/social"], ["osint", "social"]],
   ["VC",           ["05_Data_Pulls/VC"],            ["vc", "capital-raise", "deal-flow"]],
   ["News",         ["05_Data_Pulls/News"],          ["news", "media", "sentiment"]],

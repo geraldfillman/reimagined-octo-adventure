@@ -7,5 +7,11 @@
   "homepage",
   "infranodus-graph-view",
   "obsidian42-brat",
-  "agent-client"
+  "agent-client",
+  "quickadd",
+  "periodic-notes",
+  "auto-periodic-notes",
+  "obsidian-minimal-settings",
+  "obsidian-hider",
+  "obsidian-admonition"
 ]

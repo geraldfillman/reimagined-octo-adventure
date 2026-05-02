@@ -4,13 +4,65 @@ name: "Dollar Debasement & Hard Money"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "high"
+allocation_rank: 1
+why_now: "Fiscal dominance, debt issuance, and monetary accommodation continue to support hard-asset outperformance."
+variant_perception: "Many investors still assume inflation has normalized enough to preserve fiat purchasing power."
+next_catalyst: "Treasury issuance, real-rate direction, and fiscal-deficit updates over 2026."
+disconfirming_evidence: "Real yields rise materially and fiscal discipline returns faster than expected."
+expected_upside: "Gold, hard-money equities, and scarce real assets reprice higher on sustained fiat skepticism."
+expected_downside: "Disinflation plus high real yields compress the hard-money narrative."
+position_sizing: "Core 3-5% hard-money sleeve with gold-linked and scarce-asset exposure."
+required_sources: ["[[FRED API]]", "[[Treasury Direct API]]", "[[US Treasury Data]]", "[[BEA API]]"]
+required_pull_families: ["fred --group rates", "treasury --yields", "bea --gdp", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Q4 2025 GDP slowed to 0.7% annualized while the 10Y-2Y spread compressed to 0.46 and average interest-bearing Treasury debt stayed at 3.320%, which keeps the fiscal-dominance setup intact."
+break_risk_status: "watch"
+monitor_action: "Hold the core sleeve, but watch real-rate pressure closely because long yields are still elevated even as growth slows."
 core_entities: ["[[GOLD]]", "[[NEM]]", "[[WPM]]", "[[MSTR]]", "[[COIN]]", "[[Gold]]", "[[Bitcoin]]", "[[USA]]"]
 supporting_regimes: ["[[Fiscal Dominance]]", "[[Dollar Debasement]]", "[[Risk-Off]]", "[[Inflation Resurgence]]"]
 key_indicators: ["[[US Debt/GDP]]", "[[Gold Spot Price]]", "[[Bitcoin Price]]", "[[DXY Dollar Index]]", "[[Central Bank Gold Purchases]]", "[[CPI Inflation]]"]
 bullish_drivers: ["[[US Fiscal Deficit 7% GDP]]", "[[Central Bank Gold Buying Record]]", "[[Bitcoin ETF Inflows]]", "[[De-Dollarization BRICS]]", "[[Inflation Resurgence Risk]]"]
 bearish_drivers: ["[[Risk-On Competes for Capital]]", "[[Bitcoin Regulatory Crackdown]]", "[[Gold Mining Cost Inflation]]", "[[Dollar Strength from Safe Haven Demand]]"]
 invalidation_triggers: ["Congress passes a credible multi-year deficit reduction plan that puts debt/GDP on a declining path — fiscal dominance narrative ends", "Bitcoin regulatory crackdown (global coordinated ban or heavy restriction) removes institutional capital flows", "Gold drops below $1,800/oz on sustained dollar strengthening — technical and narrative breakdown", "Inflation returns to 2% sustainably — no need for inflation hedge"]
-tags: [thesis, macro, gold, bitcoin, inflation, fiscal, hard-money]
+fmp_watchlist_symbols: ["GOLD", "NEM", "WPM", "MSTR", "COIN"]
+fmp_watchlist_symbol_count: 5
+fmp_primary_symbol: "GOLD"
+fmp_technical_symbol_count: 5
+fmp_technical_nonclear_count: 2
+fmp_technical_bearish_count: 4
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 47.16
+fmp_primary_price_vs_sma200_pct: 28.66
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 1142665490
+fmp_primary_trailing_pe: 89.63
+fmp_primary_price_to_sales: 0.07
+fmp_primary_price_to_book: 1.71
+fmp_primary_ev_to_sales: 0.08
+fmp_primary_ev_to_ebitda: -8.58
+fmp_primary_roe_pct: 1.93
+fmp_primary_roic_pct: -13.76
+fmp_primary_operating_margin_pct: -1.23
+fmp_primary_net_margin_pct: 0.08
+fmp_primary_current_ratio: 1.21
+fmp_primary_debt_to_equity: 0.47
+fmp_primary_price_target: 50.8
+fmp_primary_analyst_count: 5
+fmp_primary_target_upside_pct: 12.46
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 5
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-05"
+fmp_next_earnings_symbols: ["MSTR"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "macro", "gold", "bitcoin", "inflation", "fiscal", "hard-money"]
 ---
 
 ## Thesis Statement
@@ -71,6 +123,29 @@ The US federal debt is $36T and climbing at $1T every 100 days. The structural f
 - Gold sustained below $1,800/oz for 6+ months — breaks the central bank buying floor thesis
 - Inflation sustainably returns to 2% with no fiscal stress — removes the debasement narrative
 
+## Investment Scorecard
+
+- **Allocation Priority**: high (1)
+- **Why now**: Fiscal dominance, debt issuance, and monetary accommodation continue to support hard-asset outperformance.
+- **Variant perception**: Many investors still assume inflation has normalized enough to preserve fiat purchasing power.
+- **Next catalyst**: Treasury issuance, real-rate direction, and fiscal-deficit updates over 2026.
+- **Disconfirming evidence**: Real yields rise materially and fiscal discipline returns faster than expected.
+- **Expected upside**: Gold, hard-money equities, and scarce real assets reprice higher on sustained fiat skepticism.
+- **Expected downside**: Disinflation plus high real yields compress the hard-money narrative.
+- **Sizing rule**: Core 3-5% hard-money sleeve with gold-linked and scarce-asset exposure.
+
+## Required Evidence
+
+- **Source notes**: [[FRED API]], [[Treasury Direct API]], [[US Treasury Data]], [[BEA API]]
+- **Pull families**: fred --group rates, treasury --yields, bea --gdp, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Q4 2025 GDP slowed to 0.7% annualized while the 10Y-2Y spread compressed to 0.46 and average interest-bearing Treasury debt stayed at 3.320%, which keeps the fiscal-dominance setup intact.
+- **Break risk status**: watch
+- **Action**: Hold the core sleeve, but watch real-rate pressure closely because long yields are still elevated even as growth slows.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[WPM]] for royalty model (no mining cost risk); [[GOLD]] for operational leverage; [[COIN]] for institutional crypto infrastructure
 - **Size**: 3–5% total hard money allocation; split WPM + GOLD as core, MSTR as < 1% high-beta option
@@ -91,3 +166,6 @@ WHERE contains(string(tags), "hardmoney") OR contains(string(tags), "gold") OR c
 SORT date DESC
 LIMIT 5
 ```
+
+
+

@@ -29,9 +29,9 @@ integrated: false
 notes: "Weekly application survey is widely cited. Some data free via FRED, deeper data requires membership."
 ---
 
-## Overview
+## Summary
 
-Mortgage Bankers Association provides mortgage application data, delinquency rates, refinance activity, purchase index. Weekly application survey is widely cited. Some data free via FRED, deeper data requires membership.
+- Mortgage Bankers Association provides mortgage application data, delinquency rates, refinance activity, purchase index. Weekly application survey is widely cited. Some data free via FRED, deeper data requires membership.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ Mortgage Bankers Association provides mortgage application data, delinquency rat
 
 - [[FRED Housing Series]]
 - [[FHFA House Price Index]]
+

@@ -170,7 +170,7 @@ export async function run(flags = {}) {
       '- Review [[Signal Board]] for any new alerts',
       '- Check [[Macro Regime]] for rate environment context',
       '- Run again in 2-4 weeks: `node run.mjs playbook housing-cycle`',
-      '- For deeper analysis, run: `node run.mjs fred --group credit`',
+      '- For deeper analysis, run: `node run.mjs pull fred --group credit`',
     ].join('\n'),
   });
 

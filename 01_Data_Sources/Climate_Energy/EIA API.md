@@ -31,9 +31,9 @@ integrated: false
 notes: "One of the best free energy datasets. Comprehensive API with historical and current data."
 ---
 
-## Overview
+## Summary
 
-EIA API provides oil and gas data, electricity generation, renewable energy stats, energy prices, consumption data. One of the best free energy datasets. Comprehensive API with historical and current data.
+- EIA API provides oil and gas data, electricity generation, renewable energy stats, energy prices, consumption data. One of the best free energy datasets. Comprehensive API with historical and current data.
 
 ## What It Provides
 
@@ -61,3 +61,4 @@ EIA API provides oil and gas data, electricity generation, renewable energy stat
 
 - [[NOAA Climate Data Online]]
 - [[IRENA]]
+

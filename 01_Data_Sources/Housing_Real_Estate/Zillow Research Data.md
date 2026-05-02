@@ -32,9 +32,9 @@ integrated: false
 notes: "Free CSV downloads. Excellent metro-level granularity. ZHVI is one of the most-cited home price measures."
 ---
 
-## Overview
+## Summary
 
-Zillow Research Data provides zhvi (home value index), rental indices (zori), inventory data, days on market, price cuts. Free CSV downloads. Excellent metro-level granularity. ZHVI is one of the most-cited home price measures.
+- Zillow Research Data provides zhvi (home value index), rental indices (zori), inventory data, days on market, price cuts. Free CSV downloads. Excellent metro-level granularity. ZHVI is one of the most-cited home price measures.
 
 ## What It Provides
 
@@ -63,3 +63,4 @@ Zillow Research Data provides zhvi (home value index), rental indices (zori), in
 - [[Redfin Data Center]]
 - [[Realtor.com Research]]
 - [[FHFA House Price Index]]
+

@@ -1,5 +1,6 @@
 {
 	"nodes":[
+		{"id":"b25782087adc5e56","x":2691,"y":1295,"width":250,"height":60,"type":"text","text":""},
 		{"id":"label_live","type":"text","text":"# LIVE MARKET DATA","x":960,"y":-640,"width":1860,"height":50,"color":"3"},
 		{"id":"link_sitdeck","type":"link","url":"https://app.sitdeck.com/","x":960,"y":-520,"width":1860,"height":1130},
 		{"id":"label_entry","type":"text","text":"# ENTRY & ORCHESTRATION","x":0,"y":680,"width":3780,"height":70,"color":"1"},
@@ -28,10 +29,9 @@
 		{"id":"label_osint","type":"text","text":"# OSINT & MEDIA","x":0,"y":5080,"width":1860,"height":70,"color":"5"},
 		{"id":"osi","type":"file","file":"16_Agents/OSINT Agent/README.md","x":0,"y":5190,"width":900,"height":700},
 		{"id":"nws","type":"file","file":"16_Agents/News Agent/README.md","x":960,"y":5190,"width":900,"height":700},
-		{"id":"label_realworld","type":"text","text":"# REAL WORLD DATA","x":0,"y":5960,"width":2820,"height":70,"color":"3"},
+		{"id":"label_realworld","type":"text","text":"# REAL WORLD DATA","x":0,"y":5960,"width":1860,"height":70,"color":"3"},
 		{"id":"hou","type":"file","file":"16_Agents/Housing Agent/README.md","x":0,"y":6070,"width":900,"height":700},
-		{"id":"egy","type":"file","file":"16_Agents/Energy Agent/README.md","x":960,"y":6070,"width":900,"height":700},
-		{"id":"spt","type":"file","file":"16_Agents/Sports Agent/README.md","x":1920,"y":6070,"width":900,"height":700}
+		{"id":"egy","type":"file","file":"16_Agents/Energy Agent/README.md","x":960,"y":6070,"width":900,"height":700}
 	],
 	"edges":[]
 }

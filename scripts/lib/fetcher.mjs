@@ -204,3 +204,21 @@ function parseRetryAfter(header) {
 export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Run an async function over an array with bounded concurrency.
+ * @template T, U
+ * @param {T[]} items
+ * @param {number} limit — max simultaneous in-flight tasks
+ * @param {(item: T) => Promise<U>} fn
+ * @returns {Promise<U[]>}
+ */
+export async function mapConcurrent(items, limit, fn) {
+  const out = new Array(items.length);
+  let cursor = 0;
+  async function worker() {
+    while (cursor < items.length) { const i = cursor++; out[i] = await fn(items[i]); }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length || 1) }, worker));
+  return out;
+}

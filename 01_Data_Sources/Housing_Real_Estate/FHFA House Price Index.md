@@ -30,9 +30,9 @@ integrated: false
 notes: "Based on conforming mortgage transactions. Gold standard for broad price trends alongside Case-Shiller."
 ---
 
-## Overview
+## Summary
 
-FHFA House Price Index provides national house price index, metro-level hpi, state-level hpi, quarterly and monthly. Based on conforming mortgage transactions. Gold standard for broad price trends alongside Case-Shiller.
+- FHFA House Price Index provides national house price index, metro-level hpi, state-level hpi, quarterly and monthly. Based on conforming mortgage transactions. Gold standard for broad price trends alongside Case-Shiller.
 
 ## What It Provides
 
@@ -59,3 +59,4 @@ FHFA House Price Index provides national house price index, metro-level hpi, sta
 
 - [[FRED Housing Series]]
 - [[Zillow Research Data]]
+

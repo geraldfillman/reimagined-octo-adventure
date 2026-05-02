@@ -4,13 +4,65 @@ name: "Space Domain Awareness & Commercial Space"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Space is becoming a funded defense and commercial infrastructure layer, with SDA as one of the clearest government-backed monetization paths."
+variant_perception: "Many investors still bucket space as speculative hype instead of persistent national-security infrastructure."
+next_catalyst: "SDA contract awards, launch cadence, and defense-budget line items."
+disconfirming_evidence: "Program delays or budget shifts keep the economics trapped in prototypes."
+expected_upside: "Program-of-record wins can create steep rerating in the narrow set of relevant names."
+expected_downside: "Execution slippage and dependence on government budgets keep the thesis fragile."
+position_sizing: "Medium 1-3% sleeve, sized around contract visibility rather than narrative alone."
+required_sources: ["[[USASpending API]]", "[[SAM_Gov]]", "[[SEC EDGAR API]]", "[[NewsAPI]]"]
+required_pull_families: ["usaspending --recent", "sam --opportunities", "sec --space", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[RKLB]]", "[[PL]]", "[[ASTS]]", "[[BKSY]]", "[[SPIR]]", "[[MNTS]]", "[[Space]]", "[[Defense]]", "[[USA]]"]
 supporting_regimes: ["[[Defense Budget Supercycle]]", "[[Geopolitical Escalation]]", "[[AI Infrastructure Buildout]]"]
 key_indicators: ["[[Space Force Budget]]", "[[Commercial Launch Cadence]]", "[[Satellite Constellation Size]]", "[[SDA (Space Development Agency) Contracts]]", "[[Starshield Government Orders]]"]
 bullish_drivers: ["[[Space Force Established and Growing]]", "[[China ASAT Threat Forcing Resilient Architecture]]", "[[Commercial LEO Constellation Buildout]]", "[[JADC2 Satellite Link Demand]]", "[[SDA Tranche Awards]]"]
 bearish_drivers: ["[[SpaceX Starshield Monopoly Risk]]", "[[Debris (Kessler Syndrome) Risk]]", "[[Launch Cost Competition]]", "[[Long Revenue Ramp for Small Players]]"]
 invalidation_triggers: ["SpaceX Starshield fully monopolizes government satellite constellation contracts — small players cannot compete on cost", "Chinese ASAT test creates catastrophic debris field in LEO — constellation business model collapses", "Space Force budget stagnates below $30B/year — reduces commercial contract addressable market", "Key SDA tranche contracts all go to Boeing/Northrop — commercial small-sat companies excluded"]
-tags: [thesis, space, defense, satellites, leo, space-force, isr]
+fmp_watchlist_symbols: ["RKLB", "PL", "ASTS", "BKSY", "SPIR", "MNTS"]
+fmp_watchlist_symbol_count: 6
+fmp_primary_symbol: "RKLB"
+fmp_technical_symbol_count: 6
+fmp_technical_nonclear_count: 2
+fmp_technical_bearish_count: 2
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 50.8
+fmp_primary_price_vs_sma200_pct: 24.72
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 44345574340
+fmp_primary_trailing_pe: -222.47
+fmp_primary_price_to_sales: 73.69
+fmp_primary_price_to_book: 25.61
+fmp_primary_ev_to_sales: 72.73
+fmp_primary_ev_to_ebitda: -255.19
+fmp_primary_roe_pct: -19.23
+fmp_primary_roic_pct: -10.09
+fmp_primary_operating_margin_pct: -38.03
+fmp_primary_net_margin_pct: -32.94
+fmp_primary_current_ratio: 4.08
+fmp_primary_debt_to_equity: 0.15
+fmp_primary_price_target: 80.38
+fmp_primary_analyst_count: 13
+fmp_primary_target_upside_pct: 4.36
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-07"
+fmp_next_earnings_symbols: ["BKSY", "RKLB"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "space", "defense", "satellites", "leo", "space-force", "isr"]
 ---
 
 ## Thesis Statement
@@ -73,6 +125,29 @@ The militarization of low Earth orbit is the defining strategic competition of t
 - Space Force budget cut > 20% in a single NDAA — reduces commercial procurement addressable market
 - ASTS FCC approval delayed 2+ years → commercial revenue timeline extends beyond investor patience
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Space is becoming a funded defense and commercial infrastructure layer, with SDA as one of the clearest government-backed monetization paths.
+- **Variant perception**: Many investors still bucket space as speculative hype instead of persistent national-security infrastructure.
+- **Next catalyst**: SDA contract awards, launch cadence, and defense-budget line items.
+- **Disconfirming evidence**: Program delays or budget shifts keep the economics trapped in prototypes.
+- **Expected upside**: Program-of-record wins can create steep rerating in the narrow set of relevant names.
+- **Expected downside**: Execution slippage and dependence on government budgets keep the thesis fragile.
+- **Sizing rule**: Medium 1-3% sleeve, sized around contract visibility rather than narrative alone.
+
+## Required Evidence
+
+- **Source notes**: [[USASpending API]], [[SAM_Gov]], [[SEC EDGAR API]], [[NewsAPI]]
+- **Pull families**: usaspending --recent, sam --opportunities, sec --space, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[RKLB]] as the most diversified space systems company (launch + spacecraft); [[PL]] for ISR data revenue
 - **Size**: 1–2% speculative each — long-dated thesis with high execution risk; most names are pre-profitability
@@ -93,3 +168,6 @@ WHERE contains(string(tags), "space") OR contains(string(tags), "RKLB") OR conta
 SORT date DESC
 LIMIT 5
 ```
+
+
+

@@ -1,7 +1,10 @@
 import { runTimedAgent } from './schemas.mjs';
+import { runAuctionAgent } from './auction-agent.mjs';
 import { runFundamentalsAgent } from './fundamentals-agent.mjs';
 import { runMacroAgent } from './macro-agent.mjs';
 import { runMicrostructureAgent } from './microstructure-agent.mjs';
+import { runPairAgent } from './pair-agent.mjs';
+import { runPeadAgent } from './pead-agent.mjs';
 import { runPredictionMarketAgent } from './prediction-market-agent.mjs';
 import { runPriceAgent } from './price-agent.mjs';
 import { runRiskAgent } from './risk-agent.mjs';
@@ -14,6 +17,9 @@ export const DEFAULT_AGENT_NAMES = Object.freeze([
   'microstructure',
   'macro',
   'fundamentals',
+  'auction',
+  'pair',
+  'pead',
   'prediction-market',
 ]);
 
@@ -24,6 +30,9 @@ const AGENT_REGISTRY = Object.freeze({
   microstructure: runMicrostructureAgent,
   macro: runMacroAgent,
   fundamentals: runFundamentalsAgent,
+  auction: runAuctionAgent,
+  pair: runPairAgent,
+  pead: runPeadAgent,
   'prediction-market': runPredictionMarketAgent,
   prediction_market: runPredictionMarketAgent,
   prediction: runPredictionMarketAgent,
@@ -51,3 +60,6 @@ export async function runAgentsInParallel(state, agentNames = DEFAULT_AGENT_NAME
 function normalizeAgentName(name) {
   return name === 'prediction-market' ? 'prediction_market' : name;
 }
+
+export { scoreAndAlert } from './strategy-scorer.mjs';
+export { mapOptionsStrategy } from './options-mapper.mjs';

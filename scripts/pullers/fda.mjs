@@ -13,13 +13,13 @@ import { evaluateFDAApprovals, highestSeverity, formatSignalsSection } from '../
 
 export async function pull(flags = {}) {
   if (flags['recent-approvals'] || flags.recent || !Object.keys(flags).length) {
-    return pullRecentApprovals();
+    return pullRecentApprovals(flags);
   } else {
     throw new Error('Specify --recent-approvals');
   }
 }
 
-async function pullRecentApprovals() {
+async function pullRecentApprovals(flags = {}) {
   let apiKey = null;
   try {
     apiKey = getApiKey('fda');
@@ -81,7 +81,16 @@ async function pullRecentApprovals() {
   });
 
   const filePath = join(getPullsDir(), 'Biotech', dateStampedFilename('FDA_Approvals'));
-  writeNote(filePath, note);
-  console.log(`📝 Wrote: ${filePath}`);
-  return { filePath, signals };
+  if (shouldWriteArtifacts(flags)) {
+    writeNote(filePath, note);
+    console.log(`📝 Wrote: ${filePath}`);
+    return { filePath, signals };
+  }
+
+  console.log(`[dry-run] Would write: ${filePath}`);
+  return { filePath: null, signals };
+}
+
+export function shouldWriteArtifacts(flags = {}) {
+  return !Boolean(flags['dry-run']);
 }

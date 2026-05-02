@@ -1,0 +1,904 @@
+{
+  "version": 1,
+  "sessionId": "4854eca7-f2fc-411d-9c00-b8592ab4e271",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "3908ffa7-459b-4891-85c0-27f3c0ed535c",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "I want to create a process Canvas document visualizing what scripts produce what pull system and how the agents are intertwined. Create a plan to visually show how the vault is connected using your obsidian skills."
+        }
+      ],
+      "timestamp": "2026-04-30T00:07:56.138Z"
+    },
+    {
+      "id": "c8e6b735-0c1a-46d2-ae6b-872e4caf43c2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": "The user wants to create a Canvas document in Obsidian that visualizes:\n1. What scripts produce what data pulls\n2. How agents are intertwined\n3. How the vault is connected overall\n\nThis is a planning task, so I need to:\n1. Explore the codebase to understand the structure (scripts, agents, data pulls)\n2. Design a plan for the Canvas document\n3. Write the plan file\n\nLet me launch parallel Explore agents to understand the vault structure.\n\nKey areas to explore:\n1. The scripts directory structure (what scripts exist, what they produce)\n\n\n2. The agents directory and what agents are available\n3. The data pulls structure in 05_Data_Pulls\n4. The overall vault structure through index files and documentation\n\nI'll coordinate the exploration efficiently to map out all these connections before designing the Canvas layout."
+        },
+        {
+          "type": "text",
+          "text": "I'll start by exploring the vault structure in parallel to understand the scripts, agents, and data pull relationships before designing the Canvas plan."
+        }
+      ],
+      "timestamp": "2026-04-30T00:07:58.548Z"
+    },
+    {
+      "id": "dea8d60c-c192-4508-a691-70fb3740fd4f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CV8kJWQVFTiUd5kHo38uv8",
+          "title": "Explore scripts and agents directory structure",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Explore scripts and agents directory structure",
+            "subagent_type": "Explore",
+            "prompt": "I need to understand the structure of a data vault's scripts and agents for creating a Canvas visualization document. Please explore these areas and report back comprehensively:\n\nWorking directory: C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\n\n1. List all files in `scripts/` recursively, grouped by subdirectory (lib/, agents/, pullers/, etc.)\n2. For each script in `scripts/agents/` - read the first 30 lines to understand what it does and what data it produces/consumes\n3. For each script in `scripts/pullers/` - read the first 30 lines to understand what output file it writes and what APIs it calls\n4. For each script in `scripts/lib/` - just list names and one-line purpose from filename\n5. Check if there's a `scripts/` index or README\n\nReport: full directory tree of scripts/, with for each puller: (a) what API/data source it uses, (b) what output file/folder it writes to. For each agent: what it reads and what it produces."
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:01.801Z"
+    },
+    {
+      "id": "81fc8164-6f09-4bad-8d9b-608fd5cf2c6d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011aWKRiUHocmEiBGyu5T7eF",
+          "title": "Explore vault MOCs, data pulls structure, and Canvas files",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Explore vault MOCs, data pulls structure, and Canvas files",
+            "subagent_type": "Explore",
+            "prompt": "I need to understand the structure of an Obsidian vault called My_Data to plan a Canvas visualization document. Please explore:\n\nWorking directory: C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\n\n1. Read `AGENTS.md` and `_index.md` to understand the vault's navigation structure\n2. List all `.canvas` files in the vault (recursively)\n3. Read the existing `00_Dashboard/Main Dashboard.canvas` to understand the Canvas format used\n4. List the top-level folder structure and what each folder contains (01_Data_Sources, 02_, 03_, 04_, 05_Data_Pulls, etc.)\n5. List the contents of `05_Data_Pulls/` recursively - just folder names and file counts\n6. Check if there's a `06_Agents/` or `agents/` folder in the vault notes (not scripts)\n\nReport: the vault folder hierarchy, existing Canvas format/structure, and how data flows from sources → data pulls in the note system."
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:07.334Z"
+    },
+    {
+      "id": "13bbf2d6-435d-4870-9244-4630de39b867",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PZDU5Z69d9MAuSE8VM92rT",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Directory Tree of scripts/",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts' -type f -name '*.py' -o -name '*.js' -o -name '*.ts' -o -name 'README*' -o -name 'index*' | head -100"
+              },
+              {
+                "label": "Scripts Structure Overview",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts' 2>/dev/null || echo 'Directory listing not available'"
+              },
+              {
+                "label": "Agents Directory",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\agents' -type f 2>/dev/null | sort"
+              },
+              {
+                "label": "Pullers Directory",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers' -type f 2>/dev/null | sort"
+              },
+              {
+                "label": "Lib Directory",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib' -type f 2>/dev/null | sort"
+              },
+              {
+                "label": "README and Index Files",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts' -iname 'README*' -o -iname 'index*' 2>/dev/null"
+              }
+            ],
+            "queries": [
+              "what files are in scripts/agents directory",
+              "what files are in scripts/pullers directory",
+              "what files are in scripts/lib directory",
+              "are there any README or documentation files",
+              "complete directory structure of all scripts"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:12.152Z"
+    },
+    {
+      "id": "c2451a0c-fcbb-43a5-afb1-7f43c078e92a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_012YkxWcW8Ct71Q54EBcKTUR",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Read AGENTS.md",
+                "command": "cat '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/AGENTS.md'"
+              },
+              {
+                "label": "Read _index.md",
+                "command": "cat '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/_index.md'"
+              },
+              {
+                "label": "Find all .canvas files",
+                "command": "find '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data' -name '*.canvas' -type f"
+              },
+              {
+                "label": "Top-level folder structure",
+                "command": "ls -la '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/' | grep '^d'"
+              },
+              {
+                "label": "List 05_Data_Pulls recursively",
+                "command": "find '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls' -type d | sort"
+              }
+            ],
+            "queries": [
+              "vault structure navigation agents",
+              "canvas format structure",
+              "data sources data pulls flow",
+              "folder organization 01 02 03 04 05",
+              "agents folder location"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:15.235Z"
+    },
+    {
+      "id": "729213b5-e8d3-450a-8cee-413d9002e683",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DUfgRs4tiPfaWHXNKPM7R6",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "shell",
+            "code": "\n# Get first 30 lines of each agent in marketmind\nfor agent in C:\\\\Users\\\\CaveUser\\\\Documents\\\\Obsidian\\ Vault\\\\My_Data\\\\scripts\\\\agents\\\\marketmind\\\\*.mjs; do\n  echo \"=== $(basename \"$agent\") ===\"\n  head -30 \"$agent\"\n  echo \"\"\ndone\n",
+            "intent": "understand what each agent does and what data it reads/produces"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:16.285Z"
+    },
+    {
+      "id": "80920e76-23c0-416b-b990-47733a8b0e10",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SvatY6DWUJx1t3JrnjC3sN",
+          "title": "PowerShell",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "command": "\n$agentDir = \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\agents\\marketmind\"\nGet-ChildItem -Path $agentDir -Filter \"*.mjs\" | ForEach-Object {\n  Write-Host \"=== $($_.Name) ===\" -ForegroundColor Green\n  Get-Content -Path $_.FullName -TotalCount 30\n  Write-Host \"\"\n}\n",
+            "description": "Read first 30 lines of each agent script"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:18.785Z"
+    },
+    {
+      "id": "b0cde05e-79ce-4a13-8cb3-29f4b2a1ff82",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0155UodA6psXHj2PxdpFfGQa",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "path": "/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/00_Dashboard/Main Dashboard.canvas",
+            "language": "shell",
+            "code": "cat \"$FILE_CONTENT\" | head -100"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:19.168Z"
+    },
+    {
+      "id": "05c12df6-4b80-4ece-a61c-e1c451724b4a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WmviKp1dujcKKESJHSEZni",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Canvas file size and structure",
+                "command": "find '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data' -name '*.canvas' -exec ls -lh {} \\;"
+              },
+              {
+                "label": "05_Data_Pulls folder summary",
+                "command": "cd '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls' && find . -type d | head -30 && echo '---' && find . -type f -name '*.md' | wc -l && echo 'markdown files total'"
+              },
+              {
+                "label": "16_Agents folder contents",
+                "command": "ls -la '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/16_Agents/'"
+              }
+            ],
+            "queries": [
+              "canvas files list format",
+              "05_Data_Pulls subfolder structure timestamped",
+              "16_Agents folder contents purpose"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:22.869Z"
+    },
+    {
+      "id": "2033805b-dd81-46d2-86cf-0b9fafdd19d1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JT2ijtDM926XiKQ8GQzaML",
+          "title": "PowerShell",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "command": "\n$pullerDir = \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\"\n$pullers = Get-ChildItem -Path $pullerDir -Filter \"*.mjs\" | Sort-Object Name\n$count = 0\nforeach ($puller in $pullers) {\n  $count++\n  if ($count -le 15) {  # Show first 15 pullers\n    Write-Host \"=== $($_.Name) ===\" -ForegroundColor Green\n    Get-Content -Path $puller.FullName -TotalCount 25\n    Write-Host \"\"\n  }\n}\n",
+            "description": "Read first 25 lines of first 15 puller scripts"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:22.951Z"
+    },
+    {
+      "id": "ba4ca7f6-e9dd-46e3-a7ea-baffd5044a23",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WoBxeWrnZk2sHQSg9KShVH",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "shell",
+            "code": "\n# Read Main Dashboard canvas (JSON structure)\ncat '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/00_Dashboard/Main Dashboard.canvas' | python3 -m json.tool | head -80\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:26.352Z"
+    },
+    {
+      "id": "2442f613-ca3e-4a0f-8c3d-e687a9c54c31",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WngJs4KP5geSWkiJo2QC9Z",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Canvas file raw content (first 50 lines)",
+                "command": "head -50 '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/00_Dashboard/Main Dashboard.canvas'"
+              },
+              {
+                "label": "Sample pull files from each category",
+                "command": "for dir in Biotech Energy Macro Market Research Theses; do echo \"=== $dir ===\"  && ls -t '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/$dir' | head -3; done"
+              },
+              {
+                "label": "Agent Command Center",
+                "command": "head -100 '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/16_Agents/Agent Command Center.md'"
+              }
+            ],
+            "queries": [
+              "canvas JSON structure nodes edges",
+              "data pull files by category timestamp naming",
+              "agent command center orchestration"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:29.768Z"
+    },
+    {
+      "id": "977db622-c2a4-4c80-97e4-5d70ffb1c7b5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0186sRkhhv3uhCkViUPvVKNU",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Sample Market Agent pull file",
+                "command": "ls -t '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Market/' 2>/dev/null | head -1 | xargs -I {} head -30 '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Market/{}'"
+              },
+              {
+                "label": "Sample Macro pull",
+                "command": "ls -t '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Macro/' 2>/dev/null | head -1 | xargs -I {} head -25 '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/05_Data_Pulls/Macro/{}'"
+              },
+              {
+                "label": "01_Data_Sources sample",
+                "command": "ls '/c/Users/CaveUser/Documents/Obsidian Vault/My_Data/01_Data_Sources/' | head -20"
+              }
+            ],
+            "queries": [
+              "market pull file frontmatter schema date",
+              "macro pull file structure signal status",
+              "data sources categories organization"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:34.319Z"
+    },
+    {
+      "id": "4f9e41fb-0659-49ee-a8a8-39b05e740456",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TreXZXBohtJtF6QzaFwom7",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "failed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "python",
+            "code": "\n# Create a structured summary of the scripts directory\n\nsummary = {\n    \"agents\": {\n        \"marketmind\": {\n            \"description\": \"Multi-agent system for investment analysis\",\n            \"agents\": {\n                \"price-agent\": {\n                    \"reads\": [\"Daily price history (260-420 bars from FMP)\", \"Technical indicators (SMA, EMA, MACD, RSI, Bollinger)\"],\n                    \"produces\": \"BULLISH/BEARISH/NEUTRAL signal with confidence (0-1) based on price technicals\",\n                    \"api_data\": \"FMP daily prices API\"\n                },\n                \"risk-agent\": {\n                    \"reads\": [\"Daily prices (260 bars)\", \"Company profile\", \"Short interest\"],\n                    \"produces\": \"Risk signal with realized volatility, max drawdown, Sharpe-like metric\",\n                    \"api_data\": \"FMP prices, profile, short interest\"\n                },\n                \"fundamentals-agent\": {\n                    \"reads\": [\"Income statement (annual)\", \"Cash flow (quarterly)\", \"Balance sheet\", \"Company profile\"],\n                    \"produces\": \"Fundamental signal based on profitability, revenue growth, debt ratios\",\n                    \"api_data\": \"FMP fundamentals APIs\"\n                },\n                \"sentiment-agent\": {\n                    \"reads\": [\"Stock news articles (FMP)\", \"NewsAPI articles\"],\n                    \"produces\": \"Sentiment signal via positive/negative keyword scoring\",\n                    \"api_data\": \"FMP stock news, NewsAPI\"\n                },\n                \"macro-agent\": {\n                    \"reads\": [\"FRED series (Fed Funds, 10Y-2Y curve, VIX, HY spread)\"],\n                    \"produces\": \"Macro context signal (neutral most often, affects interpretation)\",\n                    \"api_data\": \"FRED API\"\n                },\n                \"microstructure-agent\": {\n                    \"reads\": [\"Intraday 1-min prices\", \"Quote data\", \"Float/short interest\", \"Trading volume\"],\n                    \"produces\": \"Market structure signal based on bars entropy & positioning\",\n                    \"api_data\": \"FMP intraday 1-min, quote, float APIs\"\n                },\n                \"prediction-market-agent\": {\n                    \"reads\": [\"Prediction market contracts matching ticker/thesis keywords\"],\n                    \"produces\": \"Prediction market consensus signal\",\n                    \"api_data\": \"Prediction market client\"\n                },\n                \"synthesis-agent\": {\n                    \"reads\": [\"All 6 agent signals + deterministic composite\"],\n                    \"produces\": \"LLM-synthesized final verdict (BULLISH/BEARISH/NEUTRAL) + status (clear/watch/alert/critical)\",\n                    \"api_data\": \"Claude API via llm-client\"\n                }\n            }\n        }\n    },\n    \"lib_modules\": {\n        \"api_clients\": [\"fmp-client.mjs\", \"prediction-market-client.mjs\", \"llm-client.mjs\"],\n        \"data_fetch\": [\"fetcher.mjs\", \"edgar.mjs\"],\n        \"config_state\": [\"config.mjs\", \"dilution-state.mjs\", \"conviction-tracker.mjs\", \"retention.mjs\"],\n        \"technical\": [\"bars.mjs\", \"bsm.mjs\", \"technical-indicators.mjs (implied)\"],\n        \"obsidian_integration\": [\"obsidian-cli.mjs\", \"frontmatter.mjs\"],\n        \"formatting\": [\"markdown.mjs\", \"markdown-table.mjs\"],\n        \"sports_analysis\": [\"sports/calibration-math.mjs\", \"sports/devig.mjs\", \"sports/factors/*.mjs\"],\n        \"data_structures\": [\"schema.mjs\", \"sector-map.mjs\", \"cik-map.mjs\", \"kb-bridge.mjs\"]\n    },\n    \"top_pullers\": {\n        \"agent-analyst\": {\n            \"function\": \"Runs all 7 agents for a symbol/thesis and creates Canvas note\",\n            \"reads\": \"Agent outputs (signal objects with confidence, summary, raw_data)\",\n            \"produces\": \"Markdown note with agent table, synthesis, and scoring weights from config/scoring-weights.json\",\n            \"output_path\": \"05_Data_Pulls/\",\n            \"key_data_sources\": \"FMP, FRED, NewsAPI, prediction markets, LLM synthesis\"\n        },\n        \"dilution-monitor\": {\n            \"function\": \"Monitors dilution risk across watchlist (shelf capacity, ATM-to-float)\",\n            \"reads\": \"SEC filings, FMP fundamentals, dilution-rules engine\",\n            \"produces\": \"Dilution_Monitor table + per-ticker DILUTION signal notes\",\n            \"output_path\": \"05_Data_Pulls/Fundamentals/ + 06_Signals/\",\n            \"state_file\": \".cache/dilution-state.json (tracks state between runs)\"\n        },\n        \"company-risk-scan\": {\n            \"function\": \"Scans fundamental/regulatory/sentiment risks per ticker\",\n            \"reads\": \"FMP TTM ratios, SEC 8-K/edgar, FDA recalls, NewsAPI\",\n            \"produces\": \"risk_event notes in 12_Company_Risk/Events/\",\n            \"output_path\": \"12_Company_Risk/\"\n        },\n        \"dd-report\": {\n            \"function\": \"One-click due diligence: dilution, IPO, ownership, float, filings\",\n            \"reads\": \"Multiple lib helpers (dilution, edgar, fmp)\",\n            \"produces\": \"Comprehensive DD note per ticker\",\n            \"output_path\": \"05_Data_Pulls/\"\n        },\n        \"convergence-scan\": {\n            \"function\": \"Detects when 3+ domains independently flag same thesis/ticker\",\n            \"reads\": \"Recent alert/critical pull notes from disk\",\n            \"produces\": \"Critical convergence signal\",\n            \"output_path\": \"06_Signals/\"\n        }\n    },\n    \"data_APIs\": {\n        \"FMP\": \"Price, fundamentals, news, profile, float, short interest, insider trades\",\n        \"FRED\": \"Macro indicators (Fed funds, yield curve, VIX, spreads)\",\n        \"NewsAPI\": \"News article search\",\n        \"SEC EDGAR\": \"Company filings, facts, disclosures (no API key)\",\n        \"CBOE\": \"Put/call ratios, skew, VIX term structure (CSV feeds)\",\n        \"BEA\": \"GDP and personal income\",\n        \"EIA\": \"Energy data, electricity demand\",\n        \"ClinicalTrials.gov\": \"Clinical trial data\",\n        \"FDA\": \"Drug approvals, recalls\",\n        \"arXiv\": \"Preprints (atom API)\",\n        \"Prediction Markets\": \"Event contract pricing\",\n        \"Claude API\": \"LLM synthesis of agent signals\"\n    },\n    \"output_structure\": {\n        \"pulls\": \"05_Data_Pulls/ grouped by category (Fundamentals, etc.)\",\n        \"signals\": \"06_Signals/ for alert/critical-severity notes\",\n        \"company_risk\": \"12_Company_Risk/ for risk event tracking\",\n        \"obsidian_integration\": \"Notes have Obsidian frontmatter (properties, tags, links)\"\n    }\n}\n\nprint(\"=\" * 80)\nprint(\"DATA VAULT SCRIPTS ARCHITECTURE\")\nprint(\"=\" * 80)\nprint(\"\\n### AGENTS (scripts/agents/marketmind/)\")\nprint(\"  Purpose: Multi-perspective investment signal generation\")\nfor agent_name, agent_info in summary[\"agents\"][\"marketmind\"][\"agents\"].items():\n    print(f\"\\n  {agent_name}:\")\n    print(f\"    Reads: {', '.join(agent_info.get('reads', []))}\")\n    print(f\"    API: {agent_info.get('api_data', 'N/A')}\")\n    print(f\"    Output: {agent_info.get('produces', 'N/A')}\")\n\nprint(\"\\n\\n### TOP PULLERS (create Canvas visualization documents)\")\nfor puller_name, puller_info in summary[\"top_pullers\"].items():\n    print(f\"\\n  {puller_name}:\")\n    print(f\"    Function: {puller_info.get('function', 'N/A')}\")\n    print(f\"    Sources: {puller_info.get('key_data_sources', puller_info.get('reads', 'N/A'))}\")\n    print(f\"    Output: {puller_info.get('produces', 'N/A')}\")\n    print(f\"    Path: {puller_info.get('output_path', 'N/A')}\")\n\nprint(\"\\n\\n### LIB MODULES (reusable utilities)\")\nfor category, modules in summary[\"lib_modules\"].items():\n    print(f\"\\n  {category}: {', '.join(modules[:3])}{'...' if len(modules) > 3 else ''}\")\n\nprint(\"\\n\\n### DATA SOURCES\")\nfor source, description in summary[\"data_APIs\"].items():\n    print(f\"  {source}: {description}\")\n\nprint(\"\\n\\n### OUTPUT DIRECTORIES\")\nfor output_type, path in summary[\"output_structure\"].items():\n    print(f\"  {output_type}: {path}\")\n\nprint(\"\\n\" + \"=\" * 80)\n",
+            "intent": "Create structured summary of scripts architecture for Canvas visualization"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:45.351Z"
+    },
+    {
+      "id": "ad5c67b8-d41d-47b4-ba78-ec006fa090ae",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019whX7S3AeiTkfgetCJBhNw",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "javascript",
+            "code": "\nconst summary = {\n  agents: {\n    price: { reads: [\"Daily prices 260-420 bars\"], api: \"FMP\", produces: \"Technical signal (SMA, EMA, MACD, RSI, Bollinger)\" },\n    risk: { reads: [\"Daily prices\", \"Profile\", \"Short interest\"], api: \"FMP\", produces: \"Volatility & drawdown signal\" },\n    fundamentals: { reads: [\"Income stmt\", \"Cashflow\", \"Balance sheet\"], api: \"FMP\", produces: \"Profitability signal\" },\n    sentiment: { reads: [\"Stock news, NewsAPI articles\"], api: \"FMP + NewsAPI\", produces: \"Keyword-based sentiment\" },\n    macro: { reads: [\"FRED indicators\"], api: \"FRED\", produces: \"Macro context signal\" },\n    microstructure: { reads: [\"1-min intraday bars\", \"Float\", \"Short interest\"], api: \"FMP\", produces: \"Market structure entropy\" },\n    prediction_market: { reads: [\"Event contracts matching ticker\"], api: \"Prediction markets\", produces: \"Market consensus\" },\n    synthesis: { reads: [\"All 6 signals + deterministic\"], api: \"Claude LLM\", produces: \"Final BULLISH/BEARISH/NEUTRAL verdict\" }\n  },\n  lib_modules: [\n    \"fmp-client.mjs (FMP API wrapper)\",\n    \"fetcher.mjs (HTTP + retry logic)\",\n    \"edgar.mjs (SEC filings, facts API)\",\n    \"llm-client.mjs (Claude API)\",\n    \"obsidian-cli.mjs (vault integration)\",\n    \"markdown.mjs (note building)\",\n    \"config.mjs (vault paths & API keys)\",\n    \"dilution-rules.mjs (shelf capacity logic)\",\n    \"cik-map.mjs (ticker→CIK mapping)\",\n    \"bars.mjs (OHLC normalization)\",\n    \"technical-indicators.mjs (SMA, RSI, etc.)\"\n  ],\n  top_pullers: {\n    \"agent-analyst\": \"Runs all 7 agents for symbol/thesis → Canvas table with scores\",\n    \"dilution-monitor\": \"Watches shelf capacity, ATM-to-float ratio across watchlist → dilution signals\",\n    \"company-risk-scan\": \"Scans fundamentals, regulatory, sentiment for risk events\",\n    \"dd-report\": \"One-click due diligence combining dilution, IPO, filings\",\n    \"convergence-scan\": \"Detects 3+ domains independently flagging same thesis\",\n    \"disclosure-reality\": \"Ranks recent EDGAR filings for analyst review queue\",\n    \"capital-raise\": \"Daily sweep of offerings & prospectus supplements\",\n    \"earnings-entropy\": \"Scans intraday entropy compressed before earnings\"\n  }\n};\n\nconsole.log(\"=\" .repeat(80));\nconsole.log(\"DATA VAULT SCRIPTS - AGENT & PULLER ARCHITECTURE\");\nconsole.log(\"=\" .repeat(80));\n\nconsole.log(\"\\n[AGENTS - scripts/agents/marketmind/]\");\nconsole.log(\"Parallel signal generation for assets:\");\nObject.entries(summary.agents).forEach(([name, info]) => {\n  console.log(`\\n  ${name}:`);\n  console.log(`    reads: ${info.reads.join(\", \")}`);\n  console.log(`    api: ${info.api}`);\n  console.log(`    produces: ${info.produces}`);\n});\n\nconsole.log(\"\\n\\n[PULLERS - scripts/pullers/]\");\nconsole.log(\"Canvas note creators that aggregate agent outputs + external data:\");\nObject.entries(summary.top_pullers).forEach(([name, desc]) => {\n  console.log(`  ${name}: ${desc}`);\n});\n\nconsole.log(\"\\n\\n[LIB - scripts/lib/]\");\nconsole.log(\"Reusable utilities:\");\nsummary.lib_modules.forEach(mod => console.log(`  ${mod}`));\n\nconsole.log(\"\\n\\n[DATA FLOW for Canvas Visualization]\");\nconsole.log(`\n  External APIs (FMP, FRED, NewsAPI, EDGAR, etc.)\n         ↓\n  [AGENTS] Run in parallel, produce confidence signals\n         ↓\n  [PULLERS] Aggregate agent outputs + external data\n         ↓\n  [Markdown builder] Formats as Obsidian note with frontmatter\n         ↓\n  OUTPUT: 05_Data_Pulls/, 06_Signals/, 12_Company_Risk/\n`);\n\nconsole.log(\"=\" .repeat(80));\n",
+            "intent": "Generate structured summary of agent-puller architecture"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:57.268Z"
+    },
+    {
+      "id": "48f72f58-8185-45b9-a7e5-1b2de5110df8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DAEjQxFC1bAJJ3niQzFupL",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_search",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "queries": [
+              "all pullers list complete filenames",
+              "lib modules complete list",
+              "agents subdirectories",
+              "readme or documentation in scripts"
+            ]
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a comprehensive understanding of the vault structure. Let me read the existing Canvas files to understand the exact JSON format used, then design the plan for the new Canvas document.\n\nKey findings:\n1. **Scripts structure**: \n   - `scripts/agents/marketmind/` - 8 agents (price, risk, fundamentals, sentiment, macro, microstructure, prediction-market, synthesis) + utilities\n   - `scripts/pullers/` - 40+ pullers that produce markdown notes\n   - `scripts/lib/` - 15+ utility modules\n\n\n2. **Vault structure**: 16 agent folders, 18 data pull subfolders, 88 data sources, signal notes, and 4 existing Canvas files\n3. **Canvas format**: JSON-based with nodes (text, file, link) and edges using absolute positioning\n\nI need to examine the existing Canvas files to understand the exact JSON structure, then plan how to visualize the relationships between scripts, data pulls, agents, and the overall vault connections."
+        },
+        {
+          "type": "text",
+          "text": "Good, I have a solid picture of the vault. Let me read the existing Canvas files to understand the exact JSON format before designing the plan."
+        }
+      ],
+      "timestamp": "2026-04-30T00:08:59.785Z"
+    },
+    {
+      "id": "2117c980-cd8f-4ae6-a3d7-58949c6b1469",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01V6iWKKbJ1aAoSxHqxEF3bH",
+          "title": "Read 00_Dashboard\\ORB + Entropy Strategy Dashboard.canvas",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\ORB + Entropy Strategy Dashboard.canvas"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\ORB + Entropy Strategy Dashboard.canvas"
+          }
+        }
+      ],
+      "timestamp": "2026-04-30T00:09:28.235Z"
+    },
+    {
+      "id": "b0c92f96-a023-4cb2-815b-e858c2e85967",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GqrZ42w7GR8UAJ4wMYzAaK",
+          "title": "Read 00_Dashboard\\Main Dashboard.canvas",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Main Dashboard.canvas"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Main Dashboard.canvas"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a comprehensive understanding of the vault structure and Canvas format. Let me design the plan for the process Canvas document.\n\nThe user wants to visualize:\n1. What scripts produce what data pulls\n2. How agents are intertwined\n3. How the vault is connected overall\n\n**Canvas Design Approach:**\n\nThe Canvas should show the flow: **Data Sources → Lib Modules → Scripts/Pullers → Data Pulls → Agents → Signals/Outputs**\n\nLooking at the existing Canvas format:\n- Nodes are positioned with absolute x/y coordinates\n- Standard tile size: 900×700 for file nodes\n\n\n- Section labels span full width at 70px height\n- Colors 0-6 handle categorical grouping\n- The ORB strategy dashboard uses `type: \"text\"` for rich markdown content nodes\n\nThe key difference here is that I'll actually use edges to show connections between layers—the existing dashboards don't draw arrows, but this flow diagram needs them to illustrate how data moves through the system. I'm planning a horizontal left-to-right layout with layers for external data sources, lib modules, scripts, data pulls, agents, and outputs.\n\nActually, a top-to-bottom layout might work better for showing the process flow. I'd start with a title and overview at the top, then stack the external APIs, lib modules, pullers grouped by domain, the specialist agents, and finally the data outputs and consumers at the bottom.\n\nSince there are 40+ pullers, grouping them by domain makes more sense than individual nodes—I'd organize them into categories like market analysis, fundamental data, biotech research, macro indicators, research sources, and OSINT feeds. Then I can show how these domain-grouped pullers feed into the MarketMind agent system and downstream consumers.\n\nFor the Canvas layout, I'm thinking of a horizontal band structure where each layer (external sources, lib clients, pullers, agents, outputs) gets its own row with connecting arrows showing the data flow. This matches how Obsidian Canvas renders well visually and keeps everything organized from left to right. Now I'm mapping out how each script connects to its output folders—the market analysis pullers feed into Market pulls, while the dilution monitor branches into both Fundamentals and Signals, and the agent-analyst orchestrates the marketmind agents to generate its own data pulls.\n\nI'm planning to visualize this entire flow in a Canvas with distinct layers: starting with the raw data sources at the top, then the library modules that consume them, followed by the puller scripts organized by domain, and continuing down through the signal generation and agent routing layers. I'm deciding between generating the Canvas JSON with a Node.js script or writing it directly—the direct approach is more reliable since I know the exact format. Now I'm laying out the spatial design with columns spaced at 760px and rows at 860px to accommodate the seven-layer architecture.\n\nActually, a horizontal layout with seven columns might be too wide for readability, so I'm reconsidering a vertical top-to-bottom flow instead where the data sources sit at the top and flow downward through the processing layers.\n\nNow I'm mapping out the specific row positions for each section—starting with the external data sources at the top, then moving through the library modules, puller scripts, MarketMind pipeline, outputs, vault agents, and finally signals and dashboards at the bottom, with labeled bands separating each layer. nodes\n\nFor edges in Obsidian Canvas JSON format:\n```json\n{\"id\": \"edge1\", \"fromNode\": \"node_id_from\", \"fromSide\": \"bottom\", \"toNode\": \"node_id_to\", \"toSide\": \"top\", \"label\": \"optional label\"}\n```\n\nLet me now plan the exact nodes:\n\n**EXTERNAL DATA SOURCES (Row 2, y=150):**\n- Node: APIs_market: FMP (prices, fundamentals, news, float, short interest)\n- Node: APIs_macro: FRED (Fed funds, yield curve, VIX, HY spreads) + CBOE\n- Node: APIs_sec: SEC EDGAR (filings, company facts, 8-K, S-3)\n- Node: APIs_bio: FDA (drug approvals, recalls) + ClinicalTrials.gov + PubMed\n- Node: APIs_news: NewsAPI + arXiv + Open\n- Node: APIs_gov: EIA + BEA + SAM.gov + FPDS\n\nSix data source nodes positioned horizontally at y=150 with 960-pixel spacing, totaling 5700 pixels wide.\n\n**LIB MODULES (y=1070):**\n- Node: lib_fmp: FMP wrapper module\n- Node: lib_edgar: SEC access with CIK mapping\n- Node: lib_fetch: Utility functions for fetching, charting, and markdown generation\n- Node: lib_llm: Claude API integration layer\n- Node: lib_config: Configuration management with dilution rules and settings\n- Node: lib_scoring: Scoring engine with schemas and utilities for market analysis\n\nSix library modules at the same horizontal spacing.\n\n**PULLER SCRIPTS (y=1910):**\n- Node: pull_market: Market analysis scripts covering entropy, volatility, compression, backtesting, and strategy search\n- Node: pull_fundamentals: Fundamental analysis scripts for dilution monitoring, due diligence, capital raises, and risk assessment\n- Node: pull_macro: Macroeconomic data pullers for Fed rates, energy, economic accounts, and volatility indices\n- Node: pull_bio: Biotech-specific data collection\n\nFour puller nodes at y=1910.\n\nNow I'm mapping out the edges to show data flow from sources through libraries to pullers, then to analysis and reporting layers. Now I'm mapping out the remaining specialist agents—macro, microstructure, and prediction markets—that feed into a synthesis node using Claude to generate the final bullish/bearish/neutral signal, all orchestrated by an agent-analyst module. Then the data outputs flow into organized directories for market data, fundamentals, macro indicators, and alert signals. quant: 05_Data_Pulls/Quant/ (QCPM, backtests)\n- Node: out_bio: 05_Data_Pulls/Biotech/ + Research/ + Government/\n\n**VAULT DOMAIN AGENTS (y=4430):**\nFile nodes pointing to 16_Agents READMEs (use subset of most important ones)\n- Market Agent, Macro Agent, Thesis Agent, Fundamentals Agent (core 4)\n- Orchestrator Agent (central)\n- Biotech, Government, Energy, Housing (domain specialists)\n\n**SIGNALS & DASHBOARDS (y=5270):**\n- File: 06_Signals/ convergence\n- File: 00_Dashboard/Main Dashboard.canvas\n- File: 00_Dashboard/Signal Board.md\n- File: 16_Agents/Agent Command Center.md\n\nNow I'm mapping out the connections between all these components—the API layers feed into specialized libraries, which pull data into various processing nodes, and those outputs flow into signals and ultimately into the vault. The analyst pipeline synthesizes market data through the LLM, while fundamentals and macro data converge through their own paths before feeding into the signal generation system. Generating the Canvas JSON..."
+        },
+        {
+          "type": "text",
+          "text": "Now I have everything I need. Let me write the plan file."
+        }
+      ],
+      "timestamp": "2026-04-30T00:09:28.952Z"
+    },
+    {
+      "id": "416a74a6-d444-4b2d-b947-ab58313405b2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SHbxN7dipUmHYhPfuQ9KLs",
+          "title": "Write C:\\Users\\CaveUser\\.claude\\plans\\i-want-to-create-tranquil-scroll.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\i-want-to-create-tranquil-scroll.md",
+              "newText": "# Plan: Vault Process Flow Canvas\n\n## Context\n\nThe vault has ~40+ puller scripts, an 8-agent MarketMind pipeline, 16 domain-level note agents, and 3,450+ data pull notes spread across 18 subfolders. There is no visual document showing how scripts feed outputs, how agents interconnect, or how data propagates from raw API calls through to signals and dashboards. This Canvas fills that gap — a single navigable map of the entire automated pull system.\n\n---\n\n## Approach\n\nCreate a Node.js generator script that programmatically builds the Canvas JSON, then write the output to `00_Dashboard/Vault Process Flow.canvas`. A generator script is preferable to hand-editing JSON because positions are computed, nodes are readable, and the layout can be re-run when the vault evolves.\n\n---\n\n## Canvas Architecture\n\n**Layout:** Top-to-bottom, 6 horizontal layers. Each layer is a full-width label band (70px) followed by a row of 900×700 nodes. Layers separated by ~90px gap.\n\n**Key differentiator from existing dashboards:** This Canvas **uses edges (arrows)** to show directed data flow — the existing dashboards have no edges. This makes the flow legible without reading node content.\n\n**Total canvas dimensions:** ~5700px wide × ~5800px tall\n\n---\n\n## Layer Design\n\n### Layer 1 — External Data Sources (y=150)\n6 text nodes, color `3` (yellow):\n| Node ID | Content |\n|---------|---------|\n| `src_market` | FMP: prices, fundamentals, news, float, short interest, insider trades |\n| `src_macro` | FRED: Fed funds, yield curve, VIX, HY spreads · CBOE: put/call, skew |\n| `src_sec` | SEC EDGAR: filings, company facts, 8-K, S-3 (no API key) |\n| `src_bio` | FDA: approvals, recalls · ClinicalTrials.gov · PubMed/NIH |\n| `src_news` | NewsAPI: headlines · arXiv: preprints · OpenAlex: research |\n| `src_gov` | EIA: energy · BEA: GDP · SAM.gov · FPDS: contracts · OpenFEMA |\n\n### Layer 2 — Lib Modules (y=1000)\n6 text nodes, color `6` (purple):\n| Node ID | Content |\n|---------|---------|\n| `lib_fmp` | `fmp-client.mjs` — FMP REST wrapper (prices, fundamentals, profile, float) |\n| `lib_edgar` | `edgar.mjs` + `cik-map.mjs` — SEC EDGAR access + ticker↔CIK map |\n| `lib_fetch` | `fetcher.mjs` + `bars.mjs` + `markdown.mjs` — HTTP retry, OHLC norm, note builder |\n| `lib_llm` | `llm-client.mjs` — Claude API integration (JSON-mode chat for synthesis) |\n| `lib_config` | `config.mjs` + `dilution-rules.mjs` + `obsidian-cli.mjs` — paths, rules, vault write |\n| `lib_mm` | `scoring.mjs` + `schemas.mjs` + `entropy.mjs` — MarketMind signal math |\n\n### Layer 3 — Puller Scripts (y=1840)\n6 text nodes, color `5` (blue):\n| Node ID | Content |\n|---------|---------|\n| `pull_market` | `orb-entropy.mjs` · `rel-vol-screen.mjs` · `entropy-compression-scan.mjs` · `backtest-orb-eod.mjs` · `earnings-entropy.mjs` · `qcpm-strategy-search.mjs` |\n| `pull_fund` | `dilution-monitor.mjs` · `dd-report.mjs` · `capital-raise.mjs` · `disclosure-reality.mjs` · `company-risk-scan.mjs` |\n| `pull_macro` | `fred.mjs` · `eia.mjs` · `bea.mjs` · `cboe.mjs` |\n| `pull_bio` | `fda.mjs` · `arxiv.mjs` · `clinicaltrials.mjs` |\n| `pull_osint` | `newsapi.mjs` · `reddit.mjs` · `telegram.mjs` · `opensecrets.mjs` |\n| `pull_gov` | `sam.mjs` · `fpds.mjs` · `fema.mjs` |\n\n### Layer 4 — MarketMind Agent Pipeline (y=2680)\nSpecial section with full-width label + 8 specialist nodes + 1 synthesis node + 1 orchestrator node.\nNodes use color `4` (green) for specialist agents, `1` (red) for synthesis.\n\n| Node ID | Content |\n|---------|---------|\n| `mm_price` | `price-agent.mjs` — SMA, EMA, MACD, RSI, Bollinger (260–420 bars) |\n| `mm_risk` | `risk-agent.mjs` — Volatility, max drawdown, Sharpe, short interest |\n| `mm_fund` | `fundamentals-agent.mjs` — Margins, growth, debt (income + cash flow) |\n| `mm_sent` | `sentiment-agent.mjs` — Keyword sentiment (FMP news + NewsAPI) |\n| `mm_macro` | `macro-agent.mjs` — FRED macro context (yield curve, VIX, spreads) |\n| `mm_micro` | `microstructure-agent.mjs` — 1-min entropy, float, positioning |\n| `mm_pred` | `prediction-market-agent.mjs` — Event contract consensus |\n| `mm_synth` | `synthesis-agent.mjs` — Claude LLM → BULLISH/BEARISH/NEUTRAL + clear/watch/alert/critical |\n| `mm_orch` | `agent-analyst.mjs` — Orchestrator: runs all 8, writes pull note to `05_Data_Pulls/` |\n\n### Layer 5 — Data Pull Outputs (y=3620)\nMix of text (folder paths) and file nodes (key representative files), color `2` (orange):\n| Node ID | Content |\n|---------|---------|\n| `out_market` | `05_Data_Pulls/Market/` — ORB sheets, entropy screens, rel-vol, backtests |\n| `out_fund` | `05_Data_Pulls/Fundamentals/` — Dilution monitor, DD reports, capital raises |\n| `out_macro` | `05_Data_Pulls/Macro/` — FRED snapshots, EIA, BEA |\n| `out_quant` | `05_Data_Pulls/Quant/` — QCPM, backtest results |\n| `out_bio` | `05_Data_Pulls/Biotech/` + `05_Data_Pulls/Research/` |\n| `out_signals` | `06_Signals/` — alert · critical · watch · clear signal notes |\n\n### Layer 6 — Domain Agents & Dashboards (y=4460)\nFile nodes for key agent READMEs + dashboards, color `1` (red) for dashboards:\n| Node ID | File |\n|---------|------|\n| `agt_orch` | `16_Agents/Orchestrator Agent/README.md` |\n| `agt_mkt` | `16_Agents/Market Agent/README.md` |\n| `agt_mac` | `16_Agents/Macro Agent/README.md` |\n| `agt_fun` | `16_Agents/Fundamentals Agent/README.md` |\n| `agt_bio` | `16_Agents/Biotech Agent/README.md` |\n| `dash_acc` | `16_Agents/Agent Command Center.md` |\n\n---\n\n## Edge Map (Directed Arrows)\n\n```\nExternal APIs → Lib Clients:\n  src_market  → lib_fmp\n  src_macro   → lib_fetch\n  src_sec     → lib_edgar\n  src_bio     → lib_fetch\n  src_news    → lib_fetch\n  src_gov     → lib_fetch\n\nLib Clients → Pullers:\n  lib_fmp    → pull_market\n  lib_fmp    → pull_fund\n  lib_edgar  → pull_fund\n  lib_fetch  → pull_macro\n  lib_fetch  → pull_bio\n  lib_fetch  → pull_osint\n  lib_fetch  → pull_gov\n  lib_fmp    → mm_price    (MarketMind uses fmp-client)\n  lib_fmp    → mm_risk\n  lib_fmp    → mm_fund\n  lib_fmp    → mm_sent\n  lib_fetch  → mm_macro\n  lib_fmp    → mm_micro\n  lib_llm    → mm_synth\n\nMarketMind internal flow:\n  mm_price → mm_synth\n  mm_risk  → mm_synth\n  mm_fund  → mm_synth\n  mm_sent  → mm_synth\n  mm_macro → mm_synth\n  mm_micro → mm_synth\n  mm_pred  → mm_synth\n  mm_synth → mm_orch\n\nPullers → Outputs:\n  pull_market → out_market\n  pull_fund   → out_fund\n  pull_fund   → out_signals   (dilution-monitor writes 06_Signals/)\n  pull_macro  → out_macro\n  pull_bio    → out_bio\n  mm_orch     → out_market\n  mm_orch     → out_signals\n  pull_market → out_quant     (backtest + QCPM)\n\nOutputs → Domain Agents:\n  out_market  → agt_mkt\n  out_fund    → agt_fun\n  out_macro   → agt_mac\n  out_bio     → agt_bio\n  out_signals → agt_orch\n  agt_orch    → dash_acc\n```\n\n---\n\n## Implementation: Generator Script\n\n**New file:** `scripts/pullers/vault-process-canvas.mjs`\n\nThe script:\n1. Defines all nodes as a structured JS array (id, type, x, y, width, height, color, text/file)\n2. Defines all edges as a JS array (id, fromNode, fromSide, toNode, toSide, optional label)\n3. Computes x positions using a column index helper: `colX(i) = i * 960`\n4. Computes y positions using a row helper: `rowY(layer) = layer * 860`\n5. Writes `JSON.stringify({nodes, edges}, null, '\\t')` to vault path via `config.mjs`\n\n**Output path:** resolved from `config.mjs` vault base → `00_Dashboard/Vault Process Flow.canvas`\n\n**Run command:** `node scripts/pullers/vault-process-canvas.mjs`\n\n---\n\n## Critical Files\n\n| File | Role |\n|------|------|\n| `scripts/lib/config.mjs` | Vault root path constant — use for output path |\n| `scripts/lib/markdown.mjs` | Not needed (Canvas is JSON, not markdown) |\n| `00_Dashboard/Main Dashboard.canvas` | Reference for node format (already read) |\n| `00_Dashboard/ORB + Entropy Strategy Dashboard.canvas` | Reference for text node style (already read) |\n| `00_Dashboard/Vault Process Flow.canvas` | **Target output** (new file) |\n| `scripts/pullers/vault-process-canvas.mjs` | **New generator script** |\n\n---\n\n## Verification\n\n1. Run `node scripts/pullers/vault-process-canvas.mjs` — should exit 0 and print path\n2. Open Obsidian, navigate to `00_Dashboard/Vault Process Flow.canvas`\n3. Verify all 6 layers are visible with correct color bands\n4. Pan through layers top-to-bottom; confirm arrows connect source → lib → puller → output → agent\n5. Click a file node (e.g., `16_Agents/Market Agent/README.md`) — should open the note inline\n6. Confirm MarketMind section shows 7 specialist → synthesis → orchestrator flow\n7. Validate JSON is well-formed: `node -e \"JSON.parse(require('fs').readFileSync('path/to/canvas'))\"` \n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\i-want-to-create-tranquil-scroll.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\.claude\\plans\\i-want-to-create-tranquil-scroll.md",
+            "content": "# Plan: Vault Process Flow Canvas\n\n## Context\n\nThe vault has ~40+ puller scripts, an 8-agent MarketMind pipeline, 16 domain-level note agents, and 3,450+ data pull notes spread across 18 subfolders. There is no visual document showing how scripts feed outputs, how agents interconnect, or how data propagates from raw API calls through to signals and dashboards. This Canvas fills that gap — a single navigable map of the entire automated pull system.\n\n---\n\n## Approach\n\nCreate a Node.js generator script that programmatically builds the Canvas JSON, then write the output to `00_Dashboard/Vault Process Flow.canvas`. A generator script is preferable to hand-editing JSON because positions are computed, nodes are readable, and the layout can be re-run when the vault evolves.\n\n---\n\n## Canvas Architecture\n\n**Layout:** Top-to-bottom, 6 horizontal layers. Each layer is a full-width label band (70px) followed by a row of 900×700 nodes. Layers separated by ~90px gap.\n\n**Key differentiator from existing dashboards:** This Canvas **uses edges (arrows)** to show directed data flow — the existing dashboards have no edges. This makes the flow legible without reading node content.\n\n**Total canvas dimensions:** ~5700px wide × ~5800px tall\n\n---\n\n## Layer Design\n\n### Layer 1 — External Data Sources (y=150)\n6 text nodes, color `3` (yellow):\n| Node ID | Content |\n|---------|---------|\n| `src_market` | FMP: prices, fundamentals, news, float, short interest, insider trades |\n| `src_macro` | FRED: Fed funds, yield curve, VIX, HY spreads · CBOE: put/call, skew |\n| `src_sec` | SEC EDGAR: filings, company facts, 8-K, S-3 (no API key) |\n| `src_bio` | FDA: approvals, recalls · ClinicalTrials.gov · PubMed/NIH |\n| `src_news` | NewsAPI: headlines · arXiv: preprints · OpenAlex: research |\n| `src_gov` | EIA: energy · BEA: GDP · SAM.gov · FPDS: contracts · OpenFEMA |\n\n### Layer 2 — Lib Modules (y=1000)\n6 text nodes, color `6` (purple):\n| Node ID | Content |\n|---------|---------|\n| `lib_fmp` | `fmp-client.mjs` — FMP REST wrapper (prices, fundamentals, profile, float) |\n| `lib_edgar` | `edgar.mjs` + `cik-map.mjs` — SEC EDGAR access + ticker↔CIK map |\n| `lib_fetch` | `fetcher.mjs` + `bars.mjs` + `markdown.mjs` — HTTP retry, OHLC norm, note builder |\n| `lib_llm` | `llm-client.mjs` — Claude API integration (JSON-mode chat for synthesis) |\n| `lib_config` | `config.mjs` + `dilution-rules.mjs` + `obsidian-cli.mjs` — paths, rules, vault write |\n| `lib_mm` | `scoring.mjs` + `schemas.mjs` + `entropy.mjs` — MarketMind signal math |\n\n### Layer 3 — Puller Scripts (y=1840)\n6 text nodes, color `5` (blue):\n| Node ID | Content |\n|---------|---------|\n| `pull_market` | `orb-entropy.mjs` · `rel-vol-screen.mjs` · `entropy-compression-scan.mjs` · `backtest-orb-eod.mjs` · `earnings-entropy.mjs` · `qcpm-strategy-search.mjs` |\n| `pull_fund` | `dilution-monitor.mjs` · `dd-report.mjs` · `capital-raise.mjs` · `disclosure-reality.mjs` · `company-risk-scan.mjs` |\n| `pull_macro` | `fred.mjs` · `eia.mjs` · `bea.mjs` · `cboe.mjs` |\n| `pull_bio` | `fda.mjs` · `arxiv.mjs` · `clinicaltrials.mjs` |\n| `pull_osint` | `newsapi.mjs` · `reddit.mjs` · `telegram.mjs` · `opensecrets.mjs` |\n| `pull_gov` | `sam.mjs` · `fpds.mjs` · `fema.mjs` |\n\n### Layer 4 — MarketMind Agent Pipeline (y=2680)\nSpecial section with full-width label + 8 specialist nodes + 1 synthesis node + 1 orchestrator node.\nNodes use color `4` (green) for specialist agents, `1` (red) for synthesis.\n\n| Node ID | Content |\n|---------|---------|\n| `mm_price` | `price-agent.mjs` — SMA, EMA, MACD, RSI, Bollinger (260–420 bars) |\n| `mm_risk` | `risk-agent.mjs` — Volatility, max drawdown, Sharpe, short interest |\n| `mm_fund` | `fundamentals-agent.mjs` — Margins, growth, debt (income + cash flow) |\n| `mm_sent` | `sentiment-agent.mjs` — Keyword sentiment (FMP news + NewsAPI) |\n| `mm_macro` | `macro-agent.mjs` — FRED macro context (yield curve, VIX, spreads) |\n| `mm_micro` | `microstructure-agent.mjs` — 1-min entropy, float, positioning |\n| `mm_pred` | `prediction-market-agent.mjs` — Event contract consensus |\n| `mm_synth` | `synthesis-agent.mjs` — Claude LLM → BULLISH/BEARISH/NEUTRAL + clear/watch/alert/critical |\n| `mm_orch` | `agent-analyst.mjs` — Orchestrator: runs all 8, writes pull note to `05_Data_Pulls/` |\n\n### Layer 5 — Data Pull Outputs (y=3620)\nMix of text (folder paths) and file nodes (key representative files), color `2` (orange):\n| Node ID | Content |\n|---------|---------|\n| `out_market` | `05_Data_Pulls/Market/` — ORB sheets, entropy screens, rel-vol, backtests |\n| `out_fund` | `05_Data_Pulls/Fundamentals/` — Dilution monitor, DD reports, capital raises |\n| `out_macro` | `05_Data_Pulls/Macro/` — FRED snapshots, EIA, BEA |\n| `out_quant` | `05_Data_Pulls/Quant/` — QCPM, backtest results |\n| `out_bio` | `05_Data_Pulls/Biotech/` + `05_Data_Pulls/Research/` |\n| `out_signals` | `06_Signals/` — alert · critical · watch · clear signal notes |\n\n### Layer 6 — Domain Agents & Dashboards (y=4460)\nFile nodes for key agent READMEs + dashboards, color `1` (red) for dashboards:\n| Node ID | File |\n|---------|------|\n| `agt_orch` | `16_Agents/Orchestrator Agent/README.md` |\n| `agt_mkt` | `16_Agents/Market Agent/README.md` |\n| `agt_mac` | `16_Agents/Macro Agent/README.md` |\n| `agt_fun` | `16_Agents/Fundamentals Agent/README.md` |\n| `agt_bio` | `16_Agents/Biotech Agent/README.md` |\n| `dash_acc` | `16_Agents/Agent Command Center.md` |\n\n---\n\n## Edge Map (Directed Arrows)\n\n```\nExternal APIs → Lib Clients:\n  src_market  → lib_fmp\n  src_macro   → lib_fetch\n  src_sec     → lib_edgar\n  src_bio     → lib_fetch\n  src_news    → lib_fetch\n  src_gov     → lib_fetch\n\nLib Clients → Pullers:\n  lib_fmp    → pull_market\n  lib_fmp    → pull_fund\n  lib_edgar  → pull_fund\n  lib_fetch  → pull_macro\n  lib_fetch  → pull_bio\n  lib_fetch  → pull_osint\n  lib_fetch  → pull_gov\n  lib_fmp    → mm_price    (MarketMind uses fmp-client)\n  lib_fmp    → mm_risk\n  lib_fmp    → mm_fund\n  lib_fmp    → mm_sent\n  lib_fetch  → mm_macro\n  lib_fmp    → mm_micro\n  lib_llm    → mm_synth\n\nMarketMind internal flow:\n  mm_price → mm_synth\n  mm_risk  → mm_synth\n  mm_fund  → mm_synth\n  mm_sent  → mm_synth\n  mm_macro → mm_synth\n  mm_micro → mm_synth\n  mm_pred  → mm_synth\n  mm_synth → mm_orch\n\nPullers → Outputs:\n  pull_market → out_market\n  pull_fund   → out_fund\n  pull_fund   → out_signals   (dilution-monitor writes 06_Signals/)\n  pull_macro  → out_macro\n  pull_bio    → out_bio\n  mm_orch     → out_market\n  mm_orch     → out_signals\n  pull_market → out_quant     (backtest + QCPM)\n\nOutputs → Domain Agents:\n  out_market  → agt_mkt\n  out_fund    → agt_fun\n  out_macro   → agt_mac\n  out_bio     → agt_bio\n  out_signals → agt_orch\n  agt_orch    → dash_acc\n```\n\n---\n\n## Implementation: Generator Script\n\n**New file:** `scripts/pullers/vault-process-canvas.mjs`\n\nThe script:\n1. Defines all nodes as a structured JS array (id, type, x, y, width, height, color, text/file)\n2. Defines all edges as a JS array (id, fromNode, fromSide, toNode, toSide, optional label)\n3. Computes x positions using a column index helper: `colX(i) = i * 960`\n4. Computes y positions using a row helper: `rowY(layer) = layer * 860`\n5. Writes `JSON.stringify({nodes, edges}, null, '\\t')` to vault path via `config.mjs`\n\n**Output path:** resolved from `config.mjs` vault base → `00_Dashboard/Vault Process Flow.canvas`\n\n**Run command:** `node scripts/pullers/vault-process-canvas.mjs`\n\n---\n\n## Critical Files\n\n| File | Role |\n|------|------|\n| `scripts/lib/config.mjs` | Vault root path constant — use for output path |\n| `scripts/lib/markdown.mjs` | Not needed (Canvas is JSON, not markdown) |\n| `00_Dashboard/Main Dashboard.canvas` | Reference for node format (already read) |\n| `00_Dashboard/ORB + Entropy Strategy Dashboard.canvas` | Reference for text node style (already read) |\n| `00_Dashboard/Vault Process Flow.canvas` | **Target output** (new file) |\n| `scripts/pullers/vault-process-canvas.mjs` | **New generator script** |\n\n---\n\n## Verification\n\n1. Run `node scripts/pullers/vault-process-canvas.mjs` — should exit 0 and print path\n2. Open Obsidian, navigate to `00_Dashboard/Vault Process Flow.canvas`\n3. Verify all 6 layers are visible with correct color bands\n4. Pan through layers top-to-bottom; confirm arrows connect source → lib → puller → output → agent\n5. Click a file node (e.g., `16_Agents/Market Agent/README.md`) — should open the note inline\n6. Confirm MarketMind section shows 7 specialist → synthesis → orchestrator flow\n7. Validate JSON is well-formed: `node -e \"JSON.parse(require('fs').readFileSync('path/to/canvas'))\"` \n"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I need to call ExitPlanMode to indicate the plan is ready."
+        },
+        {
+          "type": "text",
+          "text": "`★ Insight ─────────────────────────────────────`\n- Obsidian Canvas JSON uses `fromSide`/`toSide` on edges (\"top\", \"bottom\", \"left\", \"right\") — the existing dashboards skip edges entirely, making this the first flow-diagram Canvas in your vault\n- A generator script rather than hand-written JSON is worth the extra file: recomputing 30+ absolute x/y positions by hand after a layout change is error-prone, but a `colX(i) * 960` helper makes it trivial\n- Node color keys in Obsidian (1–6) map to red/orange/yellow/green/cyan/purple — the plan assigns them semantically: yellow=external APIs, purple=lib modules, blue=pullers, green=MarketMind, orange=outputs, red=agents/dashboards\n`─────────────────────────────────────────────────`\n\nThe plan creates:\n- **`scripts/pullers/vault-process-canvas.mjs`** — generator script (new)\n- **`00_Dashboard/Vault Process Flow.canvas`** — the visual output (generated)\n\n**6-layer top-to-bottom flow:** External APIs → Lib Modules → Puller Scripts → MarketMind Pipeline → Data Pull Outputs → Domain Agents & Dashboards, connected by ~30 directed edges showing the exact propagation path.\n\nThe MarketMind section gets special treatment: 7 specialist agents each with their own node feeding into `synthesis-agent.mjs` (Claude LLM), then into the `agent-analyst.mjs` orchestrator — making the agent intertwining visually explicit."
+        }
+      ],
+      "timestamp": "2026-04-30T00:10:45.552Z"
+    },
+    {
+      "id": "41d9b90a-551a-4bc5-83d4-2a810daf7687",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011xkusBJYbVtPvPCaN6BLse",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:ExitPlanMode",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The user said \"Tool loaded.\" which means they approved loading the ExitPlanMode tool. Now I should call ExitPlanMode to signal that I'm done planning and ready for user approval."
+        }
+      ],
+      "timestamp": "2026-04-30T00:11:42.486Z"
+    },
+    {
+      "id": "6d5dba5d-037c-4edc-9ab1-1e5e4eeac20f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Ms5ur7mDyaEqBadDRLgSTU",
+          "title": "Exited Plan Mode",
+          "status": "completed",
+          "kind": "switch_mode",
+          "content": [],
+          "rawInput": {
+            "allowedPrompts": [
+              {
+                "tool": "Bash",
+                "prompt": "run node scripts/pullers/vault-process-canvas.mjs to generate the canvas file"
+              }
+            ],
+            "plan": "# Plan: Vault Process Flow Canvas\n\n## Context\n\nThe vault has ~40+ puller scripts, an 8-agent MarketMind pipeline, 16 domain-level note agents, and 3,450+ data pull notes spread across 18 subfolders. There is no visual document showing how scripts feed outputs, how agents interconnect, or how data propagates from raw API calls through to signals and dashboards. This Canvas fills that gap — a single navigable map of the entire automated pull system.\n\n---\n\n## Approach\n\nCreate a Node.js generator script that programmatically builds the Canvas JSON, then write the output to `00_Dashboard/Vault Process Flow.canvas`. A generator script is preferable to hand-editing JSON because positions are computed, nodes are readable, and the layout can be re-run when the vault evolves.\n\n---\n\n## Canvas Architecture\n\n**Layout:** Top-to-bottom, 6 horizontal layers. Each layer is a full-width label band (70px) followed by a row of 900×700 nodes. Layers separated by ~90px gap.\n\n**Key differentiator from existing dashboards:** This Canvas **uses edges (arrows)** to show directed data flow — the existing dashboards have no edges. This makes the flow legible without reading node content.\n\n**Total canvas dimensions:** ~5700px wide × ~5800px tall\n\n---\n\n## Layer Design\n\n### Layer 1 — External Data Sources (y=150)\n6 text nodes, color `3` (yellow):\n| Node ID | Content |\n|---------|---------|\n| `src_market` | FMP: prices, fundamentals, news, float, short interest, insider trades |\n| `src_macro` | FRED: Fed funds, yield curve, VIX, HY spreads · CBOE: put/call, skew |\n| `src_sec` | SEC EDGAR: filings, company facts, 8-K, S-3 (no API key) |\n| `src_bio` | FDA: approvals, recalls · ClinicalTrials.gov · PubMed/NIH |\n| `src_news` | NewsAPI: headlines · arXiv: preprints · OpenAlex: research |\n| `src_gov` | EIA: energy · BEA: GDP · SAM.gov · FPDS: contracts · OpenFEMA |\n\n### Layer 2 — Lib Modules (y=1000)\n6 text nodes, color `6` (purple):\n| Node ID | Content |\n|---------|---------|\n| `lib_fmp` | `fmp-client.mjs` — FMP REST wrapper (prices, fundamentals, profile, float) |\n| `lib_edgar` | `edgar.mjs` + `cik-map.mjs` — SEC EDGAR access + ticker↔CIK map |\n| `lib_fetch` | `fetcher.mjs` + `bars.mjs` + `markdown.mjs` — HTTP retry, OHLC norm, note builder |\n| `lib_llm` | `llm-client.mjs` — Claude API integration (JSON-mode chat for synthesis) |\n| `lib_config` | `config.mjs` + `dilution-rules.mjs` + `obsidian-cli.mjs` — paths, rules, vault write |\n| `lib_mm` | `scoring.mjs` + `schemas.mjs` + `entropy.mjs` — MarketMind signal math |\n\n### Layer 3 — Puller Scripts (y=1840)\n6 text nodes, color `5` (blue):\n| Node ID | Content |\n|---------|---------|\n| `pull_market` | `orb-entropy.mjs` · `rel-vol-screen.mjs` · `entropy-compression-scan.mjs` · `backtest-orb-eod.mjs` · `earnings-entropy.mjs` · `qcpm-strategy-search.mjs` |\n| `pull_fund` | `dilution-monitor.mjs` · `dd-report.mjs` · `capital-raise.mjs` · `disclosure-reality.mjs` · `company-risk-scan.mjs` |\n| `pull_macro` | `fred.mjs` · `eia.mjs` · `bea.mjs` · `cboe.mjs` |\n| `pull_bio` | `fda.mjs` · `arxiv.mjs` · `clinicaltrials.mjs` |\n| `pull_osint` | `newsapi.mjs` · `reddit.mjs` · `telegram.mjs` · `opensecrets.mjs` |\n| `pull_gov` | `sam.mjs` · `fpds.mjs` · `fema.mjs` |\n\n### Layer 4 — MarketMind Agent Pipeline (y=2680)\nSpecial section with full-width label + 8 specialist nodes + 1 synthesis node + 1 orchestrator node.\nNodes use color `4` (green) for specialist agents, `1` (red) for synthesis.\n\n| Node ID | Content |\n|---------|---------|\n| `mm_price` | `price-agent.mjs` — SMA, EMA, MACD, RSI, Bollinger (260–420 bars) |\n| `mm_risk` | `risk-agent.mjs` — Volatility, max drawdown, Sharpe, short interest |\n| `mm_fund` | `fundamentals-agent.mjs` — Margins, growth, debt (income + cash flow) |\n| `mm_sent` | `sentiment-agent.mjs` — Keyword sentiment (FMP news + NewsAPI) |\n| `mm_macro` | `macro-agent.mjs` — FRED macro context (yield curve, VIX, spreads) |\n| `mm_micro` | `microstructure-agent.mjs` — 1-min entropy, float, positioning |\n| `mm_pred` | `prediction-market-agent.mjs` — Event contract consensus |\n| `mm_synth` | `synthesis-agent.mjs` — Claude LLM → BULLISH/BEARISH/NEUTRAL + clear/watch/alert/critical |\n| `mm_orch` | `agent-analyst.mjs` — Orchestrator: runs all 8, writes pull note to `05_Data_Pulls/` |\n\n### Layer 5 — Data Pull Outputs (y=3620)\nMix of text (folder paths) and file nodes (key representative files), color `2` (orange):\n| Node ID | Content |\n|---------|---------|\n| `out_market` | `05_Data_Pulls/Market/` — ORB sheets, entropy screens, rel-vol, backtests |\n| `out_fund` | `05_Data_Pulls/Fundamentals/` — Dilution monitor, DD reports, capital raises |\n| `out_macro` | `05_Data_Pulls/Macro/` — FRED snapshots, EIA, BEA |\n| `out_quant` | `05_Data_Pulls/Quant/` — QCPM, backtest results |\n| `out_bio` | `05_Data_Pulls/Biotech/` + `05_Data_Pulls/Research/` |\n| `out_signals` | `06_Signals/` — alert · critical · watch · clear signal notes |\n\n### Layer 6 — Domain Agents & Dashboards (y=4460)\nFile nodes for key agent READMEs + dashboards, color `1` (red) for dashboards:\n| Node ID | File |\n|---------|------|\n| `agt_orch` | `16_Agents/Orchestrator Agent/README.md` |\n| `agt_mkt` | `16_Agents/Market Agent/README.md` |\n| `agt_mac` | `16_Agents/Macro Agent/README.md` |\n| `agt_fun` | `16_Agents/Fundamentals Agent/README.md` |\n| `agt_bio` | `16_Agents/Biotech Agent/README.md` |\n| `dash_acc` | `16_Agents/Agent Command Center.md` |\n\n---\n\n## Edge Map (Directed Arrows)\n\n```\nExternal APIs → Lib Clients:\n  src_market  → lib_fmp\n  src_macro   → lib_fetch\n  src_sec     → lib_edgar\n  src_bio     → lib_fetch\n  src_news    → lib_fetch\n  src_gov     → lib_fetch\n\nLib Clients → Pullers:\n  lib_fmp    → pull_market\n  lib_fmp    → pull_fund\n  lib_edgar  → pull_fund\n  lib_fetch  → pull_macro\n  lib_fetch  → pull_bio\n  lib_fetch  → pull_osint\n  lib_fetch  → pull_gov\n  lib_fmp    → mm_price    (MarketMind uses fmp-client)\n  lib_fmp    → mm_risk\n  lib_fmp    → mm_fund\n  lib_fmp    → mm_sent\n  lib_fetch  → mm_macro\n  lib_fmp    → mm_micro\n  lib_llm    → mm_synth\n\nMarketMind internal flow:\n  mm_price → mm_synth\n  mm_risk  → mm_synth\n  mm_fund  → mm_synth\n  mm_sent  → mm_synth\n  mm_macro → mm_synth\n  mm_micro → mm_synth\n  mm_pred  → mm_synth\n  mm_synth → mm_orch\n\nPullers → Outputs:\n  pull_market → out_market\n  pull_fund   → out_fund\n  pull_fund   → out_signals   (dilution-monitor writes 06_Signals/)\n  pull_macro  → out_macro\n  pull_bio    → out_bio\n  mm_orch     → out_market\n  mm_orch     → out_signals\n  pull_market → out_quant     (backtest + QCPM)\n\nOutputs → Domain Agents:\n  out_market  → agt_mkt\n  out_fund    → agt_fun\n  out_macro   → agt_mac\n  out_bio     → agt_bio\n  out_signals → agt_orch\n  agt_orch    → dash_acc\n```\n\n---\n\n## Implementation: Generator Script\n\n**New file:** `scripts/pullers/vault-process-canvas.mjs`\n\nThe script:\n1. Defines all nodes as a structured JS array (id, type, x, y, width, height, color, text/file)\n2. Defines all edges as a JS array (id, fromNode, fromSide, toNode, toSide, optional label)\n3. Computes x positions using a column index helper: `colX(i) = i * 960`\n4. Computes y positions using a row helper: `rowY(layer) = layer * 860`\n5. Writes `JSON.stringify({nodes, edges}, null, '\\t')` to vault path via `config.mjs`\n\n**Output path:** resolved from `config.mjs` vault base → `00_Dashboard/Vault Process Flow.canvas`\n\n**Run command:** `node scripts/pullers/vault-process-canvas.mjs`\n\n---\n\n## Critical Files\n\n| File | Role |\n|------|------|\n| `scripts/lib/config.mjs` | Vault root path constant — use for output path |\n| `scripts/lib/markdown.mjs` | Not needed (Canvas is JSON, not markdown) |\n| `00_Dashboard/Main Dashboard.canvas` | Reference for node format (already read) |\n| `00_Dashboard/ORB + Entropy Strategy Dashboard.canvas` | Reference for text node style (already read) |\n| `00_Dashboard/Vault Process Flow.canvas` | **Target output** (new file) |\n| `scripts/pullers/vault-process-canvas.mjs` | **New generator script** |\n\n---\n\n## Verification\n\n1. Run `node scripts/pullers/vault-process-canvas.mjs` — should exit 0 and print path\n2. Open Obsidian, navigate to `00_Dashboard/Vault Process Flow.canvas`\n3. Verify all 6 layers are visible with correct color bands\n4. Pan through layers top-to-bottom; confirm arrows connect source → lib → puller → output → agent\n5. Click a file node (e.g., `16_Agents/Market Agent/README.md`) — should open the note inline\n6. Confirm MarketMind section shows 7 specialist → synthesis → orchestrator flow\n7. Validate JSON is well-formed: `node -e \"JSON.parse(require('fs').readFileSync('path/to/canvas'))\"` \n",
+            "planFilePath": "C:\\Users\\CaveUser\\.claude\\plans\\i-want-to-create-tranquil-scroll.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Plan approved. Now I need to implement the generator script. Let me first read `config.mjs` to understand the vault path constant, then write the generator script."
+        },
+        {
+          "type": "text",
+          "text": "Plan approved. Let me read `config.mjs` first to get the vault path constant, then write the generator script."
+        }
+      ],
+      "timestamp": "2026-04-30T00:11:44.752Z"
+    },
+    {
+      "id": "89cc4c78-8f8a-480a-b76e-e0a29c02007b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TAr3wnznqbETTc7dbgsMNy",
+          "title": "Read scripts\\lib\\config.mjs",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\config.mjs"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\config.mjs"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "I have the config.mjs structure. Key exports:\n- `getVaultRoot()` returns the vault root path (resolved from `__dirname/../../`)\n- The VAULT_ROOT is `resolve(__dirname, '..', '..')` where `__dirname` is `scripts/lib/`, so `../..` = vault root (My_Data)\n\nNow I can write the generator script. Let me construct it carefully:\n\n```\nscripts/lib/ → __dirname\n../.. → vault root (My_Data)\n```\n\nSo `getVaultRoot()` = `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data`\n\n\nThe output file will go to `00_Dashboard/Vault Process Flow.canvas` within the vault root. I'm planning out the node layout with a title at the top, then organizing the external data sources in a grid below with specific x and y coordinates to create a structured visual hierarchy.\n\nNow I'm mapping out the remaining layers—the library modules, puller scripts, and MarketMind section with its specialized agent arrangement, where I'll need to position the 7 specialist agents across the first columns, then place the synthesis and orchestrator nodes strategically. I'm settling on a cleaner approach for the MarketMind section: instead of trying to fit individual specialist nodes, I'll use a single wide text node listing all 7 specialists, then add separate nodes for the synthesis and orchestrator agents below it, which keeps the edge connections straightforward.\n\nActually, let me reconsider the layout dimensions—I need to fit 7 specialist nodes across the available width, so I'm calculating optimal node widths around 750px each to keep the total width manageable while maintaining proper spacing between columns.\n\nNow I'm simplifying the approach: I'll use two rows for the MarketMind layer, with the first row containing 6 specialist agents spaced at regular intervals, and the second row holding the prediction-market and synthesis nodes positioned wider to span the middle section.\n\nActually, I'm overcomplicating this. Let me consolidate the MarketMind section into three compact text nodes—one listing all the specialists as a markdown table, one for synthesis, and one for orchestration—with edges flowing between them to the output nodes.\n\nFinalizing the canvas layout...\n\nLaying out the vertical spacing...\n\nNow I'm working through the MarketMind section specifically—I can either expand it to seven columns for the specialist nodes or keep the six-column layout and represent all seven specialists as a single text node. The seven-column approach would require a wider canvas at 6660 pixels, while the text node approach keeps things more compact within the existing layout.\n\nI'm settling on a three-node structure for MarketMind: a wide node listing all seven agents with their data sources, a synthesis node, and an orchestrator node for the agent-analyst coordination. The edges will connect the library data sources into the agents node.\n\nNow I'm laying out the full diagram structure, starting with a title at the top, then organizing the data sources into a labeled section with individual nodes for market data, macroeconomic indicators, SEC filings, biotech information, and news feeds. Defining the remaining library and puller module positions... Continuing to map out the data pull outputs layer with six different output nodes positioned horizontally, then moving into the domain agents and dashboards section that follows. Now I'm mapping out all the data flow connections—the sources feed into libraries, which then route to pull nodes, and those eventually connect through the agent and synthesis layers before reaching the orchestration and output stages. Generating the agent specifications table...\n\nThe synthesis agent takes all seven confidence signals and applies weighted scoring to produce a final bullish, bearish, or neutral call with a status level ranging from clear to critical. The orchestrator runs all agents in parallel, generates a pull note with the analysis, and a separate convergence scanner watches for multi-domain alignment signals that might indicate stronger conviction trades.\n\nNow I'm thinking through the canvas layout—edges between layers need to flow top-to-bottom with fromSide=\"bottom\" and toSide=\"top\", and I need to verify the total width works out to 5700px across six columns. I'm also planning to use markdown formatting within each node for visual richness and mapping Obsidian color codes so the diagram renders properly.\n\nWriting the canvas script... - no color = Domain agent file nodes (default)\n- color \"1\" (red) for Agent Command Center dashboard\n\nNow I'm ready to write the script. I'll pull `getVaultRoot()` from config.mjs, which resolves to the `My_Data` directory since config.mjs sits in `scripts/lib/` and goes up two levels. The canvas file should be placed at `My_Data/00_Dashboard/Vault Process Flow.canvas`.\n\nWriting the generator script..."
+        },
+        {
+          "type": "text",
+          "text": "Good. `getVaultRoot()` returns the `My_Data` directory. Now writing the generator script.\n\n`★ Insight ─────────────────────────────────────`\n- `VAULT_ROOT = resolve(__dirname, '..', '..')` where `__dirname` is `scripts/lib/` — so two levels up lands at `My_Data`, making `getVaultRoot()` the correct anchor for all output paths\n- Canvas JSON uses string color values `\"1\"`–`\"6\"` (not integers) — the existing files confirm this with `\"color\":\"4\"` syntax\n- Edge `fromSide`/`toSide` values must be `\"top\"`, `\"bottom\"`, `\"left\"`, or `\"right\"` — top-to-bottom flow means all inter-layer edges use `fromSide:\"bottom\"`, `toSide:\"top\"`\n`─────────────────────────────────────────────────`"
+        }
+      ],
+      "timestamp": "2026-04-30T00:11:47.752Z"
+    },
+    {
+      "id": "48679770-486b-40d8-913b-0d1511c26f50",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CH5oJXTTSq8SjDa2FZX3w4",
+          "title": "Write scripts\\pullers\\vault-process-canvas.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\vault-process-canvas.mjs",
+              "newText": "/**\n * vault-process-canvas.mjs\n *\n * Generates 00_Dashboard/Vault Process Flow.canvas — a directed-graph\n * Canvas showing how every script, lib module, data pull, and agent\n * connects in the My_Data vault.\n *\n * Run: node scripts/pullers/vault-process-canvas.mjs\n */\n\nimport { writeFileSync } from 'fs';\nimport { resolve } from 'path';\nimport { getVaultRoot } from '../lib/config.mjs';\n\n// ─── Layout constants ────────────────────────────────────────────────────────\n\nconst COL_W = 900;   // standard node width\nconst COL_GAP = 60;  // gap between columns\nconst NODE_H = 700;  // standard node height\nconst LABEL_H = 70;  // section label height\nconst LAYER_GAP = 90; // vertical gap between layers\n\nconst colX = (i) => i * (COL_W + COL_GAP);\nconst TOTAL_W = colX(6); // 6 columns → 5700px\n\n// y-origin for each layer (label + nodes)\nconst LAYERS = {\n  title:    0,\n  srcLabel: 80,\n  src:      80 + LABEL_H,\n  libLabel: 80 + LABEL_H + NODE_H + LAYER_GAP,\n  lib:      80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H,\n  pullLabel: 80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H + NODE_H + LAYER_GAP,\n  pull:      80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H + NODE_H + LAYER_GAP + LABEL_H,\n};\n// MarketMind starts after pull layer\nLAYERS.mmLabel = LAYERS.pull + NODE_H + LAYER_GAP;\nLAYERS.mm      = LAYERS.mmLabel + LABEL_H;\n// Outputs start after MarketMind\nLAYERS.outLabel = LAYERS.mm + NODE_H + LAYER_GAP;\nLAYERS.out      = LAYERS.outLabel + LABEL_H;\n// Domain agents start after outputs\nLAYERS.agtLabel = LAYERS.out + NODE_H + LAYER_GAP;\nLAYERS.agt      = LAYERS.agtLabel + LABEL_H;\n\n// ─── Node helpers ────────────────────────────────────────────────────────────\n\nlet _edgeSeq = 0;\nconst edgeId = () => `e${String(++_edgeSeq).padStart(3, '0')}`;\n\nfunction textNode(id, col, layer, text, color, overrides = {}) {\n  return {\n    id,\n    type: 'text',\n    text,\n    x: colX(col),\n    y: LAYERS[layer],\n    width: overrides.width ?? COL_W,\n    height: overrides.height ?? NODE_H,\n    ...(color ? { color } : {}),\n    ...overrides,\n  };\n}\n\nfunction labelNode(id, layer, text, color) {\n  return {\n    id,\n    type: 'text',\n    text,\n    x: 0,\n    y: LAYERS[layer],\n    width: TOTAL_W,\n    height: LABEL_H,\n    color,\n  };\n}\n\nfunction fileNode(id, col, layer, file, overrides = {}) {\n  return {\n    id,\n    type: 'file',\n    file,\n    x: colX(col),\n    y: LAYERS[layer],\n    width: overrides.width ?? COL_W,\n    height: overrides.height ?? NODE_H,\n    ...overrides,\n  };\n}\n\nfunction edge(from, to, label) {\n  return {\n    id: edgeId(),\n    fromNode: from,\n    fromSide: 'bottom',\n    toNode: to,\n    toSide: 'top',\n    ...(label ? { label } : {}),\n  };\n}\n\n// ─── Nodes ───────────────────────────────────────────────────────────────────\n\nconst nodes = [\n\n  // ── Title ──────────────────────────────────────────────────────────────────\n  {\n    id: 'title',\n    type: 'text',\n    text: '# VAULT PROCESS FLOW — Scripts × Lib Modules × Agents × Data Pulls',\n    x: 0,\n    y: LAYERS.title,\n    width: TOTAL_W,\n    height: LABEL_H,\n    color: '4',\n  },\n\n  // ── Layer 1: External Data Sources ─────────────────────────────────────────\n  labelNode('lbl_src', 'srcLabel', '# EXTERNAL DATA SOURCES', '3'),\n\n  textNode('src_market', 0, 'src',\n    '## Financial Modeling Prep (FMP)\\n\\n' +\n    '- Daily OHLCV bars (260–420 days)\\n' +\n    '- Intraday 1-min bars\\n' +\n    '- Company profile, float, short interest\\n' +\n    '- Income statement, cash flow, balance sheet\\n' +\n    '- Stock news headlines\\n' +\n    '- Insider trades, institutional ownership\\n' +\n    '- TTM ratios, analyst estimates\\n\\n' +\n    '**Key:** `FINANCIAL_MODELING_PREP_API_KEY`',\n    '3'),\n\n  textNode('src_macro', 1, 'src',\n    '## FRED + CBOE\\n\\n' +\n    '**FRED** (St. Louis Fed)\\n' +\n    '- Federal funds rate\\n' +\n    '- 10Y–2Y yield curve spread\\n' +\n    '- VIX (CBOE Volatility Index)\\n' +\n    '- HY credit spreads\\n\\n' +\n    '**CBOE** (CSV endpoint)\\n' +\n    '- Daily put/call ratio\\n' +\n    '- Skew index\\n' +\n    '- VIX term structure\\n\\n' +\n    '**Key:** `FRED_API_KEY`',\n    '3'),\n\n  textNode('src_sec', 2, 'src',\n    '## SEC EDGAR\\n\\n' +\n    '*(No API key required)*\\n\\n' +\n    '- Company facts (XBRL)\\n' +\n    '- Annual / quarterly filings\\n' +\n    '  (10-K, 10-Q, 8-K)\\n' +\n    '- S-3 shelf registrations\\n' +\n    '- Form 4 insider filings\\n' +\n    '- Full-text EFTS search\\n' +\n    '- Ticker ↔ CIK mapping\\n\\n' +\n    'Accessed via `edgar.mjs` +\\n' +\n    '`cik-map.mjs`',\n    '3'),\n\n  textNode('src_bio', 3, 'src',\n    '## Biotech & Research APIs\\n\\n' +\n    '**openFDA**\\n' +\n    '- Drug approvals, adverse events\\n' +\n    '- Recalls and enforcement\\n\\n' +\n    '**ClinicalTrials.gov** *(no key)*\\n' +\n    '- Trial registrations\\n' +\n    '- Phase, status, enrollment\\n\\n' +\n    '**NCBI PubMed** *(no key)*\\n' +\n    '- Scientific literature search\\n\\n' +\n    '**Key:** `FDA_OPEN_DATA_API_KEY`',\n    '3'),\n\n  textNode('src_news', 4, 'src',\n    '## News & Research APIs\\n\\n' +\n    '**NewsAPI**\\n' +\n    '- Breaking headline search\\n' +\n    '- Keyword + source filtering\\n\\n' +\n    '**arXiv** *(no key)*\\n' +\n    '- Preprint paper search\\n' +\n    '- Atom feed query\\n\\n' +\n    '**OpenAlex** *(no key)*\\n' +\n    '- Academic research graph\\n\\n' +\n    '**OSINT feeds**\\n' +\n    '- Reddit (pushshift / native)\\n' +\n    '- Telegram channels\\n' +\n    '- OpenCorporates\\n\\n' +\n    '**Key:** `NEWSAPI_API_KEY`',\n    '3'),\n\n  textNode('src_gov', 5, 'src',\n    '## Government & Energy APIs\\n\\n' +\n    '**EIA** (Energy Information Admin)\\n' +\n    '- Electricity generation / demand\\n' +\n    '- Natural gas, petroleum\\n\\n' +\n    '**BEA** (Bureau of Economic Analysis)\\n' +\n    '- GDP, personal income\\n\\n' +\n    '**SAM.gov** — federal contracts\\n\\n' +\n    '**FPDS** — procurement data\\n\\n' +\n    '**OpenFEMA** *(no key)*\\n' +\n    '- Disaster declarations\\n\\n' +\n    '**Keys:** `EIA_API_KEY`, `BEA_API_KEY`,\\n' +\n    '`SAM_GOV_API_KEY`',\n    '3'),\n\n  // ── Layer 2: Lib Modules ────────────────────────────────────────────────────\n  labelNode('lbl_lib', 'libLabel', '# LIB MODULES  (`scripts/lib/`)', '6'),\n\n  textNode('lib_fmp', 0, 'lib',\n    '## fmp-client.mjs\\n\\n' +\n    'FMP REST wrapper\\n\\n' +\n    '**Exports**\\n' +\n    '- `getHistoricalPrices(sym, days)`\\n' +\n    '- `getIntradayBars(sym, interval)`\\n' +\n    '- `getProfile(sym)` — float, mktcap\\n' +\n    '- `getFinancials(sym)` — IS/CF/BS\\n' +\n    '- `getStockNews(sym, limit)`\\n' +\n    '- `getShortInterest(sym)`\\n' +\n    '- `getInsiderTrades(sym)`\\n' +\n    '- `getTTMRatios(sym)`\\n\\n' +\n    'Used by: price, risk, fund, sent,\\n' +\n    'micro agents + most pullers',\n    '6'),\n\n  textNode('lib_edgar', 1, 'lib',\n    '## edgar.mjs + cik-map.mjs\\n\\n' +\n    '`edgar.mjs`\\n' +\n    '- `getCompanyFacts(cik)`\\n' +\n    '- `getFilings(cik, forms)`\\n' +\n    '- `getShelfCapacity(cik)` — S-3 math\\n' +\n    '- Full-text EFTS search wrapper\\n\\n' +\n    '`cik-map.mjs`\\n' +\n    '- Ticker → CIK lookup\\n' +\n    '- Cached bulk company tickers JSON\\n\\n' +\n    '`dilution-rules.mjs`\\n' +\n    '- Shelf capacity math\\n' +\n    '- Overhang % calculation\\n' +\n    '- Alert threshold logic',\n    '6'),\n\n  textNode('lib_fetch', 2, 'lib',\n    '## fetcher.mjs + bars.mjs\\n\\n' +\n    '`fetcher.mjs`\\n' +\n    '- `fetchJSON(url, opts)` — retry + timeout\\n' +\n    '- `fetchAll(tasks)` — concurrent map\\n' +\n    '- Rate-limit aware (configurable)\\n\\n' +\n    '`bars.mjs`\\n' +\n    '- OHLCV normalization\\n' +\n    '- ATR14 calculation\\n' +\n    '- Relative volume computation\\n\\n' +\n    '`markdown.mjs`\\n' +\n    '- Note builder (headers, tables)\\n' +\n    '- Frontmatter injection\\n\\n' +\n    '`obsidian-cli.mjs`\\n' +\n    '- Set frontmatter properties via\\n' +\n    '  Obsidian Local REST API',\n    '6'),\n\n  textNode('lib_llm', 3, 'lib',\n    '## llm-client.mjs\\n\\n' +\n    'Claude API integration\\n\\n' +\n    '**Exports**\\n' +\n    '- `chatJSON(system, user)` —\\n' +\n    '  returns parsed JSON from Claude\\n' +\n    '- JSON-mode enforcement via\\n' +\n    '  system prompt contract\\n' +\n    '- Model: claude-sonnet-4-6\\n\\n' +\n    'Used exclusively by\\n' +\n    '`synthesis-agent.mjs` to produce\\n' +\n    'the final BULLISH / BEARISH /\\n' +\n    'NEUTRAL verdict + status tier',\n    '6'),\n\n  textNode('lib_config', 4, 'lib',\n    '## config.mjs + system libs\\n\\n' +\n    '`config.mjs`\\n' +\n    '- `.env` loader (dotenv)\\n' +\n    '- `getVaultRoot()` — vault path\\n' +\n    '- `getPullsDir()` — `05_Data_Pulls/`\\n' +\n    '- `getSignalsDir()` — `06_Signals/`\\n' +\n    '- `getApiKey(sourceId)` — key registry\\n\\n' +\n    '`sector-map.mjs`\\n' +\n    '- Ticker → sector/industry\\n\\n' +\n    '`schema.mjs`\\n' +\n    '- Zod schemas for pull frontmatter\\n\\n' +\n    '`kb-bridge.mjs`\\n' +\n    '- Knowledge base integration shim',\n    '6'),\n\n  textNode('lib_mm', 5, 'lib',\n    '## MarketMind signal libs\\n\\n' +\n    '`entropy.mjs`\\n' +\n    '- Shannon entropy over OHLCV bins\\n' +\n    '- Normalized 0–1 score\\n' +\n    '- `sessionEntropy(bars)` export\\n\\n' +\n    '`scoring.mjs`\\n' +\n    '- Deterministic weighted sum of\\n' +\n    '  7 agent confidence scores\\n' +\n    '- Weights from `config/scoring-weights.json`\\n\\n' +\n    '`schemas.mjs`\\n' +\n    '- Signal object shape:\\n' +\n    '  `{ confidence, direction, summary, raw_data }`\\n\\n' +\n    '`utils.mjs`\\n' +\n    '- Formatting helpers, verdict labels',\n    '6'),\n\n  // ── Layer 3: Puller Scripts ─────────────────────────────────────────────────\n  labelNode('lbl_pull', 'pullLabel', '# PULLER SCRIPTS  (`scripts/pullers/`)', '5'),\n\n  textNode('pull_market', 0, 'pull',\n    '## Market Pullers\\n\\n' +\n    '`orb-entropy.mjs`\\n' +\n    'ORB trade sheet — 9:35 AM daily\\n' +\n    'Builds 5-min open-range candle,\\n' +\n    'applies entropy + gap + VWAP filters\\n\\n' +\n    '`rel-vol-screen.mjs`\\n' +\n    'Top 20 by relative volume (9:00 AM)\\n\\n' +\n    '`entropy-compression-scan.mjs`\\n' +\n    '~774-symbol nightly scan;\\n' +\n    'flags sustained compression ≤ 0.50\\n\\n' +\n    '`backtest-orb-eod.mjs`\\n' +\n    'End-of-day ORB strategy backtest\\n\\n' +\n    '`earnings-entropy.mjs`\\n' +\n    'Intraday entropy before earnings\\n\\n' +\n    '`qcpm-strategy-search.mjs`\\n' +\n    'QCPM strategy parameter sweep',\n    '5'),\n\n  textNode('pull_fund', 1, 'pull',\n    '## Fundamentals Pullers\\n\\n' +\n    '`dilution-monitor.mjs`\\n' +\n    'Batch shelf capacity scan;\\n' +\n    'tracks ATM overhang + dilution risk;\\n' +\n    'writes `06_Signals/` notes directly\\n\\n' +\n    '`dd-report.mjs`\\n' +\n    'One-click due diligence —\\n' +\n    'IPO, ownership, float, filings\\n\\n' +\n    '`capital-raise.mjs`\\n' +\n    'Daily offerings sweep (S-3, S-1)\\n\\n' +\n    '`disclosure-reality.mjs`\\n' +\n    'Ranks EDGAR filings by materiality\\n\\n' +\n    '`company-risk-scan.mjs`\\n' +\n    'Fundamental + regulatory +\\n' +\n    'sentiment risk events',\n    '5'),\n\n  textNode('pull_macro', 2, 'pull',\n    '## Macro Pullers\\n\\n' +\n    '`fred.mjs`\\n' +\n    'FRED series snapshot:\\n' +\n    'Fed funds, 10Y-2Y, VIX proxy,\\n' +\n    'HY spreads, unemployment\\n\\n' +\n    '`eia.mjs`\\n' +\n    'Energy: weekly petroleum,\\n' +\n    'electricity demand, NG storage\\n\\n' +\n    '`bea.mjs`\\n' +\n    'GDP, personal income,\\n' +\n    'PCE deflator\\n\\n' +\n    '`cboe.mjs`\\n' +\n    'Daily put/call ratio, skew,\\n' +\n    'VIX term structure snapshot',\n    '5'),\n\n  textNode('pull_bio', 3, 'pull',\n    '## Biotech & Research Pullers\\n\\n' +\n    '`fda.mjs`\\n' +\n    'Drug approvals (PDUFA dates),\\n' +\n    'adverse events, recalls\\n\\n' +\n    '`arxiv.mjs`\\n' +\n    'Preprint search by keyword;\\n' +\n    'returns abstracts + metadata\\n\\n' +\n    '`clinicaltrials.mjs`\\n' +\n    'Trial registrations by drug /\\n' +\n    'sponsor; phase + status\\n\\n' +\n    '`pubmed.mjs`\\n' +\n    'NCBI literature search;\\n' +\n    'returns citations + abstracts',\n    '5'),\n\n  textNode('pull_osint', 4, 'pull',\n    '## OSINT & Media Pullers\\n\\n' +\n    '`newsapi.mjs`\\n' +\n    'Keyword headline sweep;\\n' +\n    'sentiment tagging\\n\\n' +\n    '`reddit.mjs`\\n' +\n    'Subreddit scanner (pushshift /\\n' +\n    'native API); tracks mentions\\n\\n' +\n    '`telegram.mjs`\\n' +\n    'Channel monitor via\\n' +\n    'Telegram MTProto\\n\\n' +\n    '`opensecrets.mjs`\\n' +\n    'Political contribution\\n' +\n    'and lobbying data\\n\\n' +\n    '`signal-tracker.mjs`\\n' +\n    'Reads `06_Signals/` and\\n' +\n    'surfaces active alerts',\n    '5'),\n\n  textNode('pull_gov', 5, 'pull',\n    '## Government & Energy Pullers\\n\\n' +\n    '`sam.mjs`\\n' +\n    'SAM.gov contract awards\\n' +\n    'and debarment records\\n\\n' +\n    '`fpds.mjs`\\n' +\n    'Federal procurement data;\\n' +\n    'contractor spend by agency\\n\\n' +\n    '`fema.mjs`\\n' +\n    'OpenFEMA disaster declarations\\n' +\n    '+ individual assistance data\\n\\n' +\n    '`convergence-scan.mjs`\\n' +\n    'Reads alert/critical notes\\n' +\n    'across all domains; fires\\n' +\n    '`06_Signals/` convergence note\\n' +\n    'when 3+ domains flag same thesis',\n    '5'),\n\n  // ── Layer 4: MarketMind Agent Pipeline ─────────────────────────────────────\n  labelNode('lbl_mm', 'mmLabel', '# MARKETMIND AGENT PIPELINE  (`scripts/agents/marketmind/`)', '4'),\n\n  textNode('mm_agents', 0, 'mm',\n    '## Specialist Agents — parallel execution\\n' +\n    'Each produces `{ confidence: 0–1, direction, summary, raw_data }`\\n\\n' +\n    '| Agent | Script | Data Source | Signal Focus |\\n' +\n    '| --- | --- | --- | --- |\\n' +\n    '| Price | `price-agent.mjs` | FMP 260–420 bars | SMA, EMA, MACD, RSI, Bollinger |\\n' +\n    '| Risk | `risk-agent.mjs` | FMP price + profile | Volatility, max drawdown, Sharpe |\\n' +\n    '| Fundamentals | `fundamentals-agent.mjs` | FMP IS/CF/BS | Margins, growth, debt load |\\n' +\n    '| Sentiment | `sentiment-agent.mjs` | FMP news + NewsAPI | Keyword bullish/bearish scoring |\\n' +\n    '| Macro | `macro-agent.mjs` | FRED | Yield curve, VIX, HY spreads |\\n' +\n    '| Microstructure | `microstructure-agent.mjs` | FMP 1-min bars | Entropy, float, positioning |\\n' +\n    '| Prediction Market | `prediction-market-agent.mjs` | Event APIs | Corporate event consensus |',\n    '4',\n    { width: colX(4) - COL_GAP }),  // spans first 4 columns\n\n  textNode('mm_synth', 4, 'mm',\n    '## synthesis-agent.mjs\\n\\n' +\n    '**Claude LLM** (JSON-mode)\\n\\n' +\n    'Reads all 7 confidence scores\\n' +\n    '+ deterministic weighted sum\\n' +\n    'from `scoring.mjs`\\n\\n' +\n    '↓\\n\\n' +\n    '**BULLISH / BEARISH / NEUTRAL**\\n\\n' +\n    'status tier:\\n' +\n    '`clear` · `watch` · `alert` · `critical`\\n\\n' +\n    'Returns structured JSON verdict',\n    '1'),\n\n  textNode('mm_orch', 5, 'mm',\n    '## agent-analyst.mjs\\n\\n' +\n    'Orchestrator\\n\\n' +\n    'Runs all 8 agents in parallel\\n' +\n    'for a given symbol/thesis\\n\\n' +\n    'Writes pull note:\\n' +\n    '`05_Data_Pulls/\\n' +\n    ' YYYY-MM-DD_\\n' +\n    ' Agent_Analysis_{sym}.md`\\n\\n' +\n    'Also feeds:\\n' +\n    '`convergence-scan.mjs`\\n' +\n    'which reads alert/critical\\n' +\n    'notes for multi-domain signals',\n    '1'),\n\n  // ── Layer 5: Data Pull Outputs ──────────────────────────────────────────────\n  labelNode('lbl_out', 'outLabel', '# DATA PULL OUTPUTS  (`05_Data_Pulls/`  ·  `06_Signals/`)', '2'),\n\n  textNode('out_market', 0, 'out',\n    '## 05_Data_Pulls/Market/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_ORB_Entropy_Screen.md`\\n' +\n    '- `YYYY-MM-DD_FMP_RelVol_Screen.md`\\n' +\n    '- `YYYY-MM-DD_Entropy_Compression_Scan.md`\\n' +\n    '- `YYYY-MM-DD_Entropy_Backtest_*.md`\\n' +\n    '- `YYYY-MM-DD_Agent_Analysis_{sym}.md`\\n\\n' +\n    'Frontmatter includes:\\n' +\n    '`domain`, `signal_status`, `signals[]`,\\n' +\n    '`agent_owner`, `date_pulled`',\n    '2'),\n\n  textNode('out_fund', 1, 'out',\n    '## 05_Data_Pulls/Fundamentals/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_Dilution_Monitor.md`\\n' +\n    '- `YYYY-MM-DD_DD_Report_{sym}.md`\\n' +\n    '- `YYYY-MM-DD_Capital_Raise.md`\\n' +\n    '- `YYYY-MM-DD_Disclosure_Reality.md`\\n\\n' +\n    'Also writes per-ticker signal notes\\n' +\n    'directly to `06_Signals/` when\\n' +\n    'dilution thresholds are breached',\n    '2'),\n\n  textNode('out_macro', 2, 'out',\n    '## 05_Data_Pulls/Macro/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_FRED_Snapshot.md`\\n' +\n    '- `YYYY-MM-DD_EIA_Weekly.md`\\n' +\n    '- `YYYY-MM-DD_BEA_GDP.md`\\n' +\n    '- `YYYY-MM-DD_CBOE_Options.md`\\n\\n' +\n    '**Also feeds:**\\n' +\n    '05_Data_Pulls/Energy/\\n' +\n    '05_Data_Pulls/Government/',\n    '2'),\n\n  textNode('out_quant', 3, 'out',\n    '## 05_Data_Pulls/Quant/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_QCPM_Strategy_Search.md`\\n' +\n    '- `YYYY-MM-DD_ORB_EOD_Backtest.md`\\n\\n' +\n    '**Also:**\\n' +\n    '05_Data_Pulls/Backtest/\\n' +\n    '- Strategy performance tables\\n' +\n    '- Parameter sweep results\\n' +\n    '- Equity curve data',\n    '2'),\n\n  textNode('out_bio', 4, 'out',\n    '## 05_Data_Pulls/Biotech/ + Research/\\n\\n' +\n    '`Biotech/`\\n' +\n    '- FDA approval / PDUFA watches\\n' +\n    '- Clinical trial updates\\n' +\n    '- Adverse event flags\\n\\n' +\n    '`Research/`\\n' +\n    '- arXiv preprint sweeps\\n' +\n    '- PubMed literature alerts\\n\\n' +\n    '**Also:**\\n' +\n    '05_Data_Pulls/News/\\n' +\n    '05_Data_Pulls/OSINT/',\n    '2'),\n\n  textNode('out_signals', 5, 'out',\n    '## 06_Signals/\\n\\n' +\n    'Discrete signal notes — written when\\n' +\n    'confidence exceeds threshold:\\n\\n' +\n    '`YYYY-MM-DD_DILUTION_{SYM}.md`\\n' +\n    '`YYYY-MM-DD_Convergence.md`\\n' +\n    '`YYYY-MM-DD_AGENT_{SYM}.md`\\n\\n' +\n    '**Status tiers:**\\n' +\n    '`critical` — immediate attention\\n' +\n    '`alert` — monitor closely\\n' +\n    '`watch` — track progression\\n' +\n    '`clear` — resolved / no action\\n\\n' +\n    'Read by: Orchestrator Agent,\\n' +\n    'Signal Board, convergence-scan',\n    '2'),\n\n  // ── Layer 6: Domain Agents & Dashboards ────────────────────────────────────\n  labelNode('lbl_agt', 'agtLabel', '# VAULT DOMAIN AGENTS  (`16_Agents/`)  ·  DASHBOARDS  (`00_Dashboard/`)', '1'),\n\n  fileNode('agt_orch', 0, 'agt', '16_Agents/Orchestrator Agent/README.md'),\n  fileNode('agt_mkt',  1, 'agt', '16_Agents/Market Agent/README.md'),\n  fileNode('agt_mac',  2, 'agt', '16_Agents/Macro Agent/README.md'),\n  fileNode('agt_fun',  3, 'agt', '16_Agents/Fundamentals Agent/README.md'),\n  fileNode('agt_bio',  4, 'agt', '16_Agents/Biotech Agent/README.md'),\n  fileNode('dash_acc', 5, 'agt', '16_Agents/Agent Command Center.md', { color: '1' }),\n\n];\n\n// ─── Edges ───────────────────────────────────────────────────────────────────\n\nconst edges = [\n\n  // External APIs → Lib clients\n  edge('src_market', 'lib_fmp'),\n  edge('src_macro',  'lib_fetch'),\n  edge('src_sec',    'lib_edgar'),\n  edge('src_bio',    'lib_fetch'),\n  edge('src_news',   'lib_fetch'),\n  edge('src_gov',    'lib_fetch'),\n\n  // Lib → Pullers\n  edge('lib_fmp',    'pull_market'),\n  edge('lib_fmp',    'pull_fund'),\n  edge('lib_edgar',  'pull_fund'),\n  edge('lib_fetch',  'pull_macro'),\n  edge('lib_fetch',  'pull_bio'),\n  edge('lib_fetch',  'pull_osint'),\n  edge('lib_fetch',  'pull_gov'),\n\n  // Lib → MarketMind\n  edge('lib_fmp',    'mm_agents', 'prices + fundamentals'),\n  edge('lib_fetch',  'mm_agents', 'FRED macro'),\n  edge('lib_mm',     'mm_agents', 'entropy + scoring'),\n  edge('lib_llm',    'mm_synth',  'Claude API'),\n\n  // MarketMind internal flow\n  edge('mm_agents',  'mm_synth',  '7 signals'),\n  edge('mm_synth',   'mm_orch',   'verdict'),\n\n  // Pullers → Outputs\n  edge('pull_market', 'out_market'),\n  edge('pull_fund',   'out_fund'),\n  edge('pull_fund',   'out_signals', 'dilution alerts'),\n  edge('pull_macro',  'out_macro'),\n  edge('pull_bio',    'out_bio'),\n  edge('pull_market', 'out_quant',   'backtest + QCPM'),\n\n  // MarketMind → Outputs\n  edge('mm_orch',     'out_market',  'agent analysis notes'),\n  edge('mm_orch',     'out_signals', 'alert/critical signals'),\n\n  // Outputs → Domain Agents\n  edge('out_market',  'agt_mkt'),\n  edge('out_fund',    'agt_fun'),\n  edge('out_macro',   'agt_mac'),\n  edge('out_bio',     'agt_bio'),\n  edge('out_signals', 'agt_orch'),\n\n  // Orchestrator → Command Center\n  edge('agt_orch',    'dash_acc', 'routed intelligence'),\n\n];\n\n// ─── Write Canvas ─────────────────────────────────────────────────────────────\n\nconst outPath = resolve(getVaultRoot(), '00_Dashboard', 'Vault Process Flow.canvas');\nconst canvas = { nodes, edges };\nwriteFileSync(outPath, JSON.stringify(canvas, null, '\\t'), 'utf8');\nconsole.log(`Written: ${outPath}`);\nconsole.log(`  ${nodes.length} nodes, ${edges.length} edges`);\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\vault-process-canvas.mjs"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\vault-process-canvas.mjs",
+            "content": "/**\n * vault-process-canvas.mjs\n *\n * Generates 00_Dashboard/Vault Process Flow.canvas — a directed-graph\n * Canvas showing how every script, lib module, data pull, and agent\n * connects in the My_Data vault.\n *\n * Run: node scripts/pullers/vault-process-canvas.mjs\n */\n\nimport { writeFileSync } from 'fs';\nimport { resolve } from 'path';\nimport { getVaultRoot } from '../lib/config.mjs';\n\n// ─── Layout constants ────────────────────────────────────────────────────────\n\nconst COL_W = 900;   // standard node width\nconst COL_GAP = 60;  // gap between columns\nconst NODE_H = 700;  // standard node height\nconst LABEL_H = 70;  // section label height\nconst LAYER_GAP = 90; // vertical gap between layers\n\nconst colX = (i) => i * (COL_W + COL_GAP);\nconst TOTAL_W = colX(6); // 6 columns → 5700px\n\n// y-origin for each layer (label + nodes)\nconst LAYERS = {\n  title:    0,\n  srcLabel: 80,\n  src:      80 + LABEL_H,\n  libLabel: 80 + LABEL_H + NODE_H + LAYER_GAP,\n  lib:      80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H,\n  pullLabel: 80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H + NODE_H + LAYER_GAP,\n  pull:      80 + LABEL_H + NODE_H + LAYER_GAP + LABEL_H + NODE_H + LAYER_GAP + LABEL_H,\n};\n// MarketMind starts after pull layer\nLAYERS.mmLabel = LAYERS.pull + NODE_H + LAYER_GAP;\nLAYERS.mm      = LAYERS.mmLabel + LABEL_H;\n// Outputs start after MarketMind\nLAYERS.outLabel = LAYERS.mm + NODE_H + LAYER_GAP;\nLAYERS.out      = LAYERS.outLabel + LABEL_H;\n// Domain agents start after outputs\nLAYERS.agtLabel = LAYERS.out + NODE_H + LAYER_GAP;\nLAYERS.agt      = LAYERS.agtLabel + LABEL_H;\n\n// ─── Node helpers ────────────────────────────────────────────────────────────\n\nlet _edgeSeq = 0;\nconst edgeId = () => `e${String(++_edgeSeq).padStart(3, '0')}`;\n\nfunction textNode(id, col, layer, text, color, overrides = {}) {\n  return {\n    id,\n    type: 'text',\n    text,\n    x: colX(col),\n    y: LAYERS[layer],\n    width: overrides.width ?? COL_W,\n    height: overrides.height ?? NODE_H,\n    ...(color ? { color } : {}),\n    ...overrides,\n  };\n}\n\nfunction labelNode(id, layer, text, color) {\n  return {\n    id,\n    type: 'text',\n    text,\n    x: 0,\n    y: LAYERS[layer],\n    width: TOTAL_W,\n    height: LABEL_H,\n    color,\n  };\n}\n\nfunction fileNode(id, col, layer, file, overrides = {}) {\n  return {\n    id,\n    type: 'file',\n    file,\n    x: colX(col),\n    y: LAYERS[layer],\n    width: overrides.width ?? COL_W,\n    height: overrides.height ?? NODE_H,\n    ...overrides,\n  };\n}\n\nfunction edge(from, to, label) {\n  return {\n    id: edgeId(),\n    fromNode: from,\n    fromSide: 'bottom',\n    toNode: to,\n    toSide: 'top',\n    ...(label ? { label } : {}),\n  };\n}\n\n// ─── Nodes ───────────────────────────────────────────────────────────────────\n\nconst nodes = [\n\n  // ── Title ──────────────────────────────────────────────────────────────────\n  {\n    id: 'title',\n    type: 'text',\n    text: '# VAULT PROCESS FLOW — Scripts × Lib Modules × Agents × Data Pulls',\n    x: 0,\n    y: LAYERS.title,\n    width: TOTAL_W,\n    height: LABEL_H,\n    color: '4',\n  },\n\n  // ── Layer 1: External Data Sources ─────────────────────────────────────────\n  labelNode('lbl_src', 'srcLabel', '# EXTERNAL DATA SOURCES', '3'),\n\n  textNode('src_market', 0, 'src',\n    '## Financial Modeling Prep (FMP)\\n\\n' +\n    '- Daily OHLCV bars (260–420 days)\\n' +\n    '- Intraday 1-min bars\\n' +\n    '- Company profile, float, short interest\\n' +\n    '- Income statement, cash flow, balance sheet\\n' +\n    '- Stock news headlines\\n' +\n    '- Insider trades, institutional ownership\\n' +\n    '- TTM ratios, analyst estimates\\n\\n' +\n    '**Key:** `FINANCIAL_MODELING_PREP_API_KEY`',\n    '3'),\n\n  textNode('src_macro', 1, 'src',\n    '## FRED + CBOE\\n\\n' +\n    '**FRED** (St. Louis Fed)\\n' +\n    '- Federal funds rate\\n' +\n    '- 10Y–2Y yield curve spread\\n' +\n    '- VIX (CBOE Volatility Index)\\n' +\n    '- HY credit spreads\\n\\n' +\n    '**CBOE** (CSV endpoint)\\n' +\n    '- Daily put/call ratio\\n' +\n    '- Skew index\\n' +\n    '- VIX term structure\\n\\n' +\n    '**Key:** `FRED_API_KEY`',\n    '3'),\n\n  textNode('src_sec', 2, 'src',\n    '## SEC EDGAR\\n\\n' +\n    '*(No API key required)*\\n\\n' +\n    '- Company facts (XBRL)\\n' +\n    '- Annual / quarterly filings\\n' +\n    '  (10-K, 10-Q, 8-K)\\n' +\n    '- S-3 shelf registrations\\n' +\n    '- Form 4 insider filings\\n' +\n    '- Full-text EFTS search\\n' +\n    '- Ticker ↔ CIK mapping\\n\\n' +\n    'Accessed via `edgar.mjs` +\\n' +\n    '`cik-map.mjs`',\n    '3'),\n\n  textNode('src_bio', 3, 'src',\n    '## Biotech & Research APIs\\n\\n' +\n    '**openFDA**\\n' +\n    '- Drug approvals, adverse events\\n' +\n    '- Recalls and enforcement\\n\\n' +\n    '**ClinicalTrials.gov** *(no key)*\\n' +\n    '- Trial registrations\\n' +\n    '- Phase, status, enrollment\\n\\n' +\n    '**NCBI PubMed** *(no key)*\\n' +\n    '- Scientific literature search\\n\\n' +\n    '**Key:** `FDA_OPEN_DATA_API_KEY`',\n    '3'),\n\n  textNode('src_news', 4, 'src',\n    '## News & Research APIs\\n\\n' +\n    '**NewsAPI**\\n' +\n    '- Breaking headline search\\n' +\n    '- Keyword + source filtering\\n\\n' +\n    '**arXiv** *(no key)*\\n' +\n    '- Preprint paper search\\n' +\n    '- Atom feed query\\n\\n' +\n    '**OpenAlex** *(no key)*\\n' +\n    '- Academic research graph\\n\\n' +\n    '**OSINT feeds**\\n' +\n    '- Reddit (pushshift / native)\\n' +\n    '- Telegram channels\\n' +\n    '- OpenCorporates\\n\\n' +\n    '**Key:** `NEWSAPI_API_KEY`',\n    '3'),\n\n  textNode('src_gov', 5, 'src',\n    '## Government & Energy APIs\\n\\n' +\n    '**EIA** (Energy Information Admin)\\n' +\n    '- Electricity generation / demand\\n' +\n    '- Natural gas, petroleum\\n\\n' +\n    '**BEA** (Bureau of Economic Analysis)\\n' +\n    '- GDP, personal income\\n\\n' +\n    '**SAM.gov** — federal contracts\\n\\n' +\n    '**FPDS** — procurement data\\n\\n' +\n    '**OpenFEMA** *(no key)*\\n' +\n    '- Disaster declarations\\n\\n' +\n    '**Keys:** `EIA_API_KEY`, `BEA_API_KEY`,\\n' +\n    '`SAM_GOV_API_KEY`',\n    '3'),\n\n  // ── Layer 2: Lib Modules ────────────────────────────────────────────────────\n  labelNode('lbl_lib', 'libLabel', '# LIB MODULES  (`scripts/lib/`)', '6'),\n\n  textNode('lib_fmp', 0, 'lib',\n    '## fmp-client.mjs\\n\\n' +\n    'FMP REST wrapper\\n\\n' +\n    '**Exports**\\n' +\n    '- `getHistoricalPrices(sym, days)`\\n' +\n    '- `getIntradayBars(sym, interval)`\\n' +\n    '- `getProfile(sym)` — float, mktcap\\n' +\n    '- `getFinancials(sym)` — IS/CF/BS\\n' +\n    '- `getStockNews(sym, limit)`\\n' +\n    '- `getShortInterest(sym)`\\n' +\n    '- `getInsiderTrades(sym)`\\n' +\n    '- `getTTMRatios(sym)`\\n\\n' +\n    'Used by: price, risk, fund, sent,\\n' +\n    'micro agents + most pullers',\n    '6'),\n\n  textNode('lib_edgar', 1, 'lib',\n    '## edgar.mjs + cik-map.mjs\\n\\n' +\n    '`edgar.mjs`\\n' +\n    '- `getCompanyFacts(cik)`\\n' +\n    '- `getFilings(cik, forms)`\\n' +\n    '- `getShelfCapacity(cik)` — S-3 math\\n' +\n    '- Full-text EFTS search wrapper\\n\\n' +\n    '`cik-map.mjs`\\n' +\n    '- Ticker → CIK lookup\\n' +\n    '- Cached bulk company tickers JSON\\n\\n' +\n    '`dilution-rules.mjs`\\n' +\n    '- Shelf capacity math\\n' +\n    '- Overhang % calculation\\n' +\n    '- Alert threshold logic',\n    '6'),\n\n  textNode('lib_fetch', 2, 'lib',\n    '## fetcher.mjs + bars.mjs\\n\\n' +\n    '`fetcher.mjs`\\n' +\n    '- `fetchJSON(url, opts)` — retry + timeout\\n' +\n    '- `fetchAll(tasks)` — concurrent map\\n' +\n    '- Rate-limit aware (configurable)\\n\\n' +\n    '`bars.mjs`\\n' +\n    '- OHLCV normalization\\n' +\n    '- ATR14 calculation\\n' +\n    '- Relative volume computation\\n\\n' +\n    '`markdown.mjs`\\n' +\n    '- Note builder (headers, tables)\\n' +\n    '- Frontmatter injection\\n\\n' +\n    '`obsidian-cli.mjs`\\n' +\n    '- Set frontmatter properties via\\n' +\n    '  Obsidian Local REST API',\n    '6'),\n\n  textNode('lib_llm', 3, 'lib',\n    '## llm-client.mjs\\n\\n' +\n    'Claude API integration\\n\\n' +\n    '**Exports**\\n' +\n    '- `chatJSON(system, user)` —\\n' +\n    '  returns parsed JSON from Claude\\n' +\n    '- JSON-mode enforcement via\\n' +\n    '  system prompt contract\\n' +\n    '- Model: claude-sonnet-4-6\\n\\n' +\n    'Used exclusively by\\n' +\n    '`synthesis-agent.mjs` to produce\\n' +\n    'the final BULLISH / BEARISH /\\n' +\n    'NEUTRAL verdict + status tier',\n    '6'),\n\n  textNode('lib_config', 4, 'lib',\n    '## config.mjs + system libs\\n\\n' +\n    '`config.mjs`\\n' +\n    '- `.env` loader (dotenv)\\n' +\n    '- `getVaultRoot()` — vault path\\n' +\n    '- `getPullsDir()` — `05_Data_Pulls/`\\n' +\n    '- `getSignalsDir()` — `06_Signals/`\\n' +\n    '- `getApiKey(sourceId)` — key registry\\n\\n' +\n    '`sector-map.mjs`\\n' +\n    '- Ticker → sector/industry\\n\\n' +\n    '`schema.mjs`\\n' +\n    '- Zod schemas for pull frontmatter\\n\\n' +\n    '`kb-bridge.mjs`\\n' +\n    '- Knowledge base integration shim',\n    '6'),\n\n  textNode('lib_mm', 5, 'lib',\n    '## MarketMind signal libs\\n\\n' +\n    '`entropy.mjs`\\n' +\n    '- Shannon entropy over OHLCV bins\\n' +\n    '- Normalized 0–1 score\\n' +\n    '- `sessionEntropy(bars)` export\\n\\n' +\n    '`scoring.mjs`\\n' +\n    '- Deterministic weighted sum of\\n' +\n    '  7 agent confidence scores\\n' +\n    '- Weights from `config/scoring-weights.json`\\n\\n' +\n    '`schemas.mjs`\\n' +\n    '- Signal object shape:\\n' +\n    '  `{ confidence, direction, summary, raw_data }`\\n\\n' +\n    '`utils.mjs`\\n' +\n    '- Formatting helpers, verdict labels',\n    '6'),\n\n  // ── Layer 3: Puller Scripts ─────────────────────────────────────────────────\n  labelNode('lbl_pull', 'pullLabel', '# PULLER SCRIPTS  (`scripts/pullers/`)', '5'),\n\n  textNode('pull_market', 0, 'pull',\n    '## Market Pullers\\n\\n' +\n    '`orb-entropy.mjs`\\n' +\n    'ORB trade sheet — 9:35 AM daily\\n' +\n    'Builds 5-min open-range candle,\\n' +\n    'applies entropy + gap + VWAP filters\\n\\n' +\n    '`rel-vol-screen.mjs`\\n' +\n    'Top 20 by relative volume (9:00 AM)\\n\\n' +\n    '`entropy-compression-scan.mjs`\\n' +\n    '~774-symbol nightly scan;\\n' +\n    'flags sustained compression ≤ 0.50\\n\\n' +\n    '`backtest-orb-eod.mjs`\\n' +\n    'End-of-day ORB strategy backtest\\n\\n' +\n    '`earnings-entropy.mjs`\\n' +\n    'Intraday entropy before earnings\\n\\n' +\n    '`qcpm-strategy-search.mjs`\\n' +\n    'QCPM strategy parameter sweep',\n    '5'),\n\n  textNode('pull_fund', 1, 'pull',\n    '## Fundamentals Pullers\\n\\n' +\n    '`dilution-monitor.mjs`\\n' +\n    'Batch shelf capacity scan;\\n' +\n    'tracks ATM overhang + dilution risk;\\n' +\n    'writes `06_Signals/` notes directly\\n\\n' +\n    '`dd-report.mjs`\\n' +\n    'One-click due diligence —\\n' +\n    'IPO, ownership, float, filings\\n\\n' +\n    '`capital-raise.mjs`\\n' +\n    'Daily offerings sweep (S-3, S-1)\\n\\n' +\n    '`disclosure-reality.mjs`\\n' +\n    'Ranks EDGAR filings by materiality\\n\\n' +\n    '`company-risk-scan.mjs`\\n' +\n    'Fundamental + regulatory +\\n' +\n    'sentiment risk events',\n    '5'),\n\n  textNode('pull_macro', 2, 'pull',\n    '## Macro Pullers\\n\\n' +\n    '`fred.mjs`\\n' +\n    'FRED series snapshot:\\n' +\n    'Fed funds, 10Y-2Y, VIX proxy,\\n' +\n    'HY spreads, unemployment\\n\\n' +\n    '`eia.mjs`\\n' +\n    'Energy: weekly petroleum,\\n' +\n    'electricity demand, NG storage\\n\\n' +\n    '`bea.mjs`\\n' +\n    'GDP, personal income,\\n' +\n    'PCE deflator\\n\\n' +\n    '`cboe.mjs`\\n' +\n    'Daily put/call ratio, skew,\\n' +\n    'VIX term structure snapshot',\n    '5'),\n\n  textNode('pull_bio', 3, 'pull',\n    '## Biotech & Research Pullers\\n\\n' +\n    '`fda.mjs`\\n' +\n    'Drug approvals (PDUFA dates),\\n' +\n    'adverse events, recalls\\n\\n' +\n    '`arxiv.mjs`\\n' +\n    'Preprint search by keyword;\\n' +\n    'returns abstracts + metadata\\n\\n' +\n    '`clinicaltrials.mjs`\\n' +\n    'Trial registrations by drug /\\n' +\n    'sponsor; phase + status\\n\\n' +\n    '`pubmed.mjs`\\n' +\n    'NCBI literature search;\\n' +\n    'returns citations + abstracts',\n    '5'),\n\n  textNode('pull_osint', 4, 'pull',\n    '## OSINT & Media Pullers\\n\\n' +\n    '`newsapi.mjs`\\n' +\n    'Keyword headline sweep;\\n' +\n    'sentiment tagging\\n\\n' +\n    '`reddit.mjs`\\n' +\n    'Subreddit scanner (pushshift /\\n' +\n    'native API); tracks mentions\\n\\n' +\n    '`telegram.mjs`\\n' +\n    'Channel monitor via\\n' +\n    'Telegram MTProto\\n\\n' +\n    '`opensecrets.mjs`\\n' +\n    'Political contribution\\n' +\n    'and lobbying data\\n\\n' +\n    '`signal-tracker.mjs`\\n' +\n    'Reads `06_Signals/` and\\n' +\n    'surfaces active alerts',\n    '5'),\n\n  textNode('pull_gov', 5, 'pull',\n    '## Government & Energy Pullers\\n\\n' +\n    '`sam.mjs`\\n' +\n    'SAM.gov contract awards\\n' +\n    'and debarment records\\n\\n' +\n    '`fpds.mjs`\\n' +\n    'Federal procurement data;\\n' +\n    'contractor spend by agency\\n\\n' +\n    '`fema.mjs`\\n' +\n    'OpenFEMA disaster declarations\\n' +\n    '+ individual assistance data\\n\\n' +\n    '`convergence-scan.mjs`\\n' +\n    'Reads alert/critical notes\\n' +\n    'across all domains; fires\\n' +\n    '`06_Signals/` convergence note\\n' +\n    'when 3+ domains flag same thesis',\n    '5'),\n\n  // ── Layer 4: MarketMind Agent Pipeline ─────────────────────────────────────\n  labelNode('lbl_mm', 'mmLabel', '# MARKETMIND AGENT PIPELINE  (`scripts/agents/marketmind/`)', '4'),\n\n  textNode('mm_agents', 0, 'mm',\n    '## Specialist Agents — parallel execution\\n' +\n    'Each produces `{ confidence: 0–1, direction, summary, raw_data }`\\n\\n' +\n    '| Agent | Script | Data Source | Signal Focus |\\n' +\n    '| --- | --- | --- | --- |\\n' +\n    '| Price | `price-agent.mjs` | FMP 260–420 bars | SMA, EMA, MACD, RSI, Bollinger |\\n' +\n    '| Risk | `risk-agent.mjs` | FMP price + profile | Volatility, max drawdown, Sharpe |\\n' +\n    '| Fundamentals | `fundamentals-agent.mjs` | FMP IS/CF/BS | Margins, growth, debt load |\\n' +\n    '| Sentiment | `sentiment-agent.mjs` | FMP news + NewsAPI | Keyword bullish/bearish scoring |\\n' +\n    '| Macro | `macro-agent.mjs` | FRED | Yield curve, VIX, HY spreads |\\n' +\n    '| Microstructure | `microstructure-agent.mjs` | FMP 1-min bars | Entropy, float, positioning |\\n' +\n    '| Prediction Market | `prediction-market-agent.mjs` | Event APIs | Corporate event consensus |',\n    '4',\n    { width: colX(4) - COL_GAP }),  // spans first 4 columns\n\n  textNode('mm_synth', 4, 'mm',\n    '## synthesis-agent.mjs\\n\\n' +\n    '**Claude LLM** (JSON-mode)\\n\\n' +\n    'Reads all 7 confidence scores\\n' +\n    '+ deterministic weighted sum\\n' +\n    'from `scoring.mjs`\\n\\n' +\n    '↓\\n\\n' +\n    '**BULLISH / BEARISH / NEUTRAL**\\n\\n' +\n    'status tier:\\n' +\n    '`clear` · `watch` · `alert` · `critical`\\n\\n' +\n    'Returns structured JSON verdict',\n    '1'),\n\n  textNode('mm_orch', 5, 'mm',\n    '## agent-analyst.mjs\\n\\n' +\n    'Orchestrator\\n\\n' +\n    'Runs all 8 agents in parallel\\n' +\n    'for a given symbol/thesis\\n\\n' +\n    'Writes pull note:\\n' +\n    '`05_Data_Pulls/\\n' +\n    ' YYYY-MM-DD_\\n' +\n    ' Agent_Analysis_{sym}.md`\\n\\n' +\n    'Also feeds:\\n' +\n    '`convergence-scan.mjs`\\n' +\n    'which reads alert/critical\\n' +\n    'notes for multi-domain signals',\n    '1'),\n\n  // ── Layer 5: Data Pull Outputs ──────────────────────────────────────────────\n  labelNode('lbl_out', 'outLabel', '# DATA PULL OUTPUTS  (`05_Data_Pulls/`  ·  `06_Signals/`)', '2'),\n\n  textNode('out_market', 0, 'out',\n    '## 05_Data_Pulls/Market/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_ORB_Entropy_Screen.md`\\n' +\n    '- `YYYY-MM-DD_FMP_RelVol_Screen.md`\\n' +\n    '- `YYYY-MM-DD_Entropy_Compression_Scan.md`\\n' +\n    '- `YYYY-MM-DD_Entropy_Backtest_*.md`\\n' +\n    '- `YYYY-MM-DD_Agent_Analysis_{sym}.md`\\n\\n' +\n    'Frontmatter includes:\\n' +\n    '`domain`, `signal_status`, `signals[]`,\\n' +\n    '`agent_owner`, `date_pulled`',\n    '2'),\n\n  textNode('out_fund', 1, 'out',\n    '## 05_Data_Pulls/Fundamentals/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_Dilution_Monitor.md`\\n' +\n    '- `YYYY-MM-DD_DD_Report_{sym}.md`\\n' +\n    '- `YYYY-MM-DD_Capital_Raise.md`\\n' +\n    '- `YYYY-MM-DD_Disclosure_Reality.md`\\n\\n' +\n    'Also writes per-ticker signal notes\\n' +\n    'directly to `06_Signals/` when\\n' +\n    'dilution thresholds are breached',\n    '2'),\n\n  textNode('out_macro', 2, 'out',\n    '## 05_Data_Pulls/Macro/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_FRED_Snapshot.md`\\n' +\n    '- `YYYY-MM-DD_EIA_Weekly.md`\\n' +\n    '- `YYYY-MM-DD_BEA_GDP.md`\\n' +\n    '- `YYYY-MM-DD_CBOE_Options.md`\\n\\n' +\n    '**Also feeds:**\\n' +\n    '05_Data_Pulls/Energy/\\n' +\n    '05_Data_Pulls/Government/',\n    '2'),\n\n  textNode('out_quant', 3, 'out',\n    '## 05_Data_Pulls/Quant/\\n\\n' +\n    'Timestamped markdown notes:\\n\\n' +\n    '- `YYYY-MM-DD_QCPM_Strategy_Search.md`\\n' +\n    '- `YYYY-MM-DD_ORB_EOD_Backtest.md`\\n\\n' +\n    '**Also:**\\n' +\n    '05_Data_Pulls/Backtest/\\n' +\n    '- Strategy performance tables\\n' +\n    '- Parameter sweep results\\n' +\n    '- Equity curve data',\n    '2'),\n\n  textNode('out_bio', 4, 'out',\n    '## 05_Data_Pulls/Biotech/ + Research/\\n\\n' +\n    '`Biotech/`\\n' +\n    '- FDA approval / PDUFA watches\\n' +\n    '- Clinical trial updates\\n' +\n    '- Adverse event flags\\n\\n' +\n    '`Research/`\\n' +\n    '- arXiv preprint sweeps\\n' +\n    '- PubMed literature alerts\\n\\n' +\n    '**Also:**\\n' +\n    '05_Data_Pulls/News/\\n' +\n    '05_Data_Pulls/OSINT/',\n    '2'),\n\n  textNode('out_signals', 5, 'out',\n    '## 06_Signals/\\n\\n' +\n    'Discrete signal notes — written when\\n' +\n    'confidence exceeds threshold:\\n\\n' +\n    '`YYYY-MM-DD_DILUTION_{SYM}.md`\\n' +\n    '`YYYY-MM-DD_Convergence.md`\\n' +\n    '`YYYY-MM-DD_AGENT_{SYM}.md`\\n\\n' +\n    '**Status tiers:**\\n' +\n    '`critical` — immediate attention\\n' +\n    '`alert` — monitor closely\\n' +\n    '`watch` — track progression\\n' +\n    '`clear` — resolved / no action\\n\\n' +\n    'Read by: Orchestrator Agent,\\n' +\n    'Signal Board, convergence-scan',\n    '2'),\n\n  // ── Layer 6: Domain Agents & Dashboards ────────────────────────────────────\n  labelNode('lbl_agt', 'agtLabel', '# VAULT DOMAIN AGENTS  (`16_Agents/`)  ·  DASHBOARDS  (`00_Dashboard/`)', '1'),\n\n  fileNode('agt_orch', 0, 'agt', '16_Agents/Orchestrator Agent/README.md'),\n  fileNode('agt_mkt',  1, 'agt', '16_Agents/Market Agent/README.md'),\n  fileNode('agt_mac',  2, 'agt', '16_Agents/Macro Agent/README.md'),\n  fileNode('agt_fun',  3, 'agt', '16_Agents/Fundamentals Agent/README.md'),\n  fileNode('agt_bio',  4, 'agt', '16_Agents/Biotech Agent/README.md'),\n  fileNode('dash_acc', 5, 'agt', '16_Agents/Agent Command Center.md', { color: '1' }),\n\n];\n\n// ─── Edges ───────────────────────────────────────────────────────────────────\n\nconst edges = [\n\n  // External APIs → Lib clients\n  edge('src_market', 'lib_fmp'),\n  edge('src_macro',  'lib_fetch'),\n  edge('src_sec',    'lib_edgar'),\n  edge('src_bio',    'lib_fetch'),\n  edge('src_news',   'lib_fetch'),\n  edge('src_gov',    'lib_fetch'),\n\n  // Lib → Pullers\n  edge('lib_fmp',    'pull_market'),\n  edge('lib_fmp',    'pull_fund'),\n  edge('lib_edgar',  'pull_fund'),\n  edge('lib_fetch',  'pull_macro'),\n  edge('lib_fetch',  'pull_bio'),\n  edge('lib_fetch',  'pull_osint'),\n  edge('lib_fetch',  'pull_gov'),\n\n  // Lib → MarketMind\n  edge('lib_fmp',    'mm_agents', 'prices + fundamentals'),\n  edge('lib_fetch',  'mm_agents', 'FRED macro'),\n  edge('lib_mm',     'mm_agents', 'entropy + scoring'),\n  edge('lib_llm',    'mm_synth',  'Claude API'),\n\n  // MarketMind internal flow\n  edge('mm_agents',  'mm_synth',  '7 signals'),\n  edge('mm_synth',   'mm_orch',   'verdict'),\n\n  // Pullers → Outputs\n  edge('pull_market', 'out_market'),\n  edge('pull_fund',   'out_fund'),\n  edge('pull_fund',   'out_signals', 'dilution alerts'),\n  edge('pull_macro',  'out_macro'),\n  edge('pull_bio',    'out_bio'),\n  edge('pull_market', 'out_quant',   'backtest + QCPM'),\n\n  // MarketMind → Outputs\n  edge('mm_orch',     'out_market',  'agent analysis notes'),\n  edge('mm_orch',     'out_signals', 'alert/critical signals'),\n\n  // Outputs → Domain Agents\n  edge('out_market',  'agt_mkt'),\n  edge('out_fund',    'agt_fun'),\n  edge('out_macro',   'agt_mac'),\n  edge('out_bio',     'agt_bio'),\n  edge('out_signals', 'agt_orch'),\n\n  // Orchestrator → Command Center\n  edge('agt_orch',    'dash_acc', 'routed intelligence'),\n\n];\n\n// ─── Write Canvas ─────────────────────────────────────────────────────────────\n\nconst outPath = resolve(getVaultRoot(), '00_Dashboard', 'Vault Process Flow.canvas');\nconst canvas = { nodes, edges };\nwriteFileSync(outPath, JSON.stringify(canvas, null, '\\t'), 'utf8');\nconsole.log(`Written: ${outPath}`);\nconsole.log(`  ${nodes.length} nodes, ${edges.length} edges`);\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now run it to generate the Canvas file."
+        }
+      ],
+      "timestamp": "2026-04-30T00:13:13.886Z"
+    },
+    {
+      "id": "0f9aac3f-b4de-4e06-9e4f-3981b1a211fe",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_012URMEX6PcLfEYsb3JHX8tw",
+          "title": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && node scripts/pullers/vault-process-canvas.mjs",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && node scripts/pullers/vault-process-canvas.mjs",
+            "description": "Generate the Vault Process Flow canvas"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The canvas was generated successfully: 40 nodes, 33 edges. Let me verify the JSON is valid and then report to the user."
+        },
+        {
+          "type": "text",
+          "text": "40 nodes, 33 edges written successfully. Let me do a quick JSON validity check."
+        }
+      ],
+      "timestamp": "2026-04-30T00:15:16.754Z"
+    },
+    {
+      "id": "8e7454bd-8f70-4d3e-9767-4be1aafe232a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013MvLPp3yhPv4exYxBxZZev",
+          "title": "node -e \"const f=require('fs').readFileSync('C:\\\\\\\\Users\\\\\\\\CaveUser\\\\\\\\Documents\\\\\\\\Obsidian Vault\\\\\\\\My_Data\\\\\\\\00_Dashboard\\\\\\\\Vault Process Flow.canvas','utf8'); const c=JSON.parse(f); console.log('valid JSON'); console.log('nodes:',c.nodes.length,'edges:',c.edges.length); const ids=new Set(c.nodes.map(n=>n.id)); const bad=c.edges.filter(e=>!ids.has(e.fromNode)||!ids.has(e.toNode)); console.log('broken edge refs:',bad.length);\"",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "node -e \"const f=require('fs').readFileSync('C:\\\\\\\\Users\\\\\\\\CaveUser\\\\\\\\Documents\\\\\\\\Obsidian Vault\\\\\\\\My_Data\\\\\\\\00_Dashboard\\\\\\\\Vault Process Flow.canvas','utf8'); const c=JSON.parse(f); console.log('valid JSON'); console.log('nodes:',c.nodes.length,'edges:',c.edges.length); const ids=new Set(c.nodes.map(n=>n.id)); const bad=c.edges.filter(e=>!ids.has(e.fromNode)||!ids.has(e.toNode)); console.log('broken edge refs:',bad.length);\"",
+            "description": "Validate canvas JSON and check edge references"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The backslashes in the path were causing issues with the escape sequences. Let me use a different approach to validate."
+        }
+      ],
+      "timestamp": "2026-04-30T00:15:20.987Z"
+    },
+    {
+      "id": "c5de181a-182f-442d-a531-ccaea633666d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01KiLourVoGSXPdSBBxksR7C",
+          "title": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && node -e \"const c=JSON.parse(require('fs').readFileSync('00_Dashboard/Vault Process Flow.canvas','utf8')); const ids=new Set(c.nodes.map(n=>n.id)); const bad=c.edges.filter(e=>!ids.has(e.fromNode)||!ids.has(e.toNode)); console.log('nodes:',c.nodes.length,'edges:',c.edges.length,'broken:',bad.length,bad.map(e=>e.fromNode+'->'+e.toNode));\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && node -e \"const c=JSON.parse(require('fs').readFileSync('00_Dashboard/Vault Process Flow.canvas','utf8')); const ids=new Set(c.nodes.map(n=>n.id)); const bad=c.edges.filter(e=>!ids.has(e.fromNode)||!ids.has(e.toNode)); console.log('nodes:',c.nodes.length,'edges:',c.edges.length,'broken:',bad.length,bad.map(e=>e.fromNode+'->'+e.toNode));\"",
+            "description": "Validate canvas JSON integrity"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "All checks pass: 40 nodes, 33 edges, 0 broken edge references. The canvas is valid and ready to open in Obsidian."
+        },
+        {
+          "type": "text",
+          "text": "All clean — 40 nodes, 33 edges, 0 broken references.\n\n`★ Insight ─────────────────────────────────────`\n- The `mm_agents` node uses `width: colX(4) - COL_GAP` (spans 4 columns) to give the 7-agent table enough horizontal room — Obsidian Canvas renders text nodes as markdown, so table width is constrained by node width\n- Edges use string IDs (`e001`–`e033`) padded with `edgeId()` — Obsidian requires unique edge IDs but doesn't validate their format, so a simple counter works\n- Zero broken edge refs confirms no node ID was misspelled between the `nodes` definitions and the `edges` array — a common class of Canvas bug when hand-authoring JSON\n`─────────────────────────────────────────────────`\n\n**Done.** Two files created:\n\n- `scripts/pullers/vault-process-canvas.mjs` — the generator (re-run any time the vault evolves)\n- `00_Dashboard/Vault Process Flow.canvas` — open in Obsidian now\n\nThe Canvas has 6 horizontal layers connected by 33 directed arrows:\n\n```\nExternal APIs → Lib Modules → Puller Scripts\n                            ↘\n                       MarketMind Pipeline (7 agents → synthesis → orchestrator)\n                            ↓\n                       Data Pull Outputs (05_Data_Pulls/ + 06_Signals/)\n                            ↓\n                  Domain Agents (16_Agents/) → Agent Command Center\n```\n\nWant me to `/schedule` a weekly agent to re-run the generator and commit any layout changes as the vault grows?"
+        }
+      ],
+      "timestamp": "2026-04-30T00:15:25.787Z"
+    },
+    {
+      "id": "0b38287a-ef41-4c6e-a141-966350b7aed1",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "sure"
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:08.907Z"
+    },
+    {
+      "id": "50e09e5d-4e3c-49cf-8e8f-40f98eeccb27",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": "The user wants to schedule a weekly agent to re-run the vault-process-canvas.mjs generator and commit any changes. I'll use the `/schedule` skill to set this up."
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:11.555Z"
+    },
+    {
+      "id": "49362c3f-e5c7-4e38-b009-21883b1a2418",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01UZdo3RtRpSzDRDmStwyo8z",
+          "title": "Skill",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "skill": "schedule",
+            "args": "Create a weekly routine that runs `node scripts/pullers/vault-process-canvas.mjs` from `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data`, then commits any changes to `00_Dashboard/Vault Process Flow.canvas` with message `chore: regenerate vault process canvas`. Run every Monday at 9 AM."
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The user wants to create a weekly routine that:\n1. Runs `node scripts/pullers/vault-process-canvas.mjs` from the vault directory\n2. Commits any changes to `00_Dashboard/Vault Process Flow.canvas` with message `chore: regenerate vault process canvas`\n3. Runs every Monday at 9 AM (America/New_York = 1 PM UTC = 13:00 UTC)\n\nBefore creating this, I need to clarify a few things:\n\n1. **Remote agent limitation**: The remote agent runs in Anthropic's cloud and clones the git repo. The vault is at `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data` but that's a local path. \n\nI need to figure out which GitHub repo contains this vault and verify it's the right one — the script path would be relative to wherever the repo is cloned. The cron schedule for Monday 9 AM ET is `0 13 * * 1`. Let me check what remote the vault uses and load the RemoteTrigger tool to set this up. the current time and the git remote URL.\n\nActually, I should also check: does the repo at `https://github.com/geraldfillman/reimagined-octo-adventure` contain the vault? Or is the vault in a different repo?\n\nLet me check the git remote URL first via Bash, then load RemoteTrigger.\n\nKey concerns:\n1. The remote agent runs in the cloud and can't access local files. The vault is a git repo but does it have a GitHub remote?\n2. The script uses `config.mjs` which calls `dotenv` to load `.env` — the remote agent won't have the `.env` file with API keys. However, this particular script (`vault-process-canvas.mjs`) only calls `getVaultRoot()` from config and doesn't need any API keys. So it should work without `.env`.\n3. The commit needs to be pushed — the remote agent would need write access to the repo.\n\nNow I need to verify the git remote and see if I can proceed with running the workflow on the remote agent."
+        },
+        {
+          "type": "text",
+          "text": "Let me check the git remote and current time before setting this up."
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:11.838Z"
+    },
+    {
+      "id": "4eb1dafe-c5c2-49c9-8481-3d5490c9f978",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016NaqiAckhqkPVCmW2ywANY",
+          "title": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && git remote -v && date -u +%Y-%m-%dT%H:%M:%SZ",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "cd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" && git remote -v && date -u +%Y-%m-%dT%H:%M:%SZ",
+            "description": "Check git remote and current UTC time"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Good. The git remote is `https://github.com/geraldfillman/reimagined-octo-adventure.git` - this matches the default environment repo. Current time is 2026-04-30T00:16:29Z UTC.\n\nMonday 9 AM ET = Monday 1 PM UTC = `0 13 * * 1`\n\nNow I need to load RemoteTrigger and create the routine.\n\nOne important consideration: the remote agent runs a git checkout of the repo. \n\nThe vault-process-canvas.mjs script depends on config.mjs, which calls getVaultRoot() to determine the vault directory. In a remote environment, this function resolves the vault root relative to the script's location, so it would point to the root of the cloned repository.\n\nThe canvas file would be written to the correct location within that repo structure. However, config.mjs also tries to load .env from MY_DATA_ROOT, which is calculated by going up one level from the vault root and into a My_Data directory—a local path that won't exist in the remote environment. Since vault-process-canvas.mjs doesn't actually call getApiKey(), it won't need the .env file, so this path resolution issue shouldn't block execution. The script will work fine since dotenv silently ignores missing `.env` files, and `getVaultRoot()` only depends on `__dirname`. The remote workflow would be straightforward: clone the repo, run the vault process script from the root, which generates the canvas file, then commit and push.\n\nNow I'm drafting the prompt for the remote agent—it needs to be clear and self-contained, walking through running the script, checking for changes with git diff, and conditionally committing and pushing if anything changed, while leaving all other files untouched.\n\nI'm setting up the cron schedule for Monday mornings at 9 AM ET, which translates to 13:00 UTC, and generating a UUID to identify this routine."
+        },
+        {
+          "type": "text",
+          "text": "Good — same repo (`reimagined-octo-adventure`), current time 00:16 UTC. Monday 9 AM ET = **13:00 UTC** → cron `0 13 * * 1`.\n\nOne note before creating: the remote agent runs in Anthropic's cloud and clones the GitHub repo. The script only calls `getVaultRoot()` (no API keys needed), so it'll work cleanly without a `.env` file. Let me load RemoteTrigger and create the routine."
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:29.040Z"
+    },
+    {
+      "id": "3cf315b8-9587-4646-b76e-549fd58e1ef1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RHofHN1k4nhLtuGfhy1RQt",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:RemoteTrigger",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now let me create the routine. I need to generate a fresh UUID for the events array. Let me use: `b4e82d1a-5f3c-4a7b-9e6d-2c8f1a0b3d4e`\n\nThe prompt needs to be self-contained since the remote agent starts fresh.\n\nCron: `0 13 * * 1` (Monday 13:00 UTC = 9 AM ET)\n\nEnvironment ID: `env_01Tsx3jh6PsPcSUcK694dCMk`"
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:53.538Z"
+    },
+    {
+      "id": "120b1660-0303-4bed-a215-1ebdcc0973dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TNgCxAM8B9FUfbbVFJLvPZ",
+          "title": "RemoteTrigger",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "action": "create",
+            "body": {
+              "name": "Weekly Vault Process Canvas Regeneration",
+              "cron_expression": "0 13 * * 1",
+              "enabled": true,
+              "job_config": {
+                "ccr": {
+                  "environment_id": "env_01Tsx3jh6PsPcSUcK694dCMk",
+                  "session_context": {
+                    "model": "claude-sonnet-4-6",
+                    "sources": [
+                      {
+                        "git_repository": {
+                          "url": "https://github.com/geraldfillman/reimagined-octo-adventure"
+                        }
+                      }
+                    ],
+                    "allowed_tools": [
+                      "Bash",
+                      "Read",
+                      "Write",
+                      "Edit",
+                      "Glob",
+                      "Grep"
+                    ]
+                  },
+                  "events": [
+                    {
+                      "data": {
+                        "uuid": "b4e82d1a-5f3c-4a7b-9e6d-2c8f1a0b3d4e",
+                        "session_id": "",
+                        "type": "user",
+                        "parent_tool_use_id": null,
+                        "message": {
+                          "role": "user",
+                          "content": "You are running in a remote Claude Code environment. The working directory is the My_Data Obsidian vault (repo: reimagined-octo-adventure).\n\nTask: regenerate the Vault Process Flow Canvas and commit any changes.\n\nSteps:\n1. Run the generator script:\n   node scripts/pullers/vault-process-canvas.mjs\n   This writes 00_Dashboard/Vault Process Flow.canvas from the current vault structure.\n\n2. Check if the file changed:\n   git diff --stat '00_Dashboard/Vault Process Flow.canvas'\n\n3. If there are changes, commit and push:\n   git add '00_Dashboard/Vault Process Flow.canvas'\n   git commit -m 'chore: regenerate vault process canvas'\n   git push origin main\n\n4. If no changes, exit cleanly and report 'Canvas is already up to date.'\n\nDo not modify any other files. The script uses only Node.js built-ins and the repo's own lib modules — do not install any packages."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "Routine created. Here's the summary:\n\n**Weekly Vault Process Canvas Regeneration**\n- **ID:** `trig_018X7iHGjWgbCWobwawiCLN2`\n- **Schedule:** Every Monday at 9 AM ET (13:00 UTC) → `0 13 * * 1`\n- **First run:** Monday, May 4, 2026\n- **Repo:** `reimagined-octo-adventure`\n- **Model:** claude-sonnet-4-6\n\nThe remote agent will run `vault-process-canvas.mjs`, diff the canvas, and commit+push only if there are changes. If nothing changed it exits cleanly with no commit.\n\nManage it here: https://claude.ai/code/routines/trig_018X7iHGjWgbCWobwawiCLN2"
+        }
+      ],
+      "timestamp": "2026-04-30T00:16:59.021Z"
+    }
+  ],
+  "savedAt": "2026-04-30T00:17:12.019Z"
+}

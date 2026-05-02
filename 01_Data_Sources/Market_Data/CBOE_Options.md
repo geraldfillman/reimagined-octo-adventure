@@ -10,7 +10,7 @@ url: "https://cdn.cboe.com/api/global/us_indices/daily_prices"
 provides: ["skew-index", "vix-term-structure", "put-call-ratio"]
 best_use_cases: ["market positioning analysis", "tail-risk monitoring", "volatility regime detection"]
 tags: ["data_source", "market", "options", "volatility", "positioning", "cboe"]
-related_sources: ["[[Alpha Vantage]]", "[[Financial Modeling Prep (free tier)]]"]
+related_sources: ["[[Financial Modeling Prep]]"]
 key_location: "None required"
 integrated: true
 linked_puller: "cboe"
@@ -20,16 +20,17 @@ last_reviewed: "2026-03-26"
 notes: "Tracks public CBOE positioning feeds; put/call is deprecated but skew and VIX term structure remain live."
 ---
 
-## CBOE Market Positioning Data
+## Summary
 
-CBOE provides free delayed market data via public CSV feeds. Tracks how market participants are positioned through options activity and volatility indices.
+- Public CBOE market-positioning feed for skew, VIX term structure, and historical options sentiment context.
+- Best for tail-risk monitoring, volatility regime detection, and crowded-trade checks.
 
 ## Data Groups
 
 | Group | Source | Description |
 | --- | --- | --- |
-| Put/Call Ratio | Equity options volume | Ratio of put volume to call volume — fear vs greed |
-| SKEW Index | CBOE SKEW | Tail risk pricing — how much downside protection is being bought |
+| Put/Call Ratio | Equity options volume | Ratio of put volume to call volume â€” fear vs greed |
+| SKEW Index | CBOE SKEW | Tail risk pricing â€” how much downside protection is being bought |
 | VIX Term Structure | VIX + VIX3M | Contango (normal) vs backwardation (stress) |
 
 ## Pull Commands

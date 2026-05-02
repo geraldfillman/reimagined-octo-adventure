@@ -28,6 +28,7 @@ scripts/.cache/
 
 # Qlib
 .qlib_data/
+scripts/qlib/
 scripts/qlib/.venv/
 scripts/qlib/__pycache__/
 scripts/qlib/tests/__pycache__/

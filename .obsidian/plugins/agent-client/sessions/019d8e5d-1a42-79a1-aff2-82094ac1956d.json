@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "sessionId": "019d8e5d-1a42-79a1-aff2-82094ac1956d",
+  "agentId": "codex-acp",
+  "messages": [
+    {
+      "id": "ac623845-89d0-437b-a76b-1f89b9dfb93d",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "codex",
+          "autoMentionContext": {
+            "noteName": "RUGBY_COACH_TASKS",
+            "notePath": "Rugby/RUGBY_COACH_TASKS.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-15T00:10:31.919Z"
+    }
+  ],
+  "savedAt": "2026-04-15T00:10:37.402Z"
+}

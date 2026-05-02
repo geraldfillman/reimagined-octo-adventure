@@ -21,9 +21,9 @@ integrated: false
 notes: "Very valuable for network mapping"
 ---
 
-## Overview
+## Summary
 
-USASpending API provides federal spending, awards, recipients. Very valuable for network mapping
+- USASpending API provides federal spending, awards, recipients. Very valuable for network mapping
 
 ## What It Provides
 
@@ -45,4 +45,4 @@ USASpending API provides federal spending, awards, recipients. Very valuable for
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

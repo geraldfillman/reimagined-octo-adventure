@@ -19,9 +19,9 @@ integrated: false
 notes: "Often paired with USASpending"
 ---
 
-## Overview
+## Summary
 
-FPDS public procurement data provides award and procurement records. Often paired with USASpending
+- FPDS public procurement data provides award and procurement records. Often paired with USASpending
 
 ## What It Provides
 
@@ -41,4 +41,4 @@ FPDS public procurement data provides award and procurement records. Often paire
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

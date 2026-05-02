@@ -1,8 +1,15 @@
 ---
+title: InfraNodus Graph Measurements
+type: reference
 tags: [reference, graph, infranodus]
+last_updated: 2026-03-27
 ---
 
 # InfraNodus Graph Measurements
+
+Summary:
+- Measurement workflow for using InfraNodus on top of the Obsidian graph.
+- Read this before running graph sessions or interpreting clusters, bridges, and gaps.
 
 This vault treats InfraNodus as the measurement layer on top of the Obsidian graph. Obsidian's graph is useful for shape; InfraNodus is useful for cluster detection, bridge discovery, and gap analysis.
 

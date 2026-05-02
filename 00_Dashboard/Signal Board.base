@@ -1,52 +1,50 @@
 filters:
   and:
     - file.inFolder("05_Data_Pulls")
-
 formulas:
-  level: 'if(signal_status == "critical", "🔴 Critical", if(signal_status == "alert", "🟠 Alert", if(signal_status == "watch", "🟡 Watch", "⚪ Clear")))'
-
+  level: if(signal_status == "critical", "🔴 Critical", if(signal_status == "alert", "🟠 Alert", if(signal_status == "watch", "🟡 Watch", "⚪ Clear")))
 properties:
   formula.level:
-    displayName: "Level"
+    displayName: Level
   signal_status:
-    displayName: "Status"
+    displayName: Status
   date_pulled:
-    displayName: "Date"
-
+    displayName: Date
 views:
   - type: table
-    name: "Active Alerts"
+    name: Active Alerts
     filters:
       or:
-        - 'signal_status == "critical"'
-        - 'signal_status == "alert"'
+        - signal_status == "critical"
+        - signal_status == "alert"
+    groupBy:
+      property: date_pulled
+      direction: DESC
     order:
       - formula.level
       - file.name
       - domain
       - date_pulled
-    groupBy:
-      property: domain
-      direction: ASC
-
+    sort:
+      - property: date_pulled
+        direction: DESC
   - type: table
-    name: "Watch Items"
-    filters: 'signal_status == "watch"'
+    name: Watch Items
+    filters: signal_status == "watch"
     order:
       - file.name
       - domain
       - date_pulled
-
   - type: table
-    name: "All Pulls"
+    name: All Pulls
+    groupBy:
+      property: date_pulled
+      direction: DESC
     order:
       - formula.level
       - file.name
       - domain
       - signal_status
       - date_pulled
-    groupBy:
-      property: domain
-      direction: ASC
     summaries:
       signal_status: Filled

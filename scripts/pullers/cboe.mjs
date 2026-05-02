@@ -476,11 +476,8 @@ function resolveGroups(flags) {
   const isActive = key => !DATA_GROUPS[key]?.deprecated;
   if (flags.all) return Object.keys(DATA_GROUPS).filter(isActive);
   const requested = Object.keys(DATA_GROUPS).filter(key => flags[key] && isActive(key));
-  if (requested.length === 0) {
-    throw new Error(
-      'CBOE put-call is deprecated (endpoint locked). Use: node run.mjs fmp --options <SYMBOL>'
-    );
-  }
+  // No flags → default to all active groups (put-call is deprecated and excluded by isActive)
+  if (requested.length === 0) return Object.keys(DATA_GROUPS).filter(isActive);
   return requested;
 }
 

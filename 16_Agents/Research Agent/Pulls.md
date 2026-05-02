@@ -38,6 +38,25 @@ SORT date_pulled DESC, file.mtime DESC
 LIMIT 60
 ```
 
+## Investment Strategy Tests
+
+```dataview
+TABLE date_pulled AS "Date", strategy_filter AS "Strategy", entropy_levels AS "Entropy", signal_status AS "Status", symbol_count AS "Symbols"
+FROM "05_Data_Pulls/Theses"
+WHERE analysis_scope = "strategy" OR contains(tags, "strategy-rollup")
+SORT date_pulled DESC, file.mtime DESC
+LIMIT 30
+```
+
+## Strategy Basket Registry
+
+```dataview
+TABLE status AS "Status", conviction AS "Conviction", allocation_priority AS "Priority", fmp_primary_technical_status AS "Tape"
+FROM "10_Theses/Baskets"
+WHERE contains(tags, "strategy")
+SORT allocation_rank ASC, file.name ASC
+```
+
 ## Life Sciences
 
 ```dataview

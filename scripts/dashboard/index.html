@@ -87,7 +87,7 @@
   /* ── Top row: 3 columns ── */
   #top-row {
     display: grid;
-    grid-template-columns: 320px 1fr 260px;
+    grid-template-columns: 340px 1fr;
     gap: 12px;
     align-items: start;
   }
@@ -209,19 +209,6 @@
   .conv-high { background: #102a18; color: var(--high); border: 1px solid #1f4a28; }
   .conv-medium { background: #2a2010; color: var(--medium); border: 1px solid #4a3a10; }
   .conv-low { background: #1e2130; color: var(--low); border: 1px solid #2e3248; }
-  .qlib-badge {
-    display: inline-block;
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-size: 9px;
-    font-weight: 600;
-  }
-  .qlib-strong_buy { background: #102a18; color: #4ade80; }
-  .qlib-buy { background: #10241a; color: #86efac; }
-  .qlib-hold { background: #1e2130; color: #94a3b8; }
-  .qlib-sell { background: #2d1d10; color: var(--alert); }
-  .qlib-strong_sell { background: #2d1515; color: var(--critical); }
-  .qlib-none { color: var(--text-muted); font-size: 10px; }
   .thesis-scroll { max-height: 420px; overflow-y: auto; }
 
   /* ── Pull Health ── */
@@ -298,6 +285,110 @@
   .pill-upcoming { background: #10241a; border-color: #1f4a28; color: #86efac; }
   .pill-today { background: #1e3a6e; border-color: #365da1; color: #bfdbfe; }
   .pill-reported { background: #1e2130; border-color: #2e3248; color: var(--low); }
+  /* ── Confluence Scan panel ── */
+  .conf-header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+  .conf-table-wrap { overflow-x: auto; }
+  .conf-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .conf-table th { text-align: left; color: var(--text-muted); font-weight: 500; padding: 4px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .05em; font-size: 10px; }
+  .conf-table td { padding: 5px 8px; border-bottom: 1px solid #1a1e2e; vertical-align: middle; }
+  .conf-table tr:last-child td { border-bottom: none; }
+  .conf-score { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .conf-title { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .positioning-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; font-size: 10px; color: var(--text-muted); }
+  /* ── Phase 5: Signal Quality panel ── */
+  .sq-grid { display: flex; flex-direction: column; gap: 6px; }
+  .sq-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+  .sq-label { min-width: 130px; color: var(--text-muted); font-family: monospace; font-size: 10px; }
+  .sq-bar-wrap { flex: 1; background: #1a1e2e; border-radius: 3px; height: 8px; overflow: hidden; }
+  .sq-bar { height: 100%; border-radius: 3px; transition: width .4s ease; }
+  .sq-bar.green { background: #3fb950; }
+  .sq-bar.yellow { background: #d29922; }
+  .sq-bar.red { background: #f85149; }
+  .sq-pct { min-width: 32px; text-align: right; font-variant-numeric: tabular-nums; font-size: 10px; }
+  .sq-badge { font-size: 10px; min-width: 72px; }
+  /* ── Phase 4: Streamline Report cockpit ── */
+  #streamline-report .panel-body { display: grid; gap: 10px; }
+  .sl-history-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sl-history-bar select, .sl-history-bar label { font-size: 11px; }
+  .sl-history-bar select { background: #101522; color: var(--text); border: 1px solid var(--border); border-radius: 5px; padding: 4px 8px; font-family: var(--font); }
+  .sl-mode-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+  .sl-mode-toggle button { background: transparent; border: none; color: var(--text-muted); padding: 4px 10px; font-size: 10px; font-family: var(--font); cursor: pointer; text-transform: uppercase; letter-spacing: .06em; }
+  .sl-mode-toggle button.active { background: var(--accent); color: #fff; }
+  .sl-diff-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .sl-diff-card { border: 1px solid var(--border); border-radius: 6px; background: #121722; padding: 7px 10px; }
+  .sl-diff-label { color: var(--text-muted); font-size: 9px; text-transform: uppercase; letter-spacing: .07em; }
+  .sl-diff-value { margin-top: 2px; font-size: 14px; font-weight: 700; }
+  .sl-diff-value.positive { color: var(--clear); }
+  .sl-diff-value.negative { color: var(--alert); }
+  .sl-diff-value.zero { color: var(--text-muted); }
+  .sl-review-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 8px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface2); transition: opacity .2s; }
+  .sl-review-item.ack-reviewed { opacity: .65; border-left: 3px solid var(--clear); }
+  .sl-review-item.ack-journaled { opacity: .65; border-left: 3px solid var(--watch); }
+  .sl-review-item.ack-ignored { opacity: .4; border-left: 3px solid var(--text-muted); text-decoration: line-through; }
+  .sl-review-item.ack-unreviewed { border-left: 3px solid var(--accent); animation: ackPulse 2s ease-in-out infinite; }
+  @keyframes ackPulse { 0%,100% { border-left-color: var(--accent); } 50% { border-left-color: rgba(79,142,247,.3); } }
+  .sl-review-body { flex: 1; min-width: 0; }
+  .sl-review-title { font-weight: 600; font-size: 11px; }
+  .sl-review-meta { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .sl-review-actions { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+  .ack-select { background: #101522; color: var(--text); border: 1px solid var(--border); border-radius: 4px; padding: 2px 4px; font-size: 9px; font-family: var(--font); }
+  .copy-link { background: none; border: none; cursor: pointer; font-size: 12px; padding: 2px; opacity: .6; transition: opacity .15s; }
+  .copy-link:hover { opacity: 1; }
+  .copy-toast { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 11px; z-index: 999; animation: toastIn .3s ease; pointer-events: none; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .sl-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .module-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all .15s; }
+  .module-chip:hover { filter: brightness(1.2); }
+  .module-chip-active { background: #102a18; color: var(--clear); border-color: #1f4a28; }
+  .module-chip-partial { background: #2a2010; color: var(--watch); border-color: #4a3a10; }
+  .module-chip-gap { background: #2d1515; color: var(--critical); border-color: #5a2020; }
+  .module-chip-stale { background: #211a08; color: #d4a017; border-color: #4a3a10; }
+  .module-chip-failed { background: #2d1515; color: var(--critical); border-color: #5a2020; animation: ackPulse 1.5s ease-in-out infinite; }
+  .chip-detail { font-size: 10px; color: var(--text-muted); padding: 4px 0 0 12px; display: none; }
+  .chip-detail.open { display: block; }
+  .debrief-panel { max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding: 8px; background: #0d1117; border-radius: 6px; border: 1px solid var(--border); }
+  .debrief-msg { display: flex; gap: 8px; align-items: flex-start; opacity: 0; animation: debriefAppear .4s ease forwards; }
+  .debrief-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; border: 2px solid var(--border); }
+  .debrief-content { flex: 1; min-width: 0; }
+  .debrief-name { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+  .debrief-bubble { background: var(--surface2); border: 1px solid var(--border); border-radius: 0 8px 8px 8px; padding: 6px 10px; font-size: 11px; line-height: 1.45; }
+  .debrief-bubble .note-ref { color: var(--accent); cursor: pointer; text-decoration: underline; }
+  @keyframes debriefAppear { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .sl-auto-gen { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text-muted); }
+  .sl-auto-gen input { margin: 0; }
+  .streamline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .streamline-path {
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+  .streamline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .streamline-list {
+    display: grid;
+    gap: 6px;
+  }
+  .streamline-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid rgba(46, 50, 72, 0.65);
+    padding: 5px 0;
+    font-size: 11px;
+  }
+  .streamline-row:last-child { border-bottom: 0; }
+  .streamline-row strong { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+  .streamline-row span { color: var(--text-muted); text-align: right; min-width: 0; overflow-wrap: anywhere; }
 
   @media (max-width: 1200px) {
     #top-row { grid-template-columns: 1fr; }
@@ -357,12 +448,73 @@
   .out-success { color: #4ade80; font-weight: 600; }
   .out-fail { color: #f87171; font-weight: 600; }
 
+  /* Workflow Board */
+  #workflow-board .panel-body { display: flex; flex-direction: column; gap: 12px; }
+  .workflow-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .workflow-controls select,
+  .workflow-controls input[type="month"] {
+    background: #101522;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-family: var(--font);
+    font-size: 12px;
+  }
+  .workflow-toggle { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: 11px; }
+  .workflow-meta-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .workflow-stat { border: 1px solid var(--border); border-radius: 6px; background: #121722; padding: 8px 10px; }
+  .workflow-stat-label { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; }
+  .workflow-stat-value { margin-top: 3px; font-size: 13px; font-weight: 600; }
+  .workflow-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr); gap: 12px; align-items: start; }
+  .workflow-dag { display: flex; flex-direction: column; gap: 10px; }
+  .workflow-phase { border: 1px solid var(--border); border-radius: 6px; background: #121722; padding: 8px; }
+  .workflow-phase-title { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .workflow-tasks { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 7px; }
+  .workflow-task { position: relative; min-height: 76px; border: 1px solid var(--border); border-radius: 6px; background: #0c111b; padding: 8px; overflow: hidden; }
+  .workflow-task.running { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(79, 142, 247, 0.25); }
+  .workflow-task.running::after { content: ""; position: absolute; inset: -1px; border: 1px solid rgba(79, 142, 247, 0.55); border-radius: 6px; animation: statusPulse 1.2s ease-in-out infinite; pointer-events: none; }
+  @keyframes statusPulse { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.015); } }
+  .workflow-task-title { font-size: 12px; font-weight: 600; line-height: 1.25; }
+  .workflow-task-meta { margin-top: 4px; color: var(--text-muted); font-size: 10px; line-height: 1.35; }
+  .workflow-artifacts { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+  .artifact-chip { border: 1px solid var(--border); border-radius: 999px; padding: 1px 6px; color: var(--text-muted); font-size: 9px; }
+  .workflow-side { display: flex; flex-direction: column; gap: 10px; }
+  .agent-lanes, .scorecards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 7px; }
+  .agent-lane, .scorecard { border: 1px solid var(--border); border-radius: 6px; background: #121722; padding: 8px; }
+  .agent-lane-name, .scorecard-name { font-weight: 600; font-size: 11px; }
+  .agent-lane-meta, .scorecard-meta { margin-top: 4px; color: var(--text-muted); font-size: 10px; }
+  .score-meter { height: 5px; border-radius: 999px; background: #080b10; overflow: hidden; margin-top: 5px; }
+  .score-meter span { display: block; height: 100%; background: var(--accent); }
+  .status-pill { display: inline-flex; border-radius: 999px; padding: 1px 6px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--border); }
+  .st-running { color: var(--accent); border-color: var(--accent); background: #11203d; }
+  .st-complete, .st-completed, .st-dry-run { color: var(--clear); border-color: #1f4a28; background: var(--clear-bg); }
+  .st-failed, .st-completed_with_failures { color: var(--critical); border-color: #5a2020; background: var(--critical-bg); }
+  .st-paused, .st-skipped { color: var(--watch); border-color: #4a3a10; background: var(--watch-bg); }
+  .st-queued, .st-canceled { color: var(--text-muted); }
+  #workflow-log { font-family: var(--mono); font-size: 10px; line-height: 1.5; max-height: 180px; overflow-y: auto; background: #080b10; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; white-space: pre-wrap; }
+  @media (max-width: 1200px) {
+    .workflow-layout,
+    .workflow-meta-row { grid-template-columns: 1fr; }
+  }
+
   /* ── Misc ── */
   .empty { color: var(--text-muted); font-size: 11px; padding: 8px 4px; font-style: italic; }
   .rank-num { color: var(--text-muted); font-size: 10px; min-width: 20px; }
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── Collapsible panels ── */
+  .panel.collapsed > .panel-body { display: none; }
+  .panel.collapsed > .panel-header { border-bottom: none; border-radius: 6px; }
+  .collapse-btn {
+    background: none; border: none; cursor: pointer; color: var(--text-muted);
+    font-size: 14px; line-height: 1; padding: 0 4px; transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .collapse-btn:hover { color: var(--text); }
+  .panel.collapsed .collapse-btn { transform: rotate(-90deg); }
 </style>
 </head>
 <body>
@@ -372,7 +524,6 @@
   <div style="display:flex;align-items:center;"><h1>My_Data Dashboard</h1>
   <div id="nav-tabs" style="display:flex;gap:15px;margin-left:20px;flex-grow:1;">
     <button class="btn btn-primary" id="tab-research" type="button">Research</button>
-    <a class="btn" id="tab-investments" href="/investments">Investments</a>
   </div>
 </div>
   <div id="header-right">
@@ -384,42 +535,87 @@
 <!-- ── Main ── -->
 <div id="main-research">
 
-  <!-- Top row: Signal Board | Thesis Status | Pull Health -->
+  <!-- Agent Workflow Board (top of page) -->
+  <div class="panel" id="workflow-board">
+    <div class="panel-header">
+      <span class="panel-title">Agent Workflow Board</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="workflow-status" style="font-size:10px;color:var(--text-muted)">Idle</span>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="workflow-controls">
+        <select id="routine-cadence" onchange="selectRoutineCadence()">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="quarterly">Quarterly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+        <input type="month" id="routine-month" title="Month for monthly archive tasks">
+        <label class="workflow-toggle"><input type="checkbox" id="routine-dry-run" checked> Dry run</label>
+        <label class="workflow-toggle"><input type="checkbox" id="routine-continue" checked> Isolate failures</label>
+        <button class="btn btn-primary" onclick="startRoutineRun()">Start</button>
+        <button class="btn" id="routine-pause-btn" onclick="controlRoutineRun('pause')">Pause</button>
+        <button class="btn" id="routine-resume-btn" onclick="controlRoutineRun('resume')">Resume</button>
+        <button class="btn" id="routine-retry-btn" onclick="controlRoutineRun('retry')">Retry Failed</button>
+        <button class="btn" id="routine-cancel-btn" onclick="controlRoutineRun('cancel')">Cancel</button>
+      </div>
+      <div class="workflow-meta-row">
+        <div class="workflow-stat">
+          <div class="workflow-stat-label">Run</div>
+          <div class="workflow-stat-value" id="workflow-run-id">No run selected</div>
+        </div>
+        <div class="workflow-stat">
+          <div class="workflow-stat-label">ETA</div>
+          <div class="workflow-stat-value" id="workflow-eta">--</div>
+        </div>
+        <div class="workflow-stat">
+          <div class="workflow-stat-label">Critical Path</div>
+          <div class="workflow-stat-value" id="workflow-critical">--</div>
+        </div>
+        <div class="workflow-stat">
+          <div class="workflow-stat-label">Changed Since Last Run</div>
+          <div class="workflow-stat-value" id="workflow-changed">--</div>
+        </div>
+      </div>
+      <div class="workflow-layout">
+        <div class="workflow-dag" id="workflow-dag">
+          <div class="empty">Loading routine graph...</div>
+        </div>
+        <div class="workflow-side">
+          <div>
+            <div class="puller-section-title">Agent Lanes</div>
+            <div class="agent-lanes" id="agent-lanes"></div>
+          </div>
+          <div>
+            <div class="puller-section-title">Agent Scorecards</div>
+            <div class="scorecards" id="agent-scorecards"></div>
+          </div>
+          <div>
+            <div class="puller-section-title">Live Workflow Log</div>
+            <pre id="workflow-log">Ready. Start a routine to stream structured workflow events.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top row: Signal Board | Pull Health -->
   <div id="top-row">
 
     <!-- Signal Board -->
     <div class="panel" id="signal-board">
       <div class="panel-header">
         <span class="panel-title">Signal Board</span>
-        <span id="signal-count" style="font-size:10px;color:var(--text-muted)"></span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span id="signal-count" style="font-size:10px;color:var(--text-muted)"></span>
+          <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+        </div>
       </div>
       <div class="panel-body" id="signal-board-body">
         <div class="empty">Loading...</div>
-      </div>
-    </div>
-
-    <!-- Thesis Status -->
-    <div class="panel" id="thesis-status">
-      <div class="panel-header">
-        <span class="panel-title">Thesis Status</span>
-        <span id="thesis-count" style="font-size:10px;color:var(--text-muted)"></span>
-      </div>
-      <div class="thesis-scroll">
-        <table id="thesis-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Thesis</th>
-              <th>Conv</th>
-              <th>Monitor</th>
-              <th>Qlib</th>
-              <th>Last Review</th>
-            </tr>
-          </thead>
-          <tbody id="thesis-tbody">
-            <tr><td colspan="6" class="empty" style="padding:12px">Loading...</td></tr>
-          </tbody>
-        </table>
       </div>
     </div>
 
@@ -427,7 +623,10 @@
     <div class="panel" id="pull-health">
       <div class="panel-header">
         <span class="panel-title">Pull Health</span>
-        <span id="health-summary" style="font-size:10px;color:var(--text-muted)"></span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span id="health-summary" style="font-size:10px;color:var(--text-muted)"></span>
+          <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+        </div>
       </div>
       <div class="panel-body">
         <div class="puller-grid" id="puller-grid">
@@ -442,7 +641,10 @@
     <div class="panel" id="technical-risk">
       <div class="panel-header">
         <span class="panel-title">Technical Risk</span>
-        <span id="technical-summary" style="font-size:10px;color:var(--text-muted)"></span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span id="technical-summary" style="font-size:10px;color:var(--text-muted)"></span>
+          <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+        </div>
       </div>
       <div class="panel-body" id="technical-risk-body">
         <div class="empty">Loading...</div>
@@ -452,7 +654,10 @@
     <div class="panel" id="earnings-calendar">
       <div class="panel-header">
         <span class="panel-title">Earnings Calendar</span>
-        <span id="earnings-summary" style="font-size:10px;color:var(--text-muted)"></span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span id="earnings-summary" style="font-size:10px;color:var(--text-muted)"></span>
+          <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+        </div>
       </div>
       <div class="panel-body" id="earnings-calendar-body">
         <div class="empty">Loading...</div>
@@ -460,78 +665,132 @@
     </div>
   </div><!-- /market-row -->
 
+  <!-- Streamline Report Cockpit -->
+  <div class="panel" id="streamline-report">
+    <div class="panel-header">
+      <span class="panel-title">Streamline Report</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <label class="sl-auto-gen"><input type="checkbox" id="sl-auto-gen-cb" onchange="saveAutoGen()"> Auto-gen after routine</label>
+        <span id="streamline-summary" style="font-size:10px;color:var(--text-muted)">Loading...</span>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+      </div>
+    </div>
+    <div class="panel-body" id="streamline-report-body">
+      <div class="empty">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Signal Quality (Phase 5) -->
+  <div class="panel" id="signal-quality">
+    <div class="panel-header">
+      <span class="panel-title">Signal Quality</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="sq-summary" style="font-size:10px;color:var(--text-muted)">Loading...</span>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+      </div>
+    </div>
+    <div class="panel-body" id="sq-body">
+      <div class="empty">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Confluence Scan -->
+  <div class="panel" id="confluence">
+    <div class="panel-header">
+      <span class="panel-title">Confluence Scan</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="confluence-summary" style="font-size:10px;color:var(--text-muted)">Loading...</span>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
+      </div>
+    </div>
+    <div class="panel-body" id="confluence-body">
+      <div class="empty">Loading...</div>
+    </div>
+  </div>
+
+  <div class="panel" id="positioning">
+    <div class="panel-header">
+      <span class="panel-title">Big Money Vs Retail</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span id="positioning-summary" style="font-size:10px;color:var(--text-muted)">Loading...</span>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">â–¾</button>
+      </div>
+    </div>
+    <div class="panel-body" id="positioning-body">
+      <div class="empty">Loading...</div>
+    </div>
+  </div>
+
   <!-- Data Collection -->
   <div class="panel" id="data-collection">
     <div class="panel-header">
       <span class="panel-title">Data Collection</span>
+      <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
     </div>
     <div class="panel-body">
       <div class="puller-section-title">Quick Actions</div>
       <div class="quick-actions">
-        <button class="btn btn-primary" onclick="runCommand('sector-scan')">Sector Scan</button>
-        <button class="btn btn-primary" onclick="runCommand('conviction-delta')">Conviction Delta</button>
-        <button class="btn btn-primary" onclick="runCommand('company-risk-scan --watchlist')">Risk Scan Watchlist</button>
-        <button class="btn" onclick="runCommand('validate')">Validate Vault</button>
-        <button class="btn" onclick="runCommand('cleanup --market-history --dry-run')">Cleanup (dry run)</button>
-        <button class="btn btn-danger" onclick="runCommand('cleanup --market-history')">Cleanup</button>
-        <button class="btn" onclick="runCommand('status')">API Status</button>
+        <button class="btn btn-primary" onclick="startRoutineFromQuick('daily')">Daily Routine</button>
+        <button class="btn btn-primary" onclick="startRoutineFromQuick('weekly')">Weekly Routine</button>
+        <button class="btn btn-primary" onclick="startRoutineFromQuick('monthly')">Monthly Routine</button>
+        <button class="btn btn-primary" onclick="runStreamlineReport()">Streamline Report</button>
+        <button class="btn" onclick="runCommand('scan sectors')">Sector Scan</button>
+        <button class="btn" onclick="runCommand('scan conviction')">Conviction Delta</button>
+        <button class="btn" onclick="runCommand('scan company-risk --watchlist')">Risk Scan Watchlist</button>
+        <button class="btn" onclick="runCommand('system validate')">Validate Vault</button>
+        <button class="btn" onclick="runCommand('system cleanup --market-history --dry-run')">Cleanup (dry run)</button>
+        <button class="btn btn-danger" onclick="runCommand('system cleanup --market-history')">Cleanup</button>
+        <button class="btn" onclick="runCommand('system status')">API Status</button>
       </div>
       <div style="margin-top:12px">
         <div class="puller-section-title">Macro &amp; Rates</div>
         <div class="puller-buttons">
-          <button class="btn" onclick="runCommand('fred --group rates')">FRED Rates</button>
-          <button class="btn" onclick="runCommand('fred --group labor')">FRED Labor</button>
-          <button class="btn" onclick="runCommand('fred --group housing')">FRED Housing</button>
-          <button class="btn" onclick="runCommand('bea --gdp')">BEA GDP</button>
-          <button class="btn" onclick="runCommand('treasury --yields')">Treasury</button>
+          <button class="btn" onclick="runCommand('pull fred --group rates')">FRED Rates</button>
+          <button class="btn" onclick="runCommand('pull fred --group labor')">FRED Labor</button>
+          <button class="btn" onclick="runCommand('pull fred --group housing')">FRED Housing</button>
+          <button class="btn" onclick="runCommand('pull bea --gdp')">BEA GDP</button>
+          <button class="btn" onclick="runCommand('pull treasury --yields')">Treasury</button>
         </div>
       </div>
       <div style="margin-top:10px">
         <div class="puller-section-title">Market</div>
         <div class="puller-buttons">
-          <button class="btn" onclick="runCommand('fmp --quote SPY')">FMP Quote SPY</button>
-          <button class="btn" onclick="runCommand('fmp --technical SPY')">FMP Technical SPY</button>
-          <button class="btn" onclick="runCommand('fmp --earnings-calendar')">FMP Earnings Cal</button>
-          <button class="btn" onclick="runCommand('cboe --vix')">CBOE VIX</button>
+          <button class="btn" onclick="runCommand('pull fmp --quote SPY')">FMP Quote SPY</button>
+          <button class="btn" onclick="runCommand('pull fmp --technical SPY')">FMP Technical SPY</button>
+          <button class="btn" onclick="runCommand('pull fmp --earnings-calendar')">FMP Earnings Cal</button>
+          <button class="btn" onclick="runCommand('pull cboe --vix')">CBOE VIX</button>
         </div>
       </div>
       <div style="margin-top:10px">
         <div class="puller-section-title">Biotech &amp; Research</div>
         <div class="puller-buttons">
-          <button class="btn" onclick="runCommand('clinicaltrials --oncology')">ClinicalTrials</button>
-          <button class="btn" onclick="runCommand('fda --recent-approvals')">FDA Drugs</button>
-          <button class="btn" onclick="runCommand('pubmed --amr')">PubMed</button>
-          <button class="btn" onclick="runCommand('arxiv --drones')">arXiv</button>
+          <button class="btn" onclick="runCommand('pull clinicaltrials --oncology')">ClinicalTrials</button>
+          <button class="btn" onclick="runCommand('pull fda --recent-approvals')">FDA Drugs</button>
+          <button class="btn" onclick="runCommand('pull pubmed --amr')">PubMed</button>
+          <button class="btn" onclick="runCommand('pull arxiv --drones')">arXiv</button>
         </div>
       </div>
       <div style="margin-top:10px">
         <div class="puller-section-title">Government &amp; Energy</div>
         <div class="puller-buttons">
-          <button class="btn" onclick="runCommand('usaspending --recent')">USASpending</button>
-          <button class="btn" onclick="runCommand('openfema --recent')">OpenFEMA</button>
-          <button class="btn" onclick="runCommand('sam --opportunities defense')">SAM.gov</button>
-          <button class="btn" onclick="runCommand('sec --thesis')">SEC 8-K</button>
-          <button class="btn" onclick="runCommand('eia --electricity-demand')">EIA</button>
-          <button class="btn" onclick="runCommand('newsapi --topic markets')">NewsAPI</button>
-        </div>
-      </div>
-      <div style="margin-top:10px">
-        <div class="puller-section-title">Qlib Quant</div>
-        <div class="puller-buttons">
-          <button class="btn" onclick="runCommand('qlib status')">Qlib Status</button>
-          <button class="btn" onclick="runCommand('qlib refresh --all')">Qlib Refresh All</button>
-          <button class="btn" onclick="runCommand('qlib update-theses')">Qlib Update Theses</button>
+          <button class="btn" onclick="runCommand('pull usaspending --recent')">USASpending</button>
+          <button class="btn" onclick="runCommand('pull openfema --recent')">OpenFEMA</button>
+          <button class="btn" onclick="runCommand('pull sam --opportunities defense')">SAM.gov</button>
+          <button class="btn" onclick="runCommand('pull sec --thesis')">SEC 8-K</button>
+          <button class="btn" onclick="runCommand('pull eia --electricity-demand')">EIA</button>
+          <button class="btn" onclick="runCommand('pull newsapi --topic markets')">NewsAPI</button>
+          <button class="btn" onclick="runCommand('pull gdelt --all --timespan 15min --limit 75')">GDELT 15m</button>
         </div>
       </div>
       <div style="margin-top:10px">
         <div class="puller-section-title">Company Risk</div>
         <div class="puller-buttons">
-          <button class="btn btn-primary" onclick="runCommand('company-risk-scan --watchlist')">Scan All</button>
-          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain fundamental')">Fundamentals</button>
-          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain regulatory')">Regulatory + FDA</button>
-          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --domain sentiment')">Sentiment</button>
-          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --update-score')">Scan + Update Scores</button>
-          <button class="btn" onclick="runCommand('company-risk-scan --watchlist --dry-run')">Dry Run</button>
+          <button class="btn btn-primary" onclick="runCommand('scan company-risk --watchlist')">Scan All</button>
+          <button class="btn" onclick="runCommand('scan company-risk --watchlist --domain fundamental')">Fundamentals</button>
+          <button class="btn" onclick="runCommand('scan company-risk --watchlist --domain regulatory')">Regulatory + FDA</button>
+          <button class="btn" onclick="runCommand('scan company-risk --watchlist --domain sentiment')">Sentiment</button>
+          <button class="btn" onclick="runCommand('scan company-risk --watchlist --update-score')">Scan + Update Scores</button>
+          <button class="btn" onclick="runCommand('scan company-risk --watchlist --dry-run')">Dry Run</button>
         </div>
       </div>
     </div>
@@ -544,6 +803,7 @@
       <div style="display:flex;gap:8px;align-items:center">
         <span id="terminal-label" style="font-family:var(--mono);font-size:11px;color:var(--text-muted)">Idle</span>
         <button class="btn" onclick="clearTerminal()" style="padding:3px 8px;font-size:10px">Clear</button>
+        <button class="collapse-btn" onclick="togglePanel(this)" title="Collapse">▾</button>
       </div>
     </div>
     <div class="panel-body">
@@ -556,6 +816,26 @@
 
 <script>
 const API = '';
+let routineCatalog = null;
+let activeRunId = null;
+let activeRunEvents = null;
+let activeRunGraph = null;
+
+// ── Panel collapse ────────────────────────────────────────────────────────────
+
+function togglePanel(btn) {
+  const panel = btn.closest('.panel');
+  const collapsed = panel.classList.toggle('collapsed');
+  if (panel.id) localStorage.setItem('panel-collapsed-' + panel.id, collapsed ? '1' : '');
+}
+
+function restorePanelStates() {
+  document.querySelectorAll('.panel[id]').forEach(panel => {
+    if (localStorage.getItem('panel-collapsed-' + panel.id) === '1') {
+      panel.classList.add('collapsed');
+    }
+  });
+}
 
 // ── Data loading ──────────────────────────────────────────────────────────────
 
@@ -564,10 +844,14 @@ async function loadAll() {
   document.getElementById('last-refresh').textContent = 'Refreshed ' + now;
   await Promise.all([
     loadSignalBoard(),
-    loadTheses(),
     loadPullHealth(),
     loadTechnicalRisk(),
     loadEarningsCalendar(),
+    loadStreamlineReport(),
+    loadConfluence(),
+    loadPositioning(),
+    loadSignalQuality(),
+    loadRoutines(),
   ]);
 }
 
@@ -627,7 +911,7 @@ async function loadTheses() {
     const data = await apiFetch('/api/theses');
     renderTheses(data);
   } catch (e) {
-    tbody.innerHTML = `<tr><td colspan="6" class="empty">Error: ${e.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">Error: ${e.message}</td></tr>`;
   }
 }
 
@@ -636,16 +920,12 @@ function renderTheses(theses) {
   document.getElementById('thesis-count').textContent = theses.length + ' theses';
 
   if (!theses.length) {
-    tbody.innerHTML = `<tr><td colspan="6" class="empty">No theses found</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">No theses found</td></tr>`;
     return;
   }
 
   tbody.innerHTML = theses.map((t, i) => {
     const conv = t.conviction ?? 'low';
-    const qlib = t.qlib_signal_status;
-    const qlibEl = qlib
-      ? `<span class="qlib-badge qlib-${qlib.toLowerCase().replace(' ', '_')}">${esc(qlib)}</span>`
-      : `<span class="qlib-none">—</span>`;
     const review = t.monitor_last_review
       ? formatDate(t.monitor_last_review)
       : '<span style="color:var(--text-muted)">—</span>';
@@ -661,7 +941,6 @@ function renderTheses(theses) {
         </td>
         <td><span class="conviction-badge conv-${conv}">${conv}</span></td>
         <td>${monitor}</td>
-        <td>${qlibEl}</td>
         <td style="font-size:10px;color:var(--text-muted)">${review}</td>
       </tr>`;
   }).join('');
@@ -702,7 +981,394 @@ function renderPullHealth(pullers) {
   }).join('');
 }
 
+async function loadConfluence() {
+  const body    = document.getElementById('confluence-body');
+  const summary = document.getElementById('confluence-summary');
+  try {
+    const d = await apiFetch('/api/confluence');
+    if (!d.available) {
+      body.innerHTML = '<div class="empty">No confluence scan yet — run <code>pull confluence-scan</code>.</div>';
+      summary.textContent = '';
+      return;
+    }
+    summary.textContent = `${d.date} · ${d.approved_count ?? 0} approved · ${d.watchlist_count ?? 0} watchlist`;
+
+    const regimeCls = {
+      'Risk-On Trend': 'clear', 'Volatility Compression': 'watch', 'Range / Chop': 'watch',
+      'Earnings-Driven': 'watch', 'Crowded Factor Unwind': 'alert', 'Growth Scare': 'alert',
+      'Inflation / Oil Shock': 'alert', 'Volatility Spike': 'alert',
+      'Liquidity Stress': 'critical', 'Policy Intervention': 'critical',
+    };
+    const dispCls = { approved: 'alert', watchlist: 'watch', rejected: 'mixed', vetoed: 'critical' };
+    const tierCls = { strong: 'alert', valid: 'alert', 'limited-risk': 'watch', watchlist: 'mixed', 'no-trade': 'critical' };
+
+    const rows = (d.setups ?? []).slice(0, 25).map(s => `
+      <tr>
+        <td class="conf-title" title="${esc(s.title)}">${esc(s.title)}</td>
+        <td>${esc(s.domain ?? '—')}</td>
+        <td><code>${esc(s.strategy ?? '—')}</code></td>
+        <td class="conf-score">${s.setup_score ?? 0}/30</td>
+        <td><span class="pill pill-${tierCls[s.score_tier] ?? 'mixed'}">${esc(s.score_tier ?? '—')}</span></td>
+        <td><span class="pill pill-${dispCls[s.disposition] ?? 'mixed'}">${esc(s.disposition ?? '—')}</span></td>
+      </tr>`).join('');
+
+    body.innerHTML = `
+      <div class="conf-header">
+        <div>Regime: <span class="pill pill-${regimeCls[d.regime] ?? 'watch'}">${esc(d.regime ?? '—')}</span>
+          <span style="opacity:.6;font-size:10px;margin-left:6px">confidence ${d.regime_confidence ?? '?'}/3</span></div>
+        <div style="opacity:.6;font-size:10px">${esc(d.regime_basis ?? '')}</div>
+        <div style="opacity:.6;font-size:10px">
+          Stress: <b>${esc(d.stress_regime ?? '—')}</b> (${d.stress_pct ?? 0}%) &nbsp;·&nbsp;
+          COT: <b>${esc(d.cot_signal ?? '—')}</b> &nbsp;·&nbsp;
+          Crowding: <b>${esc(d.crowding_signal ?? '—')}</b>
+        </div>
+      </div>
+      <div class="conf-table-wrap">
+        <table class="conf-table">
+          <thead><tr><th>Setup</th><th>Domain</th><th>Strategy</th><th>Score</th><th>Tier</th><th>Disposition</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="6" style="padding:10px;opacity:.6">No setups scored.</td></tr>'}</tbody>
+        </table>
+      </div>`;
+  } catch (e) {
+    body.innerHTML = `<div class="empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+// ── Signal Quality (Phase 5) ─────────────────────────────────────────────────
+
+async function loadPositioning() {
+  const body = document.getElementById('positioning-body');
+  const summary = document.getElementById('positioning-summary');
+  try {
+    const d = await apiFetch('/api/positioning');
+    if (!d.available) {
+      body.innerHTML = '<div class="empty">No positioning report yet - run <code>pull positioning-report --symbols SPY,QQQ</code>.</div>';
+      summary.textContent = '';
+      return;
+    }
+    const signals = (d.signals ?? []).slice(0, 10);
+    summary.textContent = `${d.date ?? ''} Â· ${d.signal_count ?? signals.length} signals Â· ${d.confidence ?? 'Low'}`;
+    const pillCls = { High: 'alert', Medium: 'watch', Low: 'mixed' };
+    const rows = signals.map(s => `
+      <tr>
+        <td class="conf-title" title="${esc(s.asset)}">${esc(s.asset ?? 'N/A')}</td>
+        <td>${esc(s.relationship ?? 'No clear signal')}</td>
+        <td class="conf-score">${esc(s.score ?? 0)}</td>
+        <td><span class="pill pill-${pillCls[s.confidence] ?? 'mixed'}">${esc(s.confidence ?? 'Low')}</span></td>
+        <td>${esc(s.action_classification ?? 'Watchlist only')}</td>
+      </tr>`).join('');
+    body.innerHTML = `
+      <div class="positioning-meta">
+        <span>Regime: <b>${esc(d.market_regime ?? 'Unknown')}</b></span>
+        <span>Status: <b>${esc(d.signal_status ?? 'clear')}</b></span>
+        <span>${esc(d.report_note ?? '')}</span>
+      </div>
+      <div class="conf-table-wrap">
+        <table class="conf-table">
+          <thead><tr><th>Asset</th><th>Signal</th><th>Score</th><th>Confidence</th><th>Action</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="5" style="padding:10px;opacity:.6">No positioning signals scored.</td></tr>'}</tbody>
+        </table>
+      </div>`;
+  } catch (e) {
+    body.innerHTML = `<div class="empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+async function loadSignalQuality() {
+  const body    = document.getElementById('sq-body');
+  const summary = document.getElementById('sq-summary');
+  try {
+    const d = await apiFetch('/api/signal-quality');
+    if (!d.available) {
+      body.innerHTML = '<div class="empty">No signal quality data yet — run <code>pull signal-quality-scan</code>.</div>';
+      summary.textContent = '';
+      return;
+    }
+    const scores  = d.scores ?? {};
+    const lowList = (d.low_quality_modules ?? []);
+    summary.textContent = `${d.date ?? ''} · ${d.modules_scored ?? 0} modules · ${lowList.length} low quality`;
+
+    const entries = Object.entries(scores).sort(([, a], [, b]) => b.composite_score - a.composite_score);
+    if (!entries.length) {
+      body.innerHTML = '<div class="empty">No module scores computed.</div>';
+      return;
+    }
+
+    const rows = entries.map(([id, s]) => {
+      const pct   = Math.round((s.composite_score ?? 0) * 100);
+      const cls   = pct >= 60 ? 'green' : pct >= 30 ? 'yellow' : 'red';
+      const badge = s.low_quality ? '🔴 low' : pct >= 60 ? '✅' : '⚠️';
+      return `<div class="sq-row">
+        <span class="sq-label" title="Hit ${Math.round(s.hit_rate*100)}% · Noise ${Math.round(s.noise_rate*100)}% · Rel ${Math.round(s.reliability_score*100)}% · Fresh ${Math.round(s.freshness_score*100)}%">${esc(id)}</span>
+        <div class="sq-bar-wrap"><div class="sq-bar ${cls}" style="width:${pct}%"></div></div>
+        <span class="sq-pct">${pct}%</span>
+        <span class="sq-badge">${badge}</span>
+      </div>`;
+    }).join('');
+
+    body.innerHTML = `<div class="sq-grid">${rows}</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:8px">
+        Composite = hit×0.4 + (1−noise)×0.3 + reliability×0.2 + freshness×0.1 · hover module for detail
+        ${lowList.length ? `<br>Low-quality modules capped at 2 signals in daily report: <strong>${lowList.join(', ')}</strong>` : ''}
+      </div>`;
+  } catch (e) {
+    body.innerHTML = `<div class="empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
 // ── Terminal & command runner ─────────────────────────────────────────────────
+
+// Workflow Board
+
+async function loadRoutines() {
+  try {
+    if (!routineCatalog) {
+      routineCatalog = await apiFetch('/api/routines');
+      const select = document.getElementById('routine-cadence');
+      select.innerHTML = routineCatalog.cadences
+        .map(cadence => `<option value="${esc(cadence.id)}">${esc(cadence.label)}</option>`)
+        .join('');
+      const now = new Date();
+      const previous = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      document.getElementById('routine-month').value =
+        `${previous.getFullYear()}-${String(previous.getMonth() + 1).padStart(2, '0')}`;
+      selectRoutineCadence();
+    } else if (activeRunId) {
+      await refreshRunGraph();
+    }
+  } catch (e) {
+    document.getElementById('workflow-dag').innerHTML = `<div class="empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+function selectRoutineCadence() {
+  if (!routineCatalog || activeRunId) return;
+  const cadenceId = document.getElementById('routine-cadence').value;
+  const plan = routineCatalog.cadences.find(item => item.id === cadenceId);
+  if (!plan) return;
+  const graph = {
+    id: null,
+    cadence: cadenceId,
+    status: 'preview',
+    dryRun: true,
+    etaSeconds: null,
+    criticalPath: plan.tasks.map(task => task.id),
+    changeSummary: { headline: 'Previewing routine definition.', newFailures: [], resolvedFailures: [], artifactDelta: 0 },
+    phases: plan.phases.map(phase => ({
+      ...phase,
+      tasks: phase.tasks.map(task => ({ ...task, status: 'queued', attempts: 0 })),
+    })),
+    agentLanes: previewAgentLanes(plan.tasks),
+    scorecards: previewScorecards(plan.tasks),
+    recentLogs: [],
+  };
+  renderWorkflowGraph(graph);
+}
+
+async function startRoutineRun(cadenceOverride = null) {
+  const cadence = cadenceOverride || document.getElementById('routine-cadence').value;
+  if (cadenceOverride) document.getElementById('routine-cadence').value = cadenceOverride;
+  const body = {
+    cadence,
+    dryRun: document.getElementById('routine-dry-run').checked,
+    continueOnError: document.getElementById('routine-continue').checked,
+    month: document.getElementById('routine-month').value,
+  };
+  const res = await fetch(API + '/api/runs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    appendWorkflowLog(`Failed to start routine: ${res.status}`);
+    return;
+  }
+  const graph = await res.json();
+  activeRunId = graph.id;
+  activeRunGraph = graph;
+  renderWorkflowGraph(graph);
+  subscribeRunEvents(activeRunId);
+}
+
+function startRoutineFromQuick(cadence) {
+  document.getElementById('routine-dry-run').checked = true;
+  return startRoutineRun(cadence);
+}
+
+async function refreshRunGraph() {
+  if (!activeRunId) return;
+  const graph = await apiFetch(`/api/runs/${activeRunId}/graph`);
+  activeRunGraph = graph;
+  renderWorkflowGraph(graph);
+}
+
+function subscribeRunEvents(runId) {
+  if (activeRunEvents) activeRunEvents.close();
+  activeRunEvents = new EventSource(API + `/api/runs/${runId}/events`);
+  activeRunEvents.addEventListener('workflow', e => {
+    const event = JSON.parse(e.data);
+    if (event.type === 'task-line') appendWorkflowLog(`${event.taskLabel}: ${event.text}`);
+    else appendWorkflowLog(`${event.type.replace(/-/g, ' ')}${event.label ? ': ' + event.label : ''}`);
+    if (event.graph) {
+      activeRunGraph = event.graph;
+      renderWorkflowGraph(event.graph);
+    }
+  });
+  activeRunEvents.addEventListener('end', () => {
+    activeRunEvents.close();
+    activeRunEvents = null;
+    setTimeout(() => {
+      loadAll();
+      // Auto-generate streamline report if toggle is on
+      if (localStorage.getItem('streamline-auto-generate') === '1') {
+        setTimeout(() => runStreamlineReport(), 2000);
+      }
+    }, 1500);
+  });
+  activeRunEvents.onerror = () => {
+    if (activeRunEvents) activeRunEvents.close();
+    activeRunEvents = null;
+  };
+}
+
+async function controlRoutineRun(action) {
+  if (!activeRunId) return;
+  const res = await fetch(API + `/api/runs/${activeRunId}/${action}`, { method: 'POST' });
+  if (!res.ok) {
+    appendWorkflowLog(`Control failed: ${action} (${res.status})`);
+    return;
+  }
+  const graph = await res.json();
+  activeRunGraph = graph;
+  renderWorkflowGraph(graph);
+  if ((action === 'resume' || action === 'retry') && !activeRunEvents) subscribeRunEvents(activeRunId);
+}
+
+function renderWorkflowGraph(graph) {
+  document.getElementById('workflow-status').innerHTML =
+    `<span class="status-pill st-${statusClass(graph.status)}">${esc(graph.status || 'preview')}</span>`;
+  document.getElementById('workflow-run-id').textContent = graph.id ? shortRunId(graph.id) : 'Preview';
+  document.getElementById('workflow-eta').textContent = graph.etaSeconds == null ? '--' : formatEta(graph.etaSeconds);
+  document.getElementById('workflow-critical').textContent = graph.criticalPath?.length
+    ? `${graph.criticalPath.length} task${graph.criticalPath.length === 1 ? '' : 's'}`
+    : 'Clear';
+  document.getElementById('workflow-changed').textContent = graph.changeSummary?.headline || '--';
+
+  document.getElementById('workflow-dag').innerHTML = (graph.phases || []).map(phase => `
+    <div class="workflow-phase">
+      <div class="workflow-phase-title">${esc(phase.name)}</div>
+      <div class="workflow-tasks">${(phase.tasks || []).map(renderWorkflowTask).join('')}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('agent-lanes').innerHTML = (graph.agentLanes || []).map(lane => `
+    <div class="agent-lane">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+        <div class="agent-lane-name">${esc(lane.agent)}</div>
+        <span class="status-pill st-${statusClass(lane.status)}">${esc(lane.status)}</span>
+      </div>
+      <div class="agent-lane-meta">${lane.completed || 0}/${lane.tasks?.length || 0} done · ${lane.failed || 0} failed</div>
+    </div>
+  `).join('') || '<div class="empty">No agent lanes.</div>';
+
+  document.getElementById('agent-scorecards').innerHTML = (graph.scorecards || []).map(card => `
+    <div class="scorecard">
+      <div style="display:flex;justify-content:space-between;gap:8px">
+        <div class="scorecard-name">${esc(card.agent)}</div>
+        <span class="status-pill st-${statusClass(card.status)}">${esc(card.status)}</span>
+      </div>
+      ${scoreLine('Fresh', card.freshness)}
+      ${scoreLine('Reliability', card.sourceReliability)}
+      ${scoreLine('Signal', card.signalQuality)}
+      <div class="scorecard-meta">Failures ${card.failures} · FP ${card.falsePositives} · Artifacts ${card.artifactVolume}</div>
+    </div>
+  `).join('') || '<div class="empty">No scorecards.</div>';
+
+  if (graph.recentLogs?.length) {
+    const log = document.getElementById('workflow-log');
+    log.textContent = graph.recentLogs.slice(-80).map(row => `${row.taskLabel}: ${row.text}`).join('\n');
+    log.scrollTop = log.scrollHeight;
+  }
+  updateWorkflowButtons(graph.status);
+}
+
+function renderWorkflowTask(task) {
+  const artifacts = (task.artifactLinks || []).map(link =>
+    `<span class="artifact-chip" title="${esc(link.path)}">${esc(link.label)}</span>`
+  ).join('');
+  return `
+    <div class="workflow-task ${statusClass(task.status)}">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+        <div class="workflow-task-title">${esc(task.label)}</div>
+        <span class="status-pill st-${statusClass(task.status)}">${esc(task.status || 'queued')}</span>
+      </div>
+      <div class="workflow-task-meta">${esc(task.agent)} · Attempt ${task.attempts || 0}</div>
+      <div class="workflow-task-meta" title="${esc(task.command || '')}">${esc(task.command || '').replace(/^node run\.mjs /, '')}</div>
+      ${artifacts ? `<div class="workflow-artifacts">${artifacts}</div>` : ''}
+    </div>`;
+}
+
+function scoreLine(label, value) {
+  const n = Math.max(0, Math.min(100, Number(value ?? 0)));
+  return `<div class="scorecard-meta">${label} ${n}%</div><div class="score-meter"><span style="width:${n}%"></span></div>`;
+}
+
+function appendWorkflowLog(text) {
+  const log = document.getElementById('workflow-log');
+  const seed = 'Ready. Start a routine to stream structured workflow events.';
+  const current = log.textContent === seed ? '' : log.textContent + '\n';
+  log.textContent = (current + text).split('\n').slice(-140).join('\n');
+  log.scrollTop = log.scrollHeight;
+}
+
+function updateWorkflowButtons(status) {
+  const running = status === 'running' || status === 'queued';
+  const paused = status === 'paused';
+  const terminal = ['completed', 'completed_with_failures', 'failed', 'canceled'].includes(status);
+  document.getElementById('routine-pause-btn').disabled = !running;
+  document.getElementById('routine-resume-btn').disabled = !paused;
+  document.getElementById('routine-retry-btn').disabled = !(terminal || paused);
+  document.getElementById('routine-cancel-btn').disabled = !(running || paused);
+}
+
+function previewAgentLanes(tasks) {
+  const lanes = {};
+  for (const task of tasks) {
+    lanes[task.agent] ||= { agent: task.agent, tasks: [], status: 'queued', completed: 0, failed: 0 };
+    lanes[task.agent].tasks.push(task);
+  }
+  return Object.values(lanes);
+}
+
+function previewScorecards(tasks) {
+  return previewAgentLanes(tasks).map(lane => ({
+    agent: lane.agent,
+    freshness: 35,
+    failures: 0,
+    signalQuality: 100,
+    falsePositives: 0,
+    sourceReliability: 100,
+    artifactVolume: 0,
+    taskCount: lane.tasks.length,
+    status: 'queued',
+  }));
+}
+
+function statusClass(status) {
+  return String(status || 'queued').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+}
+
+function shortRunId(id) {
+  return String(id).replace(/^run_/, '').slice(0, 28);
+}
+
+function formatEta(seconds) {
+  if (!Number.isFinite(seconds)) return '--';
+  if (seconds <= 0) return 'Now';
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return m > 0 ? `${m}m ${s}s` : `${s}s`;
+}
 
 async function loadTechnicalRisk() {
   const body = document.getElementById('technical-risk-body');
@@ -722,7 +1388,7 @@ function renderTechnicalRisk(data) {
     items.length ? `${active} active · ${items.length} symbols` : 'No technical notes';
 
   if (!items.length) {
-    body.innerHTML = '<div class="empty">Run fmp --technical &lt;symbol&gt; to populate this panel.</div>';
+    body.innerHTML = '<div class="empty"><div>No technical notes in the current window.</div><div style="margin-top:6px;font-size:11px;opacity:0.6">Run <code>pull fmp --technical &lt;symbol&gt;</code> for a specific symbol, or <code>pull agent-run</code> to populate via the daily cycle.</div></div>';
     return;
   }
 
@@ -788,6 +1454,306 @@ function renderEarningsCalendar(data) {
         </div>
       </div>`;
   }).join('');
+}
+
+// ── Streamline Report Cockpit (Phase 4) ──────────────────────────────────────
+
+const SL_AGENTS = {
+  Market: { avatar: '📈', color: '#4ade80' },
+  Macro: { avatar: '🌐', color: '#fbbf24' },
+  Government: { avatar: '🏛️', color: '#94a3b8' },
+  Biotech: { avatar: '🧬', color: '#c084fc' },
+  Signals: { avatar: '⚡', color: '#f87171' },
+  News: { avatar: '📰', color: '#22d3ee' },
+  Alerts: { avatar: '🛡️', color: '#fb923c' },
+  Orchestrator: { avatar: '🎯', color: '#4f8ef7' },
+};
+
+let slHistory = [];
+let slCurrentData = null;
+let slCurrentSidecar = null;
+
+function getSlMode() {
+  const saved = localStorage.getItem('streamline-mode');
+  if (saved === 'morning' || saved === 'afterclose') return saved;
+  const now = new Date();
+  const estOffset = -5; // EST (simplified, ignores DST)
+  const utcH = now.getUTCHours();
+  const estH = (utcH + estOffset + 24) % 24;
+  const estM = now.getUTCMinutes();
+  const estTime = estH * 60 + estM;
+  if (estTime < 510) return 'morning';   // before 8:30 AM
+  if (estTime >= 990) return 'afterclose'; // after 4:30 PM
+  return 'morning';
+}
+
+function setSlMode(mode) {
+  localStorage.setItem('streamline-mode', mode);
+  if (slCurrentData) renderStreamlineReport(slCurrentData);
+}
+
+function saveAutoGen() {
+  localStorage.setItem('streamline-auto-generate', document.getElementById('sl-auto-gen-cb').checked ? '1' : '0');
+}
+
+async function loadStreamlineReport() {
+  const body = document.getElementById('streamline-report-body');
+  document.getElementById('sl-auto-gen-cb').checked = localStorage.getItem('streamline-auto-generate') === '1';
+  try {
+    const [data, hist] = await Promise.all([
+      apiFetch('/api/streamline-report'),
+      apiFetch('/api/streamline-report/history?limit=30'),
+    ]);
+    slHistory = hist.items || [];
+    slCurrentData = data;
+    if (data.available && data.date) {
+      try { slCurrentSidecar = await apiFetch(`/api/streamline-report/full?date=${data.date}`); } catch { slCurrentSidecar = null; }
+    }
+    renderStreamlineReport(data);
+  } catch (e) {
+    document.getElementById('streamline-summary').textContent = 'Error';
+    body.innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+  }
+}
+
+function renderStreamlineReport(data) {
+  const body = document.getElementById('streamline-report-body');
+  if (!data.available) {
+    document.getElementById('streamline-summary').textContent = 'Not generated';
+    body.innerHTML = `<div class="streamline-actions"><div class="empty">No streamline report found.</div><button class="btn btn-primary" onclick="runStreamlineReport()">Generate</button></div>`;
+    return;
+  }
+
+  const status = data.signal_status || 'clear';
+  const mode = getSlMode();
+  document.getElementById('streamline-summary').textContent = `${status} · ${data.active_review_count || 0} review · ${data.date || ''}`;
+
+  // History bar
+  const histOpts = slHistory.map(h =>
+    `<option value="${esc(h.date)}" ${h.date === data.date ? 'selected' : ''}>${esc(h.date)} (${h.active_review_count} items)</option>`
+  ).join('');
+
+  const historyBar = `<div class="sl-history-bar">
+    <select onchange="switchSlDate(this.value)">${histOpts || '<option>No history</option>'}</select>
+    <div class="sl-mode-toggle">
+      <button onclick="setSlMode('morning')" class="${mode === 'morning' ? 'active' : ''}">Morning</button>
+      <button onclick="setSlMode('afterclose')" class="${mode === 'afterclose' ? 'active' : ''}">After Close</button>
+    </div>
+    <span class="mini-pill pill-${esc(status)}">${esc(status)}</span>
+    <button class="btn btn-primary" onclick="runStreamlineReport()" style="padding:3px 9px;font-size:10px">Generate Latest</button>
+  </div>`;
+
+  // Diff cards
+  const newCount = data.new_since_last_report || 0;
+  const resolvedCount = data.resolved_since_last_report || 0;
+  const staleCount = (data.coverageAll || data.coverage || []).filter(r => (r.Status || r.status) === 'stale').length;
+  const gapCount = data.coverage_gap_count || 0;
+  const diffCards = `<div class="sl-diff-row">
+    <div class="sl-diff-card"><div class="sl-diff-label">New Alerts</div><div class="sl-diff-value ${newCount > 0 ? 'negative' : 'zero'}">${newCount}</div></div>
+    <div class="sl-diff-card"><div class="sl-diff-label">Resolved</div><div class="sl-diff-value ${resolvedCount > 0 ? 'positive' : 'zero'}">${resolvedCount}</div></div>
+    <div class="sl-diff-card"><div class="sl-diff-label">Stale Inputs</div><div class="sl-diff-value ${staleCount > 0 ? 'negative' : 'zero'}">${staleCount}</div></div>
+    <div class="sl-diff-card"><div class="sl-diff-label">Coverage Gaps</div><div class="sl-diff-value ${gapCount > 0 ? 'negative' : 'zero'}">${gapCount}</div></div>
+  </div>`;
+
+  // Executive brief
+  const executive = (data.executive || []).slice(0, 6)
+    .map(item => `<div class="streamline-row"><strong>${esc(slFirstLabel(item))}</strong><span>${esc(slAfterLabel(item))}</span></div>`)
+    .join('');
+
+  // Review queue with ack + copy
+  const reviewItems = mode === 'morning' ? (data.reviewQueue || []).slice(0, 5) : (data.fullReviewQueue || data.reviewQueue || []);
+  const reviewHtml = reviewItems.length ? reviewItems.map((row, i) => {
+    const notePath = row.Note || row.note_path || '';
+    const ackStatus = row.ack_status || 'unreviewed';
+    return `<div class="sl-review-item ack-${esc(ackStatus)}" id="sl-ri-${i}">
+      <div class="sl-review-body">
+        <div class="sl-review-title">${esc(row.Item || row.title || '')}</div>
+        <div class="sl-review-meta">${esc(row.Severity || row.severity || '')} · ${esc(row.Domain || row.domain || '')} · ${esc(row.Date || row.date || '')} · ${esc(row.Freshness || row.freshness || '')}</div>
+      </div>
+      <div class="sl-review-actions">
+        <select class="ack-select" onchange="ackReviewItem('${esc(notePath)}',this.value,${i})">
+          <option value="unreviewed" ${ackStatus==='unreviewed'?'selected':''}>Unreviewed</option>
+          <option value="reviewed" ${ackStatus==='reviewed'?'selected':''}>✓ Reviewed</option>
+          <option value="journaled" ${ackStatus==='journaled'?'selected':''}>📓 Journaled</option>
+          <option value="ignored" ${ackStatus==='ignored'?'selected':''}>— Ignored</option>
+        </select>
+        <button class="copy-link" onclick="copyWikiLink('${esc(notePath)}')" title="Copy wikilink">🔗</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">No active review items.</div>';
+
+  // Module chips
+  const coverageData = mode === 'afterclose' ? (data.coverageAll || data.coverage || []) : (data.coverage || []);
+  const chipsHtml = coverageData.map((row, i) => {
+    const st = (row.Status || row.status || 'gap').toLowerCase();
+    const cls = st === 'active' || st === 'live' ? 'active' : st === 'partial' ? 'partial' : st === 'stale' ? 'stale' : st === 'failed' ? 'failed' : 'gap';
+    return `<div>
+      <span class="module-chip module-chip-${cls}" onclick="toggleChipDetail(${i})">${esc(row.Module || row.module || '')} · ${st}</span>
+      <div class="chip-detail" id="chip-d-${i}">${esc(row['Next Build Step'] || row.next || '')}</div>
+    </div>`;
+  }).join('');
+
+  // Build morning vs afterclose
+  let afterCloseHtml = '';
+  if (mode === 'afterclose') {
+    const questions = (data.questions || []).slice(0, 6)
+      .map(row => `<div class="streamline-row"><strong>${esc(row.Question)}</strong><span>${esc(row['Current Read'])}</span></div>`)
+      .join('');
+    const learning = (data.learning || []).slice(0, 4)
+      .map(row => `<div class="streamline-row"><strong>${esc(row['Flagged Topic'])}</strong><span>${esc(row['Next Study Action'])}</span></div>`)
+      .join('');
+    afterCloseHtml = `
+      <div class="market-card"><div class="market-card-title">Operating Questions</div><div class="streamline-list">${questions || '<div class="empty">None</div>'}</div></div>
+      <div class="market-card"><div class="market-card-title">Learning Queue</div><div class="streamline-list">${learning || '<div class="empty">None</div>'}</div></div>`;
+  }
+
+  // Agent debrief
+  const debriefId = 'sl-debrief-' + Date.now();
+
+  body.innerHTML = `
+    ${historyBar}
+    ${diffCards}
+    <div class="market-card"><div class="market-card-title">Executive Brief</div><div class="streamline-list">${executive || '<div class="empty">No executive bullets.</div>'}</div></div>
+    <div class="market-card"><div class="market-card-title">Review Queue <span style="font-size:10px;color:var(--text-muted)">(${reviewItems.length})</span></div><div style="display:flex;flex-direction:column;gap:5px">${reviewHtml}</div></div>
+    <div class="market-card"><div class="market-card-title">Module Coverage</div><div class="sl-chips">${chipsHtml || '<div class="empty">No coverage data.</div>'}</div></div>
+    ${afterCloseHtml}
+    <div class="market-card">
+      <div class="market-card-head"><div class="market-card-title">Agent Debrief</div><button class="btn" onclick="skipDebrief('${debriefId}')" style="padding:2px 8px;font-size:9px">Skip</button></div>
+      <div class="debrief-panel" id="${debriefId}"></div>
+    </div>`;
+
+  // Build and animate debrief messages
+  buildDebrief(debriefId, data);
+}
+
+function buildDebrief(containerId, data) {
+  const msgs = [];
+  const sc = slCurrentSidecar;
+  const reviewCount = data.active_review_count || 0;
+  const status = data.signal_status || 'clear';
+
+  msgs.push({ agent: 'Orchestrator', text: `Morning brief ready. ${reviewCount} item(s) in queue, status ${status}. ${data.new_since_last_report || 0} new since yesterday.` });
+
+  // Group review items by domain
+  const items = sc?.review_items || [];
+  const byDomain = {};
+  for (const item of items) {
+    const d = item.domain || 'Other';
+    byDomain[d] = byDomain[d] || [];
+    byDomain[d].push(item);
+  }
+  for (const [domain, domainItems] of Object.entries(byDomain)) {
+    const top = domainItems[0];
+    const disp = top.disposition || 'Review';
+    msgs.push({ agent: domain, text: `Found ${domainItems.length} item(s) — "${top.title}". ${disp} recommended. Edge: ${top.edge_type || 'unclassified'}.` });
+  }
+
+  // Coverage gaps
+  const gaps = (sc?.coverage_items || []).filter(c => c.status === 'gap');
+  if (gaps.length) {
+    const gapNames = gaps.slice(0, 3).map(g => g.module).join(', ');
+    msgs.push({ agent: 'Orchestrator', text: `${gaps.length} module gap(s) remain: ${gapNames}${gaps.length > 3 ? '...' : ''}.` });
+  }
+
+  msgs.push({ agent: 'Orchestrator', text: `${data.resolved_since_last_report || 0} resolved since yesterday. Focus on top-severity items first.` });
+
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = msgs.map((m, i) => {
+    const agentInfo = SL_AGENTS[m.agent] || SL_AGENTS.Orchestrator;
+    return `<div class="debrief-msg" style="animation-delay:${i * 250}ms">
+      <div class="debrief-avatar" style="border-color:${agentInfo.color}">${agentInfo.avatar}</div>
+      <div class="debrief-content">
+        <div class="debrief-name" style="color:${agentInfo.color}">${esc(m.agent)}</div>
+        <div class="debrief-bubble">${esc(m.text)}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Auto-scroll as messages appear
+  const totalDelay = msgs.length * 250 + 400;
+  const scrollInterval = setInterval(() => container.scrollTop = container.scrollHeight, 200);
+  setTimeout(() => clearInterval(scrollInterval), totalDelay);
+}
+
+function skipDebrief(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.querySelectorAll('.debrief-msg').forEach(msg => {
+    msg.style.animation = 'none';
+    msg.style.opacity = '1';
+  });
+  el.scrollTop = el.scrollHeight;
+}
+
+async function switchSlDate(date) {
+  if (!date) return;
+  try {
+    const sidecar = await apiFetch(`/api/streamline-report/full?date=${date}`);
+    if (sidecar.error) { console.warn(sidecar.error); return; }
+    slCurrentSidecar = sidecar;
+    // Build a synthetic data object from the sidecar for rendering
+    const synth = {
+      available: true, date: sidecar.date, signal_status: sidecar.signal_status,
+      active_review_count: sidecar.active_review_count, coverage_gap_count: sidecar.coverage_gap_count,
+      new_since_last_report: sidecar.new_since_last_report, resolved_since_last_report: sidecar.resolved_since_last_report,
+      cadence: sidecar.cadence, focus: sidecar.focus, path: '',
+      executive: [], questions: [], learning: [],
+      reviewQueue: (sidecar.review_items || []).slice(0, 5).map(sidecarItemToRow),
+      fullReviewQueue: (sidecar.review_items || []).map(sidecarItemToRow),
+      coverage: (sidecar.coverage_items || []).slice(0, 8).map(c => ({ Module: c.module, Status: c.status, 'Next Build Step': c.next })),
+      coverageAll: (sidecar.coverage_items || []).map(c => ({ Module: c.module, Status: c.status, 'Next Build Step': c.next })),
+    };
+    slCurrentData = synth;
+    renderStreamlineReport(synth);
+  } catch (e) { console.error('switchSlDate', e); }
+}
+
+function sidecarItemToRow(item) {
+  return { Item: item.title, Severity: item.severity, Domain: item.domain, Date: item.date,
+    Status: item.signal_status, Freshness: item.freshness, Confidence: item.confidence,
+    Note: item.note_path, note_path: item.note_path, ack_status: item.ack_status || 'unreviewed' };
+}
+
+async function ackReviewItem(notePath, ackStatus, rowIndex) {
+  if (!notePath) return;
+  const el = document.getElementById(`sl-ri-${rowIndex}`);
+  if (el) { el.className = `sl-review-item ack-${ackStatus}`; }
+  try {
+    await fetch(API + '/api/streamline-report/acknowledge', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note_path: notePath, ack_status: ackStatus }),
+    });
+  } catch (e) { console.error('ack failed', e); }
+}
+
+function copyWikiLink(notePath) {
+  if (!notePath) return;
+  navigator.clipboard.writeText(notePath).then(() => {
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = 'Copied: ' + notePath;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1800);
+  }).catch(() => {});
+}
+
+function toggleChipDetail(index) {
+  const el = document.getElementById(`chip-d-${index}`);
+  if (el) el.classList.toggle('open');
+}
+
+function runStreamlineReport() { return runCommand('pull streamline-report'); }
+
+function slFirstLabel(text) {
+  const i = String(text || '').indexOf(':');
+  return i === -1 ? String(text || '') : String(text).slice(0, i);
+}
+
+function slAfterLabel(text) {
+  const i = String(text || '').indexOf(':');
+  return i === -1 ? '' : String(text).slice(i + 1).trim();
 }
 
 let activeSource = null;
@@ -928,6 +1894,7 @@ function formatDate(d) {
 }
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
+restorePanelStates();
 loadAll();
 // Auto-refresh every 5 minutes
 setInterval(loadAll, 5 * 60 * 1000);

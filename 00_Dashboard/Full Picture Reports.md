@@ -7,7 +7,7 @@ last_updated: 2026-04-02
 # Full Picture Reports
 
 Summary:
-- Generated synthesis layer that combines thesis framing, quant, tape, fundamentals, macro pulse, and catalyst timing.
+- Generated synthesis layer that combines thesis framing, tape, fundamentals, macro pulse, and catalyst timing.
 - Run `node run.mjs thesis-full-picture` after thesis market refreshes when you want one clean operator note per thesis instead of bouncing between dashboards.
 - Open [[Capital Allocation Board]] for ranking, [[High Priority Thesis Monitor]] for review cadence, and use this board for the deep-dive handoff.
 
@@ -18,7 +18,6 @@ TABLE WITHOUT ID
   thesis AS "Thesis",
   structural_view AS "Structural",
   tactical_view AS "Tactical",
-  qlib_signal_status AS "Quant",
   technical_status AS "Tech",
   fundamentals_status AS "Fundamentals",
   macro_signal_status AS "Macro",

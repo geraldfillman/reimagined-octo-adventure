@@ -1,4 +1,6 @@
 ---
+title: Housing Cycle Playbook
+type: playbook
 tags: [playbook, housing]
 playbook_id: housing-cycle
 run_command: "node scripts/run.mjs playbook housing-cycle"
@@ -16,9 +18,14 @@ signals_monitored:
   - FEMA_SPIKE
   - UNEMPLOYMENT_SPIKE
   - YIELD_CURVE_INVERSION
+last_updated: 2026-03-27
 ---
 
 # Housing Cycle Playbook
+
+Summary:
+- Repeatable housing regime workflow combining housing, rates, labor, FEMA, and news evidence.
+- Use this playbook when you need a fast expansion-versus-cooling read before opening detailed pull notes.
 
 ## Investment Question
 
@@ -65,4 +72,4 @@ Is the housing market expanding, stable, cooling, or contracting?
 - [[Signal Board]] — check for active housing/macro signals
 - [[Macro Regime]] — rate environment and labor context
 - [[Cross-Domain Thesis Board]] — housing + macro convergence view
-- [[Housing Intelligence]] — source catalog and data availability
+- [[04_Reference/Housing Intelligence]] — source catalog and data availability

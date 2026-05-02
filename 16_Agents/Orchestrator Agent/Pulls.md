@@ -62,11 +62,35 @@ LIMIT 20
 Thesis-wide multi-agent market intelligence.
 
 ```dataview
-TABLE date_pulled AS "Date", ticker AS "Ticker", signal_status AS "Status", signals AS "Signals"
+TABLE date_pulled AS "Date", symbol AS "Symbol", final_verdict AS "Verdict", entropy_level AS "Entropy", microstructure_entropy_level AS "Flow", signal_status AS "Status", signals AS "Signals"
 FROM "05_Data_Pulls/Market"
 WHERE contains(data_type, "agent-analysis") OR contains(tags, "agent-analysis") OR contains(tags, "agent-analyst")
 SORT date_pulled DESC, file.mtime DESC
 LIMIT 20
+```
+
+## Entropy Compression Queue
+
+Low entropy means the agent stack or order-flow proxy is unusually ordered. Per the entropy paper, treat this as move-risk timing evidence, not directional certainty.
+
+```dataview
+TABLE date_pulled AS "Date", symbol AS "Symbol", final_verdict AS "Verdict", entropy_score AS "Agent H", microstructure_entropy_score AS "Flow H", signal_status AS "Status"
+FROM "05_Data_Pulls/Market"
+WHERE contains(tags, "agent-analysis") AND (entropy_level = "compressed" OR microstructure_entropy_level = "compressed")
+SORT signal_status DESC, date_pulled DESC, entropy_score ASC
+LIMIT 20
+```
+
+## SPY / QQQ Entropy Monitor
+
+Shadow ledger for testing whether lower order-flow entropy precedes larger absolute moves.
+
+```dataview
+TABLE date_pulled AS "Date", symbols AS "Symbols", signal_status AS "Status", near_entropy_threshold AS "Near H", low_entropy_threshold AS "Low H", ledger_path AS "Ledger"
+FROM "05_Data_Pulls/Market"
+WHERE data_type = "entropy_monitor" OR data_type = "entropy_backtest" OR contains(tags, "entropy-monitor")
+SORT date_pulled DESC, file.mtime DESC
+LIMIT 10
 ```
 
 ## Disclosure Reality
@@ -84,9 +108,9 @@ LIMIT 10
 ## Backtest Results
 
 ```dataview
-TABLE date_pulled AS "Date", data_type AS "Type", sport AS "Sport", signals AS "Signals"
-FROM "05_Data_Pulls/Sports" OR "05_Data_Pulls/Orchestrator"
-WHERE contains(data_type, "backtest") OR contains(data_type, "calibration") OR contains(tags, "backtest") OR contains(tags, "quant")
+TABLE date_pulled AS "Date", data_type AS "Type", signals AS "Signals"
+FROM "05_Data_Pulls/Backtest" OR "05_Data_Pulls/Orchestrator"
+WHERE contains(data_type, "backtest") OR contains(tags, "backtest")
 SORT date_pulled DESC, file.mtime DESC
 LIMIT 15
 ```

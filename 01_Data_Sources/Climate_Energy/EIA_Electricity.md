@@ -20,9 +20,10 @@ last_reviewed: "2026-03-26"
 notes: "Power and grid-focused slice of the broader EIA API; used by the live eia puller."
 ---
 
-## EIA Electricity Data
+## Summary
 
-The Energy Information Administration provides comprehensive US electricity data through its open API v2.
+- Power and grid-focused slice of the broader EIA API, used by the live `eia` puller.
+- Best for electricity demand, generation mix, and regional load stress monitoring tied to AI power demand and utility positioning.
 
 ## Data Groups
 

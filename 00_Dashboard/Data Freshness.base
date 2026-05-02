@@ -15,8 +15,8 @@ views:
   - type: table
     name: Freshness Overview
     groupBy:
-      property: domain
-      direction: ASC
+      property: date_pulled
+      direction: DESC
     order:
       - formula.freshness
       - file.name

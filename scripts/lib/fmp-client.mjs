@@ -84,6 +84,22 @@ export async function fetchDailyPrices(ticker, { from, to } = {}) {
   return Array.isArray(data?.historical) ? data.historical : (Array.isArray(data) ? data : []);
 }
 
+/** Intraday OHLCV bars. Supported by the FMP historical-chart endpoint. */
+export async function fetchIntradayPrices(ticker, { interval = '1min', from, to } = {}) {
+  const normalizedInterval = String(interval || '1min').toLowerCase();
+  const supportedIntervals = new Set(['1min']);
+  if (!supportedIntervals.has(normalizedInterval)) {
+    throw new Error(`Unsupported intraday interval "${interval}". Supported values: 1min`);
+  }
+
+  const qs = new URLSearchParams({ symbol: ticker, apikey: key() });
+  if (from) qs.set('from', from);
+  if (to) qs.set('to', to);
+  const url = `${stable()}/historical-chart/${normalizedInterval}?${qs.toString()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
 // ─── Insider / short / news (used by DD report + digest) ────────────────────
 
 /** Most recent insider transactions (Form 4 summary). */
@@ -101,6 +117,52 @@ export async function fetchShortInterest(ticker) {
 
 export async function fetchStockNews(ticker, { limit = 10 } = {}) {
   const url = `${stable()}/news/stock?symbols=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
+/** Full OHLCV history (adjusted) for a symbol, oldest-to-newest after normalization. */
+export async function fetchDailyPricesFull(ticker, { from, to } = {}) {
+  const qs = new URLSearchParams({ symbol: ticker, apikey: key() });
+  if (from) qs.set('from', from);
+  if (to)   qs.set('to', to);
+  const data = await getJson(`${stable()}/historical-price-eod/full?${qs.toString()}`);
+  return Array.isArray(data?.historical) ? data.historical : (Array.isArray(data) ? data : []);
+}
+
+/**
+ * Batch short quotes for an array of symbols.
+ * Returns a flat array of quote objects (symbol, price, volume, …).
+ * Requests are chunked to avoid URL length limits.
+ */
+export async function fetchBatchQuotes(symbols) {
+  const unique = [...new Set(symbols.map(s => String(s || '').toUpperCase()).filter(Boolean))];
+  const results = [];
+  for (const chunk of chunkArray(unique, 25)) {
+    const data = await getJson(`${stable()}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${key()}`);
+    results.push(...(Array.isArray(data) ? data : []));
+  }
+  return results;
+}
+
+function chunkArray(items, size) {
+  const chunks = [];
+  for (let i = 0; i < items.length; i += size) chunks.push(items.slice(i, i + size));
+  return chunks;
+}
+
+// ─── Earnings surprises (PEAD / drift detection) ─────────────────────────────
+
+/** Historical earnings surprises, newest-first. Each entry: { date, epsActual, epsEstimated, epsDifference, surprisePercentage }. */
+export async function fetchEarningsHistory(ticker, { limit = 8 } = {}) {
+  const url = `${stable()}/earnings-surprises?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
+/** Annual cash-flow statements, newest-first — needed for multi-year OCF durability in CFQ scoring. */
+export async function fetchCashFlowAnnual(ticker, { limit = 4 } = {}) {
+  const url = `${stable()}/cash-flow-statement?symbol=${encodeURIComponent(ticker)}&period=annual&limit=${limit}&apikey=${key()}`;
   const data = await getJson(url);
   return Array.isArray(data) ? data : [];
 }

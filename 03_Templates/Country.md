@@ -14,8 +14,9 @@ data_sources: []
 tags: [country]
 ---
 
-## Overview
-Economic profile and investment relevance.
+## Summary
+- Economic profile and investment relevance.
+- Lead with the country's macro role, investable angle, and current regime context.
 
 ## Macro Environment
 - **Current Regime**: [[]]

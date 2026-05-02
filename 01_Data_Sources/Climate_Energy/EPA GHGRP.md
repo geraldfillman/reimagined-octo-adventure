@@ -28,9 +28,9 @@ integrated: false
 notes: "Facility-level GHG data. Essential for understanding industrial emissions at the source."
 ---
 
-## Overview
+## Summary
 
-EPA GHGRP provides facility-level emissions, greenhouse gas reporting, industry emissions profiles. Facility-level GHG data. Essential for understanding industrial emissions at the source.
+- EPA GHGRP provides facility-level emissions, greenhouse gas reporting, industry emissions profiles. Facility-level GHG data. Essential for understanding industrial emissions at the source.
 
 ## What It Provides
 
@@ -56,3 +56,4 @@ EPA GHGRP provides facility-level emissions, greenhouse gas reporting, industry 
 
 - [[Global Carbon Atlas]]
 - [[Carbon Tracker Public Reports]]
+

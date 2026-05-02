@@ -28,9 +28,9 @@ integrated: false
 notes: "Quarterly and annual reports on VC activity. Good for macro-level private market context."
 ---
 
-## Overview
+## Summary
 
-NVCA Public Reports provides venture industry statistics, fundraising trends, exit data, vc activity reports. Quarterly and annual reports on VC activity. Good for macro-level private market context.
+- NVCA Public Reports provides venture industry statistics, fundraising trends, exit data, vc activity reports. Quarterly and annual reports on VC activity. Good for macro-level private market context.
 
 ## What It Provides
 
@@ -57,3 +57,4 @@ NVCA Public Reports provides venture industry statistics, fundraising trends, ex
 
 - [[PitchBook News]]
 - [[Crunchbase]]
+

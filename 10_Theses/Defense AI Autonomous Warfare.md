@@ -4,13 +4,65 @@ name: "Defense AI & Autonomous Warfare"
 status: "Active"
 conviction: "high"
 timeframe: "long"
+allocation_priority: "high"
+allocation_rank: 1
+why_now: "Real-world conflict is accelerating software-defined warfare and the procurement system is funding AI and autonomy at scale."
+variant_perception: "Investors still underweight the durability of software and cloud capture inside defense budgets."
+next_catalyst: "Maven, JWCC, DARPA, SOCOM, and NDAA budget updates over the next 12 months."
+disconfirming_evidence: "Congress or the DoD freezes autonomous-systems adoption after political or operational backlash."
+expected_upside: "Sustained contract flow and multiple expansion for software-first defense winners."
+expected_downside: "Binary contract losses or a peace-dividend narrative hits multiples before revenue catches up."
+position_sizing: "Core 3-6% defense-AI basket with PLTR and integrators as anchors."
+required_sources: ["[[USASpending API]]", "[[SAM_Gov]]", "[[SEC EDGAR API]]", "[[NewsAPI]]"]
+required_pull_families: ["usaspending --recent", "sam --opportunities", "sec --defenseai", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Geopolitical newsflow stayed hawkish, and SEC 8-K activity included fresh material-contract filings for BAH and LDOS, but the SAM opportunities feed is still unavailable."
+break_risk_status: "not-seen"
+monitor_action: "Keep core exposure, but rerun the contract stack once SAM opportunities are working again because current confirmation is coming mainly from SEC and broad newsflow."
 core_entities: ["[[PLTR]]", "[[BBAI]]", "[[LDOS]]", "[[BAH]]", "[[SAIC]]", "[[CACI]]", "[[MSFT]]", "[[AMZN]]", "[[LMT]]", "[[RTX]]", "[[NOC]]", "[[GD]]", "[[Aerospace & Defense]]", "[[Technology]]", "[[USA]]", "[[NATO]]"]
 supporting_regimes: ["[[Geopolitical Escalation]]", "[[Risk-On]]", "[[Defense Budget Supercycle]]"]
 key_indicators: ["[[Defense Budget]]", "[[DARPA Contract Awards]]", "[[Pentagon AI Adoption]]", "[[USASpending Defense AI]]"]
 bullish_drivers: ["[[Geopolitical Escalation]]", "[[AI Autonomy Advances]]", "[[JWCC Cloud Expansion]]", "[[Pentagon Reorg Toward AI]]", "[[Supply Chain Nationalism]]"]
 bearish_drivers: ["[[Defense Budget Cuts]]", "[[Peace Negotiations]]", "[[AI Regulation]]", "[[Congressional Oversight Freeze]]"]
 invalidation_triggers: ["DoD AI budget cut >20% in a single NDAA", "Congress bans autonomous lethal systems — kills AI targeting programs", "PLTR loses Maven Smart System recompete", "Adversarial AI incident triggers global moratorium on autonomous weapons"]
-tags: [thesis, defense, ai, autonomous-warfare, c2, government]
+fmp_watchlist_symbols: ["PLTR", "BBAI", "LDOS", "BAH", "SAIC", "CACI", "MSFT", "AMZN", "LMT", "RTX", "NOC", "GD"]
+fmp_watchlist_symbol_count: 12
+fmp_primary_symbol: "PLTR"
+fmp_technical_symbol_count: 12
+fmp_technical_nonclear_count: 11
+fmp_technical_bearish_count: 10
+fmp_technical_overbought_count: 1
+fmp_technical_oversold_count: 3
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 43.84
+fmp_primary_price_vs_sma200_pct: -16.06
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 316154115900
+fmp_primary_trailing_pe: 202.66
+fmp_primary_price_to_sales: 70.64
+fmp_primary_price_to_book: 44.58
+fmp_primary_ev_to_sales: 70.38
+fmp_primary_ev_to_ebitda: 218.7
+fmp_primary_roe_pct: 25.66
+fmp_primary_roic_pct: 17.92
+fmp_primary_operating_margin_pct: 31.59
+fmp_primary_net_margin_pct: 36.31
+fmp_primary_current_ratio: 7.11
+fmp_primary_debt_to_equity: 0.03
+fmp_primary_price_target: 179.26
+fmp_primary_analyst_count: 35
+fmp_primary_target_upside_pct: 29.93
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 9
+fmp_calendar_pull_date: "2026-04-27"
+fmp_next_earnings_date: "2026-05-04"
+fmp_next_earnings_symbols: ["PLTR"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "defense", "ai", "autonomous-warfare", "c2", "government"]
 ---
 
 ## Thesis Statement
@@ -84,6 +136,29 @@ What would prove this thesis wrong?
 - Major autonomous system failure causes civilian casualties — triggers Congressional freeze
 - Adversary AI superiority demonstrated publicly — triggers US program restructuring away from current vendors
 
+## Investment Scorecard
+
+- **Allocation Priority**: high (1)
+- **Why now**: Real-world conflict is accelerating software-defined warfare and the procurement system is funding AI and autonomy at scale.
+- **Variant perception**: Investors still underweight the durability of software and cloud capture inside defense budgets.
+- **Next catalyst**: Maven, JWCC, DARPA, SOCOM, and NDAA budget updates over the next 12 months.
+- **Disconfirming evidence**: Congress or the DoD freezes autonomous-systems adoption after political or operational backlash.
+- **Expected upside**: Sustained contract flow and multiple expansion for software-first defense winners.
+- **Expected downside**: Binary contract losses or a peace-dividend narrative hits multiples before revenue catches up.
+- **Sizing rule**: Core 3-6% defense-AI basket with PLTR and integrators as anchors.
+
+## Required Evidence
+
+- **Source notes**: [[USASpending API]], [[SAM_Gov]], [[SEC EDGAR API]], [[NewsAPI]]
+- **Pull families**: usaspending --recent, sam --opportunities, sec --defenseai, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Geopolitical newsflow stayed hawkish, and SEC 8-K activity included fresh material-contract filings for BAH and LDOS, but the SAM opportunities feed is still unavailable.
+- **Break risk status**: not-seen
+- **Action**: Keep core exposure, but rerun the contract stack once SAM opportunities are working again because current confirmation is coming mainly from SEC and broad newsflow.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[PLTR]] for pure-play AI moat; [[LDOS]] or [[BAH]] for lower-volatility integrator exposure
 - **Size**: Medium position (3-6% of portfolio) — high conviction but binary contract risk on PLTR
@@ -105,3 +180,6 @@ WHERE contains(string(tags), "defense") OR contains(string(tags), "PLTR") OR con
 SORT date DESC
 LIMIT 5
 ```
+
+
+

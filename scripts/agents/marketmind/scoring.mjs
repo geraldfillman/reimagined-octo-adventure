@@ -1,4 +1,5 @@
 import { clamp, signalDirection } from './schemas.mjs';
+import { computeAgentSignalEntropy } from './entropy.mjs';
 import { createRequire } from 'module';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -50,6 +51,7 @@ export function synthesizeDeterministic(agentSignals = []) {
   const { scoreMultiplier, coverageWeight, disagreementPenalty, maxConfidence } = CONFIG.confidenceFormula;
   const finalConfidence = clamp(Math.abs(normalizedScore) * scoreMultiplier + coverage * coverageWeight - disagreement * disagreementPenalty, 0, maxConfidence);
   const bearishRiskCluster = hasBearishRiskCluster(usable);
+  const entropy = computeAgentSignalEntropy(usable);
   const signalStatus = classifyVaultStatus({
     finalVerdict,
     finalConfidence,
@@ -64,12 +66,17 @@ export function synthesizeDeterministic(agentSignals = []) {
     final_verdict: finalVerdict,
     final_confidence: Number(finalConfidence.toFixed(2)),
     signal_status: signalStatus,
-    reasoning: buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed }),
+    reasoning: buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy }),
     top_drivers: bullish.slice(0, 3).map(row => row.agent),
     top_risks: bearish.slice(0, 3).map(row => row.agent),
-    follow_up_actions: buildFollowUps({ finalVerdict, bearish, failed }),
+    follow_up_actions: buildFollowUps({ finalVerdict, bearish, failed, entropy }),
     score: Number(normalizedScore.toFixed(4)),
     disagreement: Number(disagreement.toFixed(2)),
+    entropy_score: entropy.score,
+    entropy_level: entropy.level,
+    entropy_dominant_signal: entropy.dominant_signal,
+    entropy_distribution: entropy.distribution,
+    entropy_interpretation: entropy.interpretation,
   });
 }
 
@@ -109,21 +116,26 @@ function computeDisagreement(signals) {
   return Math.min(bullish, bearish) / directional.length;
 }
 
-function buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed }) {
+function buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy }) {
   const driverText = bullish.length ? `Drivers: ${bullish.slice(0, 2).map(row => row.agent).join(', ')}.` : '';
   const riskText = bearish.length ? `Risks: ${bearish.slice(0, 2).map(row => row.agent).join(', ')}.` : '';
   const mixedText = neutral.length ? `${neutral.length} neutral layer(s).` : '';
   const failedText = failed.length ? `${failed.length} layer(s) failed and were treated as neutral.` : '';
-  return [`Deterministic synthesis is ${finalVerdict.toLowerCase()} at ${Math.round(finalConfidence * 100)}% confidence.`, driverText, riskText, mixedText, failedText]
+  const entropyText = entropy?.level && entropy.level !== 'unknown'
+    ? `Agent entropy is ${entropy.level} (${entropy.score}).`
+    : '';
+  return [`Deterministic synthesis is ${finalVerdict.toLowerCase()} at ${Math.round(finalConfidence * 100)}% confidence.`, entropyText, driverText, riskText, mixedText, failedText]
     .filter(Boolean)
     .join(' ');
 }
 
-function buildFollowUps({ finalVerdict, bearish, failed }) {
+function buildFollowUps({ finalVerdict, bearish, failed, entropy }) {
   const actions = [];
   if (finalVerdict === 'BEARISH' || bearish.length) actions.push('Review bearish layers before increasing exposure.');
   if (bearish.some(row => row.agent === 'macro')) actions.push('Refresh macro and VIX context.');
   if (bearish.some(row => row.agent === 'risk')) actions.push('Check drawdown, volatility, and position sizing.');
+  if (entropy?.level === 'compressed' && finalVerdict !== 'NEUTRAL') actions.push('Treat low entropy as move-risk compression, not directional certainty.');
+  if (entropy?.level === 'diffuse') actions.push('Resolve agent disagreement before changing conviction.');
   if (failed.length) actions.push('Rerun failed agents or inspect API keys.');
   if (!actions.length) actions.push('Compare with latest thesis full-picture report.');
   return actions;

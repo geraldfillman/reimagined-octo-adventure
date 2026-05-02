@@ -1,0 +1,958 @@
+{
+  "version": 1,
+  "sessionId": "019dcf42-77e5-72c3-a0b3-fccfc6a6a0d2",
+  "agentId": "codex-acp",
+  "messages": [
+    {
+      "id": "6554398f-c4ee-4f9d-be02-d6dedf83b55d",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Can you run the daily routine and update any stale data"
+        }
+      ],
+      "timestamp": "2026-04-27T14:05:55.770Z"
+    },
+    {
+      "id": "0befc894-856b-4e8f-8b3c-9f7c12a00bf3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I’ll run the vault’s daily cadence first, then inspect validation/status output for stale items that need a targeted refresh. If the routine exposes failures, I’ll follow up on those rather than masking them."
+        }
+      ],
+      "timestamp": "2026-04-27T14:06:06.378Z"
+    },
+    {
+      "id": "751a3447-94a5-4cc1-b0d4-bfd068740c7f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_znE7f8us5Wq8njthfxvwUz1s",
+          "title": "Get-ChildItem -Force",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_znE7f8us5Wq8njthfxvwUz1s",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Force"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Force"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:06:10.179Z"
+    },
+    {
+      "id": "5533d3b3-a6cc-4791-a514-af0a4c442ad0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_dWwnaE0XqUaoNAxmIHteXT9y",
+          "title": "git status --short",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_dWwnaE0XqUaoNAxmIHteXT9y",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git status --short"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git status --short"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:06:10.179Z"
+    },
+    {
+      "id": "01eddd62-a6cb-49c4-afe7-70fce274bebd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_zJxoPOHgBVrx3isexXxnQ8pI",
+          "title": "Get-ChildItem scripts -Filter daily-routine.ps1",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_zJxoPOHgBVrx3isexXxnQ8pI",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem scripts -Filter daily-routine.ps1"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem scripts -Filter daily-routine.ps1"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The worktree is already very dirty, mostly from existing vault/generated content, so I’ll avoid cleanup or resets and only run the data-refresh commands. The daily routine script is present under `scripts/`."
+        }
+      ],
+      "timestamp": "2026-04-27T14:06:10.279Z"
+    },
+    {
+      "id": "76b9f4af-f2a5-4256-837b-9adaa505f5e8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_RZ3GijzZs7q0VXqkdi8r43ek",
+          "title": "powershell -ExecutionPolicy Bypass -File scripts/daily-routine.ps1",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_RZ3GijzZs7q0VXqkdi8r43ek",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "powershell -ExecutionPolicy Bypass -File scripts/daily-routine.ps1"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "powershell -ExecutionPolicy Bypass -File scripts/daily-routine.ps1"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Daily completed cleanly: 8 puller groups succeeded, cleanup ran, and schema validation passed. I’m checking the freshness tooling now so I can target any sources that remain stale after the daily cadence."
+        }
+      ],
+      "timestamp": "2026-04-27T14:06:15.280Z"
+    },
+    {
+      "id": "e8a040ce-d5ae-4c96-b7ec-cb854f03604f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_1SXTr4BOZSv1jrx5hH3e3GmV",
+          "title": "rg -n \"fresh|stale|pull-health|Data Freshness\" scripts 00_Dashboard 04_Reference 90_System",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_1SXTr4BOZSv1jrx5hH3e3GmV",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "rg -n \"fresh|stale|pull-health|Data Freshness\" scripts 00_Dashboard 04_Reference 90_System"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "rg -n \"fresh|stale|pull-health|Data Freshness\" scripts 00_Dashboard 04_Reference 90_System"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:08:54.629Z"
+    },
+    {
+      "id": "73aba38e-8101-4d22-864c-b52deef243fc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_x5PSl8puHrbqLYZAVm6v3nOO",
+          "title": "node run.mjs system status",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_x5PSl8puHrbqLYZAVm6v3nOO",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs system status"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs system status"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:08:54.729Z"
+    },
+    {
+      "id": "84dc302a-e0f6-4027-a475-de96367dcc41",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_QhoX8oYPq2R6kTLd3fPFC05V",
+          "title": "node run.mjs help",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_QhoX8oYPq2R6kTLd3fPFC05V",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs help"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs help"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "`rg` is not installed on this machine, so I’m falling back to PowerShell search. The current API-key status is unchanged: 17 of 21 sources ready, with only optional OSINT/AIS keys missing."
+        }
+      ],
+      "timestamp": "2026-04-27T14:08:54.729Z"
+    },
+    {
+      "id": "8d753ee9-e632-4ceb-bde0-686935141e9b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_WIFk5nP5xpQ84h4nG7utwptx",
+          "title": "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fresh','stale','pull-health','Data Freshness' -CaseSensitive:$false | Select-Object -First 120 Path,LineNumber,Line",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_WIFk5nP5xpQ84h4nG7utwptx",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fresh','stale','pull-health','Data Freshness' -CaseSensitive:$false | Select-Object -First 120 Path,LineNumber,Line"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path scripts,00_Dashboard,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fresh','stale','pull-health','Data Freshness' -CaseSensitive:$false | Select-Object -First 120 Path,LineNumber,Line"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:02.863Z"
+    },
+    {
+      "id": "0196543a-89be-42c9-984d-33486bb12202",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_b3RlilWAuz6BkozQD1sARNSC",
+          "title": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter *.md | Sort-Object LastWriteTime -Descending | Select-Object -First 80 FullName,LastWriteTime",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_b3RlilWAuz6BkozQD1sARNSC",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter *.md | Sort-Object LastWriteTime -Descending | Select-Object -First 80 FullName,LastWriteTime"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter *.md | Sort-Object LastWriteTime -Descending | Select-Object -First 80 FullName,LastWriteTime"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:02.863Z"
+    },
+    {
+      "id": "b65011f4-75e1-4aa4-8cf7-8b4147b1cf69",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_1oc4Xl57LKyOII9mkwTilBUa",
+          "title": "node run.mjs pull --help",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_1oc4Xl57LKyOII9mkwTilBUa",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull --help"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull --help"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The daily run generated current 2026-04-27 pull notes for macro, FMP thesis watchlists/technicals, sector scans, SEC sector evidence, and news topics. I’m using the dashboard’s pull-health logic next, since that is the vault’s own stale-data definition."
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:02.863Z"
+    },
+    {
+      "id": "4db6433e-b4ff-4ed7-a95f-6572871e3343",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_YGyQOxtpjeNvHH2PxO9gketY",
+          "title": "Get-Content scripts/dashboard/server.mjs -TotalCount 740 | Select-Object -Skip 600",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_YGyQOxtpjeNvHH2PxO9gketY",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content scripts/dashboard/server.mjs -TotalCount 740 | Select-Object -Skip 600"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content scripts/dashboard/server.mjs -TotalCount 740 | Select-Object -Skip 600"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:26.679Z"
+    },
+    {
+      "id": "0e1fbbe7-5bd2-4348-b3a7-b06230db44bb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_yB2mSSqeuGH1UrDZ3TehEt0X",
+          "title": "Get-Content scripts/cmd/router.mjs -TotalCount 700 | Select-Object -Skip 600",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_yB2mSSqeuGH1UrDZ3TehEt0X",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content scripts/cmd/router.mjs -TotalCount 700 | Select-Object -Skip 600"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content scripts/cmd/router.mjs -TotalCount 700 | Select-Object -Skip 600"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:26.679Z"
+    },
+    {
+      "id": "7e204c27-de06-45fd-9c8c-a5104ae6c047",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Imyr6zmLNOdBGFj9scmZLRVx",
+          "title": "Get-Content 00_Dashboard/Data\\ Freshness.md -ErrorAction SilentlyContinue",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Imyr6zmLNOdBGFj9scmZLRVx",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content 00_Dashboard/Data\\ Freshness.md -ErrorAction SilentlyContinue"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content 00_Dashboard/Data\\ Freshness.md -ErrorAction SilentlyContinue"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:26.679Z"
+    },
+    {
+      "id": "add43551-11ca-461d-a5f5-c9f76c338456",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_VB2jMELstc9zz6eRIJx3Pxrl",
+          "title": "Get-Content -LiteralPath '00_Dashboard/Data Freshness.md' -ErrorAction SilentlyContinue",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_VB2jMELstc9zz6eRIJx3Pxrl",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '00_Dashboard/Data Freshness.md' -ErrorAction SilentlyContinue"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '00_Dashboard/Data Freshness.md' -ErrorAction SilentlyContinue"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:32.112Z"
+    },
+    {
+      "id": "c2197da2-b76f-43f6-b7de-264409edae58",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_2MqyUtAsCcPAT1exmZdT2lMa",
+          "title": "Get-Content scripts/dashboard/server.mjs -TotalCount 140",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_2MqyUtAsCcPAT1exmZdT2lMa",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content scripts/dashboard/server.mjs -TotalCount 140"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content scripts/dashboard/server.mjs -TotalCount 140"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:32.112Z"
+    },
+    {
+      "id": "141d3d65-d856-4cb5-99af-a023d2a15767",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_SFjav6Qp4gpp6WDFknD2bTVW",
+          "title": "Get-Content -LiteralPath '00_Dashboard/Data Freshness.base' -ErrorAction SilentlyContinue",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_SFjav6Qp4gpp6WDFknD2bTVW",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -LiteralPath '00_Dashboard/Data Freshness.base' -ErrorAction SilentlyContinue"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -LiteralPath '00_Dashboard/Data Freshness.base' -ErrorAction SilentlyContinue"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:32.112Z"
+    },
+    {
+      "id": "e5866675-5394-462c-9257-0f5926379ad9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_HBYIMnaWnhJEdemLn78mdAYf",
+          "title": "Get-Content scripts/lib/config.mjs -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_HBYIMnaWnhJEdemLn78mdAYf",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content scripts/lib/config.mjs -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content scripts/lib/config.mjs -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:36.229Z"
+    },
+    {
+      "id": "e5c151fa-ff9d-47cd-8bea-52e1c496746f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_8q4vK3T4tiu4wlyn75P5Q8Zu",
+          "title": "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,20)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_8q4vK3T4tiu4wlyn75P5Q8Zu",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,20)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\""
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,20)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\""
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The dashboard freshness map now shows the daily sources fresh, but several non-daily/weekly sources are still stale or have no recognized latest run: FDA, OpenFEMA, Socrata, BEA, EIA, USPTO, USASpending, ClinicalTrials, arXiv, PubMed, CBOE, and SAM. I’m going to refresh those directly, skipping only sources that require missing OSINT/AIS credentials."
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:45.846Z"
+    },
+    {
+      "id": "ce0f8af7-4186-4c34-8aac-9b9aa63171a5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_pc8JOe6sRXJnOWrNU7b9Nld6",
+          "title": "node run.mjs pull fda --recent-approvals; node run.mjs pull openfema --recent; node run.mjs pull usaspending --recent; node run.mjs pull clinicaltrials --all; node run.mjs pull uspto --all; node run.mjs pull arxiv --all; node run.mjs pull pubmed --all; node run.mjs pull bea --gdp; node run.mjs pull eia --all; node run.mjs pull cboe --all; node run.mjs pull sam --all; node run.mjs pull socrata --permits",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_pc8JOe6sRXJnOWrNU7b9Nld6",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull fda --recent-approvals; node run.mjs pull openfema --recent; node run.mjs pull usaspending --recent; node run.mjs pull clinicaltrials --all; node run.mjs pull uspto --all; node run.mjs pull arxiv --all; node run.mjs pull pubmed --all; node run.mjs pull bea --gdp; node run.mjs pull eia --all; node run.mjs pull cboe --all; node run.mjs pull sam --all; node run.mjs pull socrata --permits"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull fda --recent-approvals; node run.mjs pull openfema --recent; node run.mjs pull usaspending --recent; node run.mjs pull clinicaltrials --all; node run.mjs pull uspto --all; node run.mjs pull arxiv --all; node run.mjs pull pubmed --all; node run.mjs pull bea --gdp; node run.mjs pull eia --all; node run.mjs pull cboe --all; node run.mjs pull sam --all; node run.mjs pull socrata --permits"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Most stale sources refreshed successfully. SAM.gov’s entity pull hit a 404 after rate-limit retries, but the batch continued and Socrata refreshed; I’m checking the SAM puller shape and then I’ll validate the vault again."
+        }
+      ],
+      "timestamp": "2026-04-27T14:09:59.712Z"
+    },
+    {
+      "id": "2e8e36a3-d446-4c46-a0dc-ee3853f9e413",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_yNjG9y2rNI88aFzfkEcQmr5u",
+          "title": "Get-Content scripts/pullers/sam.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_yNjG9y2rNI88aFzfkEcQmr5u",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content scripts/pullers/sam.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content scripts/pullers/sam.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:10:52.512Z"
+    },
+    {
+      "id": "ac4a7581-0273-46f1-86b6-1c41404c190f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_rIrdU0BYTp5WIoVeTmEt6BGt",
+          "title": "node run.mjs system validate",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_rIrdU0BYTp5WIoVeTmEt6BGt",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs system validate"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs system validate"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:10:52.512Z"
+    },
+    {
+      "id": "2f2f0474-6805-4e8e-83b1-3d087e9b6fc3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_16oqsOwzT6tPrAlTFbQge0qo",
+          "title": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Measure-Object",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_16oqsOwzT6tPrAlTFbQge0qo",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Measure-Object"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Measure-Object"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:10:52.512Z"
+    },
+    {
+      "id": "87e5f952-b936-4c9e-b504-a302f4aaca00",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_wcvV7zCLSHIUDjWefUZgjtOv",
+          "title": "node run.mjs pull sam --opportunities \"defense technology\"",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_wcvV7zCLSHIUDjWefUZgjtOv",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull sam --opportunities \"defense technology\""
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull sam --opportunities \"defense technology\""
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "SAM.gov is still failing on both entity and opportunity endpoints with `HTTP 404`; that looks like an endpoint/API compatibility problem rather than stale local data. I’m doing one last freshness and validation pass so the final status is concrete."
+        }
+      ],
+      "timestamp": "2026-04-27T14:10:59.629Z"
+    },
+    {
+      "id": "ef58a4c8-ee88-462f-86f6-440299955453",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ZFumZy7b7GwvqG25ispiAVbc",
+          "title": "node run.mjs system validate",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ZFumZy7b7GwvqG25ispiAVbc",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs system validate"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs system validate"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:11:15.729Z"
+    },
+    {
+      "id": "9bf4d13f-7805-4442-ba87-5154f177a585",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_1ikK1N9QETz8C6UrSL5i362J",
+          "title": "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,80)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_1ikK1N9QETz8C6UrSL5i362J",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,80)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\""
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node --input-type=module -e \"import { readdir, stat } from 'fs/promises'; import { join } from 'path'; import { getPullsDir, SOURCES } from './scripts/lib/config.mjs'; import { readNote } from './scripts/lib/frontmatter.mjs'; const pullsDir=getPullsDir(); const today=new Date().toISOString().slice(0,10); const nameToSlug={}; for (const [slug,src] of Object.entries(SOURCES)) nameToSlug[src.name.toLowerCase()]=slug; const latest={}; for (const domain of await readdir(pullsDir).catch(()=>[])) { const dir=join(pullsDir,domain); if (!(await stat(dir).catch(()=>({isDirectory:()=>false}))).isDirectory()) continue; const files=(await readdir(dir).catch(()=>[])).filter(f=>f.endsWith('.md')).sort().reverse(); for (const file of files.slice(0,80)) { const note=await readNote(join(dir,file)); const src=note?.data?.source?.toLowerCase?.(); const slug=src && nameToSlug[src]; if (slug && !latest[slug]) latest[slug]=note.data.date_pulled ?? file.slice(0,10); } } const rows=Object.entries(SOURCES).map(([slug,src])=>{const last=latest[slug]??null; const days=last==null?null:Math.floor((new Date(today)-new Date(last))/(86400000)); const status=last==null?'never':days<=1?'fresh':'stale'; return {slug,name:src.name,lastRun:last,daysStale:days,status};}); console.table(rows);\""
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:11:15.729Z"
+    },
+    {
+      "id": "b1f30244-ac66-46a5-ae55-7b3a6d5338e9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_0wfna33KwNpuyskOCX7sAkXw",
+          "title": "git status --short 05_Data_Pulls 06_Signals 12_Knowledge_Bases | Select-Object -First 220",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_0wfna33KwNpuyskOCX7sAkXw",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git status --short 05_Data_Pulls 06_Signals 12_Knowledge_Bases | Select-Object -First 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git status --short 05_Data_Pulls 06_Signals 12_Knowledge_Bases | Select-Object -First 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:11:15.979Z"
+    },
+    {
+      "id": "82f0bf36-bac2-4f11-a10f-2f89e1d8078c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_aEL8Bx4gud2emHQ1V0haL2ix",
+          "title": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Select-Object -ExpandProperty FullName | Measure-Object",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_aEL8Bx4gud2emHQ1V0haL2ix",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Select-Object -ExpandProperty FullName | Measure-Object"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Select-Object -ExpandProperty FullName | Measure-Object"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T14:11:23.679Z"
+    },
+    {
+      "id": "86f6a7f7-eaf1-4b96-9be4-d7ffba8fe789",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_TLKC7PShlrW6EO0xFsewnyeJ",
+          "title": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Group-Object { Split-Path (Split-Path $_.FullName -Parent) -Leaf } | Sort-Object Name | Select-Object Name,Count",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_TLKC7PShlrW6EO0xFsewnyeJ",
+            "turn_id": "019dcf42-d0cc-7f43-bb73-a1a6457c6e6c",
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Group-Object { Split-Path (Split-Path $_.FullName -Parent) -Leaf } | Sort-Object Name | Select-Object Name,Count"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path 05_Data_Pulls -Recurse -File -Filter '2026-04-27*.md' | Group-Object { Split-Path (Split-Path $_.FullName -Parent) -Leaf } | Sort-Object Name | Select-Object Name,Count"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Ran the daily routine and targeted stale refreshes.\n\nResults:\n- Daily cadence completed: 8 puller groups succeeded, 0 failed.\n- Refreshed stale/non-daily sources: FDA, OpenFEMA, USASpending, ClinicalTrials, USPTO, arXiv, PubMed, BEA, EIA, CBOE, Socrata.\n- Generated 234 pull notes dated `2026-04-27` across `Biotech`, `Energy`, `Government`, `Housing`, `Macro`, `Market`, `Research`, and `Sectors`.\n- Cleanup ran and removed 6 expired old signal notes.\n- Final validation passed: no schema issues.\n\nOne blocker: `SAM.gov` failed on both entity and opportunity endpoints with `HTTP 404` after retries. Also, OSINT/AIS sources remain unavailable because their keys are missing: OTX, OpenCorporates, VesselFinder, SpiderFoot.\n\nNote: the dashboard pull-health exact source matcher may still show some sources as `never` because several pull notes use source labels that do not exactly match the registry names, even though fresh `2026-04-27` notes were written."
+        }
+      ],
+      "timestamp": "2026-04-27T14:11:27.662Z"
+    }
+  ],
+  "savedAt": "2026-04-27T14:11:36.175Z"
+}

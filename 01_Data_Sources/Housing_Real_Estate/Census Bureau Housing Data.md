@@ -29,9 +29,9 @@ integrated: false
 notes: "Primary source for new construction data. Monthly releases on starts, permits, completions."
 ---
 
-## Overview
+## Summary
 
-Census Bureau Housing Data provides new residential construction, housing vacancies, homeownership rates, housing completions. Primary source for new construction data. Monthly releases on starts, permits, completions.
+- Census Bureau Housing Data provides new residential construction, housing vacancies, homeownership rates, housing completions. Primary source for new construction data. Monthly releases on starts, permits, completions.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ Census Bureau Housing Data provides new residential construction, housing vacanc
 
 - [[FRED Housing Series]]
 - [[HUD User Datasets]]
+

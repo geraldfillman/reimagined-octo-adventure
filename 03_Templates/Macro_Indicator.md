@@ -13,11 +13,18 @@ bullish_drivers: []
 bearish_drivers: []
 related_entities: []
 data_sources: []
+reviewed_by: ""
+review_date: ""
+human_confidence: ""
+agrees_with_machine: null
+disagreement_notes: ""
+next_review_date: ""
 tags: [macro, indicator]
 ---
 
-## Overview
-What this indicator measures and why it matters.
+## Summary
+- What this indicator measures and why it matters.
+- State the current reading and why it matters before the deeper sections.
 
 ## Current Reading
 - **Value**:

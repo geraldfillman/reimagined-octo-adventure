@@ -29,9 +29,9 @@ integrated: false
 notes: "Primary source for Reg D filings. Free and authoritative. Pairs well with Crunchbase for context."
 ---
 
-## Overview
+## Summary
 
-SEC EDGAR Form D Filings provides private placement filings, fundraise amounts, investor names, exempt offering data. Primary source for Reg D filings. Free and authoritative. Pairs well with Crunchbase for context.
+- SEC EDGAR Form D Filings provides private placement filings, fundraise amounts, investor names, exempt offering data. Primary source for Reg D filings. Free and authoritative. Pairs well with Crunchbase for context.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ SEC EDGAR Form D Filings provides private placement filings, fundraise amounts, 
 
 - [[SEC EDGAR API]]
 - [[Crunchbase]]
+

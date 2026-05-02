@@ -7,9 +7,6 @@ import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, relative, sep } from 'path';
 import { getVaultRoot } from './lib/config.mjs';
 import {
-  DEPRECATED_THESIS_QLIB_FIELDS,
-  QLIB_REPORT_SCHEMA_VERSION,
-  QUANT_REQUIRED_FIELDS_BY_TYPE,
   REQUIRED_PULL_FIELDS,
   REQUIRED_SOURCE_FIELDS,
   REQUIRED_THESIS_FIELDS,
@@ -18,8 +15,6 @@ import {
   THESIS_FMP_COUNT_FIELDS,
   THESIS_FMP_DATE_FIELDS,
   THESIS_FMP_NUMERIC_FIELDS,
-  THESIS_QLIB_CORE_FIELDS,
-  THESIS_QLIB_OPTIONAL_BACKTEST_FIELDS,
   VALID_ALLOCATION_PRIORITIES,
   VALID_MOMENTUM_STATES,
   VALID_SIGNAL_STATUSES,
@@ -29,7 +24,11 @@ import {
 } from './lib/schema.mjs';
 
 const VAULT_ROOT = getVaultRoot();
-const IGNORED_PATH_PARTS = new Set(['.obsidian', 'node_modules']);
+const IGNORED_PATH_PARTS = new Set(['.obsidian', 'node_modules', '_archive']);
+
+export function isIgnoredPathPart(part) {
+  return IGNORED_PATH_PARTS.has(part);
+}
 
 export async function run() {
   const errors = [];
@@ -132,30 +131,9 @@ function validatePulls(errors, warnings) {
       errors.push(`Invalid signal_status "${signalStatus}": ${rel}`);
     }
 
-    validateQuantReport(parsed, rel, errors);
-
     const fileName = parts[parts.length - 1];
     if (!/^\d{4}-\d{2}-\d{2}_/.test(fileName)) {
       warnings.push(`Pull note filename is not date-stamped: ${rel}`);
-    }
-  }
-}
-
-export function validateQuantReport(parsed, rel, errors) {
-  if (!rel.startsWith(`Quant${sep}`)) return;
-
-  const dataType = getScalarField(parsed.raw, 'data_type');
-  const schemaVersion = getScalarField(parsed.raw, 'qlib_schema_version');
-  if (!schemaVersion) return;
-
-  if (Number(schemaVersion) !== QLIB_REPORT_SCHEMA_VERSION) {
-    errors.push(`Unsupported qlib_schema_version "${schemaVersion}": ${rel}`);
-  }
-
-  const requiredFields = QUANT_REQUIRED_FIELDS_BY_TYPE[dataType] ?? [];
-  for (const field of requiredFields) {
-    if (!parsed.fields.has(field)) {
-      errors.push(`Quant note missing "${field}": ${rel}`);
     }
   }
 }
@@ -187,61 +165,24 @@ export function validateThesisFrontmatter(parsed, rel, errors) {
     errors.push(`Invalid thesis conviction "${conviction}": ${rel}`);
   }
 
-  for (const field of DEPRECATED_THESIS_QLIB_FIELDS) {
-    if (parsed.fields.has(field)) {
-      errors.push(`Deprecated thesis field "${field}" should be removed: ${rel}`);
-    }
+  const suggestedConviction = getScalarField(parsed.raw, 'suggested_conviction');
+  if (suggestedConviction && !VALID_THESIS_CONVICTIONS.includes(suggestedConviction)) {
+    errors.push(`Invalid suggested_conviction "${suggestedConviction}": ${rel}`);
   }
 
-  const qlibSignalStatus = getScalarField(parsed.raw, 'qlib_signal_status');
-  if (qlibSignalStatus && !VALID_SIGNAL_STATUSES.includes(qlibSignalStatus)) {
-    errors.push(`Invalid qlib_signal_status "${qlibSignalStatus}": ${rel}`);
+  const suggestedAllocationPriority = getScalarField(parsed.raw, 'suggested_allocation_priority');
+  if (suggestedAllocationPriority && !VALID_ALLOCATION_PRIORITIES.includes(suggestedAllocationPriority)) {
+    errors.push(`Invalid suggested_allocation_priority "${suggestedAllocationPriority}": ${rel}`);
   }
 
-  const hasFullQlibSummary = [
-    ...THESIS_QLIB_CORE_FIELDS.filter(field => field !== 'qlib_signal_status'),
-    ...THESIS_QLIB_OPTIONAL_BACKTEST_FIELDS,
-  ].some(field => parsed.fields.has(field));
+  const rollingScore = getScalarField(parsed.raw, 'conviction_rolling_score_7d');
+  if (rollingScore && Number.isNaN(Number(rollingScore))) {
+    errors.push(`conviction_rolling_score_7d must be numeric: ${rel}`);
+  }
 
-  if (hasFullQlibSummary) {
-    for (const field of THESIS_QLIB_CORE_FIELDS) {
-      if (!parsed.fields.has(field)) {
-        errors.push(`Thesis qlib summary missing "${field}": ${rel}`);
-      }
-    }
-
-    const hasBacktestSharpe = parsed.fields.has('qlib_backtest_sharpe');
-    const hasBacktestDate = parsed.fields.has('qlib_last_backtest_date');
-    if (hasBacktestSharpe !== hasBacktestDate) {
-      errors.push(`Thesis backtest fields must appear together: ${rel}`);
-    }
-
-    for (const field of ['qlib_last_run', 'qlib_last_score_date', 'qlib_last_backtest_date']) {
-      const raw = getScalarField(parsed.raw, field);
-      if (raw && !/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-        errors.push(`Thesis field "${field}" must be YYYY-MM-DD: ${rel}`);
-      }
-    }
-
-    const suggestedConviction = getScalarField(parsed.raw, 'suggested_conviction');
-    if (suggestedConviction && !VALID_THESIS_CONVICTIONS.includes(suggestedConviction)) {
-      errors.push(`Invalid suggested_conviction "${suggestedConviction}": ${rel}`);
-    }
-
-    const suggestedAllocationPriority = getScalarField(parsed.raw, 'suggested_allocation_priority');
-    if (suggestedAllocationPriority && !VALID_ALLOCATION_PRIORITIES.includes(suggestedAllocationPriority)) {
-      errors.push(`Invalid suggested_allocation_priority "${suggestedAllocationPriority}": ${rel}`);
-    }
-
-    const rollingScore = getScalarField(parsed.raw, 'conviction_rolling_score_7d');
-    if (rollingScore && Number.isNaN(Number(rollingScore))) {
-      errors.push(`conviction_rolling_score_7d must be numeric: ${rel}`);
-    }
-
-    const signalCount = getScalarField(parsed.raw, 'conviction_signal_count_7d');
-    if (signalCount && (!/^-?\d+$/.test(signalCount) || Number(signalCount) < 0)) {
-      errors.push(`conviction_signal_count_7d must be a non-negative integer: ${rel}`);
-    }
+  const signalCount = getScalarField(parsed.raw, 'conviction_signal_count_7d');
+  if (signalCount && (!/^-?\d+$/.test(signalCount) || Number(signalCount) < 0)) {
+    errors.push(`conviction_signal_count_7d must be a non-negative integer: ${rel}`);
   }
 
   const primaryTechnicalStatus = getScalarField(parsed.raw, 'fmp_primary_technical_status');
@@ -294,7 +235,7 @@ export function validateThesisFrontmatter(parsed, rel, errors) {
 function walkMarkdown(root) {
   const files = [];
   for (const entry of readdirSync(root)) {
-    if (IGNORED_PATH_PARTS.has(entry)) continue;
+    if (isIgnoredPathPart(entry)) continue;
     const fullPath = join(root, entry);
     const stats = statSync(fullPath);
     if (stats.isDirectory()) {

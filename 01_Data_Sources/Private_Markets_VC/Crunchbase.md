@@ -31,9 +31,9 @@ integrated: false
 notes: "Free tier gives basic company/funding data. Pro tier needed for bulk export and advanced filters."
 ---
 
-## Overview
+## Summary
 
-Crunchbase provides company profiles, funding rounds, investor profiles, acquisitions, ipos. Free tier gives basic company/funding data. Pro tier needed for bulk export and advanced filters.
+- Crunchbase provides company profiles, funding rounds, investor profiles, acquisitions, ipos. Free tier gives basic company/funding data. Pro tier needed for bulk export and advanced filters.
 
 ## What It Provides
 
@@ -62,3 +62,4 @@ Crunchbase provides company profiles, funding rounds, investor profiles, acquisi
 - [[PitchBook News]]
 - [[SEC EDGAR Form D Filings]]
 - [[OpenVC]]
+

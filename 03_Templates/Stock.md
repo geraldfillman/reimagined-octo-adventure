@@ -13,8 +13,9 @@ data_sources: []
 tags: [stock]
 ---
 
-## Overview
-Brief description of the company and investment thesis.
+## Summary
+- Brief description of the company and investment thesis.
+- State why it matters now before expanding into sector, macro, and signal detail.
 
 ## Sector & Macro Exposure
 - **Sector**: [[]]

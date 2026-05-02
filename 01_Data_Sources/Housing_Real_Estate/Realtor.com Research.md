@@ -29,9 +29,9 @@ integrated: false
 notes: "Useful for active listing data and market hotness scores. Good complement to sold-data sources like Redfin."
 ---
 
-## Overview
+## Summary
 
-Realtor.com Research provides active inventory, median list price, market hotness index, days on market. Useful for active listing data and market hotness scores. Good complement to sold-data sources like Redfin.
+- Realtor.com Research provides active inventory, median list price, market hotness index, days on market. Useful for active listing data and market hotness scores. Good complement to sold-data sources like Redfin.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ Realtor.com Research provides active inventory, median list price, market hotnes
 
 - [[Zillow Research Data]]
 - [[Redfin Data Center]]
+

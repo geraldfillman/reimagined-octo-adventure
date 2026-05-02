@@ -22,9 +22,9 @@ integrated: false
 notes: "Essential free government source"
 ---
 
-## Overview
+## Summary
 
-SAM.gov API provides federal opportunities, entities, award context. Essential free government source
+- SAM.gov API provides federal opportunities, entities, award context. Essential free government source
 
 ## What It Provides
 
@@ -47,4 +47,4 @@ SAM.gov API provides federal opportunities, entities, award context. Essential f
 
 ## Related Sources
 
-- (Add links to related sources)
+- None linked yet

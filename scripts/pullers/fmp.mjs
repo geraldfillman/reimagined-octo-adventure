@@ -182,12 +182,14 @@ export async function pull(flags = {}) {
     return pullMacroCalendar(flags, apiKey, baseUrl);
   } else if (flags['watchlist-deep-scan']) {
     return pullWatchlistDeepScan(flags, apiKey, baseUrl);
+  } else if (flags['rel-vol-screen']) {
+    return pullRelVolScreen(flags, apiKey, baseUrl);
   } else {
     throw new Error(
       'Specify a flag: --quote --profile --income --technical --earnings-calendar ' +
       '--thesis-watchlists --options --micro-small --insider --balance-sheet ' +
       '--cash-flow --estimates --short-interest --ratings --news --macro-calendar ' +
-      '--watchlist-deep-scan'
+      '--watchlist-deep-scan --rel-vol-screen'
     );
   }
 }
@@ -4364,6 +4366,135 @@ async function pullWatchlistDeepScan(flags, apiKey, baseUrl) {
   const totalFiles = results.reduce((n, r) => n + r.files.length, 0);
   console.log(`\n✅ Deep scan complete — ${totalFiles} notes written across ${ENDPOINTS.length} endpoints.`);
   return results;
+}
+
+async function pullRelVolScreen(flags, apiKey, baseUrl) {
+  const stableBaseUrl = getStableBaseUrl(baseUrl);
+
+  // Phase 1: broad screener — price & volume pre-filter
+  console.log('FMP RelVol Screen: Phase 1 — screener...');
+  const screenerParams = new URLSearchParams({
+    priceMoreThan: '5',
+    volumeMoreThan: '1000000',
+    country: 'US',
+    isActivelyTrading: 'true',
+    limit: '500',
+    apikey: apiKey,
+  });
+  const screenerData = await getJson(`${stableBaseUrl}/company-screener?${screenerParams.toString()}`);
+  const screenerResults = Array.isArray(screenerData) ? screenerData : [];
+  console.log(`  Screener: ${screenerResults.length} symbol(s)`);
+  if (screenerResults.length === 0) {
+    console.log('  No results from screener.');
+    return;
+  }
+
+  const allSymbols = screenerResults.map(r => r.symbol).filter(Boolean);
+  const screenerMap = new Map(screenerResults.map(r => [r.symbol, r]));
+
+  // Phase 2: batch-quote-short — get today's live volume for relVol calculation
+  console.log(`FMP RelVol Screen: Phase 2 — batch quotes for ${allSymbols.length} symbol(s)...`);
+  const quoteMap = new Map();
+  for (const chunk of chunkArray(allSymbols, 25)) {
+    const data = await getJson(`${stableBaseUrl}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${apiKey}`);
+    for (const q of Array.isArray(data) ? data : []) {
+      if (q?.symbol) quoteMap.set(q.symbol, q);
+    }
+  }
+  // Keep symbols that have a live quote with non-zero volume
+  const phase2 = allSymbols.filter(sym => quoteMap.has(sym) && (quoteMap.get(sym).volume ?? 0) > 0);
+  console.log(`  Phase 2 survivors: ${phase2.length}`);
+
+  // Phase 3: per-symbol history — ATR14, exact 14-day avg volume, relative volume
+  console.log(`FMP RelVol Screen: Phase 3 — history for ${phase2.length} symbol(s)...`);
+  const enriched = await mapWithConcurrency(phase2, 5, async (sym) => {
+    const q = quoteMap.get(sym);
+    const meta = screenerMap.get(sym);
+    try {
+      const histRaw = await getJson(
+        `${stableBaseUrl}/historical-price-eod/full?symbol=${sym}&timeseries=16&apikey=${apiKey}`
+      );
+      const series = Array.isArray(histRaw?.historical) ? histRaw.historical
+        : Array.isArray(histRaw) ? histRaw : [];
+      if (series.length < 15) return null;
+
+      const avg14Vol = series.slice(0, 14).reduce((s, d) => s + (d.volume ?? 0), 0) / 14;
+      if (avg14Vol < 1_000_000) return null;
+
+      const atr14 = computeATR(series.slice(0, 15).reverse(), 14);
+      if (atr14 === null || atr14 <= 0.50) return null;
+
+      const relVol = (q.volume ?? 0) / avg14Vol;
+      if (relVol < 1.0) return null;
+
+      const open = series[0]?.open ?? q.price;
+      return { symbol: sym, name: meta?.companyName || '', open, price: q.price,
+        volume: q.volume, avg14Vol, relVol, atr14, sector: meta?.sector || '' };
+    } catch {
+      return null;
+    }
+  });
+
+  const top20 = enriched.filter(Boolean).sort((a, b) => b.relVol - a.relVol).slice(0, 20);
+  console.log(`  ${top20.length} stock(s) passed all filters.`);
+
+  // Phase 4: write output note
+  const tableRows = top20.map((r, i) => [
+    String(i + 1),
+    `[[${r.symbol}]]`,
+    r.name,
+    `$${r.open.toFixed(2)}`,
+    `$${r.price.toFixed(2)}`,
+    formatNumber(r.volume, { style: 'compact' }),
+    formatNumber(Math.round(r.avg14Vol), { style: 'compact' }),
+    `${(r.relVol * 100).toFixed(0)}%`,
+    `$${r.atr14.toFixed(2)}`,
+    r.sector || '—',
+  ]);
+
+  const note = buildNote({
+    frontmatter: {
+      title: 'Relative Volume Screen — FMP',
+      source: 'Financial Modeling Prep',
+      date_pulled: today(),
+      domain: 'market',
+      data_type: 'screen',
+      frequency: 'on-demand',
+      signal_status: 'clear',
+      signals: [],
+      tags: ['equities', 'screener', 'relative-volume', 'momentum', 'fmp'],
+    },
+    sections: [
+      {
+        heading: 'Search Criteria',
+        content: [
+          '- Opening price: > $5.00',
+          '- 14-day avg volume: ≥ 1,000,000 shares/day',
+          '- ATR (14-day): > $0.50',
+          '- Relative volume: ≥ 100%',
+          '- Ranked by: Relative Volume (top 20)',
+        ].join('\n'),
+      },
+      {
+        heading: 'Top 20 by Relative Volume',
+        content: top20.length > 0
+          ? buildTable(
+              ['#', 'Ticker', 'Company', 'Open', 'Price', 'Volume', 'Avg Vol (14d)', 'Rel Vol', 'ATR14', 'Sector'],
+              tableRows
+            )
+          : '_No stocks passed all filters._',
+      },
+      {
+        heading: 'Source',
+        content: '- **API**: Financial Modeling Prep (company-screener + quote + historical-price-eod)\n' +
+          `- **Auto-pulled**: ${today()}`,
+      },
+    ],
+  });
+
+  const filePath = join(getPullsDir(), 'Market', dateStampedFilename('FMP_RelVol_Screen'));
+  writeNote(filePath, note);
+  console.log(`📝 Wrote: ${filePath}`);
 }
 
 async function mapWithConcurrency(items, concurrency, mapper) {

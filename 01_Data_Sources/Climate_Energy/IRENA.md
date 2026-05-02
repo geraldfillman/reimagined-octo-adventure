@@ -30,9 +30,9 @@ integrated: false
 notes: "Authoritative source for global renewable energy data. Excellent for tracking the energy transition."
 ---
 
-## Overview
+## Summary
 
-IRENA provides renewable capacity by country, renewable energy costs, deployment statistics, technology trends. Authoritative source for global renewable energy data. Excellent for tracking the energy transition.
+- IRENA provides renewable capacity by country, renewable energy costs, deployment statistics, technology trends. Authoritative source for global renewable energy data. Excellent for tracking the energy transition.
 
 ## What It Provides
 
@@ -59,3 +59,4 @@ IRENA provides renewable capacity by country, renewable energy costs, deployment
 
 - [[EIA API]]
 - [[Global Carbon Atlas]]
+

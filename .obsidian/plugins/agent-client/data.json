@@ -3,7 +3,7 @@
     "id": "claude-code-acp",
     "displayName": "Claude Code",
     "apiKey": "",
-    "command": "claude-agent-acp",
+    "command": "C:\\Users\\CaveUser\\AppData\\Roaming\\npm\\claude-agent-acp.cmd",
     "args": [],
     "env": []
   },
@@ -26,10 +26,11 @@
     "env": []
   },
   "customAgents": [],
-  "defaultAgentId": "codex-acp",
-  "autoAllowPermissions": false,
+  "defaultAgentId": "claude-code-acp",
+  "autoAllowPermissions": true,
   "autoMentionActiveNote": true,
-  "debugMode": false,
+  "enableSystemNotifications": true,
+  "debugMode": true,
   "nodePath": "C:\\Program Files\\nodejs\\node.exe",
   "exportSettings": {
     "defaultFolder": "Agent Client",
@@ -46,7 +47,7 @@
   "sendMessageShortcut": "enter",
   "chatViewLocation": "right-tab",
   "displaySettings": {
-    "autoCollapseDiffs": false,
+    "autoCollapseDiffs": true,
     "diffCollapseThreshold": 10,
     "maxNoteLength": 10000,
     "maxSelectionLength": 10000,
@@ -54,6 +55,382 @@
     "fontSize": null
   },
   "savedSessions": [
+    {
+      "sessionId": "11c1cb33-5ee5-4a6c-a256-3eb6bbcb2eab",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "/mcp-integration",
+      "createdAt": "2026-05-02T12:36:05.225Z",
+      "updatedAt": "2026-05-02T12:36:05.225Z"
+    },
+    {
+      "sessionId": "e01226ee-27b6-46a8-9efc-f94b199fd286",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you verify if the FMP MCP is is active?\n\nhttps...",
+      "createdAt": "2026-05-02T12:32:00.444Z",
+      "updatedAt": "2026-05-02T12:32:00.444Z"
+    },
+    {
+      "sessionId": "3dadc18b-d4f9-4127-9c4a-aa069923cbd7",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the roadmap and start with data dashboard r...",
+      "createdAt": "2026-05-02T02:02:40.214Z",
+      "updatedAt": "2026-05-02T02:02:40.214Z"
+    },
+    {
+      "sessionId": "230e7828-d2d1-4600-99da-641b41ffab06",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the state of the current Streamline Report....",
+      "createdAt": "2026-05-01T19:05:06.384Z",
+      "updatedAt": "2026-05-01T19:05:06.384Z"
+    },
+    {
+      "sessionId": "9958eff4-7ddc-49b3-b94e-e51ca4f278ec",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the roadmap and complete phase 1",
+      "createdAt": "2026-05-01T16:30:55.049Z",
+      "updatedAt": "2026-05-01T16:30:55.049Z"
+    },
+    {
+      "sessionId": "ab586d6a-6ac1-4d51-890d-63467ebd3a20",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "REview the ai agent instruction guide. We have maj...",
+      "createdAt": "2026-05-01T12:57:52.553Z",
+      "updatedAt": "2026-05-01T12:57:52.553Z"
+    },
+    {
+      "sessionId": "35a85a14-2570-42ce-b972-e425533aeb08",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "For the Monthly Rollup, can we add a column explai...",
+      "createdAt": "2026-04-30T15:10:25.414Z",
+      "updatedAt": "2026-04-30T15:10:25.415Z"
+    },
+    {
+      "sessionId": "97451491-2daf-40fd-aee2-7d16b3e8d9b1",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Kick off the daily routine script and update the  ...",
+      "createdAt": "2026-04-30T13:11:52.795Z",
+      "updatedAt": "2026-04-30T13:11:52.795Z"
+    },
+    {
+      "sessionId": "4854eca7-f2fc-411d-9c00-b8592ab4e271",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I want to create a process Canvas document visuali...",
+      "createdAt": "2026-04-30T00:15:39.636Z",
+      "updatedAt": "2026-04-30T00:15:39.636Z"
+    },
+    {
+      "sessionId": "5928f91c-252a-402e-abdb-783a415a4047",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you run the 4:30 nightly compression scan?",
+      "createdAt": "2026-04-29T20:44:46.860Z",
+      "updatedAt": "2026-04-29T20:44:46.860Z"
+    },
+    {
+      "sessionId": "a04578dc-989d-457d-83d8-bb91288d16fa",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the updated entropy levels pull system and ...",
+      "createdAt": "2026-04-29T18:53:38.335Z",
+      "updatedAt": "2026-04-29T18:53:38.335Z"
+    },
+    {
+      "sessionId": "7979f44d-794f-4d90-9011-d0ab67e62f8d",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Update the data freshness for today and run the sc...",
+      "createdAt": "2026-04-29T11:54:51.241Z",
+      "updatedAt": "2026-04-29T11:54:51.242Z"
+    },
+    {
+      "sessionId": "f027f81a-57ac-404f-a56b-d61dfa95087d",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the new Agent Addition and create a plan wi...",
+      "createdAt": "2026-04-28T13:13:46.449Z",
+      "updatedAt": "2026-04-28T13:13:46.449Z"
+    },
+    {
+      "sessionId": "019dd11d-c913-7ab1-a511-360b69b25fd7",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "regenerate predictions from the cleaned cache.",
+      "createdAt": "2026-04-27T22:46:38.122Z",
+      "updatedAt": "2026-04-27T22:46:38.122Z"
+    },
+    {
+      "sessionId": "019dd0fe-f866-74d3-8a50-4c45449e2492",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the sports prediction research flow and run...",
+      "createdAt": "2026-04-27T22:13:32.963Z",
+      "updatedAt": "2026-04-27T22:13:32.963Z"
+    },
+    {
+      "sessionId": "019dd05f-ec55-7393-a10c-e438e1cb4fe6",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I think the first script to pull the 5 inning odds...",
+      "createdAt": "2026-04-27T19:27:22.834Z",
+      "updatedAt": "2026-04-27T19:27:22.834Z"
+    },
+    {
+      "sessionId": "019dd03d-ad3a-7b71-9b20-3fcfe28d08f8",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the sports pull system and use the backtest...",
+      "createdAt": "2026-04-27T18:42:16.231Z",
+      "updatedAt": "2026-04-27T18:42:16.231Z"
+    },
+    {
+      "sessionId": "019dd018-83c7-7c22-9471-0e108729f5af",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the daily sports pull guide, add it to the ...",
+      "createdAt": "2026-04-27T18:08:42.103Z",
+      "updatedAt": "2026-04-27T18:08:42.103Z"
+    },
+    {
+      "sessionId": "019dcf42-77e5-72c3-a0b3-fccfc6a6a0d2",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you run the daily routine and update any stale...",
+      "createdAt": "2026-04-27T14:11:36.151Z",
+      "updatedAt": "2026-04-27T14:11:36.151Z"
+    },
+    {
+      "sessionId": "019dc6ea-2b12-7b90-82ee-2244da30f8c0",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you run a full quant run using the domain list",
+      "createdAt": "2026-04-25T23:16:34.143Z",
+      "updatedAt": "2026-04-25T23:16:34.143Z"
+    },
+    {
+      "sessionId": "019dc5d5-a6b3-7790-8580-214427777b2a",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you review the dashboards update data and thes...",
+      "createdAt": "2026-04-25T18:16:16.950Z",
+      "updatedAt": "2026-04-25T18:16:16.951Z"
+    },
+    {
+      "sessionId": "d95b4467-2fee-460c-a0cb-6f8e6f1301b1",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the Rugby project and implement a plan to p...",
+      "createdAt": "2026-04-16T15:49:46.637Z",
+      "updatedAt": "2026-04-16T15:49:46.638Z"
+    },
+    {
+      "sessionId": "019d8e5d-1a42-79a1-aff2-82094ac1956d",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "codex",
+      "createdAt": "2026-04-15T00:10:37.399Z",
+      "updatedAt": "2026-04-15T00:10:37.399Z"
+    },
+    {
+      "sessionId": "019d8e5c-782b-7a50-b6f8-e9e6a6a7f910",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "There is one more phase left in the rugby project....",
+      "createdAt": "2026-04-14T23:39:13.831Z",
+      "updatedAt": "2026-04-14T23:39:13.831Z"
+    },
+    {
+      "sessionId": "019d8e5a-f73e-7c73-a577-0917cd7add44",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "There is one more phase left to complete for the r...",
+      "createdAt": "2026-04-14T23:37:47.903Z",
+      "updatedAt": "2026-04-14T23:37:47.903Z"
+    },
+    {
+      "sessionId": "019d8e41-e6c7-7ec2-8737-e5d3a906d5a0",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Project has one more phase left. Review and comple...",
+      "createdAt": "2026-04-14T23:12:02.833Z",
+      "updatedAt": "2026-04-14T23:12:02.833Z"
+    },
+    {
+      "sessionId": "019d8e34-4437-7b02-b607-083ef4689ae4",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "There was one last phase to complete for the rugby...",
+      "createdAt": "2026-04-14T23:04:17.036Z",
+      "updatedAt": "2026-04-14T23:04:17.036Z"
+    },
+    {
+      "sessionId": "019d8d8f-4a51-7252-b141-6a4fb2a1f19e",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the page  @[[RUGBY_COACH_TASKS]] and create...",
+      "createdAt": "2026-04-14T20:00:42.318Z",
+      "updatedAt": "2026-04-14T20:00:42.318Z"
+    },
+    {
+      "sessionId": "246b0b9d-21c1-4d80-b33e-5a7b0629415c",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I want to create an interactive dashboard for a ru...",
+      "createdAt": "2026-04-14T17:30:20.365Z",
+      "updatedAt": "2026-04-14T17:30:20.365Z"
+    },
+    {
+      "sessionId": "bf54034b-8c9c-4478-8224-2fc9c3f28798",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Create a plan to move the Learning System, the KB ...",
+      "createdAt": "2026-04-07T12:50:14.069Z",
+      "updatedAt": "2026-04-07T12:50:14.069Z"
+    },
+    {
+      "sessionId": "ba4f1922-8dc0-4efb-9acd-54242f343f81",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Create a easy to process process for the learning ...",
+      "createdAt": "2026-04-07T01:22:15.181Z",
+      "updatedAt": "2026-04-07T01:22:15.181Z"
+    },
+    {
+      "sessionId": "473e1dee-67b9-4b36-b00b-8cd706cb0745",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review  @[[Adaptive_Generalist_System_V2_Builder_S...",
+      "createdAt": "2026-04-07T00:08:37.662Z",
+      "updatedAt": "2026-04-07T00:08:37.662Z"
+    },
+    {
+      "sessionId": "33ce028f-f430-4dfc-b0cf-6a5aa01c8a09",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can you explain the error code flagged after the p...",
+      "createdAt": "2026-04-06T14:37:23.955Z",
+      "updatedAt": "2026-04-06T14:37:23.955Z"
+    },
+    {
+      "sessionId": "582c75bf-8d66-4ea0-9a32-37a8432db692",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review project starting with  @[[AGENTS]] and veri...",
+      "createdAt": "2026-04-06T01:00:57.339Z",
+      "updatedAt": "2026-04-06T01:00:57.339Z"
+    },
+    {
+      "sessionId": "76a7a266-5f02-4b8c-be0b-596aa5ca42c8",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Can we review the resources available at the githu...",
+      "createdAt": "2026-04-05T13:29:04.060Z",
+      "updatedAt": "2026-04-05T13:29:04.061Z"
+    },
+    {
+      "sessionId": "6199b657-18b7-4778-8c65-1933b1cddcf5",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the improvements needed for   @[[AGENT_Vaul...",
+      "createdAt": "2026-04-05T00:04:06.375Z",
+      "updatedAt": "2026-04-05T00:04:06.375Z"
+    },
+    {
+      "sessionId": "58fc3b47-40d0-4a26-ace1-8b48b5a308bb",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the improvements needed for  @[[AGENT_Vault...",
+      "createdAt": "2026-04-04T23:50:00.424Z",
+      "updatedAt": "2026-04-04T23:50:00.424Z"
+    },
+    {
+      "sessionId": "7fdd8ee1-cc6a-4d56-8b32-910a5b398b07",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I'm looking to improve the learning system under  ...",
+      "createdAt": "2026-04-04T21:16:12.569Z",
+      "updatedAt": "2026-04-04T21:16:12.569Z"
+    },
+    {
+      "sessionId": "b44b2fa0-f5dd-4f3d-a2a9-fbad6d747521",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the  @[[obsidian_cleanup_agent_instructions...",
+      "createdAt": "2026-04-04T16:02:06.355Z",
+      "updatedAt": "2026-04-04T16:02:06.355Z"
+    },
+    {
+      "sessionId": "667c6075-937d-4e3b-b218-3c665031553a",
+      "agentId": "gemini-cli",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I want to move  @[[Learning System]] to a separate...",
+      "createdAt": "2026-04-04T14:50:03.031Z",
+      "updatedAt": "2026-04-04T14:50:03.031Z"
+    },
+    {
+      "sessionId": "3863b825-89b4-4860-8559-5d7a76ea0621",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "I want to add the Company Risk System to the Vault...",
+      "createdAt": "2026-04-04T13:43:20.396Z",
+      "updatedAt": "2026-04-04T13:43:20.397Z"
+    },
+    {
+      "sessionId": "219cd3d6-11b9-4dc0-8747-060b27d06be1",
+      "agentId": "gemini-cli",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review  @[[AGENTS]] and outline current state of p...",
+      "createdAt": "2026-04-03T17:28:08.584Z",
+      "updatedAt": "2026-04-03T17:28:08.584Z"
+    },
+    {
+      "sessionId": "d7166af7-2201-4f5c-a619-5375e684d129",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the agent folder for project update and cre...",
+      "createdAt": "2026-04-02T20:25:42.846Z",
+      "updatedAt": "2026-04-02T20:25:42.846Z"
+    },
+    {
+      "sessionId": "674f41c4-b8ec-406e-977b-5b4c469cac8c",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review project and start a plan to clean up the re...",
+      "createdAt": "2026-04-02T13:40:59.349Z",
+      "updatedAt": "2026-04-02T13:40:59.350Z"
+    },
+    {
+      "sessionId": "8a611674-76a7-4787-930c-e03c8d25df0e",
+      "agentId": "claude-code-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "Review the project which has changed significantly...",
+      "createdAt": "2026-03-31T14:03:01.488Z",
+      "updatedAt": "2026-03-31T14:03:01.488Z"
+    },
+    {
+      "sessionId": "019d36aa-4fb9-7572-b613-ce28da0b18a3",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "codex",
+      "createdAt": "2026-03-28T22:57:33.959Z",
+      "updatedAt": "2026-03-28T22:57:33.960Z"
+    },
+    {
+      "sessionId": "019d2fcc-e5a4-7593-af48-79c097436614",
+      "agentId": "codex-acp",
+      "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+      "title": "codex",
+      "createdAt": "2026-03-27T14:58:10.647Z",
+      "updatedAt": "2026-03-27T14:58:10.647Z"
+    },
     {
       "sessionId": "019d2b81-f919-70e0-99c7-1af3670bfc75",
       "agentId": "codex-acp",
@@ -64,10 +441,11 @@
     }
   ],
   "lastUsedModels": {
-    "codex-acp": "gpt-5.4"
+    "codex-acp": "gpt-5.5"
   },
   "lastUsedModes": {
-    "codex-acp": "full-access"
+    "codex-acp": "full-access",
+    "claude-code-acp": "plan"
   },
   "enableFloatingChat": false,
   "floatingButtonImage": "",

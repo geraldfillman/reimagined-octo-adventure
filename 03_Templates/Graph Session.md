@@ -1,4 +1,6 @@
 ---
+title: ""
+type: "graph-session"
 date: ""
 session_type: "graph"
 tool: "InfraNodus"
@@ -7,9 +9,15 @@ graph_mode: "topics"
 question: ""
 status: "Open"
 tags: [graph-session, infranodus]
+last_updated: "{{date:YYYY-MM-DD}}"
 ---
 
 # Graph Session
+
+## Summary
+
+- State the scope, main question, and strongest takeaway in 2 to 3 bullets.
+- Keep the first bullet decision-oriented so the session is useful without opening the tables below.
 
 ## Scope
 

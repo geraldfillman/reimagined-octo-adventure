@@ -4,13 +4,65 @@ name: "Longevity & Aging Biology"
 status: "Active"
 conviction: "low"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Aging-biology narratives are attracting more capital as biomarker tools and platform science improve."
+variant_perception: "The market still treats longevity as fringe science rather than an emerging capital-allocation bucket."
+next_catalyst: "Early human data, biomarker validation, and capital raises in credible programs."
+disconfirming_evidence: "The field remains scientifically interesting but commercially unmonetizable."
+expected_upside: "A credible platform winner could rerate sharply as the category institutionalizes."
+expected_downside: "Long timelines and weak endpoints keep capital returns poor."
+position_sizing: "Small 0.5-1.5% optionality sleeve only."
+required_sources: ["[[ClinicalTrials API]]", "[[PubMed API]]", "[[SEC EDGAR Search]]", "[[NewsAPI]]"]
+required_pull_families: ["clinicaltrials --longevity", "pubmed --longevity", "sec --longevity", "arxiv --longevity"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[UNTY]]", "[[XOMA]]", "[[Longevity]]", "[[Biotechnology]]", "[[USA]]"]
 supporting_regimes: ["[[Innovation Cycle]]", "[[Risk-On]]"]
 key_indicators: ["[[Senolytic Clinical Trial Data]]", "[[Rapamycin Trial Readouts]]", "[[Venture Funding in Longevity]]", "[[GeroScience Publication Velocity]]", "[[FDA Aging as Disease Recognition]]"]
 bullish_drivers: ["[[Hallmarks of Aging Scientific Consensus]]", "[[Billionaire Venture Capital ($3B+ deployed)]]", "[[FDA TAME Trial (Metformin)]]", "[[GLP-1 Longevity Connection]]", "[[Reprogramming Preprints Velocity]]"]
 bearish_drivers: ["[[No FDA Disease Indication for Aging]]", "[[Long Clinical Timelines]]", "[[Translation Gap Mouse-to-Human]]", "[[Replicability Crisis in Aging Research]]"]
 invalidation_triggers: ["FDA definitively refuses to recognize 'aging' as a disease indication — blocks all longevity drug approvals as a category", "TAME trial (metformin) fails to show healthspan extension in humans — primary translational vehicle fails", "Epigenetic reprogramming (Yamanaka factors) causes cancer in non-human primates — shuts down the most exciting sub-field", "All major longevity venture-backed companies (Altos, Calico, Unity) produce no Phase 2 data after 10 years — narrative collapses"]
-tags: [thesis, longevity, aging, biotech, pre-commercial, venture]
+fmp_watchlist_symbols: ["UNTY", "XOMA"]
+fmp_watchlist_symbol_count: 2
+fmp_primary_symbol: "UNTY"
+fmp_technical_symbol_count: 2
+fmp_technical_nonclear_count: 1
+fmp_technical_bearish_count: 0
+fmp_technical_overbought_count: 1
+fmp_technical_oversold_count: 0
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 45.29
+fmp_primary_price_vs_sma200_pct: 1.67
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 524089995
+fmp_primary_trailing_pe: 8.62
+fmp_primary_price_to_sales: 2.48
+fmp_primary_price_to_book: 1.46
+fmp_primary_ev_to_sales: 2.62
+fmp_primary_ev_to_ebitda: 6.89
+fmp_primary_roe_pct: 17.87
+fmp_primary_roic_pct: 9.41
+fmp_primary_operating_margin_pct: 38.08
+fmp_primary_net_margin_pct: 28.73
+fmp_primary_current_ratio: 0.15
+fmp_primary_debt_to_equity: 0.72
+fmp_primary_price_target: 63
+fmp_primary_analyst_count: 2
+fmp_primary_target_upside_pct: 20.7
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 2
+fmp_calendar_pull_date: "2026-04-30"
+fmp_next_earnings_date: "2026-05-12"
+fmp_next_earnings_symbols: ["XOMA"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "longevity", "aging", "biotech", "pre-commercial", "venture"]
 ---
 
 ## Thesis Statement
@@ -71,6 +123,29 @@ Because most exposure is private, the research signals are the actionable output
 - Epigenetic reprogramming causes malignancy in primates → most exciting sub-field shut down
 - All major venture-backed companies produce no Phase 2 data by 2030 → narrative and funding collapse
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Aging-biology narratives are attracting more capital as biomarker tools and platform science improve.
+- **Variant perception**: The market still treats longevity as fringe science rather than an emerging capital-allocation bucket.
+- **Next catalyst**: Early human data, biomarker validation, and capital raises in credible programs.
+- **Disconfirming evidence**: The field remains scientifically interesting but commercially unmonetizable.
+- **Expected upside**: A credible platform winner could rerate sharply as the category institutionalizes.
+- **Expected downside**: Long timelines and weak endpoints keep capital returns poor.
+- **Sizing rule**: Small 0.5-1.5% optionality sleeve only.
+
+## Required Evidence
+
+- **Source notes**: [[ClinicalTrials API]], [[PubMed API]], [[SEC EDGAR Search]], [[NewsAPI]]
+- **Pull families**: clinicaltrials --longevity, pubmed --longevity, sec --longevity, arxiv --longevity
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred approach**: This thesis is primarily a **research monitoring** play, not an equity position
 - **Public equity**: < 0.5% in UNTY (high binary risk); XOMA only if specific longevity royalty deals announced
@@ -81,7 +156,7 @@ Because most exposure is private, the research signals are the actionable output
 - `arXiv --longevity` — epigenetic reprogramming, senolytic, mTOR preprints
 - `PubMed --longevity` — peer-reviewed aging biology, clinical trial readouts
 - `ClinicalTrials --longevity` — rapamycin, senolytic, and reprogramming trials
-- `SEC --longevity` — 8-K for any longevity company that goes public; S-1 filings on SEC EDGAR full-text search
+- `SEC --longevity` — 8-K for any longevity company that goes public; S-1 filings on SEC EDGAR search
 
 ## Signals to Watch
 ```dataview
@@ -91,3 +166,6 @@ WHERE contains(string(tags), "longevity") OR contains(string(tags), "aging") OR 
 SORT date DESC
 LIMIT 5
 ```
+
+
+

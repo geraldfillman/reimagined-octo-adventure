@@ -112,11 +112,8 @@ export async function pull(flags = {}) {
     }
   }
 
-  if (groupKeys.length === 0) {
-    throw new Error(
-      'Specify a data group flag: --electricity-demand, --generation-mix, --regional-load, or --all'
-    );
-  }
+  // No flags → default to all groups
+  if (groupKeys.length === 0) groupKeys = Object.keys(DATA_GROUPS);
 
   const results = [];
 

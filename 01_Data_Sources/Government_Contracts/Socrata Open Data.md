@@ -20,9 +20,9 @@ last_reviewed: "2026-03-26"
 notes: "Used by the socrata puller for permits, 311 data, and custom municipal datasets."
 ---
 
-## Overview
+## Summary
 
-Socrata powers open data portals for hundreds of cities and counties (NYC, Chicago, LA, Seattle, etc.). Access building permits, code violations, 311 service requests, property transfers, and more at the local level. The hyperlocal complement to your federal data sources.
+- Socrata powers open data portals for hundreds of cities and counties (NYC, Chicago, LA, Seattle, etc.). Access building permits, code violations, 311 service requests, property transfers, and more at the local level. The hyperlocal complement to your federal data sources.
 
 ## What It Provides
 
@@ -56,3 +56,4 @@ Socrata powers open data portals for hundreds of cities and counties (NYC, Chica
 - [[Census API]]
 - [[HUD User Datasets]]
 - [[OpenFEMA API]]
+

@@ -193,7 +193,16 @@ async function pullTrials(topicKey, customQuery, flags) {
 
   const suffix = topicKey ? `ClinicalTrials_${label}` : 'ClinicalTrials_Custom';
   const filePath = join(getPullsDir(), 'Biotech', dateStampedFilename(suffix));
-  writeNote(filePath, note);
-  console.log(`📝 Wrote: ${filePath}`);
-  return { filePath, signals };
+  if (shouldWriteArtifacts(flags)) {
+    writeNote(filePath, note);
+    console.log(`📝 Wrote: ${filePath}`);
+    return { filePath, signals };
+  }
+
+  console.log(`[dry-run] Would write: ${filePath}`);
+  return { filePath: null, signals };
+}
+
+export function shouldWriteArtifacts(flags = {}) {
+  return !Boolean(flags['dry-run']);
 }

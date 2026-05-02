@@ -31,9 +31,9 @@ integrated: false
 notes: "Free CSV downloads with weekly/monthly metro data. Complements Zillow with different methodology."
 ---
 
-## Overview
+## Summary
 
-Redfin Data Center provides median sale price, homes sold, inventory, days on market, price drops. Free CSV downloads with weekly/monthly metro data. Complements Zillow with different methodology.
+- Redfin Data Center provides median sale price, homes sold, inventory, days on market, price drops. Free CSV downloads with weekly/monthly metro data. Complements Zillow with different methodology.
 
 ## What It Provides
 
@@ -61,3 +61,4 @@ Redfin Data Center provides median sale price, homes sold, inventory, days on ma
 
 - [[Zillow Research Data]]
 - [[Realtor.com Research]]
+

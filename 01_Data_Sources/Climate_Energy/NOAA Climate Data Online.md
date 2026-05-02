@@ -29,9 +29,9 @@ integrated: false
 notes: "Primary source for U.S. climate/weather data. Pairs with energy data for impact analysis."
 ---
 
-## Overview
+## Summary
 
-NOAA Climate Data Online provides temperature records, precipitation data, extreme weather events, climate normals. Primary source for U.S. climate/weather data. Pairs with energy data for impact analysis.
+- NOAA Climate Data Online provides temperature records, precipitation data, extreme weather events, climate normals. Primary source for U.S. climate/weather data. Pairs with energy data for impact analysis.
 
 ## What It Provides
 
@@ -58,3 +58,4 @@ NOAA Climate Data Online provides temperature records, precipitation data, extre
 
 - [[EIA API]]
 - [[NASA POWER]]
+

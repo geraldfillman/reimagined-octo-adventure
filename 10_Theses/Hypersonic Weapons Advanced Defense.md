@@ -4,13 +4,65 @@ name: "Hypersonic Weapons & Advanced Defense Systems"
 status: "Active"
 conviction: "medium"
 timeframe: "long"
+allocation_priority: "medium"
+allocation_rank: 2
+why_now: "Hypersonics remain a strategic catch-up race where a small set of primes and suppliers can benefit from sustained urgency."
+variant_perception: "Investors often treat hypersonics as a one-off program rather than a continuing national-security capability gap."
+next_catalyst: "Missile-test milestones, program-of-record updates, and defense-budget allocations."
+disconfirming_evidence: "Repeated technical failures or treaty pressure reduce procurement momentum."
+expected_upside: "Successful milestones can expand the valuation premium on the exposed defense names."
+expected_downside: "Program slip and cost blowouts can keep the thesis trapped in headlines only."
+position_sizing: "Medium 1-2.5% sleeve via diversified defense exposure."
+required_sources: ["[[USASpending API]]", "[[SAM_Gov]]", "[[SEC EDGAR API]]", "[[NewsAPI]]"]
+required_pull_families: ["usaspending --recent", "sam --opportunities", "sec --defense", "newsapi --topic business"]
+monitor_status: "on-track"
+monitor_last_review: "2026-03-27"
+monitor_change: "Initial monitor baseline established."
+break_risk_status: "not-seen"
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
 core_entities: ["[[RTX]]", "[[LHX]]", "[[NOC]]", "[[LMT]]", "[[Hypersonics]]", "[[Defense]]", "[[USA]]"]
 supporting_regimes: ["[[Defense Budget Supercycle]]", "[[Geopolitical Escalation]]", "[[Supply Chain Nationalism]]"]
 key_indicators: ["[[Hypersonic Program Budget]]", "[[HACM Test Milestones]]", "[[Counter-Hypersonic Contracts]]", "[[NDAA Hypersonic Line Items]]", "[[Allied Procurement]]"]
 bullish_drivers: ["[[China Hypersonic Threat]]", "[[Russia DF-ZF Deployment]]", "[[NDAA Hypersonic Funding Increases]]", "[[Counter-Hypersonic Demand]]", "[[NATO Interoperability Requirements]]"]
 bearish_drivers: ["[[Test Failures Public Scrutiny]]", "[[Budget Prioritization Tradeoffs]]", "[[Long Development Timelines]]", "[[Competition with Drone/AI Programs for Budget]]"]
 invalidation_triggers: ["NDAA cuts hypersonic budget by >30% in favor of autonomous systems/AI — budget trade-off against drone thesis", "Multiple consecutive test failures damage program credibility and Congressional support", "Arms control agreement with China/Russia specifically covering hypersonic weapons — reduces program urgency", "Directed energy (laser) intercept proves effective against hypersonics — reduces offensive program priority"]
-tags: [thesis, defense, hypersonics, weapons, aerospace, missiles]
+fmp_watchlist_symbols: ["RTX", "LHX", "NOC", "LMT"]
+fmp_watchlist_symbol_count: 4
+fmp_primary_symbol: "RTX"
+fmp_technical_symbol_count: 4
+fmp_technical_nonclear_count: 3
+fmp_technical_bearish_count: 4
+fmp_technical_overbought_count: 0
+fmp_technical_oversold_count: 3
+fmp_primary_technical_status: "alert"
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "oversold"
+fmp_primary_rsi14: 26.14
+fmp_primary_price_vs_sma200_pct: -3.19
+fmp_primary_fundamentals_status: "complete"
+fmp_primary_market_cap: 232692837200
+fmp_primary_trailing_pe: 32.1
+fmp_primary_price_to_sales: 2.57
+fmp_primary_price_to_book: 3.51
+fmp_primary_ev_to_sales: 2.93
+fmp_primary_ev_to_ebitda: 19.18
+fmp_primary_roe_pct: 11.23
+fmp_primary_roic_pct: 6.62
+fmp_primary_operating_margin_pct: 10.41
+fmp_primary_net_margin_pct: 8.03
+fmp_primary_current_ratio: 1.02
+fmp_primary_debt_to_equity: 0.59
+fmp_primary_price_target: 204.86
+fmp_primary_analyst_count: 22
+fmp_primary_target_upside_pct: 18.56
+fmp_primary_fundamentals_cached_at: "2026-04-30"
+fmp_primary_snapshot_date: "2026-04-30"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-04-25"
+fmp_next_earnings_date: "2026-04-30"
+fmp_next_earnings_symbols: ["LHX"]
+fmp_last_sync: "2026-04-30"
+tags: ["thesis", "defense", "hypersonics", "weapons", "aerospace", "missiles"]
 ---
 
 ## Thesis Statement
@@ -73,6 +125,29 @@ Hypersonic weapons (Mach 5+, maneuverable) represent the most significant capabi
 - US-China bilateral arms control agreement covering hypersonic weapons — creates multi-year pause
 - Directed energy intercept achieves consistent Mach 8+ terminal phase intercept — changes counter-hypersonic architecture away from kinetic interceptors (RTX/LHX patent advantage reduced)
 
+## Investment Scorecard
+
+- **Allocation Priority**: medium (2)
+- **Why now**: Hypersonics remain a strategic catch-up race where a small set of primes and suppliers can benefit from sustained urgency.
+- **Variant perception**: Investors often treat hypersonics as a one-off program rather than a continuing national-security capability gap.
+- **Next catalyst**: Missile-test milestones, program-of-record updates, and defense-budget allocations.
+- **Disconfirming evidence**: Repeated technical failures or treaty pressure reduce procurement momentum.
+- **Expected upside**: Successful milestones can expand the valuation premium on the exposed defense names.
+- **Expected downside**: Program slip and cost blowouts can keep the thesis trapped in headlines only.
+- **Sizing rule**: Medium 1-2.5% sleeve via diversified defense exposure.
+
+## Required Evidence
+
+- **Source notes**: [[USASpending API]], [[SAM_Gov]], [[SEC EDGAR API]], [[NewsAPI]]
+- **Pull families**: usaspending --recent, sam --opportunities, sec --defense, newsapi --topic business
+
+## Monitor Review
+
+- **Last review**: 2026-03-27
+- **Change this week**: Initial monitor baseline established.
+- **Break risk status**: not-seen
+- **Action**: Review on catalyst changes and promote only when evidence chains strengthen.
+
 ## Position Sizing & Risk
 - **Preferred vehicles**: [[RTX]] for prime contractor exposure + Patriot legacy; [[LHX]] for seeker/guidance moat
 - **Size**: 2–3% each — high conviction on the threat, moderate conviction on execution timelines; supplements Defense AI position
@@ -93,3 +168,6 @@ WHERE contains(string(tags), "hypersonics") OR contains(string(tags), "RTX") OR 
 SORT date DESC
 LIMIT 5
 ```
+
+
+
