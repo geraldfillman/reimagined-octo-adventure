@@ -16,6 +16,7 @@ signals:
 tags: ["eia", "generation-mix", "energy", "energy"]
 related_pulls: []
 ack_status: "reviewed"
+signal_state: new
 ---
 
 ## What is the US generating power from?

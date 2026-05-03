@@ -15,6 +15,7 @@ signals:
     message: "Generation/load ratio at 1.031 — reserve margin thinning"
 tags: ["eia", "generation-mix", "energy", "energy"]
 related_pulls: []
+signal_state: new
 ---
 
 ## What is the US generating power from?

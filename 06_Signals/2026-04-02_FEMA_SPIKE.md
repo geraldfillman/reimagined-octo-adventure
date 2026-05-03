@@ -3,6 +3,9 @@ signal_id: "FEMA_SPIKE"
 severity: "alert"
 date: "2026-04-02"
 tags: ["signal", "fema"]
+signal_state: expired
+resolved_date: 2026-05-03
+resolution_note: Auto-expired after 30 days
 ---
 
 ## FEMA Declaration Spike

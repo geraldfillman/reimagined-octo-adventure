@@ -16,6 +16,7 @@ signals:
 tags: ["fred", "liquidity", "macro"]
 related_pulls: []
 ack_status: "reviewed"
+signal_state: new
 ---
 
 ## Is the market running on fuel or friction?

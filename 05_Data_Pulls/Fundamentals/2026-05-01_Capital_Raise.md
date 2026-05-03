@@ -11,6 +11,7 @@ window_from: "2026-05-01"
 window_to: "2026-05-01"
 total_filings: 90
 tags: ["sec", "capital-raise", "offerings", "digest"]
+signal_state: new
 ---
 
 ## 📄 Prospectus Supplements (424B*) — 40

@@ -21,6 +21,7 @@ new_since_last_report: 12
 resolved_since_last_report: 12
 guide_source: "[[ai_agent_monitoring_data_pull_guide]]"
 tags: ["streamline-report", "agent-monitoring", "orchestrator", "decision-support"]
+signal_state: new
 ---
 
 ## Executive Brief

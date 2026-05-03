@@ -16,6 +16,7 @@ signals: ["NAHB_HMI_BELOW_NEUTRAL", "NAHB_BUYER_TRAFFIC_WEAK", "NAHB_ALERT"]
 tags: ["housing", "nahb", "builder-confidence", "sentiment", "thesis"]
 related_pulls: []
 ack_status: "reviewed"
+signal_state: new
 ---
 
 ## Core Indicator Snapshot

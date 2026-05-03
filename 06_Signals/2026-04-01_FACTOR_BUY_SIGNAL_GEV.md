@@ -8,6 +8,9 @@ threshold: 1.1435
 date: "2026-04-01"
 source_pull: "Qlib_Scores_AI_Power_Defense_Stack"
 tags: ["signal", "quant", "alert", "ai_power_defense_stack", "gev"]
+signal_state: expired
+resolved_date: 2026-05-03
+resolution_note: Auto-expired after 30 days
 ---
 
 ## Factor Buy Signal — GEV

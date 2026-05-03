@@ -8,6 +8,7 @@ frequency: "on_demand"
 signal_status: "alert"
 signals: ["shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "shelf_new", "unregistered_sale", "shelf_new"]
 tags: ["dilution", "sec", "fmp", "company-risk", "fundamentals"]
+signal_state: new
 ---
 
 ## Dilution Risk Scorecard

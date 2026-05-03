@@ -12,6 +12,7 @@ stretched_count: 2
 signal_status: "alert"
 signals: ["pair-breakdown", "pair-stretch"]
 tags: ["pairs", "spread", "z-score", "correlation", "market-microstructure"]
+signal_state: new
 ---
 
 ## Operating Rule

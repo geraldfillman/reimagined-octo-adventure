@@ -15,6 +15,7 @@ signals:
     message: "RRP facility near zero at $1bn"
 tags: ["fred", "liquidity", "macro"]
 related_pulls: []
+signal_state: new
 ---
 
 ## Is the market running on fuel or friction?

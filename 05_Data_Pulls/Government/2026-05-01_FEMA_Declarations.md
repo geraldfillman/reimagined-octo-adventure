@@ -14,6 +14,7 @@ signals:
     message: "25 FEMA disaster declarations in past 60 days"
 tags: ["government", "fema", "disaster", "risk"]
 ack_status: "reviewed"
+signal_state: new
 ---
 
 ## Recent Disaster Declarations

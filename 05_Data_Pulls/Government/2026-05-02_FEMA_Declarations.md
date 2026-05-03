@@ -13,6 +13,7 @@ signals:
     severity: "alert"
     message: "25 FEMA disaster declarations in past 60 days"
 tags: ["government", "fema", "disaster", "risk"]
+signal_state: new
 ---
 
 ## Recent Disaster Declarations

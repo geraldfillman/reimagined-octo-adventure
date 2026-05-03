@@ -10,6 +10,9 @@ direction: "confirm"
 matched_terms: ["airo", "evtl"]
 suggested_action: "compound"
 tags: ["signal", "sector-scan", "confirm", "drone-autonomous-systems-revolution"]
+signal_state: expired
+resolved_date: 2026-05-03
+resolution_note: Auto-expired after 30 days
 ---
 ## Confirm - Drone & Autonomous Systems Revolution
 
