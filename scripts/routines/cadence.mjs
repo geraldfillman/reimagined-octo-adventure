@@ -38,6 +38,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('Agent thesis scan', ['pull', 'agent-analyst', '--all-thesis', '--limit', '8', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
     ]),
     phase('Post-pull', [
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '14', '--limit', '16']),
       cmd('Thesis canvas', ['thesis', 'canvas']),
       cmd('Cleanup retention', ['system', 'cleanup', '--market-history', '--signals']),
@@ -74,6 +75,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('Cash-flow quality', ['pull', 'cash-flow-quality']),
     ]),
     phase('Post-pull', [
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '30', '--limit', '24']),
       cmd('Confluence scan', ['pull', 'confluence-scan']),
       cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
@@ -84,6 +86,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('System status', ['system', 'status']),
       cmd('Conviction rollup', ['scan', 'conviction', '--window', '30']),
       cmd('Thesis catalysts', ['thesis', 'catalysts', '--all', '--window', '45']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Thesis full picture', ['thesis', 'full-picture', '--include-baskets']),
       cmd('Opportunity viewpoints', ['pull', 'opportunity-viewpoints', '--window', '31', '--limit', '20']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '45', '--limit', '28']),
@@ -265,6 +268,7 @@ function inferAgent(args) {
   if (group === 'scan' && sub === 'company-risk') return 'Risk Agent';
   if (group === 'scan') return 'Research Agent';
   if (joined.includes('agent-analyst')) return 'MarketMind Agent';
+  if (joined.includes('signal-intelligence')) return 'Research Spine Agent';
   if (joined.includes('streamline-report')) return 'Orchestrator';
   if (joined.includes('disclosure-reality') || joined.includes('dilution-monitor')) return 'VC Agent';
   if (joined.includes('newsapi') || joined.includes('gdelt')) return 'News Agent';
@@ -278,6 +282,7 @@ function inferAgent(args) {
 function inferArtifactLinks(args) {
   const joined = args.join(' ');
   if (joined.includes('month-end-archive')) return [artifact('Monthly summary', '05_Data_Pulls/Monthly/')];
+  if (joined.includes('signal-intelligence')) return [artifact('Signal intelligence', '05_Data_Pulls/Signals/')];
   if (joined.includes('streamline-report')) return [artifact('Streamline report', '05_Data_Pulls/Orchestrator/')];
   if (joined.includes('agent-analyst')) return [artifact('Agent pulls', '05_Data_Pulls/Agents/')];
   if (joined.includes('company-risk')) return [artifact('Company risk', '12_Company_Risk/')];

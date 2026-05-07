@@ -527,6 +527,9 @@ Pullers (no API key required):
   signal-quality-scan Score module reliability from run ledgers
                 --window <days>           Default: 30
                 --dry-run
+  signal-intelligence Canonical strategy, thesis, market-cycle signal layer
+                --scope <all|strategy|thesis|market-cycle>
+                --dry-run | --json
   month-end-archive Create monthly summary and copy month files into KB raw archive
                 --month <YYYY-MM>         Default: current month
                 --scope <CSV>             Default: 05_Data_Pulls

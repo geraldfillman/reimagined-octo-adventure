@@ -7,12 +7,13 @@
  */
 
 import { config } from 'dotenv';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, relative, sep } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = resolve(__dirname, '..', '..');
 const MY_DATA_ROOT = resolve(VAULT_ROOT, '..', 'My_Data');
+const DEFAULT_RESEARCH_VAULT_ROOT = resolve(VAULT_ROOT, '..', 'The Research Spine');
 
 // Load .env from vault root
 config({ path: resolve(MY_DATA_ROOT, '.env') });
@@ -181,6 +182,32 @@ export function getSourceName(sourceId) {
 /** Get the vault root path */
 export function getVaultRoot() {
   return VAULT_ROOT;
+}
+
+/** Get the engine root path (My_Data). */
+export function getEngineRoot() {
+  return VAULT_ROOT;
+}
+
+/** Resolve a path under the engine root. */
+export function resolveEnginePath(...parts) {
+  return resolve(VAULT_ROOT, ...parts);
+}
+
+/** Get the human-facing research vault root path. */
+export function getResearchVaultRoot() {
+  const configured = process.env.RESEARCH_VAULT_ROOT?.trim();
+  return configured ? resolve(configured) : DEFAULT_RESEARCH_VAULT_ROOT;
+}
+
+/** Convert an absolute path to an engine-relative display path. */
+export function toEngineRelative(absPath) {
+  return relative(VAULT_ROOT, absPath).split(sep).join('/');
+}
+
+/** Get an engine cache path under scripts/.cache. */
+export function getEngineCacheDir(...parts) {
+  return resolveEnginePath('scripts', '.cache', ...parts);
 }
 
 /** Get the data pulls directory */
