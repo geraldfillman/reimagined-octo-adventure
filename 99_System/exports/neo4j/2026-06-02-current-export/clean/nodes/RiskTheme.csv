@@ -1,5 +1,0 @@
-id:ID,domains,name,status,tags,themeType,updatedAt,:LABEL
-risk-theme:leverage-fragility,"[""market"",""macro"",""energy"",""geopolitics"",""policy""]",Leverage Fragility,active_watch,"[""margin-debt"",""deleveraging"",""high-beta"",""momentum""]",market_structure,2026-06-02T14:42:48.956000000Z,RiskTheme
-risk-theme:commodity-inflation,"[""market"",""macro"",""energy"",""geopolitics"",""policy""]",Commodity Inflation,active_watch,"[""oil-shock"",""commodities"",""inflation"",""hormuz""]",macro_commodity,2026-06-02T14:42:48.956000000Z,RiskTheme
-risk-theme:rate-volatility,"[""market"",""macro"",""energy"",""geopolitics"",""policy""]",Rate Volatility,active_watch,"[""yield-curve"",""bond-volatility"",""term-premium"",""duration""]",rates,2026-06-02T14:42:48.956000000Z,RiskTheme
-risk-theme:policy-credibility,"[""market"",""macro"",""energy"",""geopolitics"",""policy""]",Policy Credibility,active_watch,"[""fed-independence"",""policy-error"",""fed-funds-rate""]",policy,2026-06-02T14:42:48.956000000Z,RiskTheme

@@ -1,8 +1,0 @@
-id,label,name,date,kind,status,score,route,source_count,evidence_count,summary,vault,relative_path,obsidian_url,command,tags
-trend:rates-bonds-and-inflation-expectations,Trend,"Rates, Bonds, And Inflation Expectations",2026-05-25,trend-cluster,,,,,,"Synthesized trend cluster from inbox items: Rates, Bonds, And Inflation Expectations",,,,,trend;cluster
-trend:healthcare-pricing-and-policy-pressure,Trend,Healthcare Pricing And Policy Pressure,2026-05-25,trend-cluster,,,,,,Synthesized trend cluster from inbox items: Healthcare Pricing And Policy Pressure,,,,,trend;cluster
-trend:power-grid-and-industrial-capex,Trend,"Power, Grid, And Industrial Capex",2026-05-25,trend-cluster,,,,,,"Synthesized trend cluster from inbox items: Power, Grid, And Industrial Capex",,,,,trend;cluster
-trend:socioeconomic-narrative-risk,Trend,Socioeconomic Narrative Risk,2026-05-25,trend-cluster,,,,,,Synthesized trend cluster from inbox items: Socioeconomic Narrative Risk,,,,,trend;cluster
-trend:market-structure-vs-fundamentals,Trend,Market Structure Vs Fundamentals,2026-05-25,trend-cluster,,,,,,Synthesized trend cluster from inbox items: Market Structure Vs Fundamentals,,,,,trend;cluster
-trend:policy-legal-and-liability-friction,Trend,"Policy, Legal, And Liability Friction",2026-05-25,trend-cluster,,,,,,"Synthesized trend cluster from inbox items: Policy, Legal, And Liability Friction",,,,,trend;cluster
-trend:geopolitics-and-capital-access,Trend,Geopolitics And Capital Access,2026-05-25,trend-cluster,,,,,,Synthesized trend cluster from inbox items: Geopolitics And Capital Access,,,,,trend;cluster

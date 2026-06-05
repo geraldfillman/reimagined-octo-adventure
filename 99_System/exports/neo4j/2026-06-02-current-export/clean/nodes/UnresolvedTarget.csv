@@ -1,7 +1,0 @@
-id:ID,importedAt,intended_label,name,source,status,:LABEL
-scenario:fertilizer-shortage,2026-06-02T16:51:51.404000000Z,Scenario,scenario:fertilizer-shortage,ingest-world-inbox,unresolved,UnresolvedTarget
-scenario:ai-data-center-power-bottleneck,2026-06-02T17:08:08.668000000Z,Scenario,scenario:ai-data-center-power-bottleneck,manual-review,unresolved,UnresolvedTarget
-unresolved:inbox-event:62fa5ac724f388ee,2026-06-02T15:08:08.614000000Z,UnresolvedTarget,unresolved:inbox-event:62fa5ac724f388ee,ingest-world-inbox,unresolved,UnresolvedTarget
-scenario:glp1-supply-chain-shortage,2026-06-02T16:51:51.404000000Z,Scenario,scenario:glp1-supply-chain-shortage,ingest-world-inbox,unresolved,UnresolvedTarget
-scenario:hormuz-oil-shock,2026-06-02T16:51:51.404000000Z,Scenario,scenario:hormuz-oil-shock,ingest-world-inbox,unresolved,UnresolvedTarget
-unresolved:inbox-event:5f26bae116e33129,2026-06-02T16:51:51.404000000Z,UnresolvedTarget,unresolved:inbox-event:5f26bae116e33129,ingest-world-inbox,unresolved,UnresolvedTarget

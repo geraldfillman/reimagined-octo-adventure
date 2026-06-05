@@ -29,6 +29,9 @@ scripts/.cache/
 _cache/
 !_cache/README.md
 
+# Generated graph/data exports (regenerable; large — Neo4j CSV/JSON up to 50MB+)
+99_System/exports/
+
 # Qlib
 .qlib_data/
 scripts/qlib/

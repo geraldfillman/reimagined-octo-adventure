@@ -1,3 +1,0 @@
-id:ID,area,cadence,name,puller,sortOrder,updatedAt,:LABEL
-dashboard-panel:neo4j-metrics:eod,dashboard,eod,End of Day,neo4j-fmp-metric-snapshots,20,2026-06-01T21:51:10.621000000Z,DashboardPanel
-dashboard-panel:neo4j-metrics:bod,dashboard,bod,Beginning of Day,neo4j-fmp-metric-snapshots,10,2026-06-01T21:51:10.621000000Z,DashboardPanel

@@ -1,6 +1,0 @@
-:START_ID,:END_ID,:TYPE
-shock-vector:margin-debt-stress,risk-theme:leverage-fragility,MAPS_TO_THEME
-shock-vector:bond-market-uncertainty,risk-theme:rate-volatility,MAPS_TO_THEME
-shock-vector:iran-hormuz-oil-shock,risk-theme:commodity-inflation,MAPS_TO_THEME
-shock-vector:fed-reaction-function-risk,risk-theme:policy-credibility,MAPS_TO_THEME
-shock-vector:fed-reaction-function-risk,risk-theme:rate-volatility,MAPS_TO_THEME
