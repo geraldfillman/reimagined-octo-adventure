@@ -24,6 +24,7 @@ Key notes:
 - [[00_Dashboard/Capital Allocation Board]]
 - [[00_Dashboard/High Priority Thesis Monitor]]
 - [[00_Dashboard/Macro Regime]]
+- [[00_Dashboard/Macro Lens Board]]
 - [[Mastery_Dashboard]]
 
 Decisions:
