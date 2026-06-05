@@ -26,6 +26,13 @@ scripts/.pull-history.jsonl
 scripts/.regime-history.jsonl
 scripts/.cache/
 
+# Archived data pulls (relocated to World_Machine; kept on disk but not tracked/indexed)
+05_Data_Pulls/_archive/
+
+# Obsidian plugin session caches (large, machine-local, churns every session)
+.obsidian/plugins/agent-client/sessions/
+.obsidian/plugins/*/sessions/
+
 # Qlib
 .qlib_data/
 scripts/qlib/
