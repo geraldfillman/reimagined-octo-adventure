@@ -102,7 +102,6 @@ The `category` field should match the source folder exactly:
 
 - `Biotech_Healthcare`
 - `Climate_Energy`
-- `Developer_Code`
 - `Frontier_Science`
 - `Fundamentals`
 - `Geospatial`
@@ -112,6 +111,7 @@ The `category` field should match the source folder exactly:
 - `Macro`
 - `Market_Data`
 - `News_Media`
+- `OSINT`
 - `Prediction_Markets`
 - `Private_Markets_VC`
 - `Social_Sentiment`
