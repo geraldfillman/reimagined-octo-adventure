@@ -1,0 +1,2593 @@
+{
+  "version": 1,
+  "sessionId": "019e4669-9d9c-7813-a4ce-6310082ee350",
+  "agentId": "codex-acp",
+  "messages": [
+    {
+      "id": "5fec8f7d-7fa4-4880-8f9a-0996accddc6f",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Can you pull companies that match the following screener using My_data FMP pull scripts and other API available? \n\nSearch SEC/news for spin-off/separation/Form 10\n\nThen full financials--> within 24 months netDebt/EBITDA <3; insider ownership/buying; revenue growth positive"
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:37.243Z"
+    },
+    {
+      "id": "5c731d07-dc0c-4a20-b723-c1e96e124585",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I’ll use the My_Data signal/source workflow here, first checking the existing FMP/SEC/news pullers and schemas so the scan uses the vault’s own interfaces instead of inventing a one-off scrape. Then I’ll run or wire the smallest command path that can produce a dated candidate list."
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:43.965Z"
+    },
+    {
+      "id": "3eabf1fc-4d13-48d6-a289-8d0116543f92",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_I5hm8Via9gD5udAJk2pc2afS",
+          "title": "Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-signal-triage\\SKILL.md\"; Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-source-quality-check\\SKILL.md\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_I5hm8Via9gD5udAJk2pc2afS",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298067373,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-signal-triage\\SKILL.md\"; Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-source-quality-check\\SKILL.md\""
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-signal-triage\\SKILL.md\"; Get-Content -Path \"C:\\Users\\CaveUser\\.codex\\skills\\my-data-source-quality-check\\SKILL.md\""
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I’m applying the My_Data signal triage and source quality rules for this scan. I’m checking command coverage now: whether there’s already a company-risk, FMP screener, SEC, or news workflow that can be composed into this screen."
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:47.398Z"
+    },
+    {
+      "id": "6d0b694b-97f7-455e-ba77-ed579b003042",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_06cT9Zf0Cvt0qPSQFvr4OPqn",
+          "title": "rg --files",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_06cT9Zf0Cvt0qPSQFvr4OPqn",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298074840,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "rg --files"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "rg --files"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:54.849Z"
+    },
+    {
+      "id": "ac416d90-6692-4e1f-b9e5-7b536f826880",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_5yTEZkUzIAOkln33nrT6q896",
+          "title": "Get-Content -Path README.md -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_5yTEZkUzIAOkln33nrT6q896",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298074846,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path README.md -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path README.md -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:54.849Z"
+    },
+    {
+      "id": "db3d231b-fe93-471e-99e7-e263f1942bd4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_8hTJ3fSIWENENqDMmyDaQeLY",
+          "title": "Get-Content -Path scripts\\run.mjs -TotalCount 240",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_8hTJ3fSIWENENqDMmyDaQeLY",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298075007,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\run.mjs -TotalCount 240"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\run.mjs -TotalCount 240"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:55.016Z"
+    },
+    {
+      "id": "559687fb-d2a9-4c74-a99f-ed1ab5a90b46",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_XCE8M2lFHebmvlXp13WHmPc2",
+          "title": "rg -n \"fmp|sec|news|insider|spinoff|spin-off|separation|Form 10|company-risk|screener\" scripts 01_Data_Sources 04_Reference 90_System",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_XCE8M2lFHebmvlXp13WHmPc2",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298075010,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "rg -n \"fmp|sec|news|insider|spinoff|spin-off|separation|Form 10|company-risk|screener\" scripts 01_Data_Sources 04_Reference 90_System"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "rg -n \"fmp|sec|news|insider|spinoff|spin-off|separation|Form 10|company-risk|screener\" scripts 01_Data_Sources 04_Reference 90_System"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "`rg` is not installed in this shell, so I’m falling back to PowerShell search. The README confirms raw FMP/SEC/news acquisition is manual and allowed here because you explicitly requested it."
+        }
+      ],
+      "timestamp": "2026-05-20T17:27:55.016Z"
+    },
+    {
+      "id": "4ce29d26-5210-46a0-a76c-e65590bd61f8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_O4jcdfcA7V15eknb5E38LIIm",
+          "title": "Get-ChildItem -Path scripts -Recurse -File | Select-Object -ExpandProperty FullName",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_O4jcdfcA7V15eknb5E38LIIm",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298084293,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path scripts -Recurse -File | Select-Object -ExpandProperty FullName"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path scripts -Recurse -File | Select-Object -ExpandProperty FullName"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:04.314Z"
+    },
+    {
+      "id": "ab798449-8139-4d3a-b147-2f5574cb4096",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_XehWWGNhklLMEXGvSO4vZQjC",
+          "title": "Get-ChildItem -Path scripts,01_Data_Sources,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fmp','sec','news','insider','spinoff','spin-off','separation','Form 10','company-risk','screener' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_XehWWGNhklLMEXGvSO4vZQjC",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298084297,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-ChildItem -Path scripts,01_Data_Sources,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fmp','sec','news','insider','spinoff','spin-off','separation','Form 10','company-risk','screener' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-ChildItem -Path scripts,01_Data_Sources,04_Reference,90_System -Recurse -File | Select-String -Pattern 'fmp','sec','news','insider','spinoff','spin-off','separation','Form 10','company-risk','screener' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:04.314Z"
+    },
+    {
+      "id": "5de35359-d912-4cc0-a135-b72340f0717e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_gpIzPaJFrJKcYW1vijRQT3Yn",
+          "title": "node run.mjs help",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_gpIzPaJFrJKcYW1vijRQT3Yn",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298084448,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs help"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs help"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:04.466Z"
+    },
+    {
+      "id": "8a1f2a53-cc37-48e6-a0a1-58ce8a88fafe",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_uGyOZQqWmfSgYJDqkQiTvtiy",
+          "title": "node run.mjs pull --help",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_uGyOZQqWmfSgYJDqkQiTvtiy",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298084452,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull --help"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull --help"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:04.466Z"
+    },
+    {
+      "id": "f6f5d505-3e5d-4215-9246-108c3216b0f5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_stPOkA2z9jtpagZZ89fTi50Q",
+          "title": "node run.mjs scan --help",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_stPOkA2z9jtpagZZ89fTi50Q",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298084456,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs scan --help"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs scan --help"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The existing CLI has the pieces but not this exact “spin-off plus leverage plus insider/revenue” compound screen. I’m reading the FMP client and SEC helpers next; if they expose the needed endpoints cleanly, I’ll add a narrow puller rather than doing the screen outside the system."
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:04.491Z"
+    },
+    {
+      "id": "3ba3fe5b-05e0-47d9-b6ea-b91bd2f1d94a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_8m00Cz2jp2NgXelk054yRC8g",
+          "title": "Get-Content -Path scripts\\lib\\fmp-client.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_8m00Cz2jp2NgXelk054yRC8g",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298139990,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\lib\\fmp-client.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\lib\\fmp-client.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:59.999Z"
+    },
+    {
+      "id": "bd93f1fd-55be-4a82-8ddc-ce071bdd8813",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_PkMSXIHKqrJx7gcnE4i8ql1g",
+          "title": "Get-Content -Path scripts\\lib\\edgar.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_PkMSXIHKqrJx7gcnE4i8ql1g",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298139993,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\lib\\edgar.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\lib\\edgar.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:59.999Z"
+    },
+    {
+      "id": "3590d44c-ff78-45a8-9552-eea5af738bb1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Qcz7Kx9pwyVbdJx3T2EAg86o",
+          "title": "Get-Content -Path scripts\\pullers\\fmp.mjs -TotalCount 320",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Qcz7Kx9pwyVbdJx3T2EAg86o",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298139997,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\pullers\\fmp.mjs -TotalCount 320"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\pullers\\fmp.mjs -TotalCount 320"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:28:59.999Z"
+    },
+    {
+      "id": "b0175130-a8fd-4993-9cae-b4aebd70b3db",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_mC904UXzDpcPjgW7ett88o9a",
+          "title": "Get-Content -Path scripts\\pullers\\sec.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_mC904UXzDpcPjgW7ett88o9a",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298140002,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\pullers\\sec.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\pullers\\sec.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:00.026Z"
+    },
+    {
+      "id": "40a08b18-d754-43ad-88fc-53f9bd05f8a4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_XP1G6YnVjoPVOxkFdai3h4WJ",
+          "title": "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_XP1G6YnVjoPVOxkFdai3h4WJ",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298140006,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:00.026Z"
+    },
+    {
+      "id": "0cd93578-7693-4399-bd18-522d6c6a006c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_XMa7CSTaolMJIkV7CYST2Oz0",
+          "title": "Select-String -Path scripts\\pullers\\fmp.mjs -Pattern 'function fetchFmp|key-metrics|ratios|enterprise|debt|ebitda|revenueGrowth|insider|ownership|stableBaseUrl' -CaseSensitive:$false | Select-Object LineNumber,Line | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_XMa7CSTaolMJIkV7CYST2Oz0",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298149472,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path scripts\\pullers\\fmp.mjs -Pattern 'function fetchFmp|key-metrics|ratios|enterprise|debt|ebitda|revenueGrowth|insider|ownership|stableBaseUrl' -CaseSensitive:$false | Select-Object LineNumber,Line | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path scripts\\pullers\\fmp.mjs -Pattern 'function fetchFmp|key-metrics|ratios|enterprise|debt|ebitda|revenueGrowth|insider|ownership|stableBaseUrl' -CaseSensitive:$false | Select-Object LineNumber,Line | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:09.484Z"
+    },
+    {
+      "id": "fde55396-1b94-4e4b-86ec-54e7a20bc899",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_606ZI3vS2geU1WvbQrqmZ4Fw",
+          "title": "Select-String -Path scripts\\lib\\*.mjs,scripts\\pullers\\*.mjs -Pattern 'company-screener','insider','owner','ownership','key-metrics','ratios-ttm','income-statement','enterprise-values' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_606ZI3vS2geU1WvbQrqmZ4Fw",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298149509,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path scripts\\lib\\*.mjs,scripts\\pullers\\*.mjs -Pattern 'company-screener','insider','owner','ownership','key-metrics','ratios-ttm','income-statement','enterprise-values' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path scripts\\lib\\*.mjs,scripts\\pullers\\*.mjs -Pattern 'company-screener','insider','owner','ownership','key-metrics','ratios-ttm','income-statement','enterprise-values' -CaseSensitive:$false | Select-Object Path,LineNumber,Line | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:09.517Z"
+    },
+    {
+      "id": "552fd77d-55bc-483e-be40-e24e9a5d6469",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Jyi33RkBaYuDswJO1MRSxuFV",
+          "title": "Get-Content -Path scripts\\lib\\config.mjs -TotalCount 240",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Jyi33RkBaYuDswJO1MRSxuFV",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298149512,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\lib\\config.mjs -TotalCount 240"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\lib\\config.mjs -TotalCount 240"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:09.517Z"
+    },
+    {
+      "id": "76d1f902-11a2-45fc-abe6-27d8afb1b86e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_60MkUMDmkvHUGaA2c3rI5yKN",
+          "title": "Get-Content -Path scripts\\lib\\markdown.mjs -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_60MkUMDmkvHUGaA2c3rI5yKN",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298149639,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\lib\\markdown.mjs -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\lib\\markdown.mjs -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:09.650Z"
+    },
+    {
+      "id": "b350e480-7cea-4acc-b28f-e3eab7bd34ef",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_yFM5R5K6g4BUbHMvk5zuQ4nK",
+          "title": "Get-Content -Path scripts\\tests\\puller-dry-run.test.mjs -TotalCount 220",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_yFM5R5K6g4BUbHMvk5zuQ4nK",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298149642,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\tests\\puller-dry-run.test.mjs -TotalCount 220"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\tests\\puller-dry-run.test.mjs -TotalCount 220"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I found SEC EFTS full-text support in `scripts/lib/edgar.mjs`, which is the right discovery layer for “spin-off / separation / Form 10”. I’m going to sample that response shape before editing so the puller records the correct accession, company, CIK, and filing URL fields."
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:09.650Z"
+    },
+    {
+      "id": "d7f970b6-45c9-43f0-839c-ca0f3bed9977",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_zC9lC2UsnyieAsqLRBBxOlri",
+          "title": "@'\nimport { searchFullText } from './lib/edgar.mjs';\nconst data = await searchFullText({ q: '\"spin-off\" OR separation', forms: ['10-12B','10-12B/A','10-12G','10-12G/A'], dateFrom: '2024-05-20', dateTo: '2026-05-20', from: 0 });\nconsole.log(JSON.stringify({ total: data?.hits?.total, first: data?.hits?.hits?.[0] }, null, 2));\n'@ | node --input-type=module -",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_zC9lC2UsnyieAsqLRBBxOlri",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298158831,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "@'\nimport { searchFullText } from './lib/edgar.mjs';\nconst data = await searchFullText({ q: '\"spin-off\" OR separation', forms: ['10-12B','10-12B/A','10-12G','10-12G/A'], dateFrom: '2024-05-20', dateTo: '2026-05-20', from: 0 });\nconsole.log(JSON.stringify({ total: data?.hits?.total, first: data?.hits?.hits?.[0] }, null, 2));\n'@ | node --input-type=module -"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "@'\nimport { searchFullText } from './lib/edgar.mjs';\nconst data = await searchFullText({ q: '\"spin-off\" OR separation', forms: ['10-12B','10-12B/A','10-12G','10-12G/A'], dateFrom: '2024-05-20', dateTo: '2026-05-20', from: 0 });\nconsole.log(JSON.stringify({ total: data?.hits?.total, first: data?.hits?.hits?.[0] }, null, 2));\n'@ | node --input-type=module -"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:18.858Z"
+    },
+    {
+      "id": "629c0090-2203-4739-8615-bbc418f5413c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Qx04cns83lp8U3sZJxWCDJsm",
+          "title": "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const endpoint of ['income-statement','key-metrics-ttm','ratios-ttm','profile','company-screener']) {\n  const params = new URLSearchParams({ apikey: key });\n  if (endpoint === 'company-screener') params.set('symbol','SNDK'); else params.set('symbol','SNDK');\n  if (endpoint === 'income-statement') { params.set('period','quarter'); params.set('limit','4'); }\n  const data = await getJson(`${stable}/${endpoint}?${params}`);\n  const row = Array.isArray(data) ? data[0] : data;\n  console.log(endpoint, Object.keys(row || {}).slice(0,80));\n  console.log(JSON.stringify(row, null, 2).slice(0,1200));\n}\n'@ | node --input-type=module -",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Qx04cns83lp8U3sZJxWCDJsm",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298172957,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const endpoint of ['income-statement','key-metrics-ttm','ratios-ttm','profile','company-screener']) {\n  const params = new URLSearchParams({ apikey: key });\n  if (endpoint === 'company-screener') params.set('symbol','SNDK'); else params.set('symbol','SNDK');\n  if (endpoint === 'income-statement') { params.set('period','quarter'); params.set('limit','4'); }\n  const data = await getJson(`${stable}/${endpoint}?${params}`);\n  const row = Array.isArray(data) ? data[0] : data;\n  console.log(endpoint, Object.keys(row || {}).slice(0,80));\n  console.log(JSON.stringify(row, null, 2).slice(0,1200));\n}\n'@ | node --input-type=module -"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const endpoint of ['income-statement','key-metrics-ttm','ratios-ttm','profile','company-screener']) {\n  const params = new URLSearchParams({ apikey: key });\n  if (endpoint === 'company-screener') params.set('symbol','SNDK'); else params.set('symbol','SNDK');\n  if (endpoint === 'income-statement') { params.set('period','quarter'); params.set('limit','4'); }\n  const data = await getJson(`${stable}/${endpoint}?${params}`);\n  const row = Array.isArray(data) ? data[0] : data;\n  console.log(endpoint, Object.keys(row || {}).slice(0,80));\n  console.log(JSON.stringify(row, null, 2).slice(0,1200));\n}\n'@ | node --input-type=module -"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:32.967Z"
+    },
+    {
+      "id": "80149372-94ff-401c-8b40-db17cad5acee",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_NMSDgWwUTN5Ty6UTuXtSWVS9",
+          "title": "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('SNDK', { limit: 5 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_NMSDgWwUTN5Ty6UTuXtSWVS9",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298191259,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('SNDK', { limit: 5 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('SNDK', { limit: 5 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:51.268Z"
+    },
+    {
+      "id": "e78c703c-ae2b-4de1-b00f-0e8568e8d5c8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_mLu3rNMQFIMEO0Zx0cdY27e0",
+          "title": "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('AAPL', { limit: 3 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_mLu3rNMQFIMEO0Zx0cdY27e0",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298196674,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('AAPL', { limit: 3 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "@'\nimport { fetchInsiderTrades } from './lib/fmp-client.mjs';\nconst data = await fetchInsiderTrades('AAPL', { limit: 3 }).catch(e => ({error:e.message}));\nconsole.log(JSON.stringify(data, null, 2).slice(0,3000));\n'@ | node --input-type=module -"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The FMP insider endpoint is returning 404 in this environment, so I’m going to use SEC Form 4 XML as the insider-buying source and keep FMP for profile, statements, key metrics, and company news. That gives the screen two independent channels: SEC filings for the event and insider activity, FMP for financials/news."
+        }
+      ],
+      "timestamp": "2026-05-20T17:29:56.684Z"
+    },
+    {
+      "id": "77f879dc-2eca-49b4-9606-b9dfac8a5074",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_hjOl4BOVmIJi5N2xaB7TkBHW",
+          "title": "Get-Content -Path scripts\\pullers\\smallcap-screen.mjs -TotalCount 260",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_hjOl4BOVmIJi5N2xaB7TkBHW",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298210132,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\pullers\\smallcap-screen.mjs -TotalCount 260"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\pullers\\smallcap-screen.mjs -TotalCount 260"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I’m adding a dedicated `spinoff-screen` puller now. It will write an immutable dated note under `05_Data_Pulls/Fundamentals/`, with SEC event evidence, FMP financial filters, SEC Form 4 buy checks, and keyword-filtered company news."
+        }
+      ],
+      "timestamp": "2026-05-20T17:30:10.151Z"
+    },
+    {
+      "id": "05622335-fa90-4616-9482-19800175594b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_hXOXbCNt8Ci9OopJDDjxUWO1",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs",
+              "newText": "\n/** Most recent N quarterly income statements, newest-first. */\nexport async function fetchIncomeQuarterly(ticker, { limit = 8 } = {}) {\n  const url = `${stable()}/income-statement?symbol=${encodeURIComponent(ticker)}&period=quarter&limit=${limit}&apikey=${key()}`;\n  const data = await getJson(url);\n  return Array.isArray(data) ? data : [];\n}\n\n/** FMP TTM key metrics, including netDebtToEBITDATTM when available. */\nexport async function fetchKeyMetricsTtm(ticker) {\n  const url = `${stable()}/key-metrics-ttm?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;\n  const data = await getJson(url);\n  if (Array.isArray(data) && data.length > 0) return data[0];\n  return data && typeof data === 'object' ? data : null;\n}\n\n// ─── Market / float ──────────────────────────────────────────────────────────\n",
+              "oldText": "\n// ─── Market / float ──────────────────────────────────────────────────────────\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_hXOXbCNt8Ci9OopJDDjxUWO1",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -47,2 +47,17 @@\n \n+/** Most recent N quarterly income statements, newest-first. */\n+export async function fetchIncomeQuarterly(ticker, { limit = 8 } = {}) {\n+  const url = `${stable()}/income-statement?symbol=${encodeURIComponent(ticker)}&period=quarter&limit=${limit}&apikey=${key()}`;\n+  const data = await getJson(url);\n+  return Array.isArray(data) ? data : [];\n+}\n+\n+/** FMP TTM key metrics, including netDebtToEBITDATTM when available. */\n+export async function fetchKeyMetricsTtm(ticker) {\n+  const url = `${stable()}/key-metrics-ttm?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;\n+  const data = await getJson(url);\n+  if (Array.isArray(data) && data.length > 0) return data[0];\n+  return data && typeof data === 'object' ? data : null;\n+}\n+\n // ─── Market / float ──────────────────────────────────────────────────────────\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:30:19.834Z"
+    },
+    {
+      "id": "e055d9a5-5820-4d69-9a27-2db28dfbdef4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_G6Z0vpQdkWRghtBkNrK1Nbvp",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "/**\n * spinoff-screen.mjs - event-driven spin-off / separation screener.\n *\n * Starts from SEC EFTS full-text hits for spin-off, separation, and Form 10\n * language, then applies FMP fundamentals and SEC Form 4 insider-buy filters.\n *\n * Usage:\n *   node run.mjs pull spinoff-screen\n *   node run.mjs pull spinoff-screen --lookback 730 --candidate-limit 80 --limit 25\n */\n\nimport { join } from 'node:path';\nimport { getPullsDir } from '../lib/config.mjs';\nimport { buildNote, buildTable, dateStampedFilename, formatNumber, today, writeNote } from '../lib/markdown.mjs';\nimport { setProperties } from '../lib/obsidian-cli.mjs';\nimport {\n  fetchBalanceSheetQuarterly,\n  fetchIncomeAnnual,\n  fetchIncomeQuarterly,\n  fetchKeyMetricsTtm,\n  fetchProfile,\n  fetchStockNews,\n} from '../lib/fmp-client.mjs';\nimport {\n  EDGAR_USER_AGENT,\n  FORM_GROUPS,\n  fetchRecentFilings,\n  searchFullText,\n} from '../lib/edgar.mjs';\n\nconst DEFAULTS = Object.freeze({\n  lookbackDays: 730,\n  candidateLimit: 80,\n  limit: 30,\n  newsLimit: 10,\n  maxPagesPerQuery: 3,\n  insiderLookbackDays: 365,\n});\n\nconst EVENT_QUERIES = Object.freeze([\n  '\"spin-off\"',\n  '\"spin off\"',\n  'spinoff',\n  'separation',\n  '\"Form 10\"',\n]);\n\nconst EVENT_FORMS = Object.freeze([\n  '10-12B',\n  '10-12B/A',\n  '10-12G',\n  '10-12G/A',\n  '8-K',\n  '8-K/A',\n  'S-1',\n  'S-1/A',\n]);\n\nconst EVENT_KEYWORDS = Object.freeze([\n  'spin-off',\n  'spin off',\n  'spinoff',\n  'separation',\n  'separate company',\n  'form 10',\n  '10-12b',\n  '10-12g',\n]);\n\nexport async function pull(flags = {}) {\n  const lookbackDays = Number(flags.lookback) || DEFAULTS.lookbackDays;\n  const candidateLimit = Number(flags['candidate-limit']) || DEFAULTS.candidateLimit;\n  const limit = Number(flags.limit) || DEFAULTS.limit;\n  const from = flags.from || daysAgo(lookbackDays);\n  const to = flags.to || today();\n\n  console.log(`Spinoff screen: SEC/news event search from ${from} to ${to}; candidate cap ${candidateLimit}.`);\n\n  const secCandidates = await findSecEventCandidates({ from, to, candidateLimit });\n  console.log(`  ${secCandidates.length} SEC event candidates found; enriching with FMP + Form 4 data...`);\n\n  const enriched = [];\n  const rejected = [];\n\n  for (const candidate of secCandidates) {\n    const result = await enrichCandidate(candidate, { insiderLookbackDays: DEFAULTS.insiderLookbackDays, newsLimit: DEFAULTS.newsLimit });\n    if (!result) continue;\n\n    if (passesScreen(result)) {\n      enriched.push(result);\n    } else {\n      rejected.push(result);\n    }\n\n    if (enriched.length >= limit) break;\n  }\n\n  enriched.sort(rankCandidates);\n\n  const signalStatus = enriched.length > 0 ? 'watch' : 'clear';\n  const filePath = join(getPullsDir(), 'Fundamentals', dateStampedFilename('Spinoff_Separation_Screen'));\n  const note = buildScreenNote({\n    matches: enriched,\n    rejected,\n    secCandidateCount: secCandidates.length,\n    from,\n    to,\n    lookbackDays,\n    candidateLimit,\n    signalStatus,\n  });\n\n  if (flags['dry-run']) {\n    console.log(JSON.stringify({\n      matches: enriched.map(toJsonRow),\n      rejected: rejected.slice(0, 20).map(toJsonRow),\n    }, null, 2));\n    return { signals: enriched.length ? ['spinoff_screen_matches'] : [] };\n  }\n\n  writeNote(filePath, note);\n  setProperties(filePath, { signal_status: signalStatus, date_pulled: today() });\n  console.log(`Wrote: ${filePath} (${enriched.length} matches)`);\n  return { filePath, signals: enriched.length ? ['spinoff_screen_matches'] : [] };\n}\n\nasync function findSecEventCandidates({ from, to, candidateLimit }) {\n  const byTicker = new Map();\n\n  for (const q of EVENT_QUERIES) {\n    for (let page = 0; page < DEFAULTS.maxPagesPerQuery; page++) {\n      const data = await searchFullText({\n        q,\n        forms: EVENT_FORMS,\n        dateFrom: from,\n        dateTo: to,\n        from: page * 100,\n      }).catch(() => null);\n\n      const hits = data?.hits?.hits ?? [];\n      if (hits.length === 0) break;\n\n      for (const hit of hits) {\n        const parsed = parseSecHit(hit, q);\n        if (!parsed?.ticker || !parsed.cik) continue;\n\n        const current = byTicker.get(parsed.ticker) ?? {\n          ticker: parsed.ticker,\n          companyName: parsed.companyName,\n          cik: parsed.cik,\n          secHits: [],\n          queries: new Set(),\n        };\n        current.secHits.push(parsed);\n        current.queries.add(q);\n        byTicker.set(parsed.ticker, current);\n      }\n\n      if (byTicker.size >= candidateLimit) break;\n    }\n    if (byTicker.size >= candidateLimit) break;\n  }\n\n  return [...byTicker.values()]\n    .map(item => ({ ...item, queries: [...item.queries] }))\n    .sort((a, b) => latestDate(b.secHits).localeCompare(latestDate(a.secHits)))\n    .slice(0, candidateLimit);\n}\n\nfunction parseSecHit(hit, query) {\n  const source = hit?._source ?? {};\n  const display = source.display_names?.[0] ?? '';\n  const parsedDisplay = parseDisplayName(display);\n  const cik = String(source.ciks?.[0] ?? parsedDisplay.cik ?? '').padStart(10, '0');\n  const accessionRaw = String(source.adsh ?? '');\n  const accession = accessionRaw.replace(/-/g, '');\n  const doc = String(hit?._id ?? '').split(':')[1] || source.primary_doc || '';\n\n  return {\n    ticker: parsedDisplay.ticker,\n    companyName: parsedDisplay.companyName || display,\n    cik,\n    query,\n    form: source.form ?? source.root_forms?.[0] ?? '',\n    fileDate: source.file_date ?? '',\n    accessionRaw,\n    accession,\n    doc,\n    url: accession && doc\n      ? `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${accession}/${doc}`\n      : `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${Number(cik)}&owner=include&count=40`,\n  };\n}\n\nfunction parseDisplayName(display) {\n  const tickerMatch = String(display).match(/\\(([A-Z][A-Z0-9.-]{0,9})\\)\\s+\\(CIK/i);\n  const cikMatch = String(display).match(/CIK\\s+(\\d+)/i);\n  const companyName = String(display)\n    .replace(/\\s+\\([A-Z][A-Z0-9.-]{0,9}\\)\\s+\\(CIK.*$/i, '')\n    .replace(/\\s+\\(CIK.*$/i, '')\n    .trim();\n  return {\n    ticker: tickerMatch?.[1]?.replace(/\\./g, '-').toUpperCase() ?? '',\n    cik: cikMatch?.[1] ?? '',\n    companyName,\n  };\n}\n\nasync function enrichCandidate(candidate, options) {\n  const ticker = candidate.ticker;\n  const [profile, balance, incomeQ, incomeA, metrics, news, insider] = await Promise.all([\n    fetchProfile(ticker).catch(() => null),\n    fetchBalanceSheetQuarterly(ticker, { limit: 8 }).catch(() => []),\n    fetchIncomeQuarterly(ticker, { limit: 8 }).catch(() => []),\n    fetchIncomeAnnual(ticker, { limit: 4 }).catch(() => []),\n    fetchKeyMetricsTtm(ticker).catch(() => null),\n    fetchStockNews(ticker, { limit: options.newsLimit }).catch(() => []),\n    fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 })),\n  ]);\n\n  if (!profile?.symbol || profile.isEtf || profile.isFund || profile.isActivelyTrading === false) {\n    return null;\n  }\n\n  const financials = buildFinancialSnapshot({ balance, incomeQ, incomeA, metrics });\n  const newsHits = filterEventNews(news);\n\n  return {\n    ...candidate,\n    companyName: profile.companyName || candidate.companyName,\n    sector: profile.sector ?? '',\n    industry: profile.industry ?? '',\n    marketCap: Number(profile.marketCap ?? metrics?.marketCap ?? 0),\n    financials,\n    insider,\n    newsHits,\n    passFlags: {\n      leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n      revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n      insiderBuying: insider.buyCount > 0,\n      eventNews: newsHits.length > 0,\n    },\n  };\n}\n\nfunction buildFinancialSnapshot({ balance, incomeQ, incomeA, metrics }) {\n  const latestBalance = newestByDate(balance, 'date');\n  const netDebt = asNumber(latestBalance?.netDebt)\n    ?? ((asNumber(latestBalance?.totalDebt) ?? 0) - (asNumber(latestBalance?.cashAndCashEquivalents) ?? asNumber(latestBalance?.cashAndShortTermInvestments) ?? 0));\n\n  const recentQ = incomeQ.slice(0, 4);\n  const priorQ = incomeQ.slice(4, 8);\n  const ttmEbitda = sumMetric(recentQ, 'ebitda');\n  const ttmRevenue = sumMetric(recentQ, 'revenue');\n  const priorTtmRevenue = sumMetric(priorQ, 'revenue');\n\n  const annualLatest = incomeA[0];\n  const annualPrior = incomeA[1];\n  const revenueGrowthPct = priorTtmRevenue > 0\n    ? ((ttmRevenue - priorTtmRevenue) / Math.abs(priorTtmRevenue)) * 100\n    : annualLatest?.revenue && annualPrior?.revenue\n      ? ((Number(annualLatest.revenue) - Number(annualPrior.revenue)) / Math.abs(Number(annualPrior.revenue))) * 100\n      : null;\n\n  const netDebtToEbitda = asNumber(metrics?.netDebtToEBITDATTM)\n    ?? (ttmEbitda > 0 ? netDebt / ttmEbitda : null);\n\n  return {\n    balanceDate: latestBalance?.date ?? '',\n    netDebt,\n    ttmEbitda: ttmEbitda || asNumber(annualLatest?.ebitda),\n    netDebtToEbitda,\n    ttmRevenue,\n    revenueGrowthPct,\n  };\n}\n\nasync function fetchSecInsiderBuys(cik, { lookbackDays }) {\n  const since = daysAgo(lookbackDays);\n  const filings = await fetchRecentFilings(cik, {\n    formTypes: FORM_GROUPS.INSIDER,\n    since,\n    limit: 25,\n  });\n\n  let buyCount = 0;\n  let buyValue = 0;\n  const buyFilings = [];\n\n  for (const filing of filings.filter(f => f.formType === '4')) {\n    const parsed = await parseForm4(filing, cik).catch(() => ({ purchases: [] }));\n    if (parsed.purchases.length === 0) continue;\n    buyCount += parsed.purchases.length;\n    buyValue += parsed.purchases.reduce((sum, p) => sum + (p.value ?? 0), 0);\n    buyFilings.push({\n      filingDate: filing.filingDate,\n      accessionRaw: filing.accessionRaw,\n      purchaseCount: parsed.purchases.length,\n      value: parsed.purchases.reduce((sum, p) => sum + (p.value ?? 0), 0),\n      url: parsed.url,\n    });\n  }\n\n  return { buyCount, buyValue, filingsChecked: filings.length, buyFilings };\n}\n\nasync function parseForm4(filing, cik) {\n  const accession = filing.accession || String(filing.accessionRaw ?? '').replace(/-/g, '');\n  const doc = filing.primaryDoc;\n  if (!accession || !doc) return { purchases: [] };\n\n  const url = `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${accession}/${doc}`;\n  const response = await fetch(url, { headers: { 'User-Agent': EDGAR_USER_AGENT, Accept: 'application/xml,text/xml,text/html' } });\n  if (!response.ok) return { purchases: [], url };\n\n  const xml = await response.text();\n  const purchases = [];\n  const blocks = xml.match(/<nonDerivativeTransaction>[\\s\\S]*?<\\/nonDerivativeTransaction>/gi) ?? [];\n  for (const block of blocks) {\n    const code = firstXmlValue(block, 'transactionCode');\n    if (code !== 'P') continue;\n    const shares = Number(firstXmlValue(block, 'transactionShares') ?? 0);\n    const price = Number(firstXmlValue(block, 'transactionPricePerShare') ?? 0);\n    purchases.push({ shares, price, value: shares * price });\n  }\n\n  return { purchases, url };\n}\n\nfunction firstXmlValue(block, tag) {\n  const direct = new RegExp(`<${tag}>\\\\s*([^<]+?)\\\\s*</${tag}>`, 'i').exec(block)?.[1];\n  if (direct != null) return direct.trim();\n  return new RegExp(`<${tag}>[\\\\s\\\\S]*?<value>\\\\s*([^<]+?)\\\\s*</value>[\\\\s\\\\S]*?</${tag}>`, 'i').exec(block)?.[1]?.trim() ?? null;\n}\n\nfunction filterEventNews(news) {\n  return news\n    .filter(item => {\n      const text = `${item.title ?? ''} ${item.text ?? ''} ${item.site ?? ''}`.toLowerCase();\n      return EVENT_KEYWORDS.some(keyword => text.includes(keyword));\n    })\n    .slice(0, 5);\n}\n\nfunction passesScreen(candidate) {\n  return candidate.passFlags.leverage\n    && candidate.passFlags.revenueGrowth\n    && candidate.passFlags.insiderBuying;\n}\n\nfunction rankCandidates(a, b) {\n  const scoreA = (a.passFlags.eventNews ? 1 : 0)\n    + Math.min(a.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - a.financials.netDebtToEbitda) / 3\n    + Math.min(Math.max(a.financials.revenueGrowthPct ?? 0, 0), 50) / 50;\n  const scoreB = (b.passFlags.eventNews ? 1 : 0)\n    + Math.min(b.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - b.financials.netDebtToEbitda) / 3\n    + Math.min(Math.max(b.financials.revenueGrowthPct ?? 0, 0), 50) / 50;\n  return scoreB - scoreA;\n}\n\nfunction buildScreenNote({ matches, rejected, secCandidateCount, from, to, lookbackDays, candidateLimit, signalStatus }) {\n  return buildNote({\n    frontmatter: {\n      title: 'Spin-off / Separation Financial Screen',\n      source: 'SEC EDGAR EFTS + SEC Form 4 + FMP Premium',\n      date_pulled: today(),\n      domain: 'fundamentals',\n      data_type: 'screener',\n      frequency: 'on_demand',\n      signal_status: signalStatus,\n      signals: matches.length ? ['spinoff_screen_matches'] : [],\n      total_hits: matches.length,\n      sec_candidates: secCandidateCount,\n      tags: ['screener', 'spinoff', 'separation', 'form-10', 'fmp', 'sec', 'insider-buying'],\n    },\n    sections: [\n      {\n        heading: `Matches - ${matches.length}`,\n        content: matches.length\n          ? buildTable(\n              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'News', 'Market Cap'],\n              matches.map(matchRow),\n            )\n          : '_No companies passed all hard filters. See near misses for candidates that matched the event screen but failed financial or insider-buy filters._',\n      },\n      {\n        heading: 'Near Misses',\n        content: rejected.length\n          ? buildTable(\n              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'Latest SEC Event'],\n              rejected.slice(0, 25).map(rejectRow),\n            )\n          : '_No rejected candidates recorded._',\n      },\n      {\n        heading: 'Screen Logic',\n        content: [\n          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration, 8-K, and S-1 filings.`,\n          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days.`,\n          '- News confirmation: FMP company news headlines/text are keyword-filtered for spin-off, separation, or Form 10 terms; this is scored but not a hard filter.',\n          `- Run parameters: lookback ${lookbackDays} days, SEC candidate limit ${candidateLimit}.`,\n        ].join('\\n'),\n      },\n      {\n        heading: 'Sources',\n        content: [\n          '- SEC EDGAR EFTS full-text search for spin-off/separation/Form 10 discovery.',\n          '- SEC EDGAR submissions and Form 4 XML for insider purchase checks.',\n          '- FMP Premium profile, quarterly balance sheet, quarterly/annual income statement, key metrics TTM, and stock news endpoints.',\n        ].join('\\n'),\n      },\n    ],\n  });\n}\n\nfunction matchRow(c) {\n  const latest = latestEvent(c);\n  return [\n    c.ticker,\n    c.companyName,\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n    fmtRatio(c.financials.netDebtToEbitda),\n    fmtPct(c.financials.revenueGrowthPct),\n    `${c.insider.buyCount} / ${formatNumber(c.insider.buyValue, { style: 'currency' })}`,\n    c.newsHits.length ? `[${trimCell(c.newsHits[0].title ?? 'headline')}](${c.newsHits[0].url ?? c.newsHits[0].link ?? ''})` : '-',\n    formatNumber(c.marketCap, { style: 'currency' }),\n  ];\n}\n\nfunction rejectRow(c) {\n  const failed = Object.entries(c.passFlags)\n    .filter(([, passed]) => !passed)\n    .map(([name]) => name)\n    .join(', ');\n  const latest = latestEvent(c);\n  return [\n    c.ticker,\n    c.companyName,\n    failed || '-',\n    fmtRatio(c.financials.netDebtToEbitda),\n    fmtPct(c.financials.revenueGrowthPct),\n    String(c.insider.buyCount),\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n  ];\n}\n\nfunction toJsonRow(c) {\n  return {\n    ticker: c.ticker,\n    companyName: c.companyName,\n    netDebtToEbitda: c.financials.netDebtToEbitda,\n    revenueGrowthPct: c.financials.revenueGrowthPct,\n    insiderBuys: c.insider.buyCount,\n    insiderBuyValue: c.insider.buyValue,\n    latestEvent: latestEvent(c),\n    newsHits: c.newsHits.map(n => ({ title: n.title, url: n.url ?? n.link })),\n    passFlags: c.passFlags,\n  };\n}\n\nfunction latestEvent(c) {\n  return [...(c.secHits ?? [])].sort((a, b) => String(b.fileDate).localeCompare(String(a.fileDate)))[0] ?? {};\n}\n\nfunction latestDate(hits) {\n  return latestEvent({ secHits: hits }).fileDate ?? '';\n}\n\nfunction newestByDate(rows, key) {\n  return [...(rows ?? [])].sort((a, b) => String(b?.[key] ?? '').localeCompare(String(a?.[key] ?? '')))[0] ?? null;\n}\n\nfunction sumMetric(rows, key) {\n  return rows.reduce((sum, row) => sum + (asNumber(row?.[key]) ?? 0), 0);\n}\n\nfunction asNumber(value) {\n  const n = Number(value);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction fmtRatio(value) {\n  return value == null || !Number.isFinite(Number(value)) ? 'N/A' : Number(value).toFixed(2);\n}\n\nfunction fmtPct(value) {\n  return value == null || !Number.isFinite(Number(value)) ? 'N/A' : `${Number(value).toFixed(1)}%`;\n}\n\nfunction trimCell(value, max = 70) {\n  const text = String(value ?? '').replace(/\\s+/g, ' ').trim();\n  return text.length > max ? `${text.slice(0, max - 3)}...` : text;\n}\n\nfunction daysAgo(n) {\n  const d = new Date();\n  d.setDate(d.getDate() - Number(n));\n  return d.toISOString().slice(0, 10);\n}\n\nexport const _test = {\n  buildFinancialSnapshot,\n  filterEventNews,\n  firstXmlValue,\n  parseDisplayName,\n  passesScreen,\n};\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_G6Z0vpQdkWRghtBkNrK1Nbvp",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "add",
+                "content": "/**\n * spinoff-screen.mjs - event-driven spin-off / separation screener.\n *\n * Starts from SEC EFTS full-text hits for spin-off, separation, and Form 10\n * language, then applies FMP fundamentals and SEC Form 4 insider-buy filters.\n *\n * Usage:\n *   node run.mjs pull spinoff-screen\n *   node run.mjs pull spinoff-screen --lookback 730 --candidate-limit 80 --limit 25\n */\n\nimport { join } from 'node:path';\nimport { getPullsDir } from '../lib/config.mjs';\nimport { buildNote, buildTable, dateStampedFilename, formatNumber, today, writeNote } from '../lib/markdown.mjs';\nimport { setProperties } from '../lib/obsidian-cli.mjs';\nimport {\n  fetchBalanceSheetQuarterly,\n  fetchIncomeAnnual,\n  fetchIncomeQuarterly,\n  fetchKeyMetricsTtm,\n  fetchProfile,\n  fetchStockNews,\n} from '../lib/fmp-client.mjs';\nimport {\n  EDGAR_USER_AGENT,\n  FORM_GROUPS,\n  fetchRecentFilings,\n  searchFullText,\n} from '../lib/edgar.mjs';\n\nconst DEFAULTS = Object.freeze({\n  lookbackDays: 730,\n  candidateLimit: 80,\n  limit: 30,\n  newsLimit: 10,\n  maxPagesPerQuery: 3,\n  insiderLookbackDays: 365,\n});\n\nconst EVENT_QUERIES = Object.freeze([\n  '\"spin-off\"',\n  '\"spin off\"',\n  'spinoff',\n  'separation',\n  '\"Form 10\"',\n]);\n\nconst EVENT_FORMS = Object.freeze([\n  '10-12B',\n  '10-12B/A',\n  '10-12G',\n  '10-12G/A',\n  '8-K',\n  '8-K/A',\n  'S-1',\n  'S-1/A',\n]);\n\nconst EVENT_KEYWORDS = Object.freeze([\n  'spin-off',\n  'spin off',\n  'spinoff',\n  'separation',\n  'separate company',\n  'form 10',\n  '10-12b',\n  '10-12g',\n]);\n\nexport async function pull(flags = {}) {\n  const lookbackDays = Number(flags.lookback) || DEFAULTS.lookbackDays;\n  const candidateLimit = Number(flags['candidate-limit']) || DEFAULTS.candidateLimit;\n  const limit = Number(flags.limit) || DEFAULTS.limit;\n  const from = flags.from || daysAgo(lookbackDays);\n  const to = flags.to || today();\n\n  console.log(`Spinoff screen: SEC/news event search from ${from} to ${to}; candidate cap ${candidateLimit}.`);\n\n  const secCandidates = await findSecEventCandidates({ from, to, candidateLimit });\n  console.log(`  ${secCandidates.length} SEC event candidates found; enriching with FMP + Form 4 data...`);\n\n  const enriched = [];\n  const rejected = [];\n\n  for (const candidate of secCandidates) {\n    const result = await enrichCandidate(candidate, { insiderLookbackDays: DEFAULTS.insiderLookbackDays, newsLimit: DEFAULTS.newsLimit });\n    if (!result) continue;\n\n    if (passesScreen(result)) {\n      enriched.push(result);\n    } else {\n      rejected.push(result);\n    }\n\n    if (enriched.length >= limit) break;\n  }\n\n  enriched.sort(rankCandidates);\n\n  const signalStatus = enriched.length > 0 ? 'watch' : 'clear';\n  const filePath = join(getPullsDir(), 'Fundamentals', dateStampedFilename('Spinoff_Separation_Screen'));\n  const note = buildScreenNote({\n    matches: enriched,\n    rejected,\n    secCandidateCount: secCandidates.length,\n    from,\n    to,\n    lookbackDays,\n    candidateLimit,\n    signalStatus,\n  });\n\n  if (flags['dry-run']) {\n    console.log(JSON.stringify({\n      matches: enriched.map(toJsonRow),\n      rejected: rejected.slice(0, 20).map(toJsonRow),\n    }, null, 2));\n    return { signals: enriched.length ? ['spinoff_screen_matches'] : [] };\n  }\n\n  writeNote(filePath, note);\n  setProperties(filePath, { signal_status: signalStatus, date_pulled: today() });\n  console.log(`Wrote: ${filePath} (${enriched.length} matches)`);\n  return { filePath, signals: enriched.length ? ['spinoff_screen_matches'] : [] };\n}\n\nasync function findSecEventCandidates({ from, to, candidateLimit }) {\n  const byTicker = new Map();\n\n  for (const q of EVENT_QUERIES) {\n    for (let page = 0; page < DEFAULTS.maxPagesPerQuery; page++) {\n      const data = await searchFullText({\n        q,\n        forms: EVENT_FORMS,\n        dateFrom: from,\n        dateTo: to,\n        from: page * 100,\n      }).catch(() => null);\n\n      const hits = data?.hits?.hits ?? [];\n      if (hits.length === 0) break;\n\n      for (const hit of hits) {\n        const parsed = parseSecHit(hit, q);\n        if (!parsed?.ticker || !parsed.cik) continue;\n\n        const current = byTicker.get(parsed.ticker) ?? {\n          ticker: parsed.ticker,\n          companyName: parsed.companyName,\n          cik: parsed.cik,\n          secHits: [],\n          queries: new Set(),\n        };\n        current.secHits.push(parsed);\n        current.queries.add(q);\n        byTicker.set(parsed.ticker, current);\n      }\n\n      if (byTicker.size >= candidateLimit) break;\n    }\n    if (byTicker.size >= candidateLimit) break;\n  }\n\n  return [...byTicker.values()]\n    .map(item => ({ ...item, queries: [...item.queries] }))\n    .sort((a, b) => latestDate(b.secHits).localeCompare(latestDate(a.secHits)))\n    .slice(0, candidateLimit);\n}\n\nfunction parseSecHit(hit, query) {\n  const source = hit?._source ?? {};\n  const display = source.display_names?.[0] ?? '';\n  const parsedDisplay = parseDisplayName(display);\n  const cik = String(source.ciks?.[0] ?? parsedDisplay.cik ?? '').padStart(10, '0');\n  const accessionRaw = String(source.adsh ?? '');\n  const accession = accessionRaw.replace(/-/g, '');\n  const doc = String(hit?._id ?? '').split(':')[1] || source.primary_doc || '';\n\n  return {\n    ticker: parsedDisplay.ticker,\n    companyName: parsedDisplay.companyName || display,\n    cik,\n    query,\n    form: source.form ?? source.root_forms?.[0] ?? '',\n    fileDate: source.file_date ?? '',\n    accessionRaw,\n    accession,\n    doc,\n    url: accession && doc\n      ? `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${accession}/${doc}`\n      : `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${Number(cik)}&owner=include&count=40`,\n  };\n}\n\nfunction parseDisplayName(display) {\n  const tickerMatch = String(display).match(/\\(([A-Z][A-Z0-9.-]{0,9})\\)\\s+\\(CIK/i);\n  const cikMatch = String(display).match(/CIK\\s+(\\d+)/i);\n  const companyName = String(display)\n    .replace(/\\s+\\([A-Z][A-Z0-9.-]{0,9}\\)\\s+\\(CIK.*$/i, '')\n    .replace(/\\s+\\(CIK.*$/i, '')\n    .trim();\n  return {\n    ticker: tickerMatch?.[1]?.replace(/\\./g, '-').toUpperCase() ?? '',\n    cik: cikMatch?.[1] ?? '',\n    companyName,\n  };\n}\n\nasync function enrichCandidate(candidate, options) {\n  const ticker = candidate.ticker;\n  const [profile, balance, incomeQ, incomeA, metrics, news, insider] = await Promise.all([\n    fetchProfile(ticker).catch(() => null),\n    fetchBalanceSheetQuarterly(ticker, { limit: 8 }).catch(() => []),\n    fetchIncomeQuarterly(ticker, { limit: 8 }).catch(() => []),\n    fetchIncomeAnnual(ticker, { limit: 4 }).catch(() => []),\n    fetchKeyMetricsTtm(ticker).catch(() => null),\n    fetchStockNews(ticker, { limit: options.newsLimit }).catch(() => []),\n    fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 })),\n  ]);\n\n  if (!profile?.symbol || profile.isEtf || profile.isFund || profile.isActivelyTrading === false) {\n    return null;\n  }\n\n  const financials = buildFinancialSnapshot({ balance, incomeQ, incomeA, metrics });\n  const newsHits = filterEventNews(news);\n\n  return {\n    ...candidate,\n    companyName: profile.companyName || candidate.companyName,\n    sector: profile.sector ?? '',\n    industry: profile.industry ?? '',\n    marketCap: Number(profile.marketCap ?? metrics?.marketCap ?? 0),\n    financials,\n    insider,\n    newsHits,\n    passFlags: {\n      leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n      revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n      insiderBuying: insider.buyCount > 0,\n      eventNews: newsHits.length > 0,\n    },\n  };\n}\n\nfunction buildFinancialSnapshot({ balance, incomeQ, incomeA, metrics }) {\n  const latestBalance = newestByDate(balance, 'date');\n  const netDebt = asNumber(latestBalance?.netDebt)\n    ?? ((asNumber(latestBalance?.totalDebt) ?? 0) - (asNumber(latestBalance?.cashAndCashEquivalents) ?? asNumber(latestBalance?.cashAndShortTermInvestments) ?? 0));\n\n  const recentQ = incomeQ.slice(0, 4);\n  const priorQ = incomeQ.slice(4, 8);\n  const ttmEbitda = sumMetric(recentQ, 'ebitda');\n  const ttmRevenue = sumMetric(recentQ, 'revenue');\n  const priorTtmRevenue = sumMetric(priorQ, 'revenue');\n\n  const annualLatest = incomeA[0];\n  const annualPrior = incomeA[1];\n  const revenueGrowthPct = priorTtmRevenue > 0\n    ? ((ttmRevenue - priorTtmRevenue) / Math.abs(priorTtmRevenue)) * 100\n    : annualLatest?.revenue && annualPrior?.revenue\n      ? ((Number(annualLatest.revenue) - Number(annualPrior.revenue)) / Math.abs(Number(annualPrior.revenue))) * 100\n      : null;\n\n  const netDebtToEbitda = asNumber(metrics?.netDebtToEBITDATTM)\n    ?? (ttmEbitda > 0 ? netDebt / ttmEbitda : null);\n\n  return {\n    balanceDate: latestBalance?.date ?? '',\n    netDebt,\n    ttmEbitda: ttmEbitda || asNumber(annualLatest?.ebitda),\n    netDebtToEbitda,\n    ttmRevenue,\n    revenueGrowthPct,\n  };\n}\n\nasync function fetchSecInsiderBuys(cik, { lookbackDays }) {\n  const since = daysAgo(lookbackDays);\n  const filings = await fetchRecentFilings(cik, {\n    formTypes: FORM_GROUPS.INSIDER,\n    since,\n    limit: 25,\n  });\n\n  let buyCount = 0;\n  let buyValue = 0;\n  const buyFilings = [];\n\n  for (const filing of filings.filter(f => f.formType === '4')) {\n    const parsed = await parseForm4(filing, cik).catch(() => ({ purchases: [] }));\n    if (parsed.purchases.length === 0) continue;\n    buyCount += parsed.purchases.length;\n    buyValue += parsed.purchases.reduce((sum, p) => sum + (p.value ?? 0), 0);\n    buyFilings.push({\n      filingDate: filing.filingDate,\n      accessionRaw: filing.accessionRaw,\n      purchaseCount: parsed.purchases.length,\n      value: parsed.purchases.reduce((sum, p) => sum + (p.value ?? 0), 0),\n      url: parsed.url,\n    });\n  }\n\n  return { buyCount, buyValue, filingsChecked: filings.length, buyFilings };\n}\n\nasync function parseForm4(filing, cik) {\n  const accession = filing.accession || String(filing.accessionRaw ?? '').replace(/-/g, '');\n  const doc = filing.primaryDoc;\n  if (!accession || !doc) return { purchases: [] };\n\n  const url = `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${accession}/${doc}`;\n  const response = await fetch(url, { headers: { 'User-Agent': EDGAR_USER_AGENT, Accept: 'application/xml,text/xml,text/html' } });\n  if (!response.ok) return { purchases: [], url };\n\n  const xml = await response.text();\n  const purchases = [];\n  const blocks = xml.match(/<nonDerivativeTransaction>[\\s\\S]*?<\\/nonDerivativeTransaction>/gi) ?? [];\n  for (const block of blocks) {\n    const code = firstXmlValue(block, 'transactionCode');\n    if (code !== 'P') continue;\n    const shares = Number(firstXmlValue(block, 'transactionShares') ?? 0);\n    const price = Number(firstXmlValue(block, 'transactionPricePerShare') ?? 0);\n    purchases.push({ shares, price, value: shares * price });\n  }\n\n  return { purchases, url };\n}\n\nfunction firstXmlValue(block, tag) {\n  const direct = new RegExp(`<${tag}>\\\\s*([^<]+?)\\\\s*</${tag}>`, 'i').exec(block)?.[1];\n  if (direct != null) return direct.trim();\n  return new RegExp(`<${tag}>[\\\\s\\\\S]*?<value>\\\\s*([^<]+?)\\\\s*</value>[\\\\s\\\\S]*?</${tag}>`, 'i').exec(block)?.[1]?.trim() ?? null;\n}\n\nfunction filterEventNews(news) {\n  return news\n    .filter(item => {\n      const text = `${item.title ?? ''} ${item.text ?? ''} ${item.site ?? ''}`.toLowerCase();\n      return EVENT_KEYWORDS.some(keyword => text.includes(keyword));\n    })\n    .slice(0, 5);\n}\n\nfunction passesScreen(candidate) {\n  return candidate.passFlags.leverage\n    && candidate.passFlags.revenueGrowth\n    && candidate.passFlags.insiderBuying;\n}\n\nfunction rankCandidates(a, b) {\n  const scoreA = (a.passFlags.eventNews ? 1 : 0)\n    + Math.min(a.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - a.financials.netDebtToEbitda) / 3\n    + Math.min(Math.max(a.financials.revenueGrowthPct ?? 0, 0), 50) / 50;\n  const scoreB = (b.passFlags.eventNews ? 1 : 0)\n    + Math.min(b.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - b.financials.netDebtToEbitda) / 3\n    + Math.min(Math.max(b.financials.revenueGrowthPct ?? 0, 0), 50) / 50;\n  return scoreB - scoreA;\n}\n\nfunction buildScreenNote({ matches, rejected, secCandidateCount, from, to, lookbackDays, candidateLimit, signalStatus }) {\n  return buildNote({\n    frontmatter: {\n      title: 'Spin-off / Separation Financial Screen',\n      source: 'SEC EDGAR EFTS + SEC Form 4 + FMP Premium',\n      date_pulled: today(),\n      domain: 'fundamentals',\n      data_type: 'screener',\n      frequency: 'on_demand',\n      signal_status: signalStatus,\n      signals: matches.length ? ['spinoff_screen_matches'] : [],\n      total_hits: matches.length,\n      sec_candidates: secCandidateCount,\n      tags: ['screener', 'spinoff', 'separation', 'form-10', 'fmp', 'sec', 'insider-buying'],\n    },\n    sections: [\n      {\n        heading: `Matches - ${matches.length}`,\n        content: matches.length\n          ? buildTable(\n              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'News', 'Market Cap'],\n              matches.map(matchRow),\n            )\n          : '_No companies passed all hard filters. See near misses for candidates that matched the event screen but failed financial or insider-buy filters._',\n      },\n      {\n        heading: 'Near Misses',\n        content: rejected.length\n          ? buildTable(\n              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'Latest SEC Event'],\n              rejected.slice(0, 25).map(rejectRow),\n            )\n          : '_No rejected candidates recorded._',\n      },\n      {\n        heading: 'Screen Logic',\n        content: [\n          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration, 8-K, and S-1 filings.`,\n          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days.`,\n          '- News confirmation: FMP company news headlines/text are keyword-filtered for spin-off, separation, or Form 10 terms; this is scored but not a hard filter.',\n          `- Run parameters: lookback ${lookbackDays} days, SEC candidate limit ${candidateLimit}.`,\n        ].join('\\n'),\n      },\n      {\n        heading: 'Sources',\n        content: [\n          '- SEC EDGAR EFTS full-text search for spin-off/separation/Form 10 discovery.',\n          '- SEC EDGAR submissions and Form 4 XML for insider purchase checks.',\n          '- FMP Premium profile, quarterly balance sheet, quarterly/annual income statement, key metrics TTM, and stock news endpoints.',\n        ].join('\\n'),\n      },\n    ],\n  });\n}\n\nfunction matchRow(c) {\n  const latest = latestEvent(c);\n  return [\n    c.ticker,\n    c.companyName,\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n    fmtRatio(c.financials.netDebtToEbitda),\n    fmtPct(c.financials.revenueGrowthPct),\n    `${c.insider.buyCount} / ${formatNumber(c.insider.buyValue, { style: 'currency' })}`,\n    c.newsHits.length ? `[${trimCell(c.newsHits[0].title ?? 'headline')}](${c.newsHits[0].url ?? c.newsHits[0].link ?? ''})` : '-',\n    formatNumber(c.marketCap, { style: 'currency' }),\n  ];\n}\n\nfunction rejectRow(c) {\n  const failed = Object.entries(c.passFlags)\n    .filter(([, passed]) => !passed)\n    .map(([name]) => name)\n    .join(', ');\n  const latest = latestEvent(c);\n  return [\n    c.ticker,\n    c.companyName,\n    failed || '-',\n    fmtRatio(c.financials.netDebtToEbitda),\n    fmtPct(c.financials.revenueGrowthPct),\n    String(c.insider.buyCount),\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n  ];\n}\n\nfunction toJsonRow(c) {\n  return {\n    ticker: c.ticker,\n    companyName: c.companyName,\n    netDebtToEbitda: c.financials.netDebtToEbitda,\n    revenueGrowthPct: c.financials.revenueGrowthPct,\n    insiderBuys: c.insider.buyCount,\n    insiderBuyValue: c.insider.buyValue,\n    latestEvent: latestEvent(c),\n    newsHits: c.newsHits.map(n => ({ title: n.title, url: n.url ?? n.link })),\n    passFlags: c.passFlags,\n  };\n}\n\nfunction latestEvent(c) {\n  return [...(c.secHits ?? [])].sort((a, b) => String(b.fileDate).localeCompare(String(a.fileDate)))[0] ?? {};\n}\n\nfunction latestDate(hits) {\n  return latestEvent({ secHits: hits }).fileDate ?? '';\n}\n\nfunction newestByDate(rows, key) {\n  return [...(rows ?? [])].sort((a, b) => String(b?.[key] ?? '').localeCompare(String(a?.[key] ?? '')))[0] ?? null;\n}\n\nfunction sumMetric(rows, key) {\n  return rows.reduce((sum, row) => sum + (asNumber(row?.[key]) ?? 0), 0);\n}\n\nfunction asNumber(value) {\n  const n = Number(value);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction fmtRatio(value) {\n  return value == null || !Number.isFinite(Number(value)) ? 'N/A' : Number(value).toFixed(2);\n}\n\nfunction fmtPct(value) {\n  return value == null || !Number.isFinite(Number(value)) ? 'N/A' : `${Number(value).toFixed(1)}%`;\n}\n\nfunction trimCell(value, max = 70) {\n  const text = String(value ?? '').replace(/\\s+/g, ' ').trim();\n  return text.length > max ? `${text.slice(0, max - 3)}...` : text;\n}\n\nfunction daysAgo(n) {\n  const d = new Date();\n  d.setDate(d.getDate() - Number(n));\n  return d.toISOString().slice(0, 10);\n}\n\nexport const _test = {\n  buildFinancialSnapshot,\n  filterEventNews,\n  firstXmlValue,\n  parseDisplayName,\n  passesScreen,\n};\n"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "The puller is in place. I’m running it dry first with a smaller candidate cap to catch endpoint/schema problems before writing the dated note."
+        }
+      ],
+      "timestamp": "2026-05-20T17:32:01.619Z"
+    },
+    {
+      "id": "db83f72c-1b72-4b07-8122-cdec2a107404",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_pl3KSRS78lkAMHSSE4tKWE8T",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 20 --limit 10 --dry-run",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_pl3KSRS78lkAMHSSE4tKWE8T",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298327743,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 20 --limit 10 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 20 --limit 10 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The first dry run exceeded two minutes, mostly because each candidate can require multiple SEC/FMP calls. I’m tightening the test run and will add bounded concurrency/less Form 4 depth if needed before running the full screen."
+        }
+      ],
+      "timestamp": "2026-05-20T17:32:07.754Z"
+    },
+    {
+      "id": "4c884954-d4f1-438a-a08c-261d14966263",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_nDiV3ewUvkfmD0Ifiopy4sZ4",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 5 --limit 5 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_nDiV3ewUvkfmD0Ifiopy4sZ4",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298456443,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 5 --limit 5 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 5 --limit 5 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The small dry run works and found candidates, but the full version is too slow because it checks Form 4 XML for every SEC hit. I’m moving the insider-buy XML pass behind the financial filters, so it only does the expensive SEC ownership check for companies that already pass leverage and revenue growth."
+        }
+      ],
+      "timestamp": "2026-05-20T17:34:16.456Z"
+    },
+    {
+      "id": "177f36ef-635a-4601-b19a-853ee8a4c760",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ZRnijGwUNM1bae1Ur2lhFHip",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const ticker = candidate.ticker;\n  const [profile, balance, incomeQ, incomeA, metrics, news] = await Promise.all([\n    fetchProfile(ticker).catch(() => null),\n",
+              "oldText": "  const ticker = candidate.ticker;\n  const [profile, balance, incomeQ, incomeA, metrics, news, insider] = await Promise.all([\n    fetchProfile(ticker).catch(() => null),\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    fetchStockNews(ticker, { limit: options.newsLimit }).catch(() => []),\n  ]);\n",
+              "oldText": "    fetchStockNews(ticker, { limit: options.newsLimit }).catch(() => []),\n    fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 })),\n  ]);\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const newsHits = filterEventNews(news);\n  const basePassFlags = {\n    leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n    revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n  };\n  const insider = basePassFlags.leverage && basePassFlags.revenueGrowth\n    ? await fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 }))\n    : { buyCount: 0, buyValue: 0, filingsChecked: 0, skipped: true };\n\n",
+              "oldText": "  const newsHits = filterEventNews(news);\n\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    passFlags: {\n      ...basePassFlags,\n      insiderBuying: insider.buyCount > 0,\n",
+              "oldText": "    passFlags: {\n      leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n      revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n      insiderBuying: insider.buyCount > 0,\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    since,\n    limit: 12,\n  });\n",
+              "oldText": "    since,\n    limit: 25,\n  });\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_ZRnijGwUNM1bae1Ur2lhFHip",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -210,3 +210,3 @@\n   const ticker = candidate.ticker;\n-  const [profile, balance, incomeQ, incomeA, metrics, news, insider] = await Promise.all([\n+  const [profile, balance, incomeQ, incomeA, metrics, news] = await Promise.all([\n     fetchProfile(ticker).catch(() => null),\n@@ -217,3 +217,2 @@\n     fetchStockNews(ticker, { limit: options.newsLimit }).catch(() => []),\n-    fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 })),\n   ]);\n@@ -226,2 +225,9 @@\n   const newsHits = filterEventNews(news);\n+  const basePassFlags = {\n+    leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n+    revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n+  };\n+  const insider = basePassFlags.leverage && basePassFlags.revenueGrowth\n+    ? await fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 }))\n+    : { buyCount: 0, buyValue: 0, filingsChecked: 0, skipped: true };\n \n@@ -237,4 +243,3 @@\n     passFlags: {\n-      leverage: financials.netDebtToEbitda != null && financials.netDebtToEbitda < 3,\n-      revenueGrowth: financials.revenueGrowthPct != null && financials.revenueGrowthPct > 0,\n+      ...basePassFlags,\n       insiderBuying: insider.buyCount > 0,\n@@ -282,3 +287,3 @@\n     since,\n-    limit: 25,\n+    limit: 12,\n   });\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:34:40.955Z"
+    },
+    {
+      "id": "f47576df-b747-4a82-9d45-e9aeffbd8291",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_CQt2lSdZwsHBEKFi7GPVicnH",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_CQt2lSdZwsHBEKFi7GPVicnH",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298484173,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:34:44.190Z"
+    },
+    {
+      "id": "cf410332-2bc7-4b5d-ab12-ab4beaed0f6e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "ws_06fa4b324592ddf7016a0df117f4fc8195a7896f111b90a7df",
+          "title": "Searching for: site:site.financialmodelingprep.com developer insider ownership API Financial Modeling Prep stable insider ownership",
+          "status": "completed",
+          "kind": "fetch",
+          "content": [],
+          "rawInput": {
+            "query": "site:site.financialmodelingprep.com developer insider ownership API Financial Modeling Prep stable insider ownership",
+            "action": {
+              "type": "search",
+              "query": "site:site.financialmodelingprep.com developer insider ownership API Financial Modeling Prep stable insider ownership",
+              "queries": [
+                "site:site.financialmodelingprep.com developer insider ownership API Financial Modeling Prep stable insider ownership"
+              ]
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:36:24.075Z"
+    },
+    {
+      "id": "bd70854c-62c4-4097-b39a-a369e3db6808",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_u44IIqBI57M8xSvfoAzpaiWv",
+          "title": "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const url of [\n `${stable}/insider-trading/search?symbol=SOLS&apikey=${key}`,\n `${stable}/insider-trading/statistics?symbol=SOLS&apikey=${key}`,\n `${stable}/acquisition-of-beneficial-ownership?symbol=SOLS&apikey=${key}`,\n]) {\n const safe=url.replace(key,'KEY');\n try { const data=await getJson(url); console.log(safe); console.log(JSON.stringify(Array.isArray(data)?data.slice(0,3):data,null,2).slice(0,2000)); }\n catch(e){ console.log(safe, e.message); }\n}\n'@ | node --input-type=module -",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_u44IIqBI57M8xSvfoAzpaiWv",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298594939,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const url of [\n `${stable}/insider-trading/search?symbol=SOLS&apikey=${key}`,\n `${stable}/insider-trading/statistics?symbol=SOLS&apikey=${key}`,\n `${stable}/acquisition-of-beneficial-ownership?symbol=SOLS&apikey=${key}`,\n]) {\n const safe=url.replace(key,'KEY');\n try { const data=await getJson(url); console.log(safe); console.log(JSON.stringify(Array.isArray(data)?data.slice(0,3):data,null,2).slice(0,2000)); }\n catch(e){ console.log(safe, e.message); }\n}\n'@ | node --input-type=module -"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "@'\nimport { getApiKey, getBaseUrl } from './lib/config.mjs';\nimport { getJson } from './lib/fetcher.mjs';\nconst key = getApiKey('fmp');\nconst stable = getBaseUrl('fmp').replace(/\\/api\\/v\\d+$/, '/stable');\nfor (const url of [\n `${stable}/insider-trading/search?symbol=SOLS&apikey=${key}`,\n `${stable}/insider-trading/statistics?symbol=SOLS&apikey=${key}`,\n `${stable}/acquisition-of-beneficial-ownership?symbol=SOLS&apikey=${key}`,\n]) {\n const safe=url.replace(key,'KEY');\n try { const data=await getJson(url); console.log(safe); console.log(JSON.stringify(Array.isArray(data)?data.slice(0,3):data,null,2).slice(0,2000)); }\n catch(e){ console.log(safe, e.message); }\n}\n'@ | node --input-type=module -"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "FMP’s current documented insider endpoint is `/stable/insider-trading/search`, not the older path the repo was calling. I’m updating the client and the screen to use FMP insider-trade statistics as the ownership/acquisition layer, while keeping SEC Form 4 open-market purchase parsing as the stricter buy signal."
+        }
+      ],
+      "timestamp": "2026-05-20T17:36:34.958Z"
+    },
+    {
+      "id": "cad3720d-b76b-4ac2-bc5a-4a7bcc8ae1cf",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_TdB8lNXufmP5HNMsloMu9oDj",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs",
+              "newText": "export async function fetchInsiderTrades(ticker, { limit = 20 } = {}) {\n  const url = `${stable()}/insider-trading/search?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;\n  const data = await getJson(url);\n  return Array.isArray(data) ? data : [];\n}\n\n/** Quarterly insider acquisition/disposition statistics. */\nexport async function fetchInsiderTradingStats(ticker) {\n  const url = `${stable()}/insider-trading/statistics?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;\n  const data = await getJson(url);\n",
+              "oldText": "export async function fetchInsiderTrades(ticker, { limit = 20 } = {}) {\n  const url = `${stable()}/insider-trading?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;\n  const data = await getJson(url);\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_TdB8lNXufmP5HNMsloMu9oDj",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\lib\\fmp-client.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -121,3 +121,10 @@\n export async function fetchInsiderTrades(ticker, { limit = 20 } = {}) {\n-  const url = `${stable()}/insider-trading?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;\n+  const url = `${stable()}/insider-trading/search?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;\n+  const data = await getJson(url);\n+  return Array.isArray(data) ? data : [];\n+}\n+\n+/** Quarterly insider acquisition/disposition statistics. */\n+export async function fetchInsiderTradingStats(ticker) {\n+  const url = `${stable()}/insider-trading/statistics?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;\n   const data = await getJson(url);\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:36:46.441Z"
+    },
+    {
+      "id": "f43fbc99-1f19-45ec-9c0b-f38c1a734e3a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_YLvWjju7VmOZcsh1bBaun65S",
+          "title": "Select-String -Path scripts\\pullers\\spinoff-screen.mjs -Pattern 'fetchIncomeAnnual|fetchSecInsiderBuys|passFlags|passesScreen|Insider filter|SEC EDGAR submissions|buyCount|matchRow|rejectRow|toJsonRow' -Context 2,2 | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_YLvWjju7VmOZcsh1bBaun65S",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298635840,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path scripts\\pullers\\spinoff-screen.mjs -Pattern 'fetchIncomeAnnual|fetchSecInsiderBuys|passFlags|passesScreen|Insider filter|SEC EDGAR submissions|buyCount|matchRow|rejectRow|toJsonRow' -Context 2,2 | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path scripts\\pullers\\spinoff-screen.mjs -Pattern 'fetchIncomeAnnual|fetchSecInsiderBuys|passFlags|passesScreen|Insider filter|SEC EDGAR submissions|buyCount|matchRow|rejectRow|toJsonRow' -Context 2,2 | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:15.859Z"
+    },
+    {
+      "id": "a0a2b3b1-3c5b-4b6a-905d-3542f5ea0b37",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ihMFBtzT5b6s8PaOBJB9pNMc",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  fetchIncomeQuarterly,\n  fetchInsiderTrades,\n  fetchInsiderTradingStats,\n  fetchKeyMetricsTtm,\n",
+              "oldText": "  fetchIncomeQuarterly,\n  fetchKeyMetricsTtm,\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_ihMFBtzT5b6s8PaOBJB9pNMc",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -19,2 +19,4 @@\n   fetchIncomeQuarterly,\n+  fetchInsiderTrades,\n+  fetchInsiderTradingStats,\n   fetchKeyMetricsTtm,\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:20.175Z"
+    },
+    {
+      "id": "f05ab635-967f-422e-bf2f-c84df33e56e4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_1mYzMGZe93IuBwxy4rzBIF1r",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const insider = basePassFlags.leverage && basePassFlags.revenueGrowth\n    ? await fetchInsiderSignal(ticker, candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => emptyInsiderSignal())\n    : { ...emptyInsiderSignal(), skipped: true };\n\n",
+              "oldText": "  const insider = basePassFlags.leverage && basePassFlags.revenueGrowth\n    ? await fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 }))\n    : { buyCount: 0, buyValue: 0, filingsChecked: 0, skipped: true };\n\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "      ...basePassFlags,\n      insiderOwnershipOrBuying: insider.buyCount > 0 || insider.acquiredTransactions > 0 || insider.currentOwnedShares > 0,\n      eventNews: newsHits.length > 0,\n",
+              "oldText": "      ...basePassFlags,\n      insiderBuying: insider.buyCount > 0,\n      eventNews: newsHits.length > 0,\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_1mYzMGZe93IuBwxy4rzBIF1r",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -232,4 +232,4 @@\n   const insider = basePassFlags.leverage && basePassFlags.revenueGrowth\n-    ? await fetchSecInsiderBuys(candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0 }))\n-    : { buyCount: 0, buyValue: 0, filingsChecked: 0, skipped: true };\n+    ? await fetchInsiderSignal(ticker, candidate.cik, { lookbackDays: options.insiderLookbackDays }).catch(() => emptyInsiderSignal())\n+    : { ...emptyInsiderSignal(), skipped: true };\n \n@@ -246,3 +246,3 @@\n       ...basePassFlags,\n-      insiderBuying: insider.buyCount > 0,\n+      insiderOwnershipOrBuying: insider.buyCount > 0 || insider.acquiredTransactions > 0 || insider.currentOwnedShares > 0,\n       eventNews: newsHits.length > 0,\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:26.925Z"
+    },
+    {
+      "id": "83ae9c68-dff4-4f45-8e26-454e288a55a0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_GSoVTbDjFm8mkUUocGvuxB22",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "\nasync function fetchInsiderSignal(ticker, cik, { lookbackDays }) {\n  const [secBuys, fmpTrades, fmpStats] = await Promise.all([\n    fetchSecInsiderBuys(cik, { lookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0, buyFilings: [] })),\n    fetchInsiderTrades(ticker, { limit: 40 }).catch(() => []),\n    fetchInsiderTradingStats(ticker).catch(() => []),\n  ]);\n\n  const recentStats = fmpStats\n    .filter(row => Number(row.year) >= new Date().getFullYear() - 1)\n    .slice(0, 8);\n  const acquiredTransactions = recentStats.reduce((sum, row) => sum + (Number(row.acquiredTransactions) || 0), 0);\n  const totalPurchases = recentStats.reduce((sum, row) => sum + (Number(row.totalPurchases) || 0), 0);\n  const currentOwnedShares = fmpTrades.reduce((max, row) => Math.max(max, Number(row.securitiesOwned) || 0), 0);\n  const acquisitionRows = fmpTrades.filter(row => row.acquisitionOrDisposition === 'A').slice(0, 10);\n\n  return {\n    ...secBuys,\n    acquiredTransactions,\n    totalPurchases,\n    currentOwnedShares,\n    acquisitionRows,\n    source: secBuys.buyCount > 0 ? 'SEC Form 4 purchase code P' : 'FMP insider acquisitions/ownership',\n  };\n}\n\nfunction emptyInsiderSignal() {\n  return {\n    buyCount: 0,\n    buyValue: 0,\n    filingsChecked: 0,\n    buyFilings: [],\n    acquiredTransactions: 0,\n    totalPurchases: 0,\n    currentOwnedShares: 0,\n    acquisitionRows: [],\n    source: 'none',\n  };\n}\n\nasync function fetchSecInsiderBuys(cik, { lookbackDays }) {\n",
+              "oldText": "\nasync function fetchSecInsiderBuys(cik, { lookbackDays }) {\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_GSoVTbDjFm8mkUUocGvuxB22",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -284,2 +284,41 @@\n \n+async function fetchInsiderSignal(ticker, cik, { lookbackDays }) {\n+  const [secBuys, fmpTrades, fmpStats] = await Promise.all([\n+    fetchSecInsiderBuys(cik, { lookbackDays }).catch(() => ({ buyCount: 0, buyValue: 0, filingsChecked: 0, buyFilings: [] })),\n+    fetchInsiderTrades(ticker, { limit: 40 }).catch(() => []),\n+    fetchInsiderTradingStats(ticker).catch(() => []),\n+  ]);\n+\n+  const recentStats = fmpStats\n+    .filter(row => Number(row.year) >= new Date().getFullYear() - 1)\n+    .slice(0, 8);\n+  const acquiredTransactions = recentStats.reduce((sum, row) => sum + (Number(row.acquiredTransactions) || 0), 0);\n+  const totalPurchases = recentStats.reduce((sum, row) => sum + (Number(row.totalPurchases) || 0), 0);\n+  const currentOwnedShares = fmpTrades.reduce((max, row) => Math.max(max, Number(row.securitiesOwned) || 0), 0);\n+  const acquisitionRows = fmpTrades.filter(row => row.acquisitionOrDisposition === 'A').slice(0, 10);\n+\n+  return {\n+    ...secBuys,\n+    acquiredTransactions,\n+    totalPurchases,\n+    currentOwnedShares,\n+    acquisitionRows,\n+    source: secBuys.buyCount > 0 ? 'SEC Form 4 purchase code P' : 'FMP insider acquisitions/ownership',\n+  };\n+}\n+\n+function emptyInsiderSignal() {\n+  return {\n+    buyCount: 0,\n+    buyValue: 0,\n+    filingsChecked: 0,\n+    buyFilings: [],\n+    acquiredTransactions: 0,\n+    totalPurchases: 0,\n+    currentOwnedShares: 0,\n+    acquisitionRows: [],\n+    source: 'none',\n+  };\n+}\n+\n async function fetchSecInsiderBuys(cik, { lookbackDays }) {\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:40.759Z"
+    },
+    {
+      "id": "0803f563-0ff6-4ace-afaa-e23e8d45bb8a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_bucyaMHtW9vS7AX4z93YH7s2",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    && candidate.passFlags.revenueGrowth\n    && candidate.passFlags.insiderOwnershipOrBuying;\n}\n",
+              "oldText": "    && candidate.passFlags.revenueGrowth\n    && candidate.passFlags.insiderBuying;\n}\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const scoreA = (a.passFlags.eventNews ? 1 : 0)\n    + Math.min(a.insider.buyCount + a.insider.acquiredTransactions, 5) / 5\n    + Math.max(0, 3 - a.financials.netDebtToEbitda) / 3\n",
+              "oldText": "  const scoreA = (a.passFlags.eventNews ? 1 : 0)\n    + Math.min(a.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - a.financials.netDebtToEbitda) / 3\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const scoreB = (b.passFlags.eventNews ? 1 : 0)\n    + Math.min(b.insider.buyCount + b.insider.acquiredTransactions, 5) / 5\n    + Math.max(0, 3 - b.financials.netDebtToEbitda) / 3\n",
+              "oldText": "  const scoreB = (b.passFlags.eventNews ? 1 : 0)\n    + Math.min(b.insider.buyCount, 5) / 5\n    + Math.max(0, 3 - b.financials.netDebtToEbitda) / 3\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_bucyaMHtW9vS7AX4z93YH7s2",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -393,3 +393,3 @@\n     && candidate.passFlags.revenueGrowth\n-    && candidate.passFlags.insiderBuying;\n+    && candidate.passFlags.insiderOwnershipOrBuying;\n }\n@@ -398,3 +398,3 @@\n   const scoreA = (a.passFlags.eventNews ? 1 : 0)\n-    + Math.min(a.insider.buyCount, 5) / 5\n+    + Math.min(a.insider.buyCount + a.insider.acquiredTransactions, 5) / 5\n     + Math.max(0, 3 - a.financials.netDebtToEbitda) / 3\n@@ -402,3 +402,3 @@\n   const scoreB = (b.passFlags.eventNews ? 1 : 0)\n-    + Math.min(b.insider.buyCount, 5) / 5\n+    + Math.min(b.insider.buyCount + b.insider.acquiredTransactions, 5) / 5\n     + Math.max(0, 3 - b.financials.netDebtToEbitda) / 3\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:48.559Z"
+    },
+    {
+      "id": "ca716716-851e-424a-be3b-8d8d3f3c2f73",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_47AuGb89W9cPhqti0aLykSiF",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days, or FMP insider acquisition/ownership evidence from recent insider-trading records.`,\n          '- News confirmation: FMP company news headlines/text are keyword-filtered for spin-off, separation, or Form 10 terms; this is scored but not a hard filter.',\n",
+              "oldText": "          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days.`,\n          '- News confirmation: FMP company news headlines/text are keyword-filtered for spin-off, separation, or Form 10 terms; this is scored but not a hard filter.',\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "          '- SEC EDGAR EFTS full-text search for spin-off/separation/Form 10 discovery.',\n          '- SEC EDGAR submissions and Form 4 XML for open-market insider purchase checks.',\n          '- FMP insider trading search/statistics for insider acquisition and ownership evidence.',\n          '- FMP Premium profile, quarterly balance sheet, quarterly/annual income statement, key metrics TTM, and stock news endpoints.',\n",
+              "oldText": "          '- SEC EDGAR EFTS full-text search for spin-off/separation/Form 10 discovery.',\n          '- SEC EDGAR submissions and Form 4 XML for insider purchase checks.',\n          '- FMP Premium profile, quarterly balance sheet, quarterly/annual income statement, key metrics TTM, and stock news endpoints.',\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_47AuGb89W9cPhqti0aLykSiF",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -447,3 +447,3 @@\n           `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n-          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days.`,\n+          `- Insider filter: at least one SEC Form 4 open-market purchase code P in the last ${DEFAULTS.insiderLookbackDays} days, or FMP insider acquisition/ownership evidence from recent insider-trading records.`,\n           '- News confirmation: FMP company news headlines/text are keyword-filtered for spin-off, separation, or Form 10 terms; this is scored but not a hard filter.',\n@@ -456,3 +456,4 @@\n           '- SEC EDGAR EFTS full-text search for spin-off/separation/Form 10 discovery.',\n-          '- SEC EDGAR submissions and Form 4 XML for insider purchase checks.',\n+          '- SEC EDGAR submissions and Form 4 XML for open-market insider purchase checks.',\n+          '- FMP insider trading search/statistics for insider acquisition and ownership evidence.',\n           '- FMP Premium profile, quarterly balance sheet, quarterly/annual income statement, key metrics TTM, and stock news endpoints.',\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:37:55.042Z"
+    },
+    {
+      "id": "10f95afb-495b-4979-b25c-12d332200719",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_rCAPQichQLf2hXxDH1oaKj62",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    fmtPct(c.financials.revenueGrowthPct),\n    formatInsiderSignal(c.insider),\n    c.newsHits.length ? `[${trimCell(c.newsHits[0].title ?? 'headline')}](${c.newsHits[0].url ?? c.newsHits[0].link ?? ''})` : '-',\n",
+              "oldText": "    fmtPct(c.financials.revenueGrowthPct),\n    `${c.insider.buyCount} / ${formatNumber(c.insider.buyValue, { style: 'currency' })}`,\n    c.newsHits.length ? `[${trimCell(c.newsHits[0].title ?? 'headline')}](${c.newsHits[0].url ?? c.newsHits[0].link ?? ''})` : '-',\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    fmtPct(c.financials.revenueGrowthPct),\n    formatInsiderSignal(c.insider),\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n",
+              "oldText": "    fmtPct(c.financials.revenueGrowthPct),\n    String(c.insider.buyCount),\n    `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    insiderBuyValue: c.insider.buyValue,\n    insiderAcquiredTransactions: c.insider.acquiredTransactions,\n    insiderOwnedShares: c.insider.currentOwnedShares,\n    latestEvent: latestEvent(c),\n",
+              "oldText": "    insiderBuyValue: c.insider.buyValue,\n    latestEvent: latestEvent(c),\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_rCAPQichQLf2hXxDH1oaKj62",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -473,3 +473,3 @@\n     fmtPct(c.financials.revenueGrowthPct),\n-    `${c.insider.buyCount} / ${formatNumber(c.insider.buyValue, { style: 'currency' })}`,\n+    formatInsiderSignal(c.insider),\n     c.newsHits.length ? `[${trimCell(c.newsHits[0].title ?? 'headline')}](${c.newsHits[0].url ?? c.newsHits[0].link ?? ''})` : '-',\n@@ -491,3 +491,3 @@\n     fmtPct(c.financials.revenueGrowthPct),\n-    String(c.insider.buyCount),\n+    formatInsiderSignal(c.insider),\n     `${latest.form} ${latest.fileDate} [SEC](${latest.url})`,\n@@ -504,2 +504,4 @@\n     insiderBuyValue: c.insider.buyValue,\n+    insiderAcquiredTransactions: c.insider.acquiredTransactions,\n+    insiderOwnedShares: c.insider.currentOwnedShares,\n     latestEvent: latestEvent(c),\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:38:03.392Z"
+    },
+    {
+      "id": "792cf131-b542-4211-a675-e2c7a9647f2a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_0fbz1VCCsdDO8oRBw5aHWGaD",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "\nfunction formatInsiderSignal(insider) {\n  if (insider.buyCount > 0) {\n    return `${insider.buyCount} buy / ${formatNumber(insider.buyValue, { style: 'currency' })}`;\n  }\n  if (insider.acquiredTransactions > 0) {\n    return `${insider.acquiredTransactions} acquisition tx`;\n  }\n  if (insider.currentOwnedShares > 0) {\n    return `${formatNumber(insider.currentOwnedShares, { style: 'compact', decimals: 0 })} owned sh`;\n  }\n  return '-';\n}\n\nfunction trimCell(value, max = 70) {\n",
+              "oldText": "\nfunction trimCell(value, max = 70) {\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_0fbz1VCCsdDO8oRBw5aHWGaD",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -541,2 +541,15 @@\n \n+function formatInsiderSignal(insider) {\n+  if (insider.buyCount > 0) {\n+    return `${insider.buyCount} buy / ${formatNumber(insider.buyValue, { style: 'currency' })}`;\n+  }\n+  if (insider.acquiredTransactions > 0) {\n+    return `${insider.acquiredTransactions} acquisition tx`;\n+  }\n+  if (insider.currentOwnedShares > 0) {\n+    return `${formatNumber(insider.currentOwnedShares, { style: 'compact', decimals: 0 })} owned sh`;\n+  }\n+  return '-';\n+}\n+\n function trimCell(value, max = 70) {\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:38:16.676Z"
+    },
+    {
+      "id": "691bbd66-d9af-4866-827a-10a663391bba",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_WBhNcwuFLFFFUs6Q35u9Vd5F",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "          ? buildTable(\n              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Signal', 'News', 'Market Cap'],\n              matches.map(matchRow),\n",
+              "oldText": "          ? buildTable(\n              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'News', 'Market Cap'],\n              matches.map(matchRow),\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "          ? buildTable(\n              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Signal', 'Latest SEC Event'],\n              rejected.slice(0, 25).map(rejectRow),\n",
+              "oldText": "          ? buildTable(\n              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'Latest SEC Event'],\n              rejected.slice(0, 25).map(rejectRow),\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_WBhNcwuFLFFFUs6Q35u9Vd5F",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -428,3 +428,3 @@\n           ? buildTable(\n-              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'News', 'Market Cap'],\n+              ['Ticker', 'Company', 'Event', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Signal', 'News', 'Market Cap'],\n               matches.map(matchRow),\n@@ -437,3 +437,3 @@\n           ? buildTable(\n-              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Buys', 'Latest SEC Event'],\n+              ['Ticker', 'Company', 'Failed', 'Net Debt/EBITDA', 'Revenue Growth', 'Insider Signal', 'Latest SEC Event'],\n               rejected.slice(0, 25).map(rejectRow),\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:38:22.060Z"
+    },
+    {
+      "id": "4874919b-e337-4313-ac32-1bd54a400d78",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_KOpx9IGtya7yu7QYsAV9y1hZ",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 40 --limit 20 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_KOpx9IGtya7yu7QYsAV9y1hZ",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298704953,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 40 --limit 20 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 40 --limit 20 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The broader SEC S-1 search is producing noisy hits where “spin-off” appears inside equity-plan boilerplate, not a separation event. I’m tightening the event universe to Form 10 registration statements and 8-K/8-K/A event filings, which fits the requested screen more closely."
+        }
+      ],
+      "timestamp": "2026-05-20T17:38:24.977Z"
+    },
+    {
+      "id": "95e46790-f028-4355-9ca0-95765925b45b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_fk2G8oRYZbT4bd2GHmTUArAC",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  '8-K/A',\n]);\n",
+              "oldText": "  '8-K/A',\n  'S-1',\n  'S-1/A',\n]);\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_fk2G8oRYZbT4bd2GHmTUArAC",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -56,4 +56,2 @@\n   '8-K/A',\n-  'S-1',\n-  'S-1/A',\n ]);\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:39:02.226Z"
+    },
+    {
+      "id": "f31ce98b-3028-4be2-90ee-1ca9c62a1750",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_kULvymOjkRiGFzILOc6c5Vn9",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "        content: [\n          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration and 8-K filings.`,\n          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n",
+              "oldText": "        content: [\n          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration, 8-K, and S-1 filings.`,\n          `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_kULvymOjkRiGFzILOc6c5Vn9",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -443,3 +443,3 @@\n         content: [\n-          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration, 8-K, and S-1 filings.`,\n+          `- SEC event universe: EFTS full-text hits from ${from} to ${to} for spin-off, spin off, spinoff, separation, and Form 10 language across Form 10 registration and 8-K filings.`,\n           `- Hard financial filters: latest available net debt / TTM EBITDA below 3.0 and positive TTM revenue growth, using FMP key-metrics-ttm when available and statement-derived fallback otherwise.`,\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:39:06.461Z"
+    },
+    {
+      "id": "f673d867-02ae-4d0c-a670-b5f34433853a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_zJeb9JQudih8M2aLRbfttqsC",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_zJeb9JQudih8M2aLRbfttqsC",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298749384,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The 8-K layer still has boilerplate noise from warrant/equity-plan exhibits. I’m adding a document-type filter: Form 10 hits stay in; 8-K hits only stay when the hit is the main 8-K or an EX-99-style event exhibit, not EX-4/EX-10 boilerplate.The SEC hits are still polluted by warrant/plan exhibits (`EX-4`, `EX-10`) that mention spin-off rights. I’m filtering 8-K hits to the main 8-K or EX-99 event exhibits while keeping Form 10 hits, which should remove most boilerplate noise."
+        }
+      ],
+      "timestamp": "2026-05-20T17:39:09.394Z"
+    },
+    {
+      "id": "41cb66df-1b6f-4035-b0e2-5f7024399949",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_XAXFcWIYIZvFwbFs1epYAbuU",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "        if (!parsed?.ticker || !parsed.cik) continue;\n        if (!isUsefulSecEventHit(parsed)) continue;\n\n",
+              "oldText": "        if (!parsed?.ticker || !parsed.cik) continue;\n\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "    form: source.form ?? source.root_forms?.[0] ?? '',\n    fileType: source.file_type ?? '',\n    fileDescription: source.file_description ?? '',\n    fileDate: source.file_date ?? '',\n",
+              "oldText": "    form: source.form ?? source.root_forms?.[0] ?? '',\n    fileDate: source.file_date ?? '',\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "\nfunction isUsefulSecEventHit(hit) {\n  if (String(hit.form).startsWith('10-12')) return true;\n  if (!String(hit.form).startsWith('8-K')) return false;\n  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n  if (type === '8-K') return true;\n  if (type.startsWith('EX-99')) return true;\n  return false;\n}\n\nfunction parseDisplayName(display) {\n",
+              "oldText": "\nfunction parseDisplayName(display) {\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_XAXFcWIYIZvFwbFs1epYAbuU",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -145,2 +145,3 @@\n         if (!parsed?.ticker || !parsed.cik) continue;\n+        if (!isUsefulSecEventHit(parsed)) continue;\n \n@@ -184,2 +185,4 @@\n     form: source.form ?? source.root_forms?.[0] ?? '',\n+    fileType: source.file_type ?? '',\n+    fileDescription: source.file_description ?? '',\n     fileDate: source.file_date ?? '',\n@@ -194,2 +197,11 @@\n \n+function isUsefulSecEventHit(hit) {\n+  if (String(hit.form).startsWith('10-12')) return true;\n+  if (!String(hit.form).startsWith('8-K')) return false;\n+  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n+  if (type === '8-K') return true;\n+  if (type.startsWith('EX-99')) return true;\n+  return false;\n+}\n+\n function parseDisplayName(display) {\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:40:56.779Z"
+    },
+    {
+      "id": "3c73a1cc-822e-4c01-bf30-b0e677ed6b4b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_m2dMyz9k9ukKwe06z0pxYnz1",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_m2dMyz9k9ukKwe06z0pxYnz1",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298859827,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "One more tightening: the `\"Form 10\"` text query is catching ordinary `Form 10-K` references inside 8-K exhibits. I’m limiting that query to actual `10-12*` filings and filtering employment separation-agreement exhibits out of the event universe."
+        }
+      ],
+      "timestamp": "2026-05-20T17:40:59.847Z"
+    },
+    {
+      "id": "ce917171-adae-469e-9168-f27ed73e4254",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_3LSdq1h5gdjcGgwiNTc0uhuM",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "function isUsefulSecEventHit(hit) {\n  if (hit.query === '\"Form 10\"' && !String(hit.form).startsWith('10-12')) return false;\n  if (String(hit.form).startsWith('10-12')) return true;\n",
+              "oldText": "function isUsefulSecEventHit(hit) {\n  if (String(hit.form).startsWith('10-12')) return true;\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n  if (type.includes('SEPARATION AND GENERAL RELEASE')) return false;\n  if (type === '8-K') return true;\n",
+              "oldText": "  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n  if (type === '8-K') return true;\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_3LSdq1h5gdjcGgwiNTc0uhuM",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -198,2 +198,3 @@\n function isUsefulSecEventHit(hit) {\n+  if (hit.query === '\"Form 10\"' && !String(hit.form).startsWith('10-12')) return false;\n   if (String(hit.form).startsWith('10-12')) return true;\n@@ -201,2 +202,3 @@\n   const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n+  if (type.includes('SEPARATION AND GENERAL RELEASE')) return false;\n   if (type === '8-K') return true;\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:42:39.414Z"
+    },
+    {
+      "id": "1932c01b-798c-41ab-b13a-7f806799d015",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Mlws0Bd6ZS0yuv0fsrb1YUo3",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Mlws0Bd6ZS0yuv0fsrb1YUo3",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779298962710,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30 --dry-run"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The dry run is now bounded and producing a workable screened list. I’m writing the actual pull note next, then I’ll run focused verification and vault validation because this adds a new puller and a schema-bearing pull note."
+        }
+      ],
+      "timestamp": "2026-05-20T17:42:42.714Z"
+    },
+    {
+      "id": "6414e30d-ff0b-48f3-aaf1-b651cecf8e0b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_RkqXWHsH7nvoJxHnipAtgMd3",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs",
+              "newText": "  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n  const description = `${hit.fileType ?? ''} ${hit.fileDescription ?? ''}`.toUpperCase();\n  if (description.includes('SEPARATION AND GENERAL RELEASE')) return false;\n  if (type === '8-K') return true;\n",
+              "oldText": "  const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n  if (type.includes('SEPARATION AND GENERAL RELEASE')) return false;\n  if (type === '8-K') return true;\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_RkqXWHsH7nvoJxHnipAtgMd3",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\spinoff-screen.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -202,3 +202,4 @@\n   const type = String(hit.fileType || hit.fileDescription || '').toUpperCase();\n-  if (type.includes('SEPARATION AND GENERAL RELEASE')) return false;\n+  const description = `${hit.fileType ?? ''} ${hit.fileDescription ?? ''}`.toUpperCase();\n+  if (description.includes('SEPARATION AND GENERAL RELEASE')) return false;\n   if (type === '8-K') return true;\n",
+                "move_path": null
+              }
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:43:33.715Z"
+    },
+    {
+      "id": "934ef1df-aca8-4819-bd8a-287b9f5d2ea0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_3KzcOr3KGmNItg3wIZ1WOW8Z",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_3KzcOr3KGmNItg3wIZ1WOW8Z",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299016506,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The dated note was written and mirrored into the KB raw fundamentals folder. I’m checking the generated note plus running the smallest relevant Node tests and then full vault validation."
+        }
+      ],
+      "timestamp": "2026-05-20T17:43:36.515Z"
+    },
+    {
+      "id": "11991353-86c3-49c6-989d-a527b25fd3d5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_gNQpFFMSTaUk0S8IYr1SnwRX",
+          "title": "Get-Content -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 140",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_gNQpFFMSTaUk0S8IYr1SnwRX",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299064159,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 140"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 140"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:24.182Z"
+    },
+    {
+      "id": "47acfe27-01ee-4197-a5ca-ff90bcd0caf8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_RgjCjtGUAvIiPwrXWtjnQT07",
+          "title": "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_RgjCjtGUAvIiPwrXWtjnQT07",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299064161,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:24.182Z"
+    },
+    {
+      "id": "8f0ba69a-66ec-4ce7-bceb-317420bd9dd3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_gNChZQaGGEKD3B0hmqRZez6m",
+          "title": "node run.mjs system validate",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_gNChZQaGGEKD3B0hmqRZez6m",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299064164,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs system validate"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs system validate"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:24.182Z"
+    },
+    {
+      "id": "06cb0c4f-45cb-4845-90be-dc5c21731840",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ynBNWolb5EvXSQ7JLvf5r6Lw",
+          "title": "git diff -- scripts\\lib\\fmp-client.mjs scripts\\pullers\\spinoff-screen.mjs",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ynBNWolb5EvXSQ7JLvf5r6Lw",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299064167,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git diff -- scripts\\lib\\fmp-client.mjs scripts\\pullers\\spinoff-screen.mjs"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git diff -- scripts\\lib\\fmp-client.mjs scripts\\pullers\\spinoff-screen.mjs"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:24.209Z"
+    },
+    {
+      "id": "e5c6365a-6b5b-407f-b585-70ea19c20c95",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_KFg8Tp0XIdbTesw7xp4vyj28",
+          "title": "git status --short",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_KFg8Tp0XIdbTesw7xp4vyj28",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299070835,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git status --short"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git status --short"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:30.849Z"
+    },
+    {
+      "id": "d5cfef62-30d6-4609-b0f3-d926d490d276",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_vXdLvcbTv1a03kSbvYE51KUN",
+          "title": "git diff --no-index -- NUL scripts\\pullers\\spinoff-screen.mjs",
+          "status": "failed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_vXdLvcbTv1a03kSbvYE51KUN",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299070837,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "git diff --no-index -- NUL scripts\\pullers\\spinoff-screen.mjs"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "git diff --no-index -- NUL scripts\\pullers\\spinoff-screen.mjs"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:30.849Z"
+    },
+    {
+      "id": "b5810ae5-ee47-42a8-829d-e3dbe6f976fb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_QDe8SRBG5SaP7I5Y7dE2Zccy",
+          "title": "Get-Content -Path \"12_Knowledge_Bases\\raw\\fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 30",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_QDe8SRBG5SaP7I5Y7dE2Zccy",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299070840,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path \"12_Knowledge_Bases\\raw\\fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 30"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path \"12_Knowledge_Bases\\raw\\fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -TotalCount 30"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I spotted one filter correction after the write, so I’m rerunning the pull once to make the same-day generated note match the final screen logic. Then I’ll re-run validation."
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:30.849Z"
+    },
+    {
+      "id": "f671cecc-b00a-4f6c-9131-d84f09d55ebc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_KS98AAm5RiTaqFBsJLf6TdxE",
+          "title": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30; node run.mjs system validate",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_KS98AAm5RiTaqFBsJLf6TdxE",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299077352,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30; node run.mjs system validate"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30; node run.mjs system validate"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:44:37.366Z"
+    },
+    {
+      "id": "40334e03-3a5b-4be8-bc9d-f32c13bda6fb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_Rb2Jhh8OLslpw5Ygq1EPS20s",
+          "title": "Select-String -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -Pattern '^\\| [A-Z0-9-]+','MDIA','## Matches','total_hits' | Select-Object -First 30 | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_Rb2Jhh8OLslpw5Ygq1EPS20s",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299124211,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -Pattern '^\\| [A-Z0-9-]+','MDIA','## Matches','total_hits' | Select-Object -First 30 | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path \"05_Data_Pulls\\Fundamentals\\2026-05-20_Spinoff_Separation_Screen.md\" -Pattern '^\\| [A-Z0-9-]+','MDIA','## Matches','total_hits' | Select-Object -First 30 | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:45:24.233Z"
+    },
+    {
+      "id": "064713b9-053d-49c6-b074-81d6b6cfad07",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_SKyOaZwZmezN1DpUz6nxe9qu",
+          "title": "Select-String -Path scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,8 | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_SKyOaZwZmezN1DpUz6nxe9qu",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299130968,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,8 | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,8 | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:45:30.992Z"
+    },
+    {
+      "id": "fe835fcf-8a61-4fa8-bae1-31963d2f5108",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ETgDRG74Fys1WL6R2bPMTRBI",
+          "title": "Select-String -Path scripts\\cmd\\router.mjs,scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,12 | Format-List",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ETgDRG74Fys1WL6R2bPMTRBI",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299134752,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Select-String -Path scripts\\cmd\\router.mjs,scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,12 | Format-List"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Select-String -Path scripts\\cmd\\router.mjs,scripts\\run.mjs -Pattern 'smallcap-screen|Dilution & screening pullers' -Context 5,12 | Format-List"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:45:34.767Z"
+    },
+    {
+      "id": "2b0a87e2-1ae4-45f8-b976-884431e79b2d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_xsaZUfhADkfNzPiwY5Cb4yUd",
+          "title": "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 780 | Select-Object -Skip 688",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_xsaZUfhADkfNzPiwY5Cb4yUd",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299138710,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 780 | Select-Object -Skip 688"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "Get-Content -Path scripts\\cmd\\router.mjs -TotalCount 780 | Select-Object -Skip 688"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "I’m also adding the new puller to the CLI help so it is discoverable through `node run.mjs pull"
+        }
+      ],
+      "timestamp": "2026-05-20T17:45:38.741Z"
+    },
+    {
+      "id": "46ea26c5-4fd9-40d0-9e54-20b424e1f8c5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_W9uypzqDEmKw5dofQgtsuVr7",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs",
+              "newText": "                    --limit <n>           (default: 40)\n  spinoff-screen   Spin-off/separation/Form 10 screen with leverage, growth, and insider evidence\n                    --lookback <days>      SEC/news lookback (default: 730)\n                    --candidate-limit <n>  SEC event candidates to enrich (default: 80)\n                    --limit <n>            Max matches in note (default: 30)\n                    --dry-run              Print JSON without writing note\n\n",
+              "oldText": "                    --limit <n>           (default: 40)\n\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs",
+              "newText": "  node run.mjs pull smallcap-screen --float-max 30M --short-min 15 --no-offerings\n  node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30\n`,\n",
+              "oldText": "  node run.mjs pull smallcap-screen --float-max 30M --short-min 15 --no-offerings\n`,\n"
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs"
+            }
+          ],
+          "rawInput": {
+            "call_id": "call_W9uypzqDEmKw5dofQgtsuVr7",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "auto_approved": true,
+            "changes": {
+              "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\cmd\\router.mjs": {
+                "type": "update",
+                "unified_diff": "@@ -726,2 +726,7 @@\n                     --limit <n>           (default: 40)\n+  spinoff-screen   Spin-off/separation/Form 10 screen with leverage, growth, and insider evidence\n+                    --lookback <days>      SEC/news lookback (default: 730)\n+                    --candidate-limit <n>  SEC event candidates to enrich (default: 80)\n+                    --limit <n>            Max matches in note (default: 30)\n+                    --dry-run              Print JSON without writing note\n \n@@ -759,2 +764,3 @@\n   node run.mjs pull smallcap-screen --float-max 30M --short-min 15 --no-offerings\n+  node run.mjs pull spinoff-screen --candidate-limit 80 --limit 30\n `,\n",
+                "move_path": null
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "I also added the new puller to the CLI help so it’s discoverable from `node run.mjs pull --help`. I’m doing one final help smoke test."
+        }
+      ],
+      "timestamp": "2026-05-20T17:45:53.908Z"
+    },
+    {
+      "id": "c4651079-a55a-4ffe-9f33-96c27ab69186",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_zPxsHj65Auwlp6XJXtCKxJhj",
+          "title": "node run.mjs pull --help | Select-String -Pattern 'spinoff-screen' -Context 1,4",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_zPxsHj65Auwlp6XJXtCKxJhj",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299161031,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs pull --help | Select-String -Pattern 'spinoff-screen' -Context 1,4"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs pull --help | Select-String -Pattern 'spinoff-screen' -Context 1,4"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:46:01.050Z"
+    },
+    {
+      "id": "ef699ef6-019e-4f8d-994e-b02cc95ed34d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_ncnx2GMgGcGvKCFKMsktGPtk",
+          "title": "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_ncnx2GMgGcGvKCFKMsktGPtk",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299161042,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node --test scripts/tests/fmp-alpha-v1.test.mjs scripts/tests/newsapi.test.mjs scripts/tests/puller-dry-run.test.mjs"
+              }
+            ],
+            "source": "agent"
+          }
+        }
+      ],
+      "timestamp": "2026-05-20T17:46:01.050Z"
+    },
+    {
+      "id": "b4d694c5-98d5-4ccc-8a78-8e396be9a3b5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "call_USnSURIFjljgBVM2Dr8KBfUP",
+          "title": "node run.mjs system validate",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "call_id": "call_USnSURIFjljgBVM2Dr8KBfUP",
+            "turn_id": "019e466d-bc25-7452-9039-6d63bd4072e8",
+            "started_at_ms": 1779299161045,
+            "command": [
+              "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-Command",
+              "node run.mjs system validate"
+            ],
+            "cwd": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+            "parsed_cmd": [
+              {
+                "type": "unknown",
+                "cmd": "node run.mjs system validate"
+              }
+            ],
+            "source": "agent"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Built and ran a new My_Data puller for this screen.\n\nIt wrote the screened output here: [2026-05-20_Spinoff_Separation_Screen.md](C:/Users/CaveUser/Documents/Obsidian%20Vault/My_Data/05_Data_Pulls/Fundamentals/2026-05-20_Spinoff_Separation_Screen.md)\n\nResult: `17` matches from `44` SEC event candidates. Top names in the note include `YYAI`, `AMSC`, `RHLD`, `SNDK`, `ECG`, `VSNT`, `GRAL`, `SEG`, `SOLS`, `AMRZ`, `RAL`, and others. The note includes SEC event links, net debt/EBITDA, revenue growth, insider signal, news confirmation where available, and near misses.\n\nI also added the reusable puller: [spinoff-screen.mjs](C:/Users/CaveUser/Documents/Obsidian%20Vault/My_Data/scripts/pullers/spinoff-screen.mjs)\n\nCommand now available:\n\n```powershell\ncd \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\"\nnode run.mjs pull spinoff-screen --candidate-limit 80 --limit 30\n```\n\nValidation passed:\n`node --test ...` passed, and `node run.mjs system validate` passed.\n\nSources used by the puller: SEC EDGAR EFTS/submissions and FMP Premium endpoints for profile, statements, key metrics, insider trading, and news."
+        }
+      ],
+      "timestamp": "2026-05-20T17:46:01.050Z"
+    },
+    {
+      "id": "762dd0d4-9dda-4596-94d1-107e322884ca",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Where is the spinoff document located in the vault?"
+        }
+      ],
+      "timestamp": "2026-05-20T17:48:16.350Z"
+    },
+    {
+      "id": "c67e5089-ac69-4ca3-b3f4-4f556621d8a2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "The spinoff screen note is here:\n\n[05_Data_Pulls/Fundamentals/2026-05-20_Spinoff_Separation_Screen.md](C:/Users/CaveUser/Documents/Obsidian%20Vault/My_Data/05_Data_Pulls/Fundamentals/2026-05-20_Spinoff_Separation_Screen.md)\n\nIt was also mirrored to:\n\n[12_Knowledge_Bases/raw/fundamentals/2026-05-20_Spinoff_Separation_Screen.md](C:/Users/CaveUser/Documents/Obsidian%20Vault/My_Data/12_Knowledge_Bases/raw/fundamentals/2026-05-20_Spinoff_Separation_Screen.md)"
+        }
+      ],
+      "timestamp": "2026-05-20T17:48:21.785Z"
+    }
+  ],
+  "savedAt": "2026-05-20T17:48:25.906Z"
+}

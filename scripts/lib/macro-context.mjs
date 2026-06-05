@@ -2,14 +2,14 @@
  * macro-context.mjs - Helpers for matching thesis indicators to latest macro pull notes.
  */
 
-import { basename, join } from 'path';
-import { getPullsDir, getVaultRoot } from './config.mjs';
+import { basename } from 'path';
+import { getMacroDir, getPullsDir } from './config.mjs';
 import { readFolder } from './frontmatter.mjs';
 import { parseFirstMarkdownTable } from './markdown-table.mjs';
 
 const PULLS_DIR = getPullsDir();
-const REGIMES_DIR = join(getVaultRoot(), '09_Macro', 'Regimes');
-const INDICATORS_DIR = join(getVaultRoot(), '09_Macro', 'Indicators');
+const REGIMES_DIR = getMacroDir('Regimes');
+const INDICATORS_DIR = getMacroDir('Indicators');
 
 const SERIES_ID_ALIASES = Object.freeze({
   CSUSHPISA: ['CSUSHPINSA'],

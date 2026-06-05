@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260602123001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name midday -TaskLabel My_Data - Midday Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 83776
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Midday Cadence
+[started] 2026-06-02T12:30:01.2471207-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run midday
+
+case-studies.md
+  [ok] wrote=0 skipped=0 (1.6s)
+
+[run] research-spine-flow  --documents=midday-monitoring
+WARN data readiness for midday
+READY Signal Intelligence: 2026-06-02
+WARN FMP Market Performance: stale (72.0h old)
+  refresh: node run.mjs pull fmp --market-performance --limit=20
+WARN General Market News: stale (120.0h old)
+  refresh: node run.mjs pull fmp --general-news --limit=15
+WARN Vol Surface: stale (120.0h old)
+  refresh: node run.mjs pull yfinance-vol
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\Midday\Monitoring\2026-06-02 Midday Monitoring S
+napshot.md
+Inbox: wrote 1 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review Queue.md
+Inbox: wrote 0 World Machine promotion task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review
+ Queue.md
+  [ok] wrote=0 skipped=0 (7.5s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\System\run_summaries\2026-06-02_12-30.md
+
+[done] 3/3 ok in 15.6s
+
+[done] Done in 15.6s
+
+[finished] 2026-06-02T12:30:16.9808905-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260602123016
+**********************

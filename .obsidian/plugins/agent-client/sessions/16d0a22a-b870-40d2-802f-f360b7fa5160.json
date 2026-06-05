@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "sessionId": "16d0a22a-b870-40d2-802f-f360b7fa5160",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "e5c6e366-14b5-44f2-8604-1f0d9b845661",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Using the EDGAR API can you pull the 13F documentation for the list of hedge funds below: \n\nGrowth Hedge Funds\nAltimeter\n\nCoatue\n\nLight Street\n\nTiger Global\n\nWhale Rock\n\nMaverick\n\nLone Pine\n\nDiscovery\n\nViking\n\nMacro / Activist\nPershing Square\n\nThird Point\n\nBridgewater\n\nSoros\n\nElliott\n\nTrian\n\nMulti-Manager\nExodusPoint\n\nDE Shaw\n\nTwo Sigma\n\nPoint72\n\nRenaissance\n\nBalyasny\n\nMillennium\n\nCitadel"
+        }
+      ],
+      "timestamp": "2026-05-18T14:18:16.080Z"
+    }
+  ],
+  "savedAt": "2026-05-18T14:18:18.431Z"
+}

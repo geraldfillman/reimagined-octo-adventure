@@ -10,7 +10,7 @@ const CONFIG = _require(resolve(__dirname, '../../config/scoring-weights.json'))
 
 const AGENT_WEIGHTS = Object.freeze(CONFIG.agentWeights);
 
-export function synthesizeDeterministic(agentSignals = []) {
+export function synthesizeDeterministic(agentSignals = [], context = {}) {
   const usable = agentSignals.filter(Boolean);
   let weightedSum = 0;
   let weightTotal = 0;
@@ -45,7 +45,8 @@ export function synthesizeDeterministic(agentSignals = []) {
 
   const normalizedScore = weightTotal ? weightedSum / weightTotal : 0;
   const { bullish: bullishThreshold, bearish: bearishThreshold } = CONFIG.verdictThresholds;
-  const finalVerdict = normalizedScore > bullishThreshold ? 'BULLISH' : normalizedScore < bearishThreshold ? 'BEARISH' : 'NEUTRAL';
+  const rawVerdict = normalizedScore > bullishThreshold ? 'BULLISH' : normalizedScore < bearishThreshold ? 'BEARISH' : 'NEUTRAL';
+  const { finalVerdict, symbolGated } = applySymbolGate(rawVerdict, context?.symbol);
   const disagreement = computeDisagreement(usable);
   const coverage = usable.length ? usable.filter(signal => signal.confidence > 0).length / usable.length : 0;
   const { scoreMultiplier, coverageWeight, disagreementPenalty, maxConfidence } = CONFIG.confidenceFormula;
@@ -64,9 +65,11 @@ export function synthesizeDeterministic(agentSignals = []) {
 
   return Object.freeze({
     final_verdict: finalVerdict,
+    raw_verdict: rawVerdict,
+    symbol_gated: symbolGated,
     final_confidence: Number(finalConfidence.toFixed(2)),
     signal_status: signalStatus,
-    reasoning: buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy }),
+    reasoning: buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy, symbolGated, rawVerdict }),
     top_drivers: bullish.slice(0, 3).map(row => row.agent),
     top_risks: bearish.slice(0, 3).map(row => row.agent),
     follow_up_actions: buildFollowUps({ finalVerdict, bearish, failed, entropy }),
@@ -116,7 +119,7 @@ function computeDisagreement(signals) {
   return Math.min(bullish, bearish) / directional.length;
 }
 
-function buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy }) {
+function buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutral, failed, entropy, symbolGated, rawVerdict }) {
   const driverText = bullish.length ? `Drivers: ${bullish.slice(0, 2).map(row => row.agent).join(', ')}.` : '';
   const riskText = bearish.length ? `Risks: ${bearish.slice(0, 2).map(row => row.agent).join(', ')}.` : '';
   const mixedText = neutral.length ? `${neutral.length} neutral layer(s).` : '';
@@ -124,9 +127,20 @@ function buildReasoning({ finalVerdict, finalConfidence, bullish, bearish, neutr
   const entropyText = entropy?.level && entropy.level !== 'unknown'
     ? `Agent entropy is ${entropy.level} (${entropy.score}).`
     : '';
-  return [`Deterministic synthesis is ${finalVerdict.toLowerCase()} at ${Math.round(finalConfidence * 100)}% confidence.`, entropyText, driverText, riskText, mixedText, failedText]
+  const gateText = symbolGated ? `Symbol-gated: raw verdict ${rawVerdict} forced to ${finalVerdict} per scoring-weights.json symbolBullishGating (2026-06-03 audit).` : '';
+  return [`Deterministic synthesis is ${finalVerdict.toLowerCase()} at ${Math.round(finalConfidence * 100)}% confidence.`, entropyText, driverText, riskText, mixedText, failedText, gateText]
     .filter(Boolean)
     .join(' ');
+}
+
+function applySymbolGate(rawVerdict, symbol) {
+  const gate = CONFIG.symbolBullishGating;
+  if (!gate || !symbol) return { finalVerdict: rawVerdict, symbolGated: false };
+  const blocked = (gate.blockedSymbols || []).includes(String(symbol).toUpperCase());
+  if (blocked && rawVerdict === 'BULLISH') {
+    return { finalVerdict: gate.fallbackVerdict || 'NEUTRAL', symbolGated: true };
+  }
+  return { finalVerdict: rawVerdict, symbolGated: false };
 }
 
 function buildFollowUps({ finalVerdict, bearish, failed, entropy }) {

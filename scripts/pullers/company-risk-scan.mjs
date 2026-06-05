@@ -20,7 +20,7 @@
 
 import { readFileSync, readdirSync, existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { getApiKey, getVaultRoot } from '../lib/config.mjs';
+import { getApiKey, getCompanyRiskDir, getEngineCacheDir } from '../lib/config.mjs';
 import { getJson, sleep } from '../lib/fetcher.mjs';
 import { fetchRecentFilings as edgarFetchRecentFilings } from '../lib/edgar.mjs';
 import {
@@ -33,10 +33,10 @@ import {
 
 // ─── Paths ────────────────────────────────────────────────────────────────────
 
-const riskEventsDir  = root => join(root, '12_Company_Risk', 'Events');
-const companiesDir   = root => join(root, '12_Company_Risk', 'Companies');
-const fmpCacheDir    = root => join(root, 'scripts', '.cache', 'fmp-ratios-ttm');
-const secTickerCache = root => join(root, 'scripts', '.cache', 'sec-company-tickers.json');
+const riskEventsDir = () => getCompanyRiskDir('Events');
+const companiesDir = () => getCompanyRiskDir('Companies');
+const fmpCacheDir = () => getEngineCacheDir('fmp-ratios-ttm');
+const secTickerCache = () => getEngineCacheDir('sec-company-tickers.json');
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -92,8 +92,8 @@ function updateFrontmatterField(filePath, field, value) {
 }
 
 /** Resolve CIK (zero-padded, 10 digits) for a ticker from the local EDGAR cache. */
-function resolveCIK(ticker, vaultRoot) {
-  const cachePath = secTickerCache(vaultRoot);
+function resolveCIK(ticker) {
+  const cachePath = secTickerCache();
   if (!existsSync(cachePath)) return null;
   try {
     const data = JSON.parse(readFileSync(cachePath, 'utf-8'));
@@ -109,8 +109,8 @@ function resolveCIK(ticker, vaultRoot) {
 }
 
 /** Load FMP TTM ratios from local cache. Returns null if not cached. */
-function loadFMPCache(ticker, vaultRoot) {
-  const cachePath = join(fmpCacheDir(vaultRoot), `${ticker.toLowerCase()}.json`);
+function loadFMPCache(ticker) {
+  const cachePath = join(fmpCacheDir(), `${ticker.toLowerCase()}.json`);
   if (!existsSync(cachePath)) return null;
   try {
     const data = JSON.parse(readFileSync(cachePath, 'utf-8'));
@@ -126,8 +126,8 @@ function loadFMPCache(ticker, vaultRoot) {
  * Fundamental risk scan — reads FMP TTM ratios from local cache only.
  * No live API call to avoid quota usage on non-thesis tickers.
  */
-function scanFundamentals(ticker, vaultRoot) {
-  const ratios = loadFMPCache(ticker, vaultRoot);
+function scanFundamentals(ticker) {
+  const ratios = loadFMPCache(ticker);
   if (!ratios) {
     console.log(`    ⚠️  FMP cache miss for ${ticker} — run fmp --thesis-watchlists first`);
     return { findings: [], riskDelta: 0, skipped: true };
@@ -191,8 +191,8 @@ function scanFundamentals(ticker, vaultRoot) {
  * SEC governance scan — fetches recent 8-K filings and flags risk items.
  * Requires CIK in the local EDGAR ticker cache.
  */
-async function scanSEC(ticker, vaultRoot) {
-  const cik = resolveCIK(ticker, vaultRoot);
+async function scanSEC(ticker) {
+  const cik = resolveCIK(ticker);
   if (!cik) {
     console.log(`    ⚠️  No CIK found for ${ticker} in EDGAR cache — skipping`);
     return { findings: [], riskDelta: 0, skipped: true };
@@ -369,16 +369,16 @@ function writeEventNote({ ticker, companyName, eventType, severity, source, link
 
 // ─── Main scanner ─────────────────────────────────────────────────────────────
 
-async function scanCompany({ ticker, companyName, domain, dryRun, updateScore, vaultRoot }) {
+async function scanCompany({ ticker, companyName, domain, dryRun, updateScore }) {
   console.log(`\n🔍 ${ticker} — ${companyName}`);
-  const eventsDir = riskEventsDir(vaultRoot);
+  const eventsDir = riskEventsDir();
   const written = [];
   let totalRiskDelta = 0;
 
   // ── Fundamentals (FMP cache) ───────────────────────────────────────────────
   if (domain === 'all' || domain === 'fundamental') {
     console.log(`  📊 Fundamentals (FMP cache)...`);
-    const { findings, riskDelta, severity, skipped } = scanFundamentals(ticker, vaultRoot);
+    const { findings, riskDelta, severity, skipped } = scanFundamentals(ticker);
     if (!skipped && findings.length > 0) {
       totalRiskDelta += riskDelta;
       const rows = findings.map(f => [f.label, f.value, f.threshold, `+${f.score} pts`]);
@@ -403,7 +403,7 @@ async function scanCompany({ ticker, companyName, domain, dryRun, updateScore, v
   // ── SEC 8-K Governance ─────────────────────────────────────────────────────
   if (domain === 'all' || domain === 'regulatory') {
     console.log(`  📋 SEC 8-K governance (last ${SEC_LOOKBACK_DAYS}d)...`);
-    const { findings, riskDelta, severity, skipped } = await scanSEC(ticker, vaultRoot);
+    const { findings, riskDelta, severity, skipped } = await scanSEC(ticker);
     await sleep(150); // respect EDGAR 10 req/sec limit
 
     if (!skipped && findings.length > 0) {
@@ -430,7 +430,7 @@ async function scanCompany({ ticker, companyName, domain, dryRun, updateScore, v
 
   // ── FDA Recalls (biotech/healthcare only) ──────────────────────────────────
   if (domain === 'all' || domain === 'regulatory') {
-    const companyNotePath = join(companiesDir(vaultRoot), `${ticker}.md`);
+    const companyNotePath = join(companiesDir(), `${ticker}.md`);
     const sector = existsSync(companyNotePath)
       ? (parseFrontmatter(readFileSync(companyNotePath, 'utf-8')).sector ?? '').toLowerCase()
       : '';
@@ -496,7 +496,7 @@ async function scanCompany({ ticker, companyName, domain, dryRun, updateScore, v
   console.log(`  📊 Risk delta this scan: +${cappedScore} pts → ${band}`);
 
   if (updateScore) {
-    const companyNotePath = join(companiesDir(vaultRoot), `${ticker}.md`);
+    const companyNotePath = join(companiesDir(), `${ticker}.md`);
     if (!existsSync(companyNotePath)) {
       console.log(`  ⚠️  No company note at ${companyNotePath} — skipping score update`);
     } else if (dryRun) {
@@ -514,7 +514,6 @@ async function scanCompany({ ticker, companyName, domain, dryRun, updateScore, v
 // ─── Entry point ──────────────────────────────────────────────────────────────
 
 export async function pull(flags = {}) {
-  const vaultRoot   = getVaultRoot();
   const domain      = flags.domain || 'all';
   const dryRun      = !!(flags['dry-run'] || flags.dryRun);
   const updateScore = !!(flags['update-score'] || flags.updateScore);
@@ -523,7 +522,7 @@ export async function pull(flags = {}) {
 
   // ── Watchlist mode ─────────────────────────────────────────────────────────
   if (flags.watchlist) {
-    const dir = companiesDir(vaultRoot);
+    const dir = companiesDir();
     if (!existsSync(dir)) {
       throw new Error(`Companies directory not found: ${dir}\nAdd at least one company note using 03_Templates/Company_Risk.md first.`);
     }
@@ -542,7 +541,7 @@ export async function pull(flags = {}) {
       }
       const ticker = (fm.ticker || '').toUpperCase() || file.replace('.md', '').toUpperCase();
       const companyName = file.replace('.md', '');
-      await scanCompany({ ticker, companyName, domain, dryRun, updateScore, vaultRoot });
+      await scanCompany({ ticker, companyName, domain, dryRun, updateScore });
     }
     return;
   }
@@ -554,5 +553,5 @@ export async function pull(flags = {}) {
   }
   const companyName = flags.company || ticker;
 
-  await scanCompany({ ticker, companyName, domain, dryRun, updateScore, vaultRoot });
+  await scanCompany({ ticker, companyName, domain, dryRun, updateScore });
 }

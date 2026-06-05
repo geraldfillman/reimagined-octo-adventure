@@ -1,0 +1,9 @@
+:START_ID,:END_ID,asOfDate,firstSeen,id,lastSeen,method,source,weight,:TYPE
+world:bill:ca-ab-412-generative-ai-training-data-copyrighted-materials,world:sector:tech,2026-06-01,2026-06-01,rel:world-bill-ca-ab-412-generative-ai-training-data-copyrighted-materials:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:ca-ab-736-affordable-housing-bond-act-of-2026,world:entity:housing,2026-06-01,2026-06-01,rel:world-bill-ca-ab-736-affordable-housing-bond-act-of-2026:TARGETS_SECTOR:world-entity-housing,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:ca-sb-903-mental-health-ai,world:sector:tech,2026-06-01,2026-06-01,rel:world-bill-ca-sb-903-mental-health-ai:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:hr-8479-protecting-consumers-from-deceptive-ai-act,world:sector:tech,2026-06-01,2026-06-01,rel:world-bill-hr-8479-protecting-consumers-from-deceptive-ai-act:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:s-4424-ndaa-fy2021-higher-ed-institutional-prohibition,world:sector:defense,2026-06-01,2026-06-01,rel:world-bill-s-4424-ndaa-fy2021-higher-ed-institutional-prohibition:TARGETS_SECTOR:world-sector-defense,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:s-4459-expanding-appalachia-s-broadband-access-act,world:sector:tech,2026-06-01,2026-06-01,rel:world-bill-s-4459-expanding-appalachia-s-broadband-access-act:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:bill:template-bill,world:sector:tech,2026-06-01,2026-06-01,rel:world-bill-template-bill:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR
+world:policyaction:template-observation,world:sector:tech,2026-06-01,2026-06-01,rel:world-policyaction-template-observation:TARGETS_SECTOR:world-sector-tech,2026-06-01,sectors,frontmatter,1,TARGETS_SECTOR

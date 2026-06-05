@@ -1,0 +1,43 @@
+﻿{
+    "schema_version":  1,
+    "generated_at":  "2026-06-04T19:04:27.1176316-04:00",
+    "mode":  "execute",
+    "my_data_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+    "harness_root":  "C:\\Users\\CaveUser\\harness",
+    "world_machine_archive_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\root-split",
+    "manifest_path":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\99_System\\migration\\config-memory-root-split\\2026-06-04_manifest.json",
+    "items":  [
+                  {
+                      "name":  "_state",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\_state",
+                      "harness":  "C:\\Users\\CaveUser\\harness\\memory",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\root-split\\_state",
+                      "source_exists":  true,
+                      "harness_exists":  true,
+                      "source_files":  9,
+                      "harness_files":  9
+                  },
+                  {
+                      "name":  "99_System/config",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\99_System\\config",
+                      "harness":  "C:\\Users\\CaveUser\\harness\\config",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\root-split\\99_System_config",
+                      "source_exists":  true,
+                      "harness_exists":  true,
+                      "source_files":  7,
+                      "harness_files":  7
+                  }
+              ],
+    "results":  [
+                    {
+                        "name":  "_state",
+                        "action":  "archived_and_removed_from_vault",
+                        "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\root-split\\_state"
+                    },
+                    {
+                        "name":  "99_System/config",
+                        "action":  "archived_and_removed_from_vault",
+                        "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\root-split\\99_System_config"
+                    }
+                ]
+}

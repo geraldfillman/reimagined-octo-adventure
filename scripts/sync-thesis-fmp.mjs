@@ -4,15 +4,10 @@
  */
 
 import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import { getVaultRoot } from './lib/config.mjs';
 import { loadCachedFmpFundamentalsMap } from './lib/fmp-fundamentals-context.mjs';
 import { loadLatestFmpMarketContext, normalizeDate } from './lib/fmp-market-context.mjs';
 import { buildFrontmatter, today } from './lib/markdown.mjs';
 import { loadThesisWatchlists } from './lib/thesis-watchlists.mjs';
-
-const VAULT_ROOT = getVaultRoot();
-const THESES_DIR = join(VAULT_ROOT, '10_Theses');
 
 const THESIS_FMP_FIELDS = Object.freeze([
   'fmp_watchlist_symbols',

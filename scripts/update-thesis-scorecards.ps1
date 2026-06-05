@@ -7,9 +7,12 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$vaultRoot = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'lib\paths.ps1')
+
+$vaultRoot = Get-MyDataRoot
 $thesesDir = Join-Path $vaultRoot '10_Theses'
 $sectorPullsDir = Join-Path $vaultRoot '05_Data_Pulls\Sectors'
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
 $thesisData = @{
   'AI Power Infrastructure' = @{
@@ -398,7 +401,7 @@ function Apply-SignalSuggestions {
   $changed = 0
 
   foreach ($file in Get-ChildItem $thesesDir -File -Filter *.md) {
-    $content = Get-Content $file.FullName -Raw
+    $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
     $match = [regex]::Match($content, '(?s)^---\r?\n(.*?)\r?\n---\r?\n')
     if (-not $match.Success) { continue }
 
@@ -443,7 +446,7 @@ function Apply-SignalSuggestions {
     if ($DryRun) {
       Write-Host ('[dry-run] would update signal fields in ' + $file.Name)
     } else {
-      Set-Content -LiteralPath $file.FullName -Value $updated -Encoding utf8
+      [System.IO.File]::WriteAllText($file.FullName, $updated, $utf8NoBom)
     }
   }
 
@@ -461,7 +464,7 @@ foreach ($file in Get-ChildItem $thesesDir -File -Filter *.md) {
   if (-not $thesisData.ContainsKey($base)) { continue }
 
   $data = $thesisData[$base]
-  $content = Get-Content $file.FullName -Raw
+  $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
   $match = [regex]::Match($content, '(?s)^---\r?\n(.*?)\r?\n---\r?\n')
   if (-not $match.Success) { continue }
 
@@ -511,6 +514,6 @@ foreach ($file in Get-ChildItem $thesesDir -File -Filter *.md) {
   if ($DryRun) {
     Write-Host ('[dry-run] would backfill scorecard fields in ' + $file.Name)
   } else {
-    Set-Content -LiteralPath $file.FullName -Value $updated -Encoding utf8
+    [System.IO.File]::WriteAllText($file.FullName, $updated, $utf8NoBom)
   }
 }

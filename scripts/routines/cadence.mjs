@@ -12,6 +12,31 @@ import { join } from 'path';
 const SCRIPTS_DIR = join(import.meta.dirname, '..');
 
 export const CADENCE_DEFINITIONS = {
+  premarket: [
+    phase('Pre-flight', [
+      cmd('System status', ['system', 'status']),
+    ]),
+    phase('Overnight Macro', [
+      cmd('FRED rates', ['pull', 'fred', '--group', 'rates']),
+      cmd('FRED inflation', ['pull', 'fred', '--group', 'inflation']),
+      cmd('FRED liquidity', ['pull', 'fred', '--group', 'liquidity']),
+      cmd('FRED credit', ['pull', 'fred', '--group', 'credit']),
+      cmd('Treasury yields', ['pull', 'treasury', '--yields']),
+      cmd('FMP macro calendar', ['pull', 'fmp', '--macro-calendar']),
+      cmd('FMP earnings calendar', ['pull', 'fmp', '--earnings-calendar']),
+    ]),
+    phase('Overnight Tape', [
+      cmd('FMP futures + index quotes', ['pull', 'fmp', '--quote', 'SPY,QQQ,IWM,DIA,TLT,HYG,LQD,GLD,SLV,USO,UUP,VXX']),
+      cmd('FMP general news', ['pull', 'fmp', '--general-news', '--limit', '40']),
+      cmd('Yahoo vol indices', ['pull', 'yfinance-vol', '--indices', 'vix,vvix,move,skew,gvz,ovx,vxn,rvx,vix9d,vix3m', '--interval', '1d', '--period', '5d']),
+      cmd('Yahoo IV term structure', ['pull', 'yfinance-vol', '--indices', 'vix', '--term-structure', 'SPY,QQQ', '--expirations', '0,1,2,4,8']),
+    ]),
+    phase('My_Data Reports', [
+      cmd('Market cycle status', ['pull', 'market-cycle-monitor']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
+      cmd('My_Data premarket reports', ['pull', 'my-data-report-flow', '--documents', 'premarket-monitoring,daily-briefing,source-register,strategy-register']),
+    ]),
+  ],
   daily: [
     phase('Pre-flight', [
       cmd('System status', ['system', 'status']),
@@ -20,27 +45,86 @@ export const CADENCE_DEFINITIONS = {
       cmd('FRED rates', ['pull', 'fred', '--group', 'rates']),
       cmd('FRED housing', ['pull', 'fred', '--group', 'housing']),
       cmd('FRED labor', ['pull', 'fred', '--group', 'labor']),
-      cmd('FMP SPY quote', ['pull', 'fmp', '--quote', 'SPY']),
+      cmd('FRED inflation', ['pull', 'fred', '--group', 'inflation']),
+      cmd('FRED liquidity', ['pull', 'fred', '--group', 'liquidity']),
+      cmd('FMP SPY quote', ['pull', 'fmp', '--quote', 'SPY,QQQ,IWM,TLT,HYG,GLD,USO']),
+      cmd('FMP market performance', ['pull', 'fmp', '--market-performance', '--limit', '20']),
+      cmd('FMP general news', ['pull', 'fmp', '--general-news', '--limit', '50']),
       cmd('Entropy monitor', ['pull', 'entropy-monitor']),
-      cmd('GDELT news monitor', ['pull', 'gdelt', '--all', '--timespan', '15min', '--limit', '75']),
+      cmd('Yahoo vol indices', ['pull', 'yfinance-vol', '--indices', 'vix,vvix,move,skew,gvz,ovx,vxn,rvx,vix9d,vix3m', '--interval', '1d', '--period', '5d']),
       cmd('Treasury yields', ['pull', 'treasury', '--yields']),
     ]),
     phase('Government Core', [
       cmd('SEC thesis filings', ['pull', 'sec', '--thesis']),
     ]),
     phase('Thesis Tape', [
-      cmd('FMP thesis watchlists', ['pull', 'fmp', '--thesis-watchlists', '--concurrency', '2', '--fundamentals-concurrency', '2']),
+      cmd('FMP thesis watchlists', ['pull', 'fmp', '--thesis-watchlists', '--concurrency', '2', '--fundamentals-concurrency', '2', '--skip-technical']),
       cmd('Opportunity viewpoints', ['pull', 'opportunity-viewpoints', '--window', '14']),
     ]),
     phase('Scans', [
       cmd('Sector scan', ['scan', 'sectors'], { skipFlag: 'skip-sector-scan' }),
-      cmd('Company risk watchlist', ['scan', 'company-risk', '--watchlist']),
       cmd('Agent thesis scan', ['pull', 'agent-analyst', '--all-thesis', '--limit', '8', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
     ]),
     phase('Post-pull', [
+      cmd('Source watch updated posts', ['pull', 'source-watch', '--limit', '35', '--lookback-days', '90']),
+      cmd('Market cycle status', ['pull', 'market-cycle-monitor']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '14', '--limit', '16']),
+      cmd('My_Data daily reports', ['pull', 'my-data-report-flow', '--documents', 'daily-monitoring,daily-briefing,source-register,strategy-register']),
+      cmd('Knowledge-gap tasks (Inbox)', ['pull', 'knowledge-gap-tasks'], { nonFatal: true, skipFlag: 'skip-knowledge-gap-tasks' }),
       cmd('Thesis canvas', ['thesis', 'canvas']),
       cmd('Cleanup retention', ['system', 'cleanup', '--market-history', '--signals']),
+      cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
+    ]),
+  ],
+  midday: [
+    phase('Midday Tape', [
+      cmd('System status', ['system', 'status']),
+      cmd('FMP index quote basket', ['pull', 'fmp', '--quote', 'SPY,QQQ,IWM,TLT,HYG,GLD,USO,VXX']),
+      cmd('FMP market performance', ['pull', 'fmp', '--market-performance', '--limit', '20']),
+      cmd('FMP general news', ['pull', 'fmp', '--general-news', '--limit', '25']),
+      cmd('Yahoo vol intraday', ['pull', 'yfinance-vol', '--indices', 'vix,vvix,move,skew,vix9d,vix3m', '--interval', '5m', '--period', '1d']),
+      cmd('Yahoo P/C ratio', ['pull', 'yfinance-vol', '--indices', 'vix', '--pcr', 'SPY,QQQ', '--expirations', '0,1,2']),
+      cmd('Entropy monitor', ['pull', 'entropy-monitor']),
+    ]),
+    phase('My_Data Reports', [
+      cmd('Market cycle status', ['pull', 'market-cycle-monitor']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
+      cmd('My_Data midday report', ['pull', 'my-data-report-flow', '--documents', 'midday-monitoring']),
+    ]),
+  ],
+  preclose: [
+    phase('Pre-close Tape', [
+      cmd('System status', ['system', 'status']),
+      cmd('FMP index quote basket', ['pull', 'fmp', '--quote', 'SPY,QQQ,IWM,DIA,TLT,HYG,LQD,GLD,SLV,USO,VXX']),
+      cmd('FMP market performance', ['pull', 'fmp', '--market-performance', '--limit', '25']),
+      cmd('FMP general news', ['pull', 'fmp', '--general-news', '--limit', '25']),
+      cmd('Yahoo vol last hour', ['pull', 'yfinance-vol', '--indices', 'vix,vvix,move,skew,vix9d,vix3m', '--interval', '5m', '--period', '1d']),
+      cmd('Yahoo end-of-day P/C', ['pull', 'yfinance-vol', '--indices', 'vix', '--pcr', 'SPY,QQQ,IWM', '--expirations', '0,1,2,4']),
+    ]),
+    phase('My_Data Reports', [
+      cmd('Market cycle status', ['pull', 'market-cycle-monitor']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
+      cmd('My_Data preclose report', ['pull', 'my-data-report-flow', '--documents', 'preclose-monitoring']),
+    ]),
+  ],
+  endofday: [
+    phase('End-of-Day Tape', [
+      cmd('System status', ['system', 'status']),
+      cmd('FMP index quote basket', ['pull', 'fmp', '--quote', 'SPY,QQQ,IWM,TLT,HYG,GLD,USO,VXX']),
+      cmd('FMP market performance', ['pull', 'fmp', '--market-performance', '--limit', '25']),
+      cmd('FMP general news', ['pull', 'fmp', '--general-news', '--limit', '40']),
+      cmd('FMP macro calendar', ['pull', 'fmp', '--macro-calendar']),
+      cmd('FMP earnings calendar', ['pull', 'fmp', '--earnings-calendar']),
+      cmd('Yahoo vol close', ['pull', 'yfinance-vol', '--indices', 'vix,vvix,move,skew,gvz,ovx,vxn,rvx,vix9d,vix3m,vix6m', '--interval', '1d', '--period', '5d']),
+      cmd('Yahoo full P/C + term structure', ['pull', 'yfinance-vol', '--pcr', 'SPY,QQQ,IWM', '--term-structure', 'SPY,QQQ', '--expirations', '0,1,2,4,8,12']),
+      cmd('FMP insider activity', ['pull', 'fmp', '--insider', '--lookback', '1'], { dow: ['mon', 'tue', 'wed', 'thu', 'fri'] }),
+      cmd('Opportunity viewpoints', ['pull', 'opportunity-viewpoints', '--window', '14']),
+    ]),
+    phase('My_Data Reports', [
+      cmd('Market cycle status', ['pull', 'market-cycle-monitor']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
+      cmd('My_Data EOD reports', ['pull', 'my-data-report-flow', '--documents', 'eod-monitoring,eod-briefing,source-register,strategy-register']),
       cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
     ]),
   ],
@@ -66,14 +150,17 @@ export const CADENCE_DEFINITIONS = {
       cmd('NewsAPI business', ['pull', 'newsapi', '--topic', 'business']),
       cmd('FMP watchlist deep scan', ['pull', 'fmp', '--watchlist-deep-scan', '--concurrency', '2']),
       cmd('FMP macro calendar', ['pull', 'fmp', '--macro-calendar']),
-      cmd('Company risk score update', ['scan', 'company-risk', '--watchlist', '--update-score']),
+      cmd('Semantic Scholar market-cycle queue', ['pull', 'semantic-scholar', '--queue', 'market-cycle', '--max-topics', '6', '--limit', '5']),
+      cmd('Semantic Scholar strategy queue', ['pull', 'semantic-scholar', '--queue', 'strategies', '--max-topics', '5', '--limit', '5']),
+      cmd('Source watch broad sweep', ['pull', 'source-watch', '--limit', '120', '--lookback-days', '90']),
       cmd('Agent thesis scan', ['pull', 'agent-analyst', '--all-thesis', '--limit', '12', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
       cmd('Agent strategy scan', ['pull', 'agent-analyst', '--all-strategies', '--limit', '12', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
       cmd('Disclosure reality scan', ['pull', 'disclosure-reality', '--all', '--limit', '25']),
-      cmd('COT report', ['pull', 'cot-report']),
       cmd('Cash-flow quality', ['pull', 'cash-flow-quality']),
     ]),
     phase('Post-pull', [
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
+      cmd('Weekly research scout', ['pull', 'weekly-research-scout', '--window', '14']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '30', '--limit', '24']),
       cmd('Confluence scan', ['pull', 'confluence-scan']),
       cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
@@ -84,6 +171,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('System status', ['system', 'status']),
       cmd('Conviction rollup', ['scan', 'conviction', '--window', '30']),
       cmd('Thesis catalysts', ['thesis', 'catalysts', '--all', '--window', '45']),
+      cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Thesis full picture', ['thesis', 'full-picture', '--include-baskets']),
       cmd('Opportunity viewpoints', ['pull', 'opportunity-viewpoints', '--window', '31', '--limit', '20']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '45', '--limit', '28']),
@@ -124,7 +212,7 @@ export function listRoutineDefinitions(flags = {}) {
 export function getRoutinePlan(cadence, flags = {}) {
   const definition = CADENCE_DEFINITIONS[cadence];
   if (!definition) {
-    throw new Error(`Unknown routine cadence "${cadence}". Use daily, weekly, monthly, quarterly, or yearly.`);
+    throw new Error(`Unknown routine cadence "${cadence}". Use premarket, daily, midday, preclose, endofday, weekly, monthly, quarterly, or yearly.`);
   }
 
   const phases = definition.map((section, phaseIndex) => ({
@@ -142,6 +230,7 @@ export function getRoutinePlan(cadence, flags = {}) {
         args,
         command: ['node', 'run.mjs', ...args].join(' '),
         skipFlag: task.skipFlag || null,
+        dow: task.dow || null,
         agent: task.agent || inferAgent(args),
         artifactLinks: task.artifactLinks || inferArtifactLinks(args),
         critical: task.critical ?? true,
@@ -168,7 +257,7 @@ export async function run(cadence = 'help', flags = {}) {
 
   const definition = CADENCE_DEFINITIONS[cadence];
   if (!definition) {
-    throw new Error(`Unknown routine cadence "${cadence}". Use daily, weekly, monthly, quarterly, or yearly.`);
+    throw new Error(`Unknown routine cadence "${cadence}". Use premarket, daily, midday, preclose, endofday, weekly, monthly, quarterly, or yearly.`);
   }
 
   const dryRun = Boolean(flags['dry-run']);
@@ -179,12 +268,20 @@ export async function run(cadence = 'help', flags = {}) {
   console.log(`\nRoutine cadence: ${cadence}`);
   if (dryRun) console.log('Mode: dry-run (commands are printed only)');
 
+  const todayDow = currentDow(flagValue(flags, 'as-dow'));
+  const ignoreDow = Boolean(flags['ignore-dow']);
+
   for (const section of definition) {
     console.log(`\n=== ${section.name} ===`);
     for (const task of section.tasks) {
       if (task.skipFlag && flags[task.skipFlag]) {
         summary.push({ label: task.label, status: 'skipped' });
         console.log(`  [skipped] ${task.label}`);
+        continue;
+      }
+      if (!ignoreDow && task.dow && Array.isArray(task.dow) && !task.dow.includes(todayDow)) {
+        summary.push({ label: task.label, status: 'skipped-dow', dow: task.dow });
+        console.log(`  [skip-dow ${todayDow}] ${task.label} (runs on ${task.dow.join(',')})`);
         continue;
       }
 
@@ -210,8 +307,12 @@ export async function run(cadence = 'help', flags = {}) {
       }
 
       const message = result.error ? result.error.message : `exit code ${status}`;
-      summary.push({ label: task.label, status: 'failed', message });
-      console.error(`  FAILED [${task.label}]: ${message}`);
+      summary.push({ label: task.label, status: task.nonFatal ? 'failed-nonfatal' : 'failed', message });
+      console.error(`  ${task.nonFatal ? 'WARN' : 'FAILED'} [${task.label}]: ${message}`);
+
+      if (task.nonFatal) {
+        continue;
+      }
 
       if (!continueOnError) {
         process.exitCode = status;
@@ -265,12 +366,15 @@ function inferAgent(args) {
   if (group === 'scan' && sub === 'company-risk') return 'Risk Agent';
   if (group === 'scan') return 'Research Agent';
   if (joined.includes('agent-analyst')) return 'MarketMind Agent';
+  if (joined.includes('market-cycle-monitor') || joined.includes('my-data-report-flow') || joined.includes('research-spine-flow') || joined.includes('signal-intelligence')) return 'Report Agent';
+  if (joined.includes('weekly-research-scout')) return 'Research Agent';
   if (joined.includes('streamline-report')) return 'Orchestrator';
+  if (joined.includes('source-watch')) return 'Research Agent';
   if (joined.includes('disclosure-reality') || joined.includes('dilution-monitor')) return 'VC Agent';
-  if (joined.includes('newsapi') || joined.includes('gdelt')) return 'News Agent';
-  if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor')) return 'Market Agent';
+  if (joined.includes('newsapi') || joined.includes('gdelt') || joined.includes('alpha-vantage')) return 'News Agent';
+  if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor') || joined.includes('yfinance-vol')) return 'Market Agent';
   if (joined.includes('fred') || joined.includes('bea') || joined.includes('treasury') || joined.includes('eia')) return 'Macro Agent';
-  if (joined.includes('clinicaltrials') || joined.includes('pubmed') || joined.includes('arxiv') || joined.includes('fda')) return 'Research Agent';
+  if (joined.includes('clinicaltrials') || joined.includes('pubmed') || joined.includes('arxiv') || joined.includes('fda') || joined.includes('semantic-scholar')) return 'Research Agent';
   if (joined.includes('sec') || joined.includes('openfema') || joined.includes('usaspending') || joined.includes('uspto')) return 'Government Agent';
   return 'Orchestrator';
 }
@@ -278,11 +382,16 @@ function inferAgent(args) {
 function inferArtifactLinks(args) {
   const joined = args.join(' ');
   if (joined.includes('month-end-archive')) return [artifact('Monthly summary', '05_Data_Pulls/Monthly/')];
+  if (joined.includes('market-cycle-monitor')) return [artifact('Market cycle status', 'Reports/Freshness/Market_Cycles/')];
+  if (joined.includes('signal-intelligence')) return [artifact('Signal intelligence', '05_Data_Pulls/Signals/')];
+  if (joined.includes('weekly-research-scout')) return [artifact('Weekly research scout', '05_Data_Pulls/Theses/')];
+  if (joined.includes('my-data-report-flow') || joined.includes('research-spine-flow')) return [artifact('My_Data reports', 'Reports/')];
   if (joined.includes('streamline-report')) return [artifact('Streamline report', '05_Data_Pulls/Orchestrator/')];
+  if (joined.includes('source-watch')) return [artifact('Source watch pulls', '05_Data_Pulls/SourceWatch/')];
   if (joined.includes('agent-analyst')) return [artifact('Agent pulls', '05_Data_Pulls/Agents/')];
   if (joined.includes('company-risk')) return [artifact('Company risk', '12_Company_Risk/')];
   if (joined.includes('gdelt') || joined.includes('newsapi')) return [artifact('News pulls', '05_Data_Pulls/News/')];
-  if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor')) return [artifact('Market pulls', '05_Data_Pulls/Market/')];
+  if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor') || joined.includes('yfinance-vol')) return [artifact('Market pulls', '05_Data_Pulls/Market/')];
   if (joined.includes('fred') || joined.includes('bea') || joined.includes('treasury') || joined.includes('eia')) return [artifact('Macro pulls', '05_Data_Pulls/Macro/')];
   if (joined.includes('sec') || joined.includes('openfema') || joined.includes('usaspending')) return [artifact('Government pulls', '05_Data_Pulls/Government/')];
   if (joined.includes('clinicaltrials') || joined.includes('pubmed') || joined.includes('arxiv') || joined.includes('fda')) return [artifact('Science pulls', '05_Data_Pulls/Science/')];
@@ -318,8 +427,12 @@ function printHelp() {
 routine - Canonical pull cadences
 
 Commands:
-  daily       Macro, market, SEC, thesis watchlists, sector scan, company risk, agent thesis scan, cleanup, validate
-  weekly      Extended government, clinical, research, news, deep FMP, score updates, agent strategy scan
+  premarket   Overnight macro/news + Yahoo vol context, premarket My_Data reports (run ~07:00 ET)
+  daily       Open-bell macro/market, SEC, thesis watchlists, sector scan, daily My_Data reports (run ~09:45 ET)
+  midday      Intraday tape, FMP news, Yahoo vol intraday + P/C, midday My_Data reports (run ~12:30 ET)
+  preclose    Pre-close index basket, Yahoo vol last hour, EOD P/C term structure (run ~15:30 ET)
+  endofday    Closing tape, macro/earnings calendar, full P/C + COT (Fri), EOD My_Data reports (run ~16:30 ET)
+  weekly      Extended government, clinical, research, news, deep FMP, Semantic Scholar, agent strategy scan
   monthly     Conviction rollup, catalysts, full-picture reports, graph session, month-end archive
   quarterly   Disclosure reality, dilution, 90-day viewpoints, graph session
   yearly      Annual viewpoints, graph sessions, KB health, validation
@@ -330,10 +443,21 @@ Options:
   --skip-sector-scan    Daily only
   --skip-agent-scan     Daily/weekly
   --skip-validate       Skip final vault validation
+  --ignore-dow          Run all tasks regardless of day-of-week filter
+  --as-dow=mon|tue|...  Override "today" for day-of-week task filtering (testing)
   --json                Print machine-readable summary
 
+Day-of-week tasks:
+  Some endofday tasks gate on weekday: COT report runs Fridays only; insider activity Mon-Fri.
+  Use --ignore-dow to force-run all, or --as-dow=fri to test Friday behavior on any day.
+
 Examples:
+  node run.mjs routine premarket --dry-run
   node run.mjs routine daily --dry-run
+  node run.mjs routine midday --dry-run
+  node run.mjs routine preclose --dry-run
+  node run.mjs routine endofday --dry-run
+  node run.mjs routine endofday --as-dow=fri --dry-run
   node run.mjs routine weekly --continue-on-error
   node run.mjs routine monthly --month 2026-04
 `);
@@ -343,4 +467,21 @@ function previousMonth() {
   const now = new Date();
   const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   return `${prev.getFullYear()}-${String(prev.getMonth() + 1).padStart(2, '0')}`;
+}
+
+const DOW_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+function flagValue(flags, name) {
+  if (Object.prototype.hasOwnProperty.call(flags, name)) return flags[name];
+  const prefix = `${name}=`;
+  const matched = Object.keys(flags).find(key => key.startsWith(prefix));
+  return matched ? matched.slice(prefix.length) : undefined;
+}
+
+function currentDow(override) {
+  if (typeof override === 'string' && override.trim()) {
+    const norm = override.trim().toLowerCase().slice(0, 3);
+    if (DOW_NAMES.includes(norm)) return norm;
+  }
+  return DOW_NAMES[new Date().getDay()];
 }

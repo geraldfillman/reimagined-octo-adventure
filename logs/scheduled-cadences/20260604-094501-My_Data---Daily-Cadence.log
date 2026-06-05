@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260604094501
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name daily -TaskLabel My_Data - Daily Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 36256
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Daily Cadence
+[started] 2026-06-04T09:45:01.3976725-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run daily
+
+nged) â€” missing: stable GDELT article feed; policy-backstop event tracker; margin and collateral stress monitor; deale
+r balance-sheet constraint tracker; liquidity-facility activation map ([source](obsidian://open?vault=My_Data&file=05_Da
+ta_Pulls%2FMacro%2F2026-06-03_FMP_EconomicCalendar.md))
+- [ ] [knowledge-gap/cycle] Commodity Delivery / Storage coverage **gap** (state: data_gap, transition: unchanged) â€” m
+issing: futures curve shape; delivery constraints; storage availability and cost; inventory surprises; exchange margin c
+hanges
+- [ ] [knowledge-gap/cycle] Credit Redemptions / ETFs coverage **partial** (state: incomplete, transition: unchanged) â€
+” missing: bond ETF discounts and premiums; credit fund redemptions; dealer balance-sheet capacity; single-name CDS stre
+ss; HY/IG ETF flow pressure ([source](obsidian://open?vault=My_Data&file=05_Data_Pulls%2FMacro%2F2026-06-04_Macro_Volati
+lity.md))
+- [ ] [knowledge-gap/cycle] Equity Options Microstructure coverage **stale** (state: data_gap, transition: unchanged) â€
+” missing: dealer gamma; 0DTE share; options strike concentration; vanna/charm exposure; ETF creation/redemption pressur
+e ([source](obsidian://open?vault=My_Data&file=05_Data_Pulls%2FMarket%2F2026-06-03_Options_Review.md))
+- [ ] [knowledge-gap/cycle] FX / Crypto Carry And Liquidations coverage **gap** (state: data_gap, transition: unchanged)
+ â€” missing: FX carry positioning; funding-currency short pressure; crypto funding rates; crypto open interest; liquida
+tion cascade data
+... (34 more)
+  [ok] wrote=0 skipped=0 (2.0s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\System\run_summaries\2026-06-04_09-45.md
+
+[done] 6/6 ok in 30.0s
+
+[done] Done in 32.2s
+
+[finished] 2026-06-04T09:45:33.7098030-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260604094533
+**********************

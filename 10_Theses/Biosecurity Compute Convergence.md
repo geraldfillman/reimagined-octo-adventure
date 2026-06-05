@@ -30,36 +30,36 @@ fmp_watchlist_symbols: ["GOOGL", "AMZN"]
 fmp_watchlist_symbol_count: 2
 fmp_primary_symbol: "GOOGL"
 fmp_technical_symbol_count: 2
-fmp_technical_nonclear_count: 2
+fmp_technical_nonclear_count: 0
 fmp_technical_bearish_count: 0
-fmp_technical_overbought_count: 2
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "watch"
+fmp_primary_technical_status: "clear"
 fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "overbought"
-fmp_primary_rsi14: 71.18
-fmp_primary_price_vs_sma200_pct: 25.38
+fmp_primary_momentum_state: "positive"
+fmp_primary_rsi14: 68.45
+fmp_primary_price_vs_sma200_pct: 35.49
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 4233379446628
-fmp_primary_trailing_pe: 26.43
-fmp_primary_price_to_sales: 10.02
-fmp_primary_price_to_book: 8.84
-fmp_primary_ev_to_sales: 10.14
-fmp_primary_ev_to_ebitda: 24.62
+fmp_primary_market_cap: 4631972476110
+fmp_primary_trailing_pe: 28.92
+fmp_primary_price_to_sales: 10.96
+fmp_primary_price_to_book: 9.68
+fmp_primary_ev_to_sales: 11.09
+fmp_primary_ev_to_ebitda: 21.41
 fmp_primary_roe_pct: 38.98
 fmp_primary_roic_pct: 19.21
 fmp_primary_operating_margin_pct: 32.7
 fmp_primary_net_margin_pct: 37.91
 fmp_primary_current_ratio: 1.92
 fmp_primary_debt_to_equity: 0.19
-fmp_primary_price_target: 339.32
-fmp_primary_analyst_count: 82
-fmp_primary_target_upside_pct: -3.03
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 2
-fmp_calendar_pull_date: "2026-04-20"
-fmp_last_sync: "2026-04-30"
+fmp_primary_price_target: 349.01
+fmp_primary_analyst_count: 92
+fmp_primary_target_upside_pct: -8.87
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-05-26"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "bridge", "biotech", "ai", "compute", "infrastructure"]
 ---
 
@@ -100,4 +100,5 @@ tags: ["thesis", "bridge", "biotech", "ai", "compute", "infrastructure"]
 - **Change this week**: Initial monitor baseline established.
 - **Break risk status**: not-seen
 - **Action**: Keep small and review only when a catalyst or signal meaningfully changes.
+
 

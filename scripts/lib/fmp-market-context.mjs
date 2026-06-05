@@ -3,13 +3,13 @@
  */
 
 import { join } from 'path';
-import { getVaultRoot } from './config.mjs';
+import { getPullsDir } from './config.mjs';
 import { readFolder } from './frontmatter.mjs';
 import { parseFirstMarkdownTable } from './markdown-table.mjs';
 import { today } from './markdown.mjs';
 import { normalizeSymbol } from './thesis-watchlists.mjs';
 
-const MARKET_PULLS_DIR = join(getVaultRoot(), '05_Data_Pulls', 'Market');
+const MARKET_PULLS_DIR = join(getPullsDir(), 'Market');
 
 export async function loadLatestFmpMarketContext() {
   const marketNotes = await readFolder(MARKET_PULLS_DIR, false);

@@ -11,6 +11,8 @@
  *   node run.mjs pull disclosure-reality --thesis defense --lookback 45
  *   node run.mjs pull disclosure-reality --sector technology --include-risk
  *   node run.mjs pull disclosure-reality --all --limit 25
+ *   node run.mjs pull disclosure-reality --all --forms all --limit 100
+ *   node run.mjs pull disclosure-reality --forms periodic,ownership,proxy
  */
 
 import { join } from 'node:path';
@@ -32,6 +34,18 @@ import {
 
 const DEFAULT_LOOKBACK_DAYS = 45;
 const DEFAULT_LIMIT = 20;
+
+const FORM_FAMILIES = Object.freeze({
+  material: Object.freeze(['8-K', '8-K/A']),
+  periodic: Object.freeze(['10-Q', '10-Q/A', '10-K', '10-K/A', 'NT 10-Q', 'NT 10-K']),
+  ownership: Object.freeze(['SC 13D', 'SC 13D/A', 'SC 13G', 'SC 13G/A', '13F-HR', '13F-HR/A']),
+  insider: Object.freeze(['3', '3/A', '4', '4/A', '5', '5/A']),
+  proxy: Object.freeze(['DEF 14A', 'DEFA14A', 'PRE 14A', 'PREC14A']),
+  capital: Object.freeze(['S-1', 'S-1/A', 'S-3', 'S-3/A', 'S-3ASR', 'F-1', 'F-3', '424B1', '424B2', '424B3', '424B4', '424B5', '424B7', '424B8', 'FWP']),
+  foreign: Object.freeze(['6-K', '20-F', '20-F/A', '40-F', '40-F/A']),
+});
+
+const ALL_FORM_FAMILIES = Object.freeze(Object.keys(FORM_FAMILIES));
 
 const STARTER_TICKERS = Object.freeze([
   'LDOS', 'ONTO', 'RGTI', 'FLNC', 'NBIX',
@@ -77,15 +91,49 @@ const RISK_ITEMS = Object.freeze({
   '5.03': { label: 'Articles amendment', points: -1 },
 });
 
+const FORM_SIGNALS = Object.freeze({
+  periodic: {
+    label: 'Periodic report',
+    points: 2,
+    question: 'Did revenue quality, margins, cash conversion, debt, customer concentration, or risk factors change?',
+  },
+  ownership: {
+    label: 'Activist or holder position change',
+    points: 4,
+    question: 'Is a strategic holder, activist, or concentrated owner changing the control or pressure setup?',
+  },
+  insider: {
+    label: 'Insider ownership transaction',
+    points: 2,
+    question: 'Is insider behavior confirming conviction or signaling distribution after a catalyst?',
+  },
+  proxy: {
+    label: 'Proxy / governance filing',
+    points: 2,
+    question: 'Do votes, compensation, board changes, or governance proposals alter incentives or control?',
+  },
+  capital: {
+    label: 'Capital markets filing',
+    points: 3,
+    question: 'Does this add dilution, shelf capacity, refinancing pressure, or financing optionality?',
+  },
+  foreign: {
+    label: 'Foreign issuer disclosure',
+    points: 2,
+    question: 'Does the foreign issuer update include material operations, financing, governance, or risk changes?',
+  },
+});
+
 export async function pull(flags = {}) {
   const lookbackDays = Math.max(1, Number(flags.lookback ?? flags['lookback-days']) || DEFAULT_LOOKBACK_DAYS);
   const since = flags.since ? String(flags.since) : daysAgo(lookbackDays);
   const limit = Math.max(1, Number(flags.limit) || DEFAULT_LIMIT);
   const minScore = flags['min-score'] === undefined ? 1 : Number(flags['min-score']);
   const includeRisk = Boolean(flags['include-risk']);
+  const formTypes = resolveDisclosureFormTypes(flags);
 
   const tickers = await resolveTickers(flags);
-  console.log(`Disclosure Reality: scanning ${tickers.length} ticker(s) since ${since}...`);
+  console.log(`Disclosure Reality: scanning ${tickers.length} ticker(s), forms=${describeFormSelection(flags, formTypes)}, since ${since}...`);
 
   const rows = [];
   const errors = [];
@@ -101,7 +149,7 @@ export async function pull(flags = {}) {
       }
 
       const filings = await fetchRecentFilings(meta.cik, {
-        formTypes: ['8-K', '8-K/A'],
+        formTypes,
         since,
         limit: 40,
       });
@@ -156,7 +204,7 @@ export async function pull(flags = {}) {
                 `[[${row.ticker}]]`,
                 row.theme,
                 row.filing.filingDate,
-                row.filing.items.join(', ') || '-',
+                row.filing.items.join(', ') || row.formFamily,
                 row.whyRead,
                 `[filing](${filingDocumentUrl(row)})`,
               ]),
@@ -188,6 +236,11 @@ export async function pull(flags = {}) {
               ['8-K Item 2.01', '+2', 'Acquisition or disposition; verify strategic fit and financing.'],
               ['8-K Item 2.02 / 7.01 / 8.01', '+1 each', 'Earnings, investor disclosure, or other material event. Useful only if externally confirmable.'],
               ['8-K Item 9.01', '+1', 'Exhibits attached; read EX-10 and EX-99 before scoring conviction.'],
+              ['10-K / 10-Q', '+2', 'Read for risk factor, segment, margin, liquidity, customer concentration, and accounting-quality changes.'],
+              ['SC 13D/G / 13F', '+4 / +2', 'Ownership pressure, activist intent, or institutional crowding shift.'],
+              ['Form 3/4/5', '+2', 'Insider confirmation or distribution cue; interpret with price/catalyst context.'],
+              ['Proxy filings', '+2', 'Governance, incentive, board, compensation, and control-surface changes.'],
+              ['S-1 / S-3 / 424B* / FWP', '+3', 'Shelf, prospectus, or marketing document; check dilution and financing terms.'],
               ['8-K Item 3.02', '-2', 'Unregistered securities; may dilute or finance the disclosure.'],
               ['8-K Item 1.02 / 4.01 / 3.01', '-3 to -4', 'Termination, auditor change, or listing notice. Treat as risk-first.'],
             ],
@@ -198,6 +251,7 @@ export async function pull(flags = {}) {
         heading: 'Coverage Notes',
         content: [
           `- Ticker universe: ${describeUniverse(flags)}.`,
+          `- Form universe: ${describeFormSelection(flags, formTypes)}.`,
           `- Lookback: ${since} through ${today()}.`,
           `- Minimum score: ${minScore}. Use \`--include-risk\` to show risk-first disclosures too.`,
           errors.length
@@ -217,6 +271,32 @@ export async function pull(flags = {}) {
   setProperties(filePath, { signal_status: signalStatus, date_pulled: today() });
   console.log(`Wrote: ${filePath}`);
   return { filePath, candidates: selected.length, signals };
+}
+
+export function resolveDisclosureFormTypes(flags = {}) {
+  const raw = flags.forms ?? flags.form ?? 'material';
+  const requested = parseCsv(raw).map(normalizeFormToken);
+  const tokens = requested.length ? requested : ['material'];
+  const forms = new Set();
+
+  for (const token of tokens) {
+    if (token === 'all') {
+      for (const family of ALL_FORM_FAMILIES) {
+        for (const form of FORM_FAMILIES[family]) forms.add(form);
+      }
+      continue;
+    }
+
+    const familyForms = FORM_FAMILIES[token];
+    if (familyForms) {
+      for (const form of familyForms) forms.add(form);
+      continue;
+    }
+
+    forms.add(token.toUpperCase());
+  }
+
+  return [...forms];
 }
 
 async function resolveTickers(flags) {
@@ -247,6 +327,10 @@ function parseCsv(value) {
     .filter(Boolean);
 }
 
+function normalizeFormToken(value) {
+  return String(value).trim().toLowerCase();
+}
+
 async function resolveTickerMeta(ticker, tickerMap) {
   const local = getByTicker(ticker);
   if (local?.cik) return local;
@@ -260,11 +344,18 @@ async function resolveTickerMeta(ticker, tickerMap) {
   return sec ? { ticker, ...sec, thesis: 'unmapped' } : { ticker };
 }
 
-function scoreDisclosure({ ticker, meta, filing }) {
+export function scoreDisclosure({ ticker, meta, filing }) {
   const items = filing.items ?? [];
   let rawScore = 0;
   const positives = [];
   const risks = [];
+  const formFamily = formFamilyFor(filing.formType);
+  const formSignal = FORM_SIGNALS[formFamily] ?? null;
+
+  if (formSignal) {
+    rawScore += formSignal.points;
+    positives.push(`${filing.formType} ${formSignal.label}`);
+  }
 
   for (const item of items) {
     if (POSITIVE_ITEMS[item]) {
@@ -298,6 +389,8 @@ function scoreDisclosure({ ticker, meta, filing }) {
     positives,
     risks,
     hasPositiveItem: positives.length > 0,
+    formFamily,
+    formSignal,
     theme: meta.thesis ?? meta.sector ?? 'unmapped',
     whyRead: buildWhyRead(positives, risks),
     confirmationPath: confirmationPathFor(meta),
@@ -314,6 +407,7 @@ function formatDisclosureCard(row) {
   const positiveQuestions = row.filing.items
     .filter(item => POSITIVE_ITEMS[item])
     .map(item => `- [ ] ${POSITIVE_ITEMS[item].question}`);
+  if (row.formSignal?.question) positiveQuestions.unshift(`- [ ] ${row.formSignal.question}`);
 
   const riskChecks = row.risks.length
     ? row.risks.map(risk => `- [ ] Risk check: ${risk}. Does it fund, dilute, or weaken the disclosure?`)
@@ -323,7 +417,7 @@ function formatDisclosureCard(row) {
     `### ${row.ticker} - ${row.tier} (${row.score}/10)`,
     '',
     `- Filed: ${row.filing.filingDate} ${row.filing.formType}`,
-    `- Items: ${row.filing.items.join(', ') || '-'}`,
+    `- Items / Family: ${row.filing.items.join(', ') || row.formFamily}`,
     `- Theme: ${row.theme}`,
     `- Primary document: [${row.filing.primaryDoc || 'EDGAR'}](${filingDocumentUrl(row)})`,
     `- First external confirmation path: ${row.confirmationPath}`,
@@ -379,6 +473,19 @@ function classifySignalStatus(rows) {
   if (rows.some(row => row.score >= 7)) return 'alert';
   if (rows.some(row => row.score >= 4)) return 'watch';
   return rows.length ? 'watch' : 'clear';
+}
+
+function formFamilyFor(formType) {
+  for (const [family, forms] of Object.entries(FORM_FAMILIES)) {
+    if (forms.includes(formType)) return family;
+  }
+  return 'custom';
+}
+
+function describeFormSelection(flags, formTypes) {
+  const raw = flags.forms ?? flags.form;
+  if (raw) return `${String(raw)} (${formTypes.length} form type${formTypes.length === 1 ? '' : 's'})`;
+  return 'material 8-K default (use --forms all for broader SEC documents)';
 }
 
 function filingDocumentUrl(row) {

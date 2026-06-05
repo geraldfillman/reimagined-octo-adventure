@@ -1,5 +1,5 @@
-/**
- * osint-octosuite.mjs — GitHub org/user OSINT via Bellingcat's octosuite
+﻿/**
+ * osint-octosuite.mjs â€” GitHub org/user OSINT via Bellingcat's octosuite
  *
  * Usage:
  *   node run.mjs scan osint-octosuite --org openai
@@ -17,13 +17,12 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 export async function pull(flags = {}) {
   const org = flags.org;
@@ -44,11 +43,11 @@ export async function pull(flags = {}) {
 
   const githubToken = process.env.GITHUB_TOKEN;
 
-  console.log(`\n🐙 octosuite GitHub OSINT: ${targetType} "${target}"`);
+  console.log(`\nðŸ™ octosuite GitHub OSINT: ${targetType} "${target}"`);
   if (githubToken) {
     console.log('   Using GITHUB_TOKEN for higher rate limits');
   } else {
-    console.log('   No GITHUB_TOKEN — limited to 60 req/hr unauthenticated');
+    console.log('   No GITHUB_TOKEN â€” limited to 60 req/hr unauthenticated');
   }
   console.log(`   Output: ${outputFile}`);
 
@@ -72,13 +71,13 @@ export async function pull(flags = {}) {
   });
 
   if (result.error) {
-    console.error(`❌ octosuite error: ${result.error.message}`);
+    console.error(`âŒ octosuite error: ${result.error.message}`);
     console.error('   Install with: pip install octosuite');
     process.exit(1);
   }
 
   if (result.status !== 0) {
-    console.error(`❌ octosuite exited with code ${result.status}`);
+    console.error(`âŒ octosuite exited with code ${result.status}`);
     console.error(result.stderr?.slice(0, 500));
     process.exit(1);
   }
@@ -114,19 +113,20 @@ export async function pull(flags = {}) {
     output.new_repos_90d = newRepos.length;
     output.total_repos = repos.length;
     output.total_members = members.length;
-    console.log(`\n📊 GitHub org summary:`);
+    console.log(`\nðŸ“Š GitHub org summary:`);
     console.log(`   Total repos:    ${repos.length}`);
     console.log(`   New (90d):      ${newRepos.length}`);
     console.log(`   Members:        ${members.length}`);
     if (newRepos.length > 0) {
       console.log('\n   Recent repos:');
-      newRepos.slice(0, 5).forEach(r => console.log(`   → ${r.name} (${r.created_at?.slice(0, 10)})`));
+      newRepos.slice(0, 5).forEach(r => console.log(`   â†’ ${r.name} (${r.created_at?.slice(0, 10)})`));
     }
   }
 
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'octosuite', target, targetType: targetType === 'org' ? 'ticker' : 'user', resultCount: output.total_repos ?? 1, alertCount: output.new_repos_90d ?? 0, outputFile, today, tags: ['github', 'oss', targetType] });
-  console.log(`\n✅ Saved: ${outputFile}`);
+  console.log(`\nâœ… Saved: ${outputFile}`);
 
   return output;
 }
+

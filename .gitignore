@@ -25,6 +25,9 @@ scripts/telegram.session-journal
 scripts/.pull-history.jsonl
 scripts/.regime-history.jsonl
 scripts/.cache/
+00_Cockpit/_data/
+_cache/
+!_cache/README.md
 
 # Qlib
 .qlib_data/

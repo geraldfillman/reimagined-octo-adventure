@@ -8,13 +8,9 @@
 
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolveResearchPath } from './config.mjs';
 
-const MANIFEST_PATH = resolve(
-  dirname(fileURLToPath(import.meta.url)),
-  '..', '..', '16_Agents', 'agent-manifest.json'
-);
+const MANIFEST_PATH = resolveResearchPath('16_Agents', 'agent-manifest.json');
 
 let _cached = null;
 

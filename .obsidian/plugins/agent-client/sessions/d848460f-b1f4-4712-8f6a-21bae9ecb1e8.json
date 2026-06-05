@@ -1,0 +1,722 @@
+{
+  "version": 1,
+  "sessionId": "d848460f-b1f4-4712-8f6a-21bae9ecb1e8",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "518971fe-2133-46b0-8427-3fe18420dc3f",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Can you update the signal board for the day",
+          "autoMentionContext": {
+            "noteName": "Signal Board",
+            "notePath": "00_Dashboard/Signal Board.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:02:52.848Z"
+    },
+    {
+      "id": "effaf594-8a1b-4603-ab2d-c284737c1e52",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": "The user wants to update the Signal Board for the day. They've opened the Signal Board file in Obsidian. Let me start by reading the AGENTS.md file and then the Signal Board file to understand what needs to be updated.\n\nSince I'm in plan mode, I need to:\n1. Explore the codebase to understand the Signal Board structure\n2. Check what data is available for today (2026-05-04)\n3. Design a plan for updating the Signal Board\n\nLet me launch parallel Explore agents to understand the Signal Board and available data."
+        },
+        {
+          "type": "text",
+          "text": "I'll read the Signal Board and explore the vault structure to plan the update. Launching parallel exploration agents."
+        }
+      ],
+      "timestamp": "2026-05-04T14:02:55.438Z"
+    },
+    {
+      "id": "a64b766c-0088-4bc6-b94b-50c41265c932",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RetN5Kr7h2XRuUS3ChCbj7",
+          "title": "Explore Signal Board and dashboard structure",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Explore Signal Board and dashboard structure",
+            "subagent_type": "Explore",
+            "prompt": "Read and summarize the following files in the Obsidian vault at C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data:\n\n1. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md — full content\n2. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\AGENTS.md — full content (first 200 lines)\n3. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\_index.md — full content (first 100 lines)\n\nReport:\n- The Signal Board's current structure (sections, what data it shows, how it's organized)\n- What \"updating for the day\" likely means (what fields or sections need refreshing)\n- Any automation scripts or templates referenced\n- The vault's update workflow for dashboards"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:02:57.740Z"
+    },
+    {
+      "id": "64fe5291-4342-4ab6-9b40-6ba5ba360916",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011cjpAEFX9gMjX2JrnJvB6S",
+          "title": "Explore today's data pulls and opportunity viewpoints",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Explore today's data pulls and opportunity viewpoints",
+            "subagent_type": "Explore",
+            "prompt": "In the Obsidian vault at C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data, explore today's data for 2026-05-04:\n\n1. List all files in 05_Data_Pulls/Theses/ — especially anything dated 2026-05-02, 2026-05-03, 2026-05-04\n2. Read the most recent Opportunity_Viewpoints files (2026-05-01 and 2026-05-02 if they exist)\n3. Check 05_Data_Pulls/ for any files dated today or recently\n4. List files in 06_Signals/ or similar signal-tracking folders if they exist\n5. Check 00_Dashboard/ for any other dashboard files\n\nReport:\n- What data exists for today (2026-05-04) vs what's missing\n- The structure/format of the Opportunity_Viewpoints files (what fields, tickers, scores they contain)\n- Any signal or scoring files that feed the Signal Board\n- Recent additions to the vault (last 2-3 days)"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:03:02.073Z"
+    },
+    {
+      "id": "6941ef77-60a7-499b-9e62-8728f7cb1765",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01EMjr5vaTGz6GGK3BaBvhhR",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Signal Board",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md'"
+              },
+              {
+                "label": "AGENTS (first 200 lines)",
+                "command": "head -200 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\AGENTS.md'"
+              },
+              {
+                "label": "_index (first 100 lines)",
+                "command": "head -100 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\_index.md'"
+              }
+            ],
+            "queries": [
+              "Signal Board sections structure and content",
+              "updating for the day meaning and fields to refresh",
+              "automation scripts templates referenced",
+              "vault update workflow for dashboards",
+              "daily update process what needs refreshing"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:03:06.257Z"
+    },
+    {
+      "id": "269dc727-4012-457f-b90a-6176982c61a0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JyxczSFN1QBCDdC77wyfyL",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "List 05_Data_Pulls/Theses directory",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses' -File -ErrorAction SilentlyContinue | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Format-Table -AutoSize"
+              },
+              {
+                "label": "List 05_Data_Pulls directory",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls' -File -ErrorAction SilentlyContinue | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Format-Table -AutoSize"
+              },
+              {
+                "label": "List all subdirectories in My_Data",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -Directory | Select-Object Name | Sort-Object"
+              },
+              {
+                "label": "Check 06_Signals directory",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\06_Signals' -File -ErrorAction SilentlyContinue | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Format-Table -AutoSize"
+              },
+              {
+                "label": "Check 00_Dashboard directory",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard' -File -ErrorAction SilentlyContinue | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Format-Table -AutoSize"
+              },
+              {
+                "label": "Find Opportunity_Viewpoints files",
+                "command": "Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -Filter '*Opportunity_Viewpoints*' -File -Recurse -ErrorAction SilentlyContinue | Select-Object Name, FullPath, LastWriteTime | Sort-Object LastWriteTime -Descending"
+              },
+              {
+                "label": "Recent files (last 3 days)",
+                "command": "$cutoff = (Get-Date).AddDays(-3); Get-ChildItem -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -File -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.LastWriteTime -gt $cutoff } | Select-Object Name, FullPath, LastWriteTime | Sort-Object LastWriteTime -Descending | Format-Table -AutoSize"
+              }
+            ],
+            "queries": [
+              "What files exist in 05_Data_Pulls/Theses dated 2026-05-02, 2026-05-03, or 2026-05-04",
+              "List all Opportunity_Viewpoints files and their dates",
+              "What signal files or tracking folders exist in 06_Signals",
+              "What dashboard files exist in 00_Dashboard",
+              "What files were added or modified in the last 3 days",
+              "What is the directory structure of My_Data"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:03:13.174Z"
+    },
+    {
+      "id": "2b425e25-b93a-4faa-b392-dc3296dd8f41",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01YGr4XM9UvMXwYW2wDwwDqZ",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "List My_Data directories",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' 2>/dev/null | head -30"
+              },
+              {
+                "label": "Find all files from last 3 days",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -type f -mtime -3 2>/dev/null | head -50"
+              },
+              {
+                "label": "List 05_Data_Pulls/Theses",
+                "command": "ls -lh 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses' 2>/dev/null | tail -20"
+              },
+              {
+                "label": "Find Opportunity_Viewpoints files",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -name '*Opportunity_Viewpoints*' -type f 2>/dev/null"
+              },
+              {
+                "label": "List 06_Signals directory",
+                "command": "ls -lh 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\06_Signals' 2>/dev/null"
+              },
+              {
+                "label": "List 00_Dashboard directory",
+                "command": "ls -lh 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard' 2>/dev/null"
+              },
+              {
+                "label": "Find files dated 2026-05-04",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' -type f -newermt '2026-05-03' 2>/dev/null"
+              }
+            ],
+            "queries": [
+              "Files dated 2026-05-02 2026-05-03 2026-05-04 in Theses",
+              "Opportunity_Viewpoints files and their modification dates",
+              "What signal files exist in 06_Signals",
+              "Dashboard files in 00_Dashboard",
+              "Recent files from last 3 days",
+              "Complete directory structure of My_Data"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:03:19.025Z"
+    },
+    {
+      "id": "3ecc5c17-886e-48a8-9602-555dc4cc9d07",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013P7b3NJj5ST6sRffnejpRa",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "List 06_Signals with full path",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\06_Signals' -type f 2>/dev/null"
+              },
+              {
+                "label": "List 05_Data_Pulls subdirs",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls' 2>/dev/null"
+              },
+              {
+                "label": "Sample Opportunity_Viewpoints 2026-05-02",
+                "command": "head -100 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md' 2>/dev/null"
+              },
+              {
+                "label": "Sample Opportunity_Viewpoints 2026-05-01",
+                "command": "head -100 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-01_Opportunity_Viewpoints.md' 2>/dev/null"
+              }
+            ],
+            "queries": [
+              "List all files in 06_Signals directory with full paths",
+              "What subdirectories exist in 05_Data_Pulls",
+              "What is the structure and format of Opportunity_Viewpoints files",
+              "What fields and columns are in the Opportunity_Viewpoints files"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:12.242Z"
+    },
+    {
+      "id": "85bcd98c-fd0f-4846-b17c-efa21182f205",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01KZHMeQNUTvv2nAyBiSTGND",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "List Market files dated 2026-05-04",
+                "command": "ls -lh 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market' 2>/dev/null | grep '2026-05-04'"
+              },
+              {
+                "label": "Check Macro for 2026-05-04",
+                "command": "ls -lh 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Macro' 2>/dev/null | tail -10"
+              },
+              {
+                "label": "Sample Market file content",
+                "command": "head -50 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO.md' 2>/dev/null"
+              }
+            ],
+            "queries": [
+              "What Market files exist for 2026-05-04",
+              "What Macro economic data was pulled today",
+              "What is the format of Market quote files"
+            ]
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a good understanding of the vault structure and what needs to be done to update the Signal Board for today (2026-05-04). Let me read the Signal Board itself and the most recent Opportunity_Viewpoints to understand the exact format needed.\n\nLet me also read the today's data files to understand what market data is available.\n\nKey findings:\n1. Signal Board is the core alert surface with: Active Alerts, Watch Items, Signal History, All Clear, Open Questions\n2. Today's data (2026-05-04) includes:\n   - Entropy Monitor (market data)\n   - ORB Entropy Screen\n   - FMP RelVol Screen\n   - FMP Quote (SPY, QQQ, IWM, TLT, HYG, GLD, USO)\n   - FMP Economic Calendar\n3. Missing for today:\n   - Opportunity_Viewpoints (latest is 2026-05-02)\n   - Agent Analysis (latest is 2026-05-02)\n   - Signal files (dormant since April 25)\n\nNow I need to examine the Signal Board file and today's key data files to determine what specific updates are needed."
+        },
+        {
+          "type": "text",
+          "text": "Good data. Now let me read the Signal Board itself and today's data files to design the specific update plan."
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:17.558Z"
+    },
+    {
+      "id": "9b6a9482-50a7-4c8b-8e71-8400bb885444",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01KgShCZVfqrdpt9bZRRzsmq",
+          "title": "Read 00_Dashboard\\Signal Board.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:42.028Z"
+    },
+    {
+      "id": "0f0c2ad7-d64d-4d70-a53d-8f7421ea22e9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BSAcDgTzbvaadYoZpccYsh",
+          "title": "Read today's market data files for signal synthesis",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Read today's market data files for signal synthesis",
+            "subagent_type": "Explore",
+            "prompt": "Read these files from C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data and return their FULL content (do not truncate):\n\n1. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_ORB_Entropy_Screen.md\n2. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_FMP_RelVol_Screen.md\n3. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO.md\n4. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Macro\\2026-05-04_FMP_EconomicCalendar.md\n\nAlso read:\n5. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md — read first 150 lines only\n\nReturn all content verbatim, clearly labeled by filename."
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:42.391Z"
+    },
+    {
+      "id": "a661328c-bdb1-4b03-88d8-4555c17cb4b3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_012CiZ9p5U4HTYVCi9WNVUhv",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "2026-05-04_ORB_Entropy_Screen.md",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_ORB_Entropy_Screen.md'"
+              },
+              {
+                "label": "2026-05-04_FMP_RelVol_Screen.md",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_FMP_RelVol_Screen.md'"
+              },
+              {
+                "label": "2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO.md",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Market\\2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO.md'"
+              },
+              {
+                "label": "2026-05-04_FMP_EconomicCalendar.md",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Macro\\2026-05-04_FMP_EconomicCalendar.md'"
+              },
+              {
+                "label": "2026-05-02_Opportunity_Viewpoints.md (first 150 lines)",
+                "command": "Get-Content -Path 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md' -TotalCount 150"
+              }
+            ],
+            "queries": [
+              "full content all files",
+              "market data entropy",
+              "relative volume",
+              "economic calendar",
+              "opportunity viewpoints"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:52.658Z"
+    },
+    {
+      "id": "f8a0175b-af74-45ec-9c77-dd6d42ab90f2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LaHyGm5ReuaGmvWHbr6oAj",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "shell",
+            "code": "head -n 150 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md'"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a clear picture of the Signal Board and the available data. Let me understand what \"updating the Signal Board for the day\" means:\n\n1. The Signal Board uses Dataview queries that auto-populate from frontmatter in `05_Data_Pulls/` and `06_Signals/` folders — so the board itself auto-refreshes when files are updated\n2. The key thing to update is the `last_updated` frontmatter field (currently `2026-03-27` — very stale!)\n3. There's a merge conflict in the `2026-05-02_Opportunity_Viewpoints.md` file that needs to be resolved\n\n\n4. The board's content sections pull live data via Dataview queries, so updating it really means refreshing that stale date, potentially creating today's Opportunity Viewpoints file, and maybe adding a manual summary section with today's key highlights.\n\nLet me look at what the Signal Board actually contains — it's mostly automated Dataview queries that filter from the data pulls and signals folders based on status. The real work is straightforward: update the `last_updated` timestamp from March 27th to May 4th, and deal with that merge conflict in the May 2nd Opportunity Viewpoints file that's blocking things with unresolved git markers.\n\nBeyond that, I need to create today's Opportunity Viewpoints synthesis pulling from the current market data and ORB screen results. The Economic Calendar is already feeding watch items with its 68 high-impact events, and both the ORB Entropy and RelVol screens are showing clear status, so those are automatically populating the All Clear section. The FMP Quote sits at neutral with no specific filter, so it won't trigger anything. The priority is fixing that merge conflict, updating the timestamp, and generating the new synthesis file. on:\n   - Today's ORB screen (6 Prime setups: RBLX, VEEV, RDDT, ROKU, GEHC, WDC — Prime+ are RBLX and GEHC)\n   - Macro calendar (NFP tomorrow 05-05, CPI 05-13 — high impact)\n   - Market regime: SPY +0.11%, QQQ +0.49% (tech leading), IWM -0.41% (small cap lagging), TLT -0.30% (bonds weak), USO -1.69% (oil weak)\n   - Vol regime: low (SPY realized vol 11.7%, vol scalar 1.28x)\n\nThere's a git merge conflict in the `2026-05-02_Opportunity_Viewpoints.md` file that's breaking Dataview parsing, so I need to resolve that first. Then I'll update the Signal Board with today's date and add a snapshot section, create a new viewpoints file for today capturing the market regime and ORB setups, and make sure everything syncs properly. I need to create today's Opportunity Viewpoints file and resolve the merge conflict in the existing one. Looking at the conflicted file, I can see the HEAD version has a risk-focused signal status with AMZN as the top viewpoint, while the other branch takes a different approach—I'll need to decide which direction makes sense for the current market context. The other branch looks more complete with significantly more pull notes and a balanced mix of analytical lenses, so I'll use that as the foundation. My plan is to resolve the merge conflict by keeping the comprehensive version, update the timestamp in the Signal Board, and then create today's opportunity viewpoints file by synthesizing the current market data showing tech strength and small cap weakness. bonds weak (TLT -0.30%), gold up (GLD +0.37%), oil weak (USO -1.69%)\n   - Vol regime: low (11.7% SPY realized vol), vol scalar 1.28×\n   - ORB screen: 20 setups across 4 tiers; Prime+★ RBLX and GEHC are highest conviction; 6 Prime+ setups total\n   - Macro upcoming: Factory Orders today, NFP tomorrow (high impact — volatility expected)\n   - Signal notes from 2026-05-02 still current (GEV, MNTS dilution; Defense AI watch)\n   - signal_status: \"watch\" (NFP tomorrow creates uncertainty)\n\nI'm switching to Plan Mode to write this up. Based on the Opportunity Viewpoints structure from the previous file, I'll frame today around the pre-NFP positioning lens — the market's already running ORB setups with tech leading (QQQ +0.49%) while small caps lag (IWM -0.41%), and the low vol regime keeps the strategy in full effect despite tomorrow's binary event. today:\n1. **ORB + Entropy Live** — 6 Prime setups running: RBLX (Prime+★), GEHC (Prime+★), VEEV, RDDT, ROKU (short), WDC\n2. **Pre-NFP Watch** — NFP tomorrow at 08:30 ET; 245K forecast vs 215K prior; reduces position adds today\n3. **Hard Money Confirmation** — GLD +0.37%, gold thesis holding; IAU ORB LONG confirms direction\n4. **Energy Weakness** — USO -1.69%; energy sector short bias continuing\n5. **Merge conflict risk-first signals from 2026-05-02** — Dilution alerts on AMZN, CEG, GEV, JNJ, KTOS, LEN, LHX, LMT, MNTS, NOC, NRG, R\n6. **CAT still in play** — keeping this on the radar as I document the day's setup\n\nNow I'm writing out the plan file."
+        },
+        {
+          "type": "text",
+          "text": "Now I have everything needed to design the plan. Let me write it."
+        }
+      ],
+      "timestamp": "2026-05-04T14:04:55.974Z"
+    },
+    {
+      "id": "d979db06-ee66-4210-a213-6dc28ecd4f26",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01XpPJSBdu7pdCWyxbJRQAjY",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:ExitPlanMode",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now let me write the plan file. I'll create a comprehensive plan for updating the Signal Board.\n\nKey tasks:\n1. Fix the merge conflict in `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md`\n2. Update `last_updated` in `Signal Board.md` from `2026-03-27` → `2026-05-04`\n3. Create `2026-05-04_Opportunity_Viewpoints.md` synthesizing today's data\n\nLet me draft this plan now."
+        }
+      ],
+      "timestamp": "2026-05-04T14:07:30.440Z"
+    },
+    {
+      "id": "b78e91db-8bcd-43f7-816c-2fce444631cb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RCzRNMDErxsVL28LM7XDix",
+          "title": "Write C:\\Users\\CaveUser\\.claude\\plans\\signal-board-can-you-iterative-toucan.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\signal-board-can-you-iterative-toucan.md",
+              "newText": "# Plan: Signal Board Daily Update — 2026-05-04\n\n## Context\n\nThe Signal Board (`00_Dashboard/Signal Board.md`) is the primary alert surface for the vault. Its Dataview queries auto-populate from frontmatter in `05_Data_Pulls/` and `06_Signals/`, but the board's own `last_updated` field hasn't been touched since 2026-03-27. Today's data is in — ORB screen, RelVol screen, FMP quotes, economic calendar — but no `Opportunity_Viewpoints` synthesis exists for 2026-05-04, and there's an unresolved git merge conflict in the 2026-05-02 Opportunity_Viewpoints file that will break Dataview parsing.\n\n---\n\n## Task 1 — Resolve merge conflict in `2026-05-02_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md`\n\nThe file has raw git conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`). Two versions exist:\n- **HEAD (codex branch):** Simplified — 435 pull notes, all Risk Signal First / dilution-alert posture\n- **a52c1a646 (other branch):** Comprehensive — 2367 pull notes, mixed lenses (Strong Thesis Bad Tape, Stressed Sector, Conviction Momentum, etc.)\n\n**Resolution:** Keep the `a52c1a646` version (comprehensive). It has the larger data base and proper lens diversity. Remove all conflict markers and the HEAD-only content, leaving the full analysis intact.\n\n- Set `signal_status: \"alert\"` (from the comprehensive version)\n\n---\n\n## Task 2 — Update Signal Board `last_updated`\n\n**File:** `00_Dashboard/Signal Board.md`\n\nChange frontmatter:\n```yaml\nlast_updated: 2026-03-27\n```\n→\n```yaml\nlast_updated: 2026-05-04\n```\n\nNo other structural changes — the Dataview queries are correct and auto-populate.\n\n---\n\n## Task 3 — Create `2026-05-04_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md`\n\nSynthesize today's data into the standard Opportunity Viewpoints format. Key inputs:\n\n**Market regime (09:35 ET snapshot):**\n- SPY +0.11%, QQQ +0.49% — large-cap tech leading\n- IWM −0.41% — small-cap lagging (risk-off rotation)\n- TLT −0.30% — bonds weak (rates rising)\n- GLD +0.37% — gold holding bid (hard money thesis alive)\n- USO −1.69% — oil weak (energy sector headwind)\n- Vol regime: low (SPY 20d realized 11.7%), vol scalar 1.28×\n\n**ORB screen (active as of 09:35 ET):**\n- 2 Prime+★: RBLX (LONG), GEHC (LONG) — highest conviction\n- 4 Prime: VEEV (LONG), RDDT (LONG), ROKU (SHORT), WDC (LONG)\n- Options: RBLX earnings 05-08, ROKU earnings 05-08 — elevated IV, treat cautiously\n\n**Macro near-term:**\n- TODAY 10:00: Factory Orders (Apr) — High impact, risk at open\n- TOMORROW 08:30: Nonfarm Payrolls (Apr) — Major binary event, 245K forecast\n- 05-13: CPI (Apr) — High impact inflation print\n\n**Carry-forward risk signals (from 2026-05-02):**\n- Dilution alerts still live: GEV, MNTS (older), plus AMZN, CEG, JNJ, KTOS, LEN, LHX, LMT, NOC, NRG, RCAT (05-02)\n- Defense AI & Autonomous Warfare: strong thesis, bad tape — wait-for-confirmation posture\n\n**Frontmatter:**\n```yaml\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-04\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"watch\"\nsignals: [\"PRE_NFP_WATCH\", \"ORB_LIVE_SESSION\", \"HARD_MONEY_CONFIRM\"]\nwindow_days: 14\nwindow_from: \"2026-04-20\"\nviewpoints_found: 5\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"orb\"]\n```\n\n**Viewpoint Queue (5 viewpoints):**\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists |\n|-------|------|---------|---------|-----------------|-----------------|\n| 78 | Active Session — ORB Live | opportunity | RBLX, GEHC | ORB + Entropy Strategy | Prime+★ setups running; both pass all 3 filters with strong entropy confirmation |\n| 68 | Active Session — ORB Live | opportunity | VEEV, RDDT, WDC | ORB + Entropy Strategy | Prime setups with full filter pass; hold to 4 PM ET |\n| 62 | Active Session — ORB Live | opportunity | ROKU | ORB + Entropy Strategy | Prime SHORT; short pressure confirmed; earnings 05-08 caps option plays |\n| 55 | Hard Money Confirmation | opportunity | GLD, IAU, GOLD, NEM | Dollar Debasement & Hard Money | GLD +0.37% today; IAU ORB LONG active; gold holding through rising-rate pressure |\n| 42 | Pre-Catalyst Hold | risk-first | ALL | Pre-NFP posture | NFP tomorrow 08:30 ET (245K forecast); reduces sizing on any new adds today; hold existing ORB through 4 PM |\n\n**Risk-first carry-forwards (inline, not separate viewpoints):**\n- Dilution alerts from 2026-05-02 remain in scope for any related thesis work\n\n---\n\n## Critical Files\n\n| File | Action |\n|------|--------|\n| `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md` | Resolve merge conflict — keep comprehensive version |\n| `00_Dashboard/Signal Board.md` | Update `last_updated: 2026-05-04` |\n| `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md` | Create new — today's synthesis |\n\n---\n\n## Execution Order\n\n1. Resolve merge conflict (Task 1) — fixes broken Dataview parsing first\n2. Update Signal Board frontmatter (Task 2) — quick metadata fix\n3. Create today's Opportunity Viewpoints (Task 3) — main synthesis artifact\n\n---\n\n## Verification\n\n- Signal Board `last_updated` reads `2026-05-04`\n- `2026-05-02_Opportunity_Viewpoints.md` has no conflict markers; parses cleanly in Obsidian\n- `2026-05-04_Opportunity_Viewpoints.md` exists with `signal_status: \"watch\"` and appears in the Signal Board's **Watch Items** Dataview block\n- Signal Board **Active Alerts** block shows `2026-05-02_Opportunity_Viewpoints` (signal_status: alert) at the top\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\signal-board-can-you-iterative-toucan.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\.claude\\plans\\signal-board-can-you-iterative-toucan.md",
+            "content": "# Plan: Signal Board Daily Update — 2026-05-04\n\n## Context\n\nThe Signal Board (`00_Dashboard/Signal Board.md`) is the primary alert surface for the vault. Its Dataview queries auto-populate from frontmatter in `05_Data_Pulls/` and `06_Signals/`, but the board's own `last_updated` field hasn't been touched since 2026-03-27. Today's data is in — ORB screen, RelVol screen, FMP quotes, economic calendar — but no `Opportunity_Viewpoints` synthesis exists for 2026-05-04, and there's an unresolved git merge conflict in the 2026-05-02 Opportunity_Viewpoints file that will break Dataview parsing.\n\n---\n\n## Task 1 — Resolve merge conflict in `2026-05-02_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md`\n\nThe file has raw git conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`). Two versions exist:\n- **HEAD (codex branch):** Simplified — 435 pull notes, all Risk Signal First / dilution-alert posture\n- **a52c1a646 (other branch):** Comprehensive — 2367 pull notes, mixed lenses (Strong Thesis Bad Tape, Stressed Sector, Conviction Momentum, etc.)\n\n**Resolution:** Keep the `a52c1a646` version (comprehensive). It has the larger data base and proper lens diversity. Remove all conflict markers and the HEAD-only content, leaving the full analysis intact.\n\n- Set `signal_status: \"alert\"` (from the comprehensive version)\n\n---\n\n## Task 2 — Update Signal Board `last_updated`\n\n**File:** `00_Dashboard/Signal Board.md`\n\nChange frontmatter:\n```yaml\nlast_updated: 2026-03-27\n```\n→\n```yaml\nlast_updated: 2026-05-04\n```\n\nNo other structural changes — the Dataview queries are correct and auto-populate.\n\n---\n\n## Task 3 — Create `2026-05-04_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md`\n\nSynthesize today's data into the standard Opportunity Viewpoints format. Key inputs:\n\n**Market regime (09:35 ET snapshot):**\n- SPY +0.11%, QQQ +0.49% — large-cap tech leading\n- IWM −0.41% — small-cap lagging (risk-off rotation)\n- TLT −0.30% — bonds weak (rates rising)\n- GLD +0.37% — gold holding bid (hard money thesis alive)\n- USO −1.69% — oil weak (energy sector headwind)\n- Vol regime: low (SPY 20d realized 11.7%), vol scalar 1.28×\n\n**ORB screen (active as of 09:35 ET):**\n- 2 Prime+★: RBLX (LONG), GEHC (LONG) — highest conviction\n- 4 Prime: VEEV (LONG), RDDT (LONG), ROKU (SHORT), WDC (LONG)\n- Options: RBLX earnings 05-08, ROKU earnings 05-08 — elevated IV, treat cautiously\n\n**Macro near-term:**\n- TODAY 10:00: Factory Orders (Apr) — High impact, risk at open\n- TOMORROW 08:30: Nonfarm Payrolls (Apr) — Major binary event, 245K forecast\n- 05-13: CPI (Apr) — High impact inflation print\n\n**Carry-forward risk signals (from 2026-05-02):**\n- Dilution alerts still live: GEV, MNTS (older), plus AMZN, CEG, JNJ, KTOS, LEN, LHX, LMT, NOC, NRG, RCAT (05-02)\n- Defense AI & Autonomous Warfare: strong thesis, bad tape — wait-for-confirmation posture\n\n**Frontmatter:**\n```yaml\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-04\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"watch\"\nsignals: [\"PRE_NFP_WATCH\", \"ORB_LIVE_SESSION\", \"HARD_MONEY_CONFIRM\"]\nwindow_days: 14\nwindow_from: \"2026-04-20\"\nviewpoints_found: 5\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"orb\"]\n```\n\n**Viewpoint Queue (5 viewpoints):**\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists |\n|-------|------|---------|---------|-----------------|-----------------|\n| 78 | Active Session — ORB Live | opportunity | RBLX, GEHC | ORB + Entropy Strategy | Prime+★ setups running; both pass all 3 filters with strong entropy confirmation |\n| 68 | Active Session — ORB Live | opportunity | VEEV, RDDT, WDC | ORB + Entropy Strategy | Prime setups with full filter pass; hold to 4 PM ET |\n| 62 | Active Session — ORB Live | opportunity | ROKU | ORB + Entropy Strategy | Prime SHORT; short pressure confirmed; earnings 05-08 caps option plays |\n| 55 | Hard Money Confirmation | opportunity | GLD, IAU, GOLD, NEM | Dollar Debasement & Hard Money | GLD +0.37% today; IAU ORB LONG active; gold holding through rising-rate pressure |\n| 42 | Pre-Catalyst Hold | risk-first | ALL | Pre-NFP posture | NFP tomorrow 08:30 ET (245K forecast); reduces sizing on any new adds today; hold existing ORB through 4 PM |\n\n**Risk-first carry-forwards (inline, not separate viewpoints):**\n- Dilution alerts from 2026-05-02 remain in scope for any related thesis work\n\n---\n\n## Critical Files\n\n| File | Action |\n|------|--------|\n| `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md` | Resolve merge conflict — keep comprehensive version |\n| `00_Dashboard/Signal Board.md` | Update `last_updated: 2026-05-04` |\n| `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md` | Create new — today's synthesis |\n\n---\n\n## Execution Order\n\n1. Resolve merge conflict (Task 1) — fixes broken Dataview parsing first\n2. Update Signal Board frontmatter (Task 2) — quick metadata fix\n3. Create today's Opportunity Viewpoints (Task 3) — main synthesis artifact\n\n---\n\n## Verification\n\n- Signal Board `last_updated` reads `2026-05-04`\n- `2026-05-02_Opportunity_Viewpoints.md` has no conflict markers; parses cleanly in Obsidian\n- `2026-05-04_Opportunity_Viewpoints.md` exists with `signal_status: \"watch\"` and appears in the Signal Board's **Watch Items** Dataview block\n- Signal Board **Active Alerts** block shows `2026-05-02_Opportunity_Viewpoints` (signal_status: alert) at the top\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:07:35.658Z"
+    },
+    {
+      "id": "a8a6b84c-1435-4642-977c-ee202c610993",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NUBbXBS5tyNjCDdhmkf6nU",
+          "title": "Exited Plan Mode",
+          "status": "completed",
+          "kind": "switch_mode",
+          "content": [],
+          "rawInput": {
+            "plan": "# Plan: Signal Board Daily Update — 2026-05-04\n\n## Context\n\nThe Signal Board (`00_Dashboard/Signal Board.md`) is the primary alert surface for the vault. Its Dataview queries auto-populate from frontmatter in `05_Data_Pulls/` and `06_Signals/`, but the board's own `last_updated` field hasn't been touched since 2026-03-27. Today's data is in — ORB screen, RelVol screen, FMP quotes, economic calendar — but no `Opportunity_Viewpoints` synthesis exists for 2026-05-04, and there's an unresolved git merge conflict in the 2026-05-02 Opportunity_Viewpoints file that will break Dataview parsing.\n\n---\n\n## Task 1 — Resolve merge conflict in `2026-05-02_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md`\n\nThe file has raw git conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`). Two versions exist:\n- **HEAD (codex branch):** Simplified — 435 pull notes, all Risk Signal First / dilution-alert posture\n- **a52c1a646 (other branch):** Comprehensive — 2367 pull notes, mixed lenses (Strong Thesis Bad Tape, Stressed Sector, Conviction Momentum, etc.)\n\n**Resolution:** Keep the `a52c1a646` version (comprehensive). It has the larger data base and proper lens diversity. Remove all conflict markers and the HEAD-only content, leaving the full analysis intact.\n\n- Set `signal_status: \"alert\"` (from the comprehensive version)\n\n---\n\n## Task 2 — Update Signal Board `last_updated`\n\n**File:** `00_Dashboard/Signal Board.md`\n\nChange frontmatter:\n```yaml\nlast_updated: 2026-03-27\n```\n→\n```yaml\nlast_updated: 2026-05-04\n```\n\nNo other structural changes — the Dataview queries are correct and auto-populate.\n\n---\n\n## Task 3 — Create `2026-05-04_Opportunity_Viewpoints.md`\n\n**File:** `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md`\n\nSynthesize today's data into the standard Opportunity Viewpoints format. Key inputs:\n\n**Market regime (09:35 ET snapshot):**\n- SPY +0.11%, QQQ +0.49% — large-cap tech leading\n- IWM −0.41% — small-cap lagging (risk-off rotation)\n- TLT −0.30% — bonds weak (rates rising)\n- GLD +0.37% — gold holding bid (hard money thesis alive)\n- USO −1.69% — oil weak (energy sector headwind)\n- Vol regime: low (SPY 20d realized 11.7%), vol scalar 1.28×\n\n**ORB screen (active as of 09:35 ET):**\n- 2 Prime+★: RBLX (LONG), GEHC (LONG) — highest conviction\n- 4 Prime: VEEV (LONG), RDDT (LONG), ROKU (SHORT), WDC (LONG)\n- Options: RBLX earnings 05-08, ROKU earnings 05-08 — elevated IV, treat cautiously\n\n**Macro near-term:**\n- TODAY 10:00: Factory Orders (Apr) — High impact, risk at open\n- TOMORROW 08:30: Nonfarm Payrolls (Apr) — Major binary event, 245K forecast\n- 05-13: CPI (Apr) — High impact inflation print\n\n**Carry-forward risk signals (from 2026-05-02):**\n- Dilution alerts still live: GEV, MNTS (older), plus AMZN, CEG, JNJ, KTOS, LEN, LHX, LMT, NOC, NRG, RCAT (05-02)\n- Defense AI & Autonomous Warfare: strong thesis, bad tape — wait-for-confirmation posture\n\n**Frontmatter:**\n```yaml\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-04\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"watch\"\nsignals: [\"PRE_NFP_WATCH\", \"ORB_LIVE_SESSION\", \"HARD_MONEY_CONFIRM\"]\nwindow_days: 14\nwindow_from: \"2026-04-20\"\nviewpoints_found: 5\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"orb\"]\n```\n\n**Viewpoint Queue (5 viewpoints):**\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists |\n|-------|------|---------|---------|-----------------|-----------------|\n| 78 | Active Session — ORB Live | opportunity | RBLX, GEHC | ORB + Entropy Strategy | Prime+★ setups running; both pass all 3 filters with strong entropy confirmation |\n| 68 | Active Session — ORB Live | opportunity | VEEV, RDDT, WDC | ORB + Entropy Strategy | Prime setups with full filter pass; hold to 4 PM ET |\n| 62 | Active Session — ORB Live | opportunity | ROKU | ORB + Entropy Strategy | Prime SHORT; short pressure confirmed; earnings 05-08 caps option plays |\n| 55 | Hard Money Confirmation | opportunity | GLD, IAU, GOLD, NEM | Dollar Debasement & Hard Money | GLD +0.37% today; IAU ORB LONG active; gold holding through rising-rate pressure |\n| 42 | Pre-Catalyst Hold | risk-first | ALL | Pre-NFP posture | NFP tomorrow 08:30 ET (245K forecast); reduces sizing on any new adds today; hold existing ORB through 4 PM |\n\n**Risk-first carry-forwards (inline, not separate viewpoints):**\n- Dilution alerts from 2026-05-02 remain in scope for any related thesis work\n\n---\n\n## Critical Files\n\n| File | Action |\n|------|--------|\n| `05_Data_Pulls/Theses/2026-05-02_Opportunity_Viewpoints.md` | Resolve merge conflict — keep comprehensive version |\n| `00_Dashboard/Signal Board.md` | Update `last_updated: 2026-05-04` |\n| `05_Data_Pulls/Theses/2026-05-04_Opportunity_Viewpoints.md` | Create new — today's synthesis |\n\n---\n\n## Execution Order\n\n1. Resolve merge conflict (Task 1) — fixes broken Dataview parsing first\n2. Update Signal Board frontmatter (Task 2) — quick metadata fix\n3. Create today's Opportunity Viewpoints (Task 3) — main synthesis artifact\n\n---\n\n## Verification\n\n- Signal Board `last_updated` reads `2026-05-04`\n- `2026-05-02_Opportunity_Viewpoints.md` has no conflict markers; parses cleanly in Obsidian\n- `2026-05-04_Opportunity_Viewpoints.md` exists with `signal_status: \"watch\"` and appears in the Signal Board's **Watch Items** Dataview block\n- Signal Board **Active Alerts** block shows `2026-05-02_Opportunity_Viewpoints` (signal_status: alert) at the top\n",
+            "planFilePath": "C:\\Users\\CaveUser\\.claude\\plans\\signal-board-can-you-iterative-toucan.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The plan is approved. Now I need to execute the three tasks. Let me start with all three tasks. I need to:\n\n1. Read the 2026-05-02_Opportunity_Viewpoints.md fully to resolve the conflict\n2. Update Signal Board.md last_updated\n3. Create 2026-05-04_Opportunity_Viewpoints.md\n\nLet me start by reading the full 2026-05-02_Opportunity_Viewpoints.md file to understand what's in it fully.\n\nActually, I already have enough information from my earlier reads. Let me:\n\n\nI'll read through the conflict file completely to see all the conflict sections, then handle the Signal Board update and create the new Opportunity Viewpoints file."
+        },
+        {
+          "type": "text",
+          "text": "Plan approved. Starting execution — reading the conflict file fully before resolving it, and updating the Signal Board in parallel.\n\n`★ Insight ─────────────────────────────────────`\nObsidian's Dataview plugin parses YAML frontmatter using `js-yaml`. Raw git conflict markers (`<<<<<<< HEAD`) inside a frontmatter block will cause Dataview to silently fail on that entire file — it won't appear in any query result. Fixing the conflict is the highest-leverage fix here because it unblocks the entire Active Alerts block.\n`─────────────────────────────────────────────────`"
+        }
+      ],
+      "timestamp": "2026-05-04T14:08:13.259Z"
+    },
+    {
+      "id": "a38bc42d-5519-4b73-809b-13d84133b140",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017jmfZdFqxNYiYjKzC4mUoY",
+          "title": "Read 05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:08:20.807Z"
+    },
+    {
+      "id": "ccc4d0ce-a757-400f-b7d5-88ddaffe824f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017ZEokLKMB2NekJdsSfkybt",
+          "title": "Edit 00_Dashboard\\Signal Board.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md",
+              "newText": "title: Signal Board\ntype: dashboard\ntags: [dashboard, signals]\nlast_updated: 2026-05-04\n---\n# Signal Board\n",
+              "oldText": "title: Signal Board\ntype: dashboard\ntags: [dashboard, signals]\nlast_updated: 2026-03-27\n---\n# Signal Board\n"
+            }
+          ],
+          "locations": [
+            {
+              "line": 2,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\Signal Board.md",
+            "old_string": "last_updated: 2026-03-27",
+            "new_string": "last_updated: 2026-05-04"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have the full content of the merge conflict file. I need to:\n1. Resolve the merge conflict - keep the comprehensive version (a52c1a646)\n2. The file has multiple conflict sections, I need to write the resolved version\n\nLet me construct the resolved file. I'll keep the `a52c1a646` (comprehensive) version throughout:\n\n**Frontmatter conflict (lines 8-12):**\nKeep: `signal_status: \"alert\"`\n\n**Operator Summary conflict (lines 24-34):**\nKeep: The comprehensive version with 2367 pull notes\n\n\n**Viewpoint Queue conflict (lines 41-108):**\nKeep: The comprehensive version with all 8 viewpoints\n\n**After GEV card (line 317), there's another conflict at lines 318-420:**\nHEAD adds several stock cards (JNJ, KTOS, LEN, LHX, LMT) but a52c1a646 removes those and goes straight to MNTS. I'll keep the a52c1a646 version and remove those extra cards.\n\n**After MNTS card (line 439), another conflict (lines 441-549):**\nHEAD adds NOC, NRG, RCAT cards while a52c1a646 adds Conviction Momentum cards for multiple stocks. I'm keeping the a52c1a646 Conviction Momentum cards instead.\n\n**Cross-Source Coverage conflict (lines 554-573):**\nGoing with a52c1a646's source counts: Thesis 41, Catalyst 183, Disclosure 8, Sector 12, Conviction 2, Signal 44, and Pull notes 2367.\n\n**Source Notes conflict (lines 589-622):**\nUsing a52c1a646's comprehensive source list.\n\nNow I'm writing out the clean resolved file with all these decisions applied.\n\nActually, let me trace through the conflict markers more carefully. The EV card and MNTS card are shared between both versions without conflicts. The first real conflict starts with the signal_status field, then there's the operator summary difference, followed by the viewpoint queue table where HEAD shows dilution alerts while a52c1a646 has the comprehensive version. I need to make sure I'm tracking each conflict section correctly as I build the final file. Looking at the merge conflict structure more carefully, I see the second conflict block is actually replacing those NOC, NRG, and RCAT cards with Conviction Momentum cards for PSIL and INVA instead.\n\nNow I'm constructing the fully resolved file by taking the a52c1a646 version, which means keeping the Operator Summary with all 2367 pull notes, the Viewpoint Queue with its 12 rows of signal data, and then the card sections that include Defense AI, Drone, Semiconductor, Hard Money, the stressed sector cards, the do-not-chase cards, GEV Risk, MNTS Risk, and the Conviction Momentum cards for the psychedelic and antimicrobial viewpoints."
+        },
+        {
+          "type": "text",
+          "text": "Good — I have the full conflict file. Now I'll write the resolved version (keeping comprehensive a52c1a646 throughout) and create today's Opportunity Viewpoints file in parallel."
+        }
+      ],
+      "timestamp": "2026-05-04T14:08:22.208Z"
+    },
+    {
+      "id": "405682ce-dc76-409f-bbe1-9e8a5685bc72",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013dHaX3twQcGcow7HHmQfSw",
+          "title": "Write 05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "domain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"alert\"\nsignals: [\"OPPORTUNITY_VIEWPOINTS\", \"RISK_VIEWPOINTS\"]\nwindow_days: 14\nwindow_from: \"2026-04-18\"",
+              "oldText": "domain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\n<<<<<<< HEAD\nsignal_status: \"watch\"\n=======\nsignal_status: \"alert\"\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\nsignals: [\"OPPORTUNITY_VIEWPOINTS\", \"RISK_VIEWPOINTS\"]\nwindow_days: 14\nwindow_from: \"2026-04-18\""
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "## Operator Summary\n\n- **Window**: 2026-04-18 through 2026-05-02\n- **Top Viewpoint**: Strong Thesis, Bad Tape - Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Lens Mix**: Strong Thesis, Bad Tape 4; Stressed Sector Small-Cap Queue 2; Do-Not-Chase / Pair-Trade Watch 2; Risk Signal First 2; Conviction Momentum Before Upgrade 2\n- **Posture Mix**: opportunity 8; risk-first 4\n- **Data Base**: 2367 pull notes and 44 signal notes inside the window.\n- **Use**: Treat this as a research map, not a buy list. Each viewpoint needs the listed confirmation step before it graduates.\n\n## Viewpoint Queue\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists | Evidence |\n| --- | --- | --- | --- | --- | --- | --- |\n| 72 | Strong Thesis, Bad Tape | opportunity | [[PLTR]], [[NOC]], [[RTX]], [[LMT]], [[AMZN]] | Defense AI & Autonomous Warfare / Aerospace & Defense | Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Defense_AI_&_Autonomous_Warfare]], [[2026-04-24_Catalyst_NOC]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_AMZN]] |\n| 68 | Strong Thesis, Bad Tape | opportunity | [[KTOS]], [[RTX]], [[LMT]], [[HOVR]], [[JOBY]] | Drone & Autonomous Systems Revolution / Aerospace & Defense | Drone & Autonomous Systems Revolution is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Drone_&_Autonomous_Systems_Revolution]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_HOVR]], [[2026-04-24_Catalyst_JOBY]] |\n| 67 | Strong Thesis, Bad Tape | opportunity | [[AMAT]], [[KLAC]], [[ON]], [[ONTO]], [[WOLF]] | Semiconductor Sovereignty & CHIPS Act / Tech | Semiconductor Sovereignty & CHIPS Act is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Semiconductor_Sovereignty_&_CHIPS_Act]], [[2026-04-24_Catalyst_KLAC]], [[2026-04-24_Catalyst_ON]], [[2026-04-24_Catalyst_ONTO]], [[2026-04-24_Catalyst_WOLF]] |",
+              "oldText": "## Operator Summary\n\n- **Window**: 2026-04-18 through 2026-05-02\n<<<<<<< HEAD\n- **Top Viewpoint**: Risk Signal First - Dilution Alert — AMZN is a live risk signal that should constrain any related opportunity work.\n- **Lens Mix**: Risk Signal First 12\n- **Posture Mix**: risk-first 12\n- **Data Base**: 435 pull notes and 77 signal notes inside the window.\n=======\n- **Top Viewpoint**: Strong Thesis, Bad Tape - Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Lens Mix**: Strong Thesis, Bad Tape 4; Stressed Sector Small-Cap Queue 2; Do-Not-Chase / Pair-Trade Watch 2; Risk Signal First 2; Conviction Momentum Before Upgrade 2\n- **Posture Mix**: opportunity 8; risk-first 4\n- **Data Base**: 2367 pull notes and 44 signal notes inside the window.\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\n- **Use**: Treat this as a research map, not a buy list. Each viewpoint needs the listed confirmation step before it graduates.\n\n## Viewpoint Queue\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists | Evidence |\n| --- | --- | --- | --- | --- | --- | --- |\n<<<<<<< HEAD\n| 42 | Risk Signal First | risk-first | [[AMZN]] | Dilution Alert — AMZN / risk | Dilution Alert — AMZN is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_AMZN]] |\n| 42 | Risk Signal First | risk-first | [[CEG]] | Dilution Alert — CEG / risk | Dilution Alert — CEG is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_CEG]] |\n| 42 | Risk Signal First | risk-first | [[GEV]] | Dilution Alert — GEV / risk | Dilution Alert — GEV is a live risk signal that should constrain any related opportunity work. | [[2026-04-25_DILUTION_GEV]] |\n| 42 | Risk Signal First | risk-first | [[JNJ]] | Dilution Alert — JNJ / risk | Dilution Alert — JNJ is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_JNJ]] |\n| 42 | Risk Signal First | risk-first | [[KTOS]] | Dilution Alert — KTOS / risk | Dilution Alert — KTOS is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_KTOS]] |\n| 42 | Risk Signal First | risk-first | [[LEN]] | Dilution Alert — LEN / risk | Dilution Alert — LEN is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_LEN]] |\n| 42 | Risk Signal First | risk-first | [[LHX]] | Dilution Alert — LHX / risk | Dilution Alert — LHX is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_LHX]] |\n| 42 | Risk Signal First | risk-first | [[LMT]] | Dilution Alert — LMT / risk | Dilution Alert — LMT is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_LMT]] |\n| 42 | Risk Signal First | risk-first | [[MNTS]] | Dilution Alert — MNTS / risk | Dilution Alert — MNTS is a live risk signal that should constrain any related opportunity work. | [[2026-04-23_DILUTION_MNTS]] |\n| 42 | Risk Signal First | risk-first | [[NOC]] | Dilution Alert — NOC / risk | Dilution Alert — NOC is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_NOC]] |\n| 42 | Risk Signal First | risk-first | [[NRG]] | Dilution Alert — NRG / risk | Dilution Alert — NRG is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_NRG]] |\n| 42 | Risk Signal First | risk-first | [[RCAT]] | Dilution Alert — RCAT / risk | Dilution Alert — RCAT is a live risk signal that should constrain any related opportunity work. | [[2026-05-02_DILUTION_RCAT]] |\n\n## Viewpoint Cards\n\n### Risk Signal First: AMZN\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — AMZN / risk\n- **Claim**: Dilution Alert — AMZN is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_AMZN]]\n\n### Risk Signal First: CEG\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — CEG / risk\n- **Claim**: Dilution Alert — CEG is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_CEG]]\n=======\n| 72 | Strong Thesis, Bad Tape | opportunity | [[PLTR]], [[NOC]], [[RTX]], [[LMT]], [[AMZN]] | Defense AI & Autonomous Warfare / Aerospace & Defense | Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Defense_AI_&_Autonomous_Warfare]], [[2026-04-24_Catalyst_NOC]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_AMZN]] |\n| 68 | Strong Thesis, Bad Tape | opportunity | [[KTOS]], [[RTX]], [[LMT]], [[HOVR]], [[JOBY]] | Drone & Autonomous Systems Revolution / Aerospace & Defense | Drone & Autonomous Systems Revolution is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Drone_&_Autonomous_Systems_Revolution]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_HOVR]], [[2026-04-24_Catalyst_JOBY]] |\n| 67 | Strong Thesis, Bad Tape | opportunity | [[AMAT]], [[KLAC]], [[ON]], [[ONTO]], [[WOLF]] | Semiconductor Sovereignty & CHIPS Act / Tech | Semiconductor Sovereignty & CHIPS Act is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Semiconductor_Sovereignty_&_CHIPS_Act]], [[2026-04-24_Catalyst_KLAC]], [[2026-04-24_Catalyst_ON]], [[2026-04-24_Catalyst_ONTO]], [[2026-04-24_Catalyst_WOLF]] |"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "- [ ] Check whether earnings or a disclosure catalyst could invalidate the valuation view.\n\n**Evidence**: [[2026-04-24_Detailed_industrials_Sector_Report]]\n\n### Risk Signal First: GEV\n",
+              "oldText": "- [ ] Check whether earnings or a disclosure catalyst could invalidate the valuation view.\n\n**Evidence**: [[2026-04-24_Detailed_industrials_Sector_Report]]\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\n\n### Risk Signal First: GEV\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "\n**Evidence**: [[2026-04-25_DILUTION_GEV]]\n\n### Risk Signal First: MNTS\n\n- **Score**: 42",
+              "oldText": "\n**Evidence**: [[2026-04-25_DILUTION_GEV]]\n\n<<<<<<< HEAD\n### Risk Signal First: JNJ\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — JNJ / risk\n- **Claim**: Dilution Alert — JNJ is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_JNJ]]\n\n### Risk Signal First: KTOS\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — KTOS / risk\n- **Claim**: Dilution Alert — KTOS is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_KTOS]]\n\n### Risk Signal First: LEN\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — LEN / risk\n- **Claim**: Dilution Alert — LEN is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_LEN]]\n\n### Risk Signal First: LHX\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — LHX / risk\n- **Claim**: Dilution Alert — LHX is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_LHX]]\n\n### Risk Signal First: LMT\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — LMT / risk\n- **Claim**: Dilution Alert — LMT is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_LMT]]\n\n=======\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\n### Risk Signal First: MNTS\n\n- **Score**: 42"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "\n**Evidence**: [[2026-04-23_DILUTION_MNTS]]\n\n### Conviction Momentum Before Upgrade: PSIL, ABBV, NBIX, JNJ, ALKS\n\n- **Score**: 36",
+              "oldText": "\n**Evidence**: [[2026-04-23_DILUTION_MNTS]]\n\n<<<<<<< HEAD\n### Risk Signal First: NOC\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — NOC / risk\n- **Claim**: Dilution Alert — NOC is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_NOC]]\n\n### Risk Signal First: NRG\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — NRG / risk\n- **Claim**: Dilution Alert — NRG is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_NRG]]\n\n### Risk Signal First: RCAT\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — RCAT / risk\n- **Claim**: Dilution Alert — RCAT is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-05-02_DILUTION_RCAT]]\n=======\n### Conviction Momentum Before Upgrade: PSIL, ABBV, NBIX, JNJ, ALKS\n\n- **Score**: 36"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "- [ ] Promote only if a second independent data source confirms the move.\n\n**Evidence**: [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Antimicrobial_Resistance_Pipeline]]\n\n## Cross-Source Coverage\n\n| Source Layer | Rows / Notes | How It Was Used |\n| --- | --- | --- |\n| Thesis full-picture reports | 41 | Structural/tactical state, watchlist symbols, catalyst maps. |\n| Catalyst notes | 183 | Symbol timing, earnings window, technical state. |\n| Disclosure reality rows | 8 | Promising 8-K queue and counterparty-confirmation setup. |",
+              "oldText": "- [ ] Promote only if a second independent data source confirms the move.\n\n**Evidence**: [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Antimicrobial_Resistance_Pipeline]]\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\n\n## Cross-Source Coverage\n\n| Source Layer | Rows / Notes | How It Was Used |\n| --- | --- | --- |\n<<<<<<< HEAD\n| Thesis full-picture reports | 0 | Structural/tactical state, watchlist symbols, catalyst maps. |\n| Catalyst notes | 0 | Symbol timing, earnings window, technical state. |\n| Disclosure reality rows | 0 | Promising 8-K queue and counterparty-confirmation setup. |\n| Detailed sector reports | 0 | Sector stress, small-cap queues, valuation stretch. |\n| Conviction delta rows | 0 | Evidence-flow changes before thesis upgrades. |\n| Dilution monitor rows | 59 | Financing-risk overlay and coverage gaps. |\n| Signal notes | 77 | Risk and confirmation overlays. |\n| All pull notes in window | 435 | Coverage base across market, macro, sectors, government, research, and fundamentals. |\n=======\n| Thesis full-picture reports | 41 | Structural/tactical state, watchlist symbols, catalyst maps. |\n| Catalyst notes | 183 | Symbol timing, earnings window, technical state. |\n| Disclosure reality rows | 8 | Promising 8-K queue and counterparty-confirmation setup. |"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "| Dilution monitor rows | 10 | Financing-risk overlay and coverage gaps. |\n| Signal notes | 44 | Risk and confirmation overlays. |\n| All pull notes in window | 2367 | Coverage base across market, macro, sectors, government, research, and fundamentals. |\n\n## Method\n",
+              "oldText": "| Dilution monitor rows | 10 | Financing-risk overlay and coverage gaps. |\n| Signal notes | 44 | Risk and confirmation overlays. |\n| All pull notes in window | 2367 | Coverage base across market, macro, sectors, government, research, and fundamentals. |\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047\n\n## Method\n"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "\n## Source Notes\n\n- [[2026-04-24_Detailed_Sector_Report_Index]]\n- [[2026-04-25_Conviction_Delta]]\n- [[2026-04-25_Disclosure_Reality_Check]]",
+              "oldText": "\n## Source Notes\n\n<<<<<<< HEAD\n- [[2026-05-02_Dilution_Monitor]]\n- [[2026-05-02_Capital_Raise]]\n=======\n- [[2026-04-24_Detailed_Sector_Report_Index]]\n- [[2026-04-25_Conviction_Delta]]\n- [[2026-04-25_Disclosure_Reality_Check]]"
+            },
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+              "newText": "- [[2026-04-24_Detailed_real-estate_Sector_Report]]\n- [[2026-04-24_Detailed_tech_Sector_Report]]\n- [[2026-04-24_Detailed_utilities_Sector_Report]]",
+              "oldText": "- [[2026-04-24_Detailed_real-estate_Sector_Report]]\n- [[2026-04-24_Detailed_tech_Sector_Report]]\n- [[2026-04-24_Detailed_utilities_Sector_Report]]\n>>>>>>> a52c1a646f5c82f44cc18234dca08ce7f4358047"
+            }
+          ],
+          "locations": [
+            {
+              "line": 5,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 17,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 226,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 247,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 267,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 314,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 327,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 342,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            },
+            {
+              "line": 371,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-02_Opportunity_Viewpoints.md",
+            "content": "---\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-02\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"alert\"\nsignals: [\"OPPORTUNITY_VIEWPOINTS\", \"RISK_VIEWPOINTS\"]\nwindow_days: 14\nwindow_from: \"2026-04-18\"\nviewpoints_found: 12\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"sec\", \"sector\"]\n---\n\n## Operator Summary\n\n- **Window**: 2026-04-18 through 2026-05-02\n- **Top Viewpoint**: Strong Thesis, Bad Tape - Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Lens Mix**: Strong Thesis, Bad Tape 4; Stressed Sector Small-Cap Queue 2; Do-Not-Chase / Pair-Trade Watch 2; Risk Signal First 2; Conviction Momentum Before Upgrade 2\n- **Posture Mix**: opportunity 8; risk-first 4\n- **Data Base**: 2367 pull notes and 44 signal notes inside the window.\n- **Use**: Treat this as a research map, not a buy list. Each viewpoint needs the listed confirmation step before it graduates.\n\n## Viewpoint Queue\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists | Evidence |\n| --- | --- | --- | --- | --- | --- | --- |\n| 72 | Strong Thesis, Bad Tape | opportunity | [[PLTR]], [[NOC]], [[RTX]], [[LMT]], [[AMZN]] | Defense AI & Autonomous Warfare / Aerospace & Defense | Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Defense_AI_&_Autonomous_Warfare]], [[2026-04-24_Catalyst_NOC]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_AMZN]] |\n| 68 | Strong Thesis, Bad Tape | opportunity | [[KTOS]], [[RTX]], [[LMT]], [[HOVR]], [[JOBY]] | Drone & Autonomous Systems Revolution / Aerospace & Defense | Drone & Autonomous Systems Revolution is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Drone_&_Autonomous_Systems_Revolution]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_HOVR]], [[2026-04-24_Catalyst_JOBY]] |\n| 67 | Strong Thesis, Bad Tape | opportunity | [[AMAT]], [[KLAC]], [[ON]], [[ONTO]], [[WOLF]] | Semiconductor Sovereignty & CHIPS Act / Tech | Semiconductor Sovereignty & CHIPS Act is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Semiconductor_Sovereignty_&_CHIPS_Act]], [[2026-04-24_Catalyst_KLAC]], [[2026-04-24_Catalyst_ON]], [[2026-04-24_Catalyst_ONTO]], [[2026-04-24_Catalyst_WOLF]] |\n| 66 | Strong Thesis, Bad Tape | opportunity | [[GOLD]], [[NEM]], [[MSTR]], [[COIN]] | Dollar Debasement & Hard Money / Macro / Hard Assets | Dollar Debasement & Hard Money is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add. | [[2026-04-24_Thesis_Full_Picture_Dollar_Debasement_&_Hard_Money]], [[2026-04-24_Catalyst_NEM]], [[2026-04-24_Catalyst_MSTR]], [[2026-04-24_Catalyst_COIN]], [[2026-04-24_Catalyst_GOLD]] |\n| 48 | Stressed Sector Small-Cap Queue | opportunity | [[BW]], [[TNC]], [[AVEX]], [[PPIH]] | Aerospace & Defense / Aerospace & Defense | Aerospace & Defense has enough sector stress to force selectivity, but its small-cap queue still contains names worth first-pass work. | [[2026-04-24_Detailed_aerospace-defense_Sector_Report]] |\n| 44 | Stressed Sector Small-Cap Queue | opportunity | [[BW]], [[TNC]], [[AVEX]], [[PPIH]] | Industrials / Industrials | Industrials has enough sector stress to force selectivity, but its small-cap queue still contains names worth first-pass work. | [[2026-04-24_Detailed_industrials_Sector_Report]] |\n| 42 | Do-Not-Chase / Pair-Trade Watch | risk-first | [[BA]], [[CAT]], [[MOG-A]] | Aerospace & Defense / Aerospace & Defense | Aerospace & Defense contains valuation-stretch names while the sector tape is non-clear, making it a useful avoid or pair-trade list. | [[2026-04-24_Detailed_aerospace-defense_Sector_Report]] |\n| 42 | Do-Not-Chase / Pair-Trade Watch | risk-first | [[BA]], [[CAT]], [[MOG-A]] | Industrials / Industrials | Industrials contains valuation-stretch names while the sector tape is non-clear, making it a useful avoid or pair-trade list. | [[2026-04-24_Detailed_industrials_Sector_Report]] |\n| 42 | Risk Signal First | risk-first | [[GEV]] | Dilution Alert — GEV / risk | Dilution Alert — GEV is a live risk signal that should constrain any related opportunity work. | [[2026-04-25_DILUTION_GEV]] |\n| 42 | Risk Signal First | risk-first | [[MNTS]] | Dilution Alert — MNTS / risk | Dilution Alert — MNTS is a live risk signal that should constrain any related opportunity work. | [[2026-04-23_DILUTION_MNTS]] |\n| 36 | Conviction Momentum Before Upgrade | opportunity | [[PSIL]], [[ABBV]], [[NBIX]], [[JNJ]], [[ALKS]] | Psychedelic Mental Health Revolution / Healthcare | Psychedelic Mental Health Revolution is showing positive signal momentum before the current conviction/priority fields fully reflect it. | [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Psychedelic_Mental_Health_Revolution]] |\n| 34 | Conviction Momentum Before Upgrade | opportunity | [[INVA]], [[JNJ]], [[BIIB]], [[MRK]], [[PFE]] | Antimicrobial Resistance Pipeline / cross-sector | Antimicrobial Resistance Pipeline is showing positive signal momentum before the current conviction/priority fields fully reflect it. | [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Antimicrobial_Resistance_Pipeline]] |\n\n## Viewpoint Cards\n\n### Strong Thesis, Bad Tape: PLTR, NOC, RTX, LMT, AMZN\n\n- **Score**: 72\n- **Posture**: opportunity\n- **Thesis / Sector**: Defense AI & Autonomous Warfare / Aerospace & Defense\n- **Claim**: Defense AI & Autonomous Warfare is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Why Unique**: The full-picture layer shows structural support and tactical stress at the same time, which is where the research process can separate good entries from falling knives.\n\n**Confirms**\n- Structural/tactical: strong/risky\n- Priority/conviction: high/high\n- Catalyst coverage: 12 symbol rows\n\n**Cautions**\n- 1 coverage gap(s) remain.\n- Technical status is alert.\n\n**Next Work**\n- [ ] Pick one symbol with the cleanest catalyst and least financing risk.\n- [ ] Wait for either tape repair or independent catalyst confirmation before sizing.\n- [ ] Use the linked full-picture report as the base memo.\n\n**Evidence**: [[2026-04-24_Thesis_Full_Picture_Defense_AI_&_Autonomous_Warfare]], [[2026-04-24_Catalyst_NOC]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_AMZN]]\n\n### Strong Thesis, Bad Tape: KTOS, RTX, LMT, HOVR, JOBY\n\n- **Score**: 68\n- **Posture**: opportunity\n- **Thesis / Sector**: Drone & Autonomous Systems Revolution / Aerospace & Defense\n- **Claim**: Drone & Autonomous Systems Revolution is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Why Unique**: The full-picture layer shows structural support and tactical stress at the same time, which is where the research process can separate good entries from falling knives.\n\n**Confirms**\n- Structural/tactical: strong/risky\n- Priority/conviction: medium/high\n- Catalyst coverage: 19 symbol rows\n\n**Cautions**\n- Technical status is alert.\n\n**Next Work**\n- [ ] Pick one symbol with the cleanest catalyst and least financing risk.\n- [ ] Wait for either tape repair or independent catalyst confirmation before sizing.\n- [ ] Use the linked full-picture report as the base memo.\n\n**Evidence**: [[2026-04-24_Thesis_Full_Picture_Drone_&_Autonomous_Systems_Revolution]], [[2026-04-24_Catalyst_RTX]], [[2026-04-24_Catalyst_LMT]], [[2026-04-24_Catalyst_HOVR]], [[2026-04-24_Catalyst_JOBY]]\n\n### Strong Thesis, Bad Tape: AMAT, KLAC, ON, ONTO, WOLF\n\n- **Score**: 67\n- **Posture**: opportunity\n- **Thesis / Sector**: Semiconductor Sovereignty & CHIPS Act / Tech\n- **Claim**: Semiconductor Sovereignty & CHIPS Act is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Why Unique**: The full-picture layer shows structural support and tactical stress at the same time, which is where the research process can separate good entries from falling knives.\n\n**Confirms**\n- Structural/tactical: strong/risky\n- Priority/conviction: high/high\n- Catalyst coverage: 6 symbol rows\n\n**Cautions**\n- 1 coverage gap(s) remain.\n\n**Next Work**\n- [ ] Pick one symbol with the cleanest catalyst and least financing risk.\n- [ ] Wait for either tape repair or independent catalyst confirmation before sizing.\n- [ ] Use the linked full-picture report as the base memo.\n\n**Evidence**: [[2026-04-24_Thesis_Full_Picture_Semiconductor_Sovereignty_&_CHIPS_Act]], [[2026-04-24_Catalyst_KLAC]], [[2026-04-24_Catalyst_ON]], [[2026-04-24_Catalyst_ONTO]], [[2026-04-24_Catalyst_WOLF]]\n\n### Strong Thesis, Bad Tape: GOLD, NEM, MSTR, COIN\n\n- **Score**: 66\n- **Posture**: opportunity\n- **Thesis / Sector**: Dollar Debasement & Hard Money / Macro / Hard Assets\n- **Claim**: Dollar Debasement & Hard Money is structurally alive while the current tape is hostile, creating a wait-for-confirmation dislocation rather than a clean add.\n- **Why Unique**: The full-picture layer shows structural support and tactical stress at the same time, which is where the research process can separate good entries from falling knives.\n\n**Confirms**\n- Structural/tactical: strong/risky\n- Priority/conviction: high/medium\n- Catalyst coverage: 5 symbol rows\n\n**Cautions**\n- 1 coverage gap(s) remain.\n\n**Next Work**\n- [ ] Pick one symbol with the cleanest catalyst and least financing risk.\n- [ ] Wait for either tape repair or independent catalyst confirmation before sizing.\n- [ ] Use the linked full-picture report as the base memo.\n\n**Evidence**: [[2026-04-24_Thesis_Full_Picture_Dollar_Debasement_&_Hard_Money]], [[2026-04-24_Catalyst_NEM]], [[2026-04-24_Catalyst_MSTR]], [[2026-04-24_Catalyst_COIN]], [[2026-04-24_Catalyst_GOLD]]\n\n### Stressed Sector Small-Cap Queue: BW, TNC, AVEX, PPIH\n\n- **Score**: 48\n- **Posture**: opportunity\n- **Thesis / Sector**: Aerospace & Defense / Aerospace & Defense\n- **Claim**: Aerospace & Defense has enough sector stress to force selectivity, but its small-cap queue still contains names worth first-pass work.\n- **Why Unique**: This combines sector stress, fundamental screen output, and local report context, so the queue is a hunting list only after risk checks.\n\n**Confirms**\n- Sector status: critical, structural/tactical strong/risky\n- Top queue: BW score 65, TNC score 63, AVEX score 60, PPIH score 58\n- SEC filing count: 8\n\n**Cautions**\n- The sector-level tape is stressed, so this is a research queue, not a basket call.\n- At least one screen row has missing fundamentals or profitability risk.\n\n**Next Work**\n- [ ] Run disclosure-reality or filing-digest on the top two symbols.\n- [ ] Check dilution, listing, and recent 8-K risk before treating the screen score as investable.\n- [ ] Compare the small-cap setup against the sector leaders for relative quality.\n\n**Evidence**: [[2026-04-24_Detailed_aerospace-defense_Sector_Report]]\n\n### Stressed Sector Small-Cap Queue: BW, TNC, AVEX, PPIH\n\n- **Score**: 44\n- **Posture**: opportunity\n- **Thesis / Sector**: Industrials / Industrials\n- **Claim**: Industrials has enough sector stress to force selectivity, but its small-cap queue still contains names worth first-pass work.\n- **Why Unique**: This combines sector stress, fundamental screen output, and local report context, so the queue is a hunting list only after risk checks.\n\n**Confirms**\n- Sector status: critical, structural/tactical cautious/risky\n- Top queue: BW score 65, TNC score 63, AVEX score 60, PPIH score 58\n- SEC filing count: 8\n\n**Cautions**\n- The sector-level tape is stressed, so this is a research queue, not a basket call.\n- At least one screen row has missing fundamentals or profitability risk.\n\n**Next Work**\n- [ ] Run disclosure-reality or filing-digest on the top two symbols.\n- [ ] Check dilution, listing, and recent 8-K risk before treating the screen score as investable.\n- [ ] Compare the small-cap setup against the sector leaders for relative quality.\n\n**Evidence**: [[2026-04-24_Detailed_industrials_Sector_Report]]\n\n### Do-Not-Chase / Pair-Trade Watch: BA, CAT, MOG-A\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Aerospace & Defense / Aerospace & Defense\n- **Claim**: Aerospace & Defense contains valuation-stretch names while the sector tape is non-clear, making it a useful avoid or pair-trade list.\n- **Why Unique**: The negative view combines valuation stretch with current technical stress instead of relying on a single expensive-multiple screen.\n\n**Confirms**\n- Sector status: critical\n- Stretch names: BA 3.4x sector ceiling, CAT 1.8x sector ceiling, MOG-A 1.4x sector ceiling\n\n**Cautions**\n- This is a risk-control view, not a standalone short thesis.\n- Confirm borrow, catalyst timing, and index/sector exposure before using it as a hedge idea.\n\n**Next Work**\n- [ ] Compare stretched names against cheaper high-quality peers in the same detailed sector report.\n- [ ] Check whether earnings or a disclosure catalyst could invalidate the valuation view.\n\n**Evidence**: [[2026-04-24_Detailed_aerospace-defense_Sector_Report]]\n\n### Do-Not-Chase / Pair-Trade Watch: BA, CAT, MOG-A\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Industrials / Industrials\n- **Claim**: Industrials contains valuation-stretch names while the sector tape is non-clear, making it a useful avoid or pair-trade list.\n- **Why Unique**: The negative view combines valuation stretch with current technical stress instead of relying on a single expensive-multiple screen.\n\n**Confirms**\n- Sector status: critical\n- Stretch names: BA 3.4x sector ceiling, CAT 1.8x sector ceiling, MOG-A 1.4x sector ceiling\n\n**Cautions**\n- This is a risk-control view, not a standalone short thesis.\n- Confirm borrow, catalyst timing, and index/sector exposure before using it as a hedge idea.\n\n**Next Work**\n- [ ] Compare stretched names against cheaper high-quality peers in the same detailed sector report.\n- [ ] Check whether earnings or a disclosure catalyst could invalidate the valuation view.\n\n**Evidence**: [[2026-04-24_Detailed_industrials_Sector_Report]]\n\n### Risk Signal First: GEV\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — GEV / risk\n- **Claim**: Dilution Alert — GEV is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-04-25_DILUTION_GEV]]\n\n### Risk Signal First: MNTS\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Dilution Alert — MNTS / risk\n- **Claim**: Dilution Alert — MNTS is a live risk signal that should constrain any related opportunity work.\n- **Why Unique**: Risk signals often explain why a seemingly cheap or newsy opportunity deserves a smaller sizing assumption or no action.\n\n**Confirms**\n- Signal status: alert\n\n**Cautions**\n- Treat as a blocker until the underlying filing or event is resolved.\n\n**Next Work**\n- [ ] Open the source signal and identify the exact filing or data row behind it.\n- [ ] Check whether the same ticker appears in catalyst, disclosure, or sector queues.\n\n**Evidence**: [[2026-04-23_DILUTION_MNTS]]\n\n### Conviction Momentum Before Upgrade: PSIL, ABBV, NBIX, JNJ, ALKS\n\n- **Score**: 36\n- **Posture**: opportunity\n- **Thesis / Sector**: Psychedelic Mental Health Revolution / Healthcare\n- **Claim**: Psychedelic Mental Health Revolution is showing positive signal momentum before the current conviction/priority fields fully reflect it.\n- **Why Unique**: The conviction-delta layer catches changes in evidence flow rather than only current conviction, which can surface early research before the dashboard upgrades it.\n\n**Confirms**\n- Net score: +4\n- Suggested action: Monitor strengthening\n- Full-picture status: alert, cautious/risky\n\n**Cautions**\n- 1 coverage gap(s) remain.\n- Signal count is still thin.\n\n**Next Work**\n- [ ] Open the signal note and identify whether the evidence is repeatable or one-off.\n- [ ] Refresh the related thesis full-picture report after the next sector scan.\n- [ ] Promote only if a second independent data source confirms the move.\n\n**Evidence**: [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Psychedelic_Mental_Health_Revolution]]\n\n### Conviction Momentum Before Upgrade: INVA, JNJ, BIIB, MRK, PFE\n\n- **Score**: 34\n- **Posture**: opportunity\n- **Thesis / Sector**: Antimicrobial Resistance Pipeline / cross-sector\n- **Claim**: Antimicrobial Resistance Pipeline is showing positive signal momentum before the current conviction/priority fields fully reflect it.\n- **Why Unique**: The conviction-delta layer catches changes in evidence flow rather than only current conviction, which can surface early research before the dashboard upgrades it.\n\n**Confirms**\n- Net score: +4\n- Suggested action: Monitor strengthening\n- Full-picture status: watch, strong/risky\n\n**Cautions**\n- 1 coverage gap(s) remain.\n- Signal count is still thin.\n\n**Next Work**\n- [ ] Open the signal note and identify whether the evidence is repeatable or one-off.\n- [ ] Refresh the related thesis full-picture report after the next sector scan.\n- [ ] Promote only if a second independent data source confirms the move.\n\n**Evidence**: [[2026-04-25_Conviction_Delta]], [[2026-04-24_Thesis_Full_Picture_Antimicrobial_Resistance_Pipeline]]\n\n## Cross-Source Coverage\n\n| Source Layer | Rows / Notes | How It Was Used |\n| --- | --- | --- |\n| Thesis full-picture reports | 41 | Structural/tactical state, watchlist symbols, catalyst maps. |\n| Catalyst notes | 183 | Symbol timing, earnings window, technical state. |\n| Disclosure reality rows | 8 | Promising 8-K queue and counterparty-confirmation setup. |\n| Detailed sector reports | 12 | Sector stress, small-cap queues, valuation stretch. |\n| Conviction delta rows | 2 | Evidence-flow changes before thesis upgrades. |\n| Dilution monitor rows | 10 | Financing-risk overlay and coverage gaps. |\n| Signal notes | 44 | Risk and confirmation overlays. |\n| All pull notes in window | 2367 | Coverage base across market, macro, sectors, government, research, and fundamentals. |\n\n## Method\n\nThis report looks for overlaps, contradictions, and timing gaps across local pull notes.\n\n| Lens | What It Combines | Interpretation |\n| --- | --- | --- |\n| Disclosure Confirmation Wedge | EDGAR disclosure reality + catalyst notes + thesis context | A filing is interesting only if outside evidence can confirm economics. |\n| Strong Thesis, Bad Tape | Full-picture structural view + technical/catalyst stress | Potential dislocation, but entries need confirmation. |\n| Stressed Sector Small-Cap Queue | Detailed sector report + small-cap screen + SEC pulse | Research queue for names where sector stress may hide idiosyncratic setups. |\n| Conviction Momentum Before Upgrade | Conviction delta + thesis report | Evidence flow is improving before the thesis state fully upgrades. |\n| Do-Not-Chase / Pair-Trade Watch | Valuation stretch + sector tape stress + signals | Risk-control or hedge viewpoint, not a standalone short call. |\n\n## Source Notes\n\n- [[2026-04-24_Detailed_Sector_Report_Index]]\n- [[2026-04-25_Conviction_Delta]]\n- [[2026-04-25_Disclosure_Reality_Check]]\n- [[2026-04-25_Dilution_Monitor]]\n- [[2026-04-28_FMP_Thesis_Watchlist_Capital_Raise_Survivors_Small-Cap_Inflection_Basket]]\n- [[2026-04-24_Thesis_Full_Picture_AI_Power_Defense_Stack]]\n- [[2026-04-24_Thesis_Full_Picture_AI_Power_Infrastructure]]\n- [[2026-04-24_Thesis_Full_Picture_Aerospace_&_Defense_Sector_Basket]]\n- [[2026-04-24_Thesis_Full_Picture_Alzheimer's_Disease_Modification]]\n- [[2026-04-24_Thesis_Full_Picture_Antimicrobial_Resistance_Pipeline]]\n- [[2026-04-24_Thesis_Full_Picture_Biosecurity_Compute_Convergence]]\n- [[2026-04-24_Thesis_Full_Picture_Buffett_Style_Quality_Compounders]]\n- [[2026-04-24_Thesis_Full_Picture_Communication_Services_Sector_Basket]]\n- [[2026-04-24_Thesis_Full_Picture_Consumer_Discretionary_Sector_Basket]]\n- [[2026-04-24_Thesis_Full_Picture_Consumer_Staples_Sector_Basket]]\n- [[2026-04-24_Thesis_Full_Picture_Dalio_Style_All-Weather_Hard_Assets]]\n- [[2026-04-24_Thesis_Full_Picture_Defense_AI_&_Autonomous_Warfare]]\n- [[2026-04-24_Detailed_aerospace-defense_Sector_Report]]\n- [[2026-04-24_Detailed_communication-services_Sector_Report]]\n- [[2026-04-24_Detailed_consumer-discretionary_Sector_Report]]\n- [[2026-04-24_Detailed_consumer-staples_Sector_Report]]\n- [[2026-04-24_Detailed_energy_Sector_Report]]\n- [[2026-04-24_Detailed_financials_Sector_Report]]\n- [[2026-04-24_Detailed_healthcare_Sector_Report]]\n- [[2026-04-24_Detailed_industrials_Sector_Report]]\n- [[2026-04-24_Detailed_materials_Sector_Report]]\n- [[2026-04-24_Detailed_real-estate_Sector_Report]]\n- [[2026-04-24_Detailed_tech_Sector_Report]]\n- [[2026-04-24_Detailed_utilities_Sector_Report]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-04T14:08:51.857Z"
+    },
+    {
+      "id": "1a405d3d-3efe-4805-a9a3-b522847c11dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RbgcuAfd4pBunAukyNx4fM",
+          "title": "Write 05_Data_Pulls\\Theses\\2026-05-04_Opportunity_Viewpoints.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-04_Opportunity_Viewpoints.md",
+              "newText": "---\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-04\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"watch\"\nsignals: [\"PRE_NFP_WATCH\", \"ORB_LIVE_SESSION\", \"HARD_MONEY_CONFIRM\"]\nwindow_days: 14\nwindow_from: \"2026-04-20\"\nviewpoints_found: 5\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"orb\"]\n---\n\n## Operator Summary\n\n- **Window**: 2026-04-20 through 2026-05-04\n- **Top Viewpoint**: Active Session — ORB Live — RBLX (Prime+★) and GEHC (Prime+★) are the highest-conviction setups running today; hold all positions to 4:00 PM ET.\n- **Lens Mix**: Active Session — ORB Live 3; Hard Money Confirmation 1; Pre-Catalyst Hold 1\n- **Posture Mix**: opportunity 4; risk-first 1\n- **Data Base**: Today's ORB screen (20 setups), FMP quote snapshot (09:35 ET), Economic Calendar (30-day window).\n- **Macro Context**: NFP tomorrow 08:30 ET (245K forecast vs 215K prior) — high binary risk; Factory Orders today at 10:00 ET. Reduce new adds, hold existing ORB positions to close.\n- **Vol Regime**: Low — SPY 20d realized vol 11.7%, vol scalar 1.28×. ORB strategy running full leverage tiers.\n- **Use**: Treat this as a session map. ORB positions are live — no re-entry, no direction flip. For thesis names, wait-for-confirmation posture holds from 2026-05-02 carry-forward.\n\n## Market Regime (09:35 ET Snapshot)\n\n| Ticker | Price | Change | Signal |\n| --- | --- | --- | --- |\n| SPY | $587.24 | +0.11% | Flat open — large cap neutral |\n| QQQ | $438.56 | +0.49% | Tech/growth leading |\n| IWM | $214.18 | −0.41% | Small cap lagging — risk-off rotation |\n| TLT | $92.35 | −0.30% | Bonds weak — rates rising |\n| HYG | $79.18 | +0.15% | Credit holding |\n| GLD | $186.42 | +0.37% | Gold bid — hard money thesis alive |\n| USO | $72.15 | −1.69% | Oil weak — energy sector headwind |\n\n**Regime read**: Large cap tech leading small cap in a rising-rate environment. Gold decoupling positively. Energy continuing to roll. Classic pre-NFP positioning compression — participants reducing small-cap and rate-sensitive exposure ahead of tomorrow's print.\n\n## Viewpoint Queue\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists | Evidence |\n| --- | --- | --- | --- | --- | --- | --- |\n| 78 | Active Session — ORB Live | opportunity | RBLX, GEHC | ORB + Entropy Strategy | Prime+★ setups running; both pass all 3 filters (gap + VWAP + range) with entropy confirmed. Highest conviction tier today. | [[2026-05-04_ORB_Entropy_Screen]], [[2026-05-04_FMP_RelVol_Screen]] |\n| 68 | Active Session — ORB Live | opportunity | VEEV, RDDT, WDC | ORB + Entropy Strategy | Prime setups with full filter pass; VEEV and RDDT LONG, WDC LONG; hold all to 4 PM ET. | [[2026-05-04_ORB_Entropy_Screen]] |\n| 62 | Active Session — ORB Live | opportunity | ROKU | ORB + Entropy Strategy | Prime SHORT; short pressure confirmed; note earnings 05-08 makes options expensive — equity short only. | [[2026-05-04_ORB_Entropy_Screen]] |\n| 55 | Hard Money Confirmation | opportunity | GLD, IAU, GOLD, NEM | Dollar Debasement & Hard Money | GLD +0.37% today while TLT −0.30% — gold holding bid through rising-rate pressure. IAU ORB LONG active this session. Thesis confirms structural bid. | [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]], [[2026-05-04_ORB_Entropy_Screen]] |\n| 42 | Pre-Catalyst Hold | risk-first | ALL | Pre-NFP posture | NFP tomorrow 08:30 ET (forecast 245K); Factory Orders today 10:00 ET. Do not add new thesis positions today. Hold existing ORB through 4 PM ET as planned — the strategy's hold-to-close rule already accounts for intraday binary events. | [[2026-05-04_FMP_EconomicCalendar]] |\n\n## Viewpoint Cards\n\n### Active Session — ORB Live: RBLX, GEHC (Prime+★)\n\n- **Score**: 78\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: RBLX and GEHC are today's highest-conviction setups — both passed all three ORB filters and carry the Prime+★ designation with 3% risk allocation each.\n- **Why Unique**: Prime+★ is the top tier; only two setups reach it today. Both are LONG-side with entropy confirmed (vol regime low, scalar 1.28×).\n\n**Confirms**\n- RBLX: Entry 45.15, Stop 43.50, 2R Target 49.37; RelVol 434%; earnings 05-08 (elevated IV — equity only)\n- GEHC: Entry 61.15, Stop 59.70, 2R Target 64.05; RelVol 203%\n\n**Cautions**\n- RBLX has earnings 05-08 — IV elevated (rank 72); avoid options premium buys on this session.\n- No re-entry after stop-out; no direction flip permitted.\n\n**Next Work**\n- [ ] Monitor RBLX for vol spike near open — set alerts at 49.37 (income target) and 43.50 (stop).\n- [ ] Hold GEHC through afternoon; target 64.05 income layer exit at 2R.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]], [[2026-05-04_FMP_RelVol_Screen]]\n\n### Active Session — ORB Live: VEEV, RDDT, WDC (Prime)\n\n- **Score**: 68\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: Three Prime LONG setups with full filter pass — 2% risk allocation each, hold to 4 PM ET.\n- **Why Unique**: RDDT has high RelVol (263%) and earnings 05-22; WDC is large-dollar but only 11 shares at $431.80 entry — size is appropriate.\n\n**Confirms**\n- VEEV: Entry 172.00, Stop 169.28, 2R 180.04; RelVol 294%\n- RDDT: Entry 166.70, Stop 163.34, 2R 179.06; RelVol 263%\n- WDC: Entry 431.80, Stop 425.40, 2R 459.78; RelVol 202%\n\n**Cautions**\n- RDDT earnings 05-22; WDC earnings 05-29 — both outside this session.\n\n**Next Work**\n- [ ] Standard hold-to-close; exit all at market 4:00 PM ET.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]]\n\n### Active Session — ORB Live: ROKU (Prime SHORT)\n\n- **Score**: 62\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: ROKU is a Prime SHORT setup — gap down, VWAP filter pass, range tight. Short pressure confirmed. Equity short only due to earnings 05-08.\n- **Why Unique**: Short-side setups are less common in low-vol regimes; ROKU qualifies cleanly on all three filters.\n\n**Confirms**\n- ROKU: Entry 123.50, Stop 126.55, 2R Target 113.95; RelVol 262%; IV Rank 61\n- Earnings 05-08 — do not carry options into the event\n\n**Cautions**\n- Options IV elevated (rank 61); short straddle risky near earnings — equity short only.\n- No re-entry; no flip to LONG if 125.50 breaks first.\n\n**Next Work**\n- [ ] Monitor for breakdown below 120; hold to 4 PM ET or stop at 126.55.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]]\n\n### Hard Money Confirmation: GLD, IAU, GOLD, NEM\n\n- **Score**: 55\n- **Posture**: opportunity\n- **Thesis / Sector**: Dollar Debasement & Hard Money / Macro / Hard Assets\n- **Claim**: GLD +0.37% today while bonds sell off (TLT −0.30%) — gold is holding a positive bid through rising-rate pressure, which is the key structural confirmation for the hard money thesis. IAU ORB LONG is an active intraday expression.\n- **Why Unique**: Gold decoupling positively from bonds in a rising-rate session is the specific regime condition the Dollar Debasement thesis requires to graduate from \"bad tape\" to \"partial confirm.\"\n\n**Confirms**\n- GLD: $186.42 (+0.37%), IAU ORB LONG active (entry 86.75, 2R 88.90)\n- From 2026-05-02: Dollar Debasement thesis rated score 66, strong/risky — partial tape repair today\n\n**Cautions**\n- Single-session confirmation; NFP tomorrow can reverse the move.\n- Thesis still in \"bad tape\" posture overall — this is a data point, not a graduation.\n- Wait for sustained multi-session bid before sizing up thesis names (GOLD, NEM, MSTR, COIN).\n\n**Next Work**\n- [ ] Track GLD close today vs prior day.\n- [ ] If GLD closes above $186.50 two sessions in a row, revisit thesis posture upgrade.\n\n**Evidence**: [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]], [[2026-05-04_ORB_Entropy_Screen]]\n\n### Pre-Catalyst Hold: ALL positions\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Pre-NFP posture / Macro\n- **Claim**: NFP tomorrow at 08:30 ET (forecast +245K vs prior +215K) is a high-impact binary event. Do not add new thesis positions today. Existing ORB positions are governed by the hold-to-close rule — that already accounts for intraday binary events.\n- **Why Unique**: Pre-NFP compression is visible in today's tape (IWM −0.41%, TLT −0.30%) — participants are reducing rate-sensitive and small-cap exposure ahead of the print. This is a structural hold, not a fear signal.\n\n**Upcoming Catalysts**\n| Date | Time ET | Event | Impact |\n| --- | --- | --- | --- |\n| 2026-05-04 | 10:00 | Factory Orders (Apr) | High — risk at open |\n| 2026-05-05 | 08:30 | **Nonfarm Payrolls (Apr)** | **High — major binary** |\n| 2026-05-05 | 10:00 | ISM Non-Manufacturing (Apr) | High — services barometer |\n| 2026-05-13 | 08:30 | **CPI (Apr)** | **High — inflation read** |\n| 2026-05-23 | 14:30 | Fed Chair Powell Speech | High — policy guidance |\n| 2026-05-28 | 09:00 | **Core PCE (Apr-Final)** | **High — Fed's preferred gauge** |\n\n**Cautions**\n- Do not add new thesis names today.\n- ORB positions hold to 4 PM ET per strategy rules — NFP is tomorrow, not today.\n\n**Next Work**\n- [ ] Check NFP print tomorrow morning before any thesis action.\n- [ ] If NFP > 260K: expect rates up, growth stocks pressure, small cap continued lag.\n- [ ] If NFP < 230K: expect rate relief, possible growth/small cap bid.\n\n**Evidence**: [[2026-05-04_FMP_EconomicCalendar]]\n\n## Carry-Forward Risk Signals (from 2026-05-02)\n\nThese dilution alerts from the prior synthesis remain active and constrain related thesis work until resolved:\n\n| Ticker | Signal | Source |\n| --- | --- | --- |\n| GEV | Dilution Alert | [[2026-04-25_DILUTION_GEV]] |\n| MNTS | Dilution Alert | [[2026-04-23_DILUTION_MNTS]] |\n\nNote: The HEAD branch of the 2026-05-02 file contained additional dilution alerts (AMZN, CEG, JNJ, KTOS, LEN, LHX, LMT, NOC, NRG, RCAT) that were not part of the comprehensive synthesis. These are noted here for awareness but were not validated against the 2367-note data base; treat as unverified until the next full opportunity viewpoints run.\n\n## Cross-Source Coverage\n\n| Source Layer | Rows / Notes | How It Was Used |\n| --- | --- | --- |\n| ORB + Entropy Screen | 20 setups | Session setup identification, tier classification, position sizing |\n| FMP RelVol Screen | 20 tickers | Relative volume ranking, ATR14, sector classification |\n| FMP Quote Snapshot | 7 ETFs | Market regime read, vol/rates/commodities direction |\n| FMP Economic Calendar | 30 events | Macro catalyst timing, pre-NFP posture justification |\n| 2026-05-02 Opportunity Viewpoints | 12 viewpoints | Carry-forward thesis posture and risk signals |\n\n## Method\n\nToday's synthesis prioritizes the live session over thesis graduation. The primary lens is **Active Session — ORB Live** because the ORB screen data is intraday and actionable. The **Hard Money Confirmation** lens tracks thesis-level evidence from the daily ETF snapshot. The **Pre-Catalyst Hold** lens is a posture flag, not a viewpoint — it constrains all thesis-level adds until the NFP binary resolves.\n\n## Source Notes\n\n- [[2026-05-04_ORB_Entropy_Screen]]\n- [[2026-05-04_FMP_RelVol_Screen]]\n- [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]]\n- [[2026-05-04_FMP_EconomicCalendar]]\n- [[2026-05-02_Opportunity_Viewpoints]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-04_Opportunity_Viewpoints.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls\\Theses\\2026-05-04_Opportunity_Viewpoints.md",
+            "content": "---\ntitle: \"Opportunity Viewpoints\"\nsource: \"Combination Reporting System\"\ndate_pulled: \"2026-05-04\"\ndomain: \"theses\"\ndata_type: \"opportunity_viewpoints\"\nfrequency: \"on-demand\"\nsignal_status: \"watch\"\nsignals: [\"PRE_NFP_WATCH\", \"ORB_LIVE_SESSION\", \"HARD_MONEY_CONFIRM\"]\nwindow_days: 14\nwindow_from: \"2026-04-20\"\nviewpoints_found: 5\nlong_only: false\ntags: [\"opportunity-viewpoints\", \"synthesis\", \"thesis\", \"market\", \"orb\"]\n---\n\n## Operator Summary\n\n- **Window**: 2026-04-20 through 2026-05-04\n- **Top Viewpoint**: Active Session — ORB Live — RBLX (Prime+★) and GEHC (Prime+★) are the highest-conviction setups running today; hold all positions to 4:00 PM ET.\n- **Lens Mix**: Active Session — ORB Live 3; Hard Money Confirmation 1; Pre-Catalyst Hold 1\n- **Posture Mix**: opportunity 4; risk-first 1\n- **Data Base**: Today's ORB screen (20 setups), FMP quote snapshot (09:35 ET), Economic Calendar (30-day window).\n- **Macro Context**: NFP tomorrow 08:30 ET (245K forecast vs 215K prior) — high binary risk; Factory Orders today at 10:00 ET. Reduce new adds, hold existing ORB positions to close.\n- **Vol Regime**: Low — SPY 20d realized vol 11.7%, vol scalar 1.28×. ORB strategy running full leverage tiers.\n- **Use**: Treat this as a session map. ORB positions are live — no re-entry, no direction flip. For thesis names, wait-for-confirmation posture holds from 2026-05-02 carry-forward.\n\n## Market Regime (09:35 ET Snapshot)\n\n| Ticker | Price | Change | Signal |\n| --- | --- | --- | --- |\n| SPY | $587.24 | +0.11% | Flat open — large cap neutral |\n| QQQ | $438.56 | +0.49% | Tech/growth leading |\n| IWM | $214.18 | −0.41% | Small cap lagging — risk-off rotation |\n| TLT | $92.35 | −0.30% | Bonds weak — rates rising |\n| HYG | $79.18 | +0.15% | Credit holding |\n| GLD | $186.42 | +0.37% | Gold bid — hard money thesis alive |\n| USO | $72.15 | −1.69% | Oil weak — energy sector headwind |\n\n**Regime read**: Large cap tech leading small cap in a rising-rate environment. Gold decoupling positively. Energy continuing to roll. Classic pre-NFP positioning compression — participants reducing small-cap and rate-sensitive exposure ahead of tomorrow's print.\n\n## Viewpoint Queue\n\n| Score | Lens | Posture | Symbols | Thesis / Sector | Why This Exists | Evidence |\n| --- | --- | --- | --- | --- | --- | --- |\n| 78 | Active Session — ORB Live | opportunity | RBLX, GEHC | ORB + Entropy Strategy | Prime+★ setups running; both pass all 3 filters (gap + VWAP + range) with entropy confirmed. Highest conviction tier today. | [[2026-05-04_ORB_Entropy_Screen]], [[2026-05-04_FMP_RelVol_Screen]] |\n| 68 | Active Session — ORB Live | opportunity | VEEV, RDDT, WDC | ORB + Entropy Strategy | Prime setups with full filter pass; VEEV and RDDT LONG, WDC LONG; hold all to 4 PM ET. | [[2026-05-04_ORB_Entropy_Screen]] |\n| 62 | Active Session — ORB Live | opportunity | ROKU | ORB + Entropy Strategy | Prime SHORT; short pressure confirmed; note earnings 05-08 makes options expensive — equity short only. | [[2026-05-04_ORB_Entropy_Screen]] |\n| 55 | Hard Money Confirmation | opportunity | GLD, IAU, GOLD, NEM | Dollar Debasement & Hard Money | GLD +0.37% today while TLT −0.30% — gold holding bid through rising-rate pressure. IAU ORB LONG active this session. Thesis confirms structural bid. | [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]], [[2026-05-04_ORB_Entropy_Screen]] |\n| 42 | Pre-Catalyst Hold | risk-first | ALL | Pre-NFP posture | NFP tomorrow 08:30 ET (forecast 245K); Factory Orders today 10:00 ET. Do not add new thesis positions today. Hold existing ORB through 4 PM ET as planned — the strategy's hold-to-close rule already accounts for intraday binary events. | [[2026-05-04_FMP_EconomicCalendar]] |\n\n## Viewpoint Cards\n\n### Active Session — ORB Live: RBLX, GEHC (Prime+★)\n\n- **Score**: 78\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: RBLX and GEHC are today's highest-conviction setups — both passed all three ORB filters and carry the Prime+★ designation with 3% risk allocation each.\n- **Why Unique**: Prime+★ is the top tier; only two setups reach it today. Both are LONG-side with entropy confirmed (vol regime low, scalar 1.28×).\n\n**Confirms**\n- RBLX: Entry 45.15, Stop 43.50, 2R Target 49.37; RelVol 434%; earnings 05-08 (elevated IV — equity only)\n- GEHC: Entry 61.15, Stop 59.70, 2R Target 64.05; RelVol 203%\n\n**Cautions**\n- RBLX has earnings 05-08 — IV elevated (rank 72); avoid options premium buys on this session.\n- No re-entry after stop-out; no direction flip permitted.\n\n**Next Work**\n- [ ] Monitor RBLX for vol spike near open — set alerts at 49.37 (income target) and 43.50 (stop).\n- [ ] Hold GEHC through afternoon; target 64.05 income layer exit at 2R.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]], [[2026-05-04_FMP_RelVol_Screen]]\n\n### Active Session — ORB Live: VEEV, RDDT, WDC (Prime)\n\n- **Score**: 68\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: Three Prime LONG setups with full filter pass — 2% risk allocation each, hold to 4 PM ET.\n- **Why Unique**: RDDT has high RelVol (263%) and earnings 05-22; WDC is large-dollar but only 11 shares at $431.80 entry — size is appropriate.\n\n**Confirms**\n- VEEV: Entry 172.00, Stop 169.28, 2R 180.04; RelVol 294%\n- RDDT: Entry 166.70, Stop 163.34, 2R 179.06; RelVol 263%\n- WDC: Entry 431.80, Stop 425.40, 2R 459.78; RelVol 202%\n\n**Cautions**\n- RDDT earnings 05-22; WDC earnings 05-29 — both outside this session.\n\n**Next Work**\n- [ ] Standard hold-to-close; exit all at market 4:00 PM ET.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]]\n\n### Active Session — ORB Live: ROKU (Prime SHORT)\n\n- **Score**: 62\n- **Posture**: opportunity\n- **Thesis / Sector**: ORB + Entropy Strategy / Intraday\n- **Claim**: ROKU is a Prime SHORT setup — gap down, VWAP filter pass, range tight. Short pressure confirmed. Equity short only due to earnings 05-08.\n- **Why Unique**: Short-side setups are less common in low-vol regimes; ROKU qualifies cleanly on all three filters.\n\n**Confirms**\n- ROKU: Entry 123.50, Stop 126.55, 2R Target 113.95; RelVol 262%; IV Rank 61\n- Earnings 05-08 — do not carry options into the event\n\n**Cautions**\n- Options IV elevated (rank 61); short straddle risky near earnings — equity short only.\n- No re-entry; no flip to LONG if 125.50 breaks first.\n\n**Next Work**\n- [ ] Monitor for breakdown below 120; hold to 4 PM ET or stop at 126.55.\n\n**Evidence**: [[2026-05-04_ORB_Entropy_Screen]]\n\n### Hard Money Confirmation: GLD, IAU, GOLD, NEM\n\n- **Score**: 55\n- **Posture**: opportunity\n- **Thesis / Sector**: Dollar Debasement & Hard Money / Macro / Hard Assets\n- **Claim**: GLD +0.37% today while bonds sell off (TLT −0.30%) — gold is holding a positive bid through rising-rate pressure, which is the key structural confirmation for the hard money thesis. IAU ORB LONG is an active intraday expression.\n- **Why Unique**: Gold decoupling positively from bonds in a rising-rate session is the specific regime condition the Dollar Debasement thesis requires to graduate from \"bad tape\" to \"partial confirm.\"\n\n**Confirms**\n- GLD: $186.42 (+0.37%), IAU ORB LONG active (entry 86.75, 2R 88.90)\n- From 2026-05-02: Dollar Debasement thesis rated score 66, strong/risky — partial tape repair today\n\n**Cautions**\n- Single-session confirmation; NFP tomorrow can reverse the move.\n- Thesis still in \"bad tape\" posture overall — this is a data point, not a graduation.\n- Wait for sustained multi-session bid before sizing up thesis names (GOLD, NEM, MSTR, COIN).\n\n**Next Work**\n- [ ] Track GLD close today vs prior day.\n- [ ] If GLD closes above $186.50 two sessions in a row, revisit thesis posture upgrade.\n\n**Evidence**: [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]], [[2026-05-04_ORB_Entropy_Screen]]\n\n### Pre-Catalyst Hold: ALL positions\n\n- **Score**: 42\n- **Posture**: risk-first\n- **Thesis / Sector**: Pre-NFP posture / Macro\n- **Claim**: NFP tomorrow at 08:30 ET (forecast +245K vs prior +215K) is a high-impact binary event. Do not add new thesis positions today. Existing ORB positions are governed by the hold-to-close rule — that already accounts for intraday binary events.\n- **Why Unique**: Pre-NFP compression is visible in today's tape (IWM −0.41%, TLT −0.30%) — participants are reducing rate-sensitive and small-cap exposure ahead of the print. This is a structural hold, not a fear signal.\n\n**Upcoming Catalysts**\n| Date | Time ET | Event | Impact |\n| --- | --- | --- | --- |\n| 2026-05-04 | 10:00 | Factory Orders (Apr) | High — risk at open |\n| 2026-05-05 | 08:30 | **Nonfarm Payrolls (Apr)** | **High — major binary** |\n| 2026-05-05 | 10:00 | ISM Non-Manufacturing (Apr) | High — services barometer |\n| 2026-05-13 | 08:30 | **CPI (Apr)** | **High — inflation read** |\n| 2026-05-23 | 14:30 | Fed Chair Powell Speech | High — policy guidance |\n| 2026-05-28 | 09:00 | **Core PCE (Apr-Final)** | **High — Fed's preferred gauge** |\n\n**Cautions**\n- Do not add new thesis names today.\n- ORB positions hold to 4 PM ET per strategy rules — NFP is tomorrow, not today.\n\n**Next Work**\n- [ ] Check NFP print tomorrow morning before any thesis action.\n- [ ] If NFP > 260K: expect rates up, growth stocks pressure, small cap continued lag.\n- [ ] If NFP < 230K: expect rate relief, possible growth/small cap bid.\n\n**Evidence**: [[2026-05-04_FMP_EconomicCalendar]]\n\n## Carry-Forward Risk Signals (from 2026-05-02)\n\nThese dilution alerts from the prior synthesis remain active and constrain related thesis work until resolved:\n\n| Ticker | Signal | Source |\n| --- | --- | --- |\n| GEV | Dilution Alert | [[2026-04-25_DILUTION_GEV]] |\n| MNTS | Dilution Alert | [[2026-04-23_DILUTION_MNTS]] |\n\nNote: The HEAD branch of the 2026-05-02 file contained additional dilution alerts (AMZN, CEG, JNJ, KTOS, LEN, LHX, LMT, NOC, NRG, RCAT) that were not part of the comprehensive synthesis. These are noted here for awareness but were not validated against the 2367-note data base; treat as unverified until the next full opportunity viewpoints run.\n\n## Cross-Source Coverage\n\n| Source Layer | Rows / Notes | How It Was Used |\n| --- | --- | --- |\n| ORB + Entropy Screen | 20 setups | Session setup identification, tier classification, position sizing |\n| FMP RelVol Screen | 20 tickers | Relative volume ranking, ATR14, sector classification |\n| FMP Quote Snapshot | 7 ETFs | Market regime read, vol/rates/commodities direction |\n| FMP Economic Calendar | 30 events | Macro catalyst timing, pre-NFP posture justification |\n| 2026-05-02 Opportunity Viewpoints | 12 viewpoints | Carry-forward thesis posture and risk signals |\n\n## Method\n\nToday's synthesis prioritizes the live session over thesis graduation. The primary lens is **Active Session — ORB Live** because the ORB screen data is intraday and actionable. The **Hard Money Confirmation** lens tracks thesis-level evidence from the daily ETF snapshot. The **Pre-Catalyst Hold** lens is a posture flag, not a viewpoint — it constrains all thesis-level adds until the NFP binary resolves.\n\n## Source Notes\n\n- [[2026-05-04_ORB_Entropy_Screen]]\n- [[2026-05-04_FMP_RelVol_Screen]]\n- [[2026-05-04_FMP_Quote_SPY_QQQ_IWM_TLT_HYG_GLD_USO]]\n- [[2026-05-04_FMP_EconomicCalendar]]\n- [[2026-05-02_Opportunity_Viewpoints]]\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "`★ Insight ─────────────────────────────────────`\nThe Opportunity Viewpoints file uses a scoring system (42–78) that combines lens strength, posture confidence, and data coverage depth. \"Active Session\" lenses score highest (78) because the data is actionable right now — ORB positions are live. \"Pre-Catalyst Hold\" scores the same as Risk Signal First (42) even though it's a posture flag, not a real viewpoint — this keeps it correctly low in the queue while still surfacing it in Dataview's `signal_status: \"watch\"` filter.\n`─────────────────────────────────────────────────`\n\nAll three tasks are done:\n\n1. **Merge conflict resolved** — `2026-05-02_Opportunity_Viewpoints.md` now uses the comprehensive version (2367 pull notes, 12 viewpoints, `signal_status: \"alert\"`). It will now appear in the Signal Board's **Active Alerts** Dataview block.\n\n2. **Signal Board updated** — `last_updated` changed from `2026-03-27` → `2026-05-04`.\n\n3. **Today's synthesis created** — `2026-05-04_Opportunity_Viewpoints.md` with `signal_status: \"watch\"` covering:\n   - **RBLX + GEHC** (Prime+★ ORB live, score 78)\n   - **VEEV, RDDT, WDC** (Prime ORB live, score 68)\n   - **ROKU** (Prime SHORT, score 62)\n   - **GLD / IAU** hard money partial confirmation (score 55)\n   - **Pre-NFP hold posture** with tomorrow's macro calendar (score 42)\n\nThe Signal Board's Watch Items block will now show today's file, and Active Alerts will show the 2026-05-02 file (alert status)."
+        }
+      ],
+      "timestamp": "2026-05-04T14:10:22.691Z"
+    }
+  ],
+  "savedAt": "2026-05-04T14:11:47.106Z"
+}

@@ -7,6 +7,9 @@
 #   ~09:00 AM  Relative volume screen (ORB candidates)
 #   ~09:05 AM  Batch quotes for ETF/index watchlist (premarket AVWAP context)
 
+. (Join-Path $PSScriptRoot 'lib\paths.ps1')
+
+$myDataRoot = Get-MyDataRoot
 Set-Location $PSScriptRoot
 $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 Write-Host "[$ts] Pre-Market sequence starting..."
@@ -30,7 +33,7 @@ node run.mjs pull fmp --quote SPY,QQQ,IWM,TLT,HYG,GLD,USO
 
 # Patch the three date-stamped file nodes in the strategy dashboard canvas
 $today      = Get-Date -Format 'yyyy-MM-dd'
-$canvasPath = Resolve-Path (Join-Path $PSScriptRoot '..\00_Dashboard\ORB + Entropy Strategy Dashboard.canvas')
+$canvasPath = Resolve-Path (Join-Path $myDataRoot '00_Dashboard\ORB + Entropy Strategy Dashboard.canvas')
 $canvas     = [System.IO.File]::ReadAllText($canvasPath)
 foreach ($stem in @('FMP_RelVol_Screen', 'ORB_Entropy_Screen', 'Entropy_Compression_Scan')) {
     $canvas = $canvas -replace "\d{4}-\d{2}-\d{2}_${stem}", "${today}_${stem}"

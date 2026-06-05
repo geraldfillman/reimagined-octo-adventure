@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync, existsSync, unlinkSync } from 'fs';
-import { join, dirname } from 'path';
+import { join } from 'path';
 import { prunePullFiles, parseFrontmatter } from './history.mjs';
-import { getPullsDir } from './config.mjs';
+import { getPullsDir, getSignalsDir as getConfiguredSignalsDir } from './config.mjs';
 
 export const DEFAULT_MARKET_HISTORY_RETENTION = Object.freeze({
   keepDaily: 1,
@@ -72,7 +72,7 @@ export const DEFAULT_SIGNAL_RETENTION_DAYS = Object.freeze({
 });
 
 function getSignalsDir() {
-  return join(dirname(getPullsDir()), '06_Signals');
+  return getConfiguredSignalsDir();
 }
 
 /**

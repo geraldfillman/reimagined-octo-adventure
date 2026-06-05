@@ -18,13 +18,11 @@
  */
 
 import { readdirSync, readFileSync, mkdirSync, existsSync, renameSync } from 'fs';
-import { join, resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getPullsDir, getSignalsDir } from '../lib/config.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = resolve(__dirname, '..', '..');
-const PULLS_DIR  = join(VAULT_ROOT, '05_Data_Pulls');
-const SIGNALS_DIR = join(VAULT_ROOT, '06_Signals');
+const PULLS_DIR = getPullsDir();
+const SIGNALS_DIR = getSignalsDir();
 
 const DEFAULT_OLDER_THAN_DAYS = 30;
 const DEFAULT_STATUSES = ['clear'];

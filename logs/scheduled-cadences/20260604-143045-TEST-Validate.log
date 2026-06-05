@@ -1,0 +1,42 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260604143045
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command $w = "C:\Users\CaveUser\harness\run-scheduled.ps1"
+Write-Host "=== dry-run preview ==="
+& $w -CommandType system -Name validate -TaskLabel "TEST Validate" -NodePath "C:\Program Files\nodejs\node.exe" -DryRun
+Write-Host ""
+Write-Host "=== real run (system validate via harness engine) ==="
+& $w -CommandType system -Name validate -TaskLabel "TEST Validate" -NodePath "C:\Program Files\nodejs\node.exe"
+Write-Host "wrapper exit=$LASTEXITCODE"
+Write-Host ""
+Write-Host "=== newest log written to the vault log dir? ==="
+Get-ChildItem "C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\logs\scheduled-cadences" -Filter "*TEST-Validate*" | Sort-Object LastWriteTime -Desc | Select-Object -First 1 Name, Length
+; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
+; (Get-Location).Path | Out-File -FilePath 'C:\Users\CaveUser\AppData\Local\Temp\claude\claude-pwd-ps-0d34' -Encoding utf8 -NoNewline
+; if ($ExecutionContext.SessionState.LanguageMode -eq 'FullLanguage') { $host.SetShouldExit($_ec) } else { exit $_ec }
+Process ID: 54892
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled-harness] TEST Validate
+[started] 2026-06-04T14:30:45.0884695-04:00
+[VAULT_ROOT] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data
+[command] C:\Program Files\nodejs\node.exe C:\Users\CaveUser\harness\engine\run.mjs system validate
+
+
+
+[finished] 2026-06-04T14:30:45.4977904-04:00 exit=0
+**********************
+Windows PowerShell transcript end
+End time: 20260604143045
+**********************

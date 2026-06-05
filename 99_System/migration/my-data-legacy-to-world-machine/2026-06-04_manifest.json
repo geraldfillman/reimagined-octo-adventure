@@ -1,0 +1,282 @@
+﻿{
+    "schema_version":  1,
+    "generated_at":  "2026-06-04T18:40:27.4220841-04:00",
+    "mode":  "execute",
+    "my_data_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+    "world_machine_archive_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04",
+    "manifest_path":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\99_System\\migration\\my-data-legacy-to-world-machine\\2026-06-04_manifest.json",
+    "move_items":  [
+                       {
+                           "item":  "00_Dashboard",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\00_Dashboard",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  13,
+                                           "bytes":  19592
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "02_Strategy_Development",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\02_Strategy_Development",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\02_Strategy_Development",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  1,
+                                           "bytes":  5359
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "03_Research_Areas",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\03_Research_Areas",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\03_Research_Areas",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  32,
+                                           "bytes":  37400
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "03_Templates",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\03_Templates",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\03_Templates",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  22,
+                                           "bytes":  20585
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "04_News",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_News",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\04_News",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  2,
+                                           "bytes":  37134
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "04_Reference",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\04_Reference",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  21,
+                                           "bytes":  168363
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "14_Review_and_Research",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\14_Review_and_Research",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\14_Review_and_Research",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  4345,
+                                           "bytes":  132713217
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "16_Agents",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\16_Agents",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\16_Agents",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  67,
+                                           "bytes":  84502
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "500-archive",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\500-archive",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\500-archive",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  58,
+                                           "bytes":  631648
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "90_System",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\90_System",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\90_System",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  5,
+                                           "bytes":  1011991
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "Reports",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\Reports",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\Reports",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  202,
+                                           "bytes":  1904976
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "docs",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\docs",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\docs",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "dir",
+                                           "files":  6,
+                                           "bytes":  71055
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       },
+                       {
+                           "item":  "Untitled.base",
+                           "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\Untitled.base",
+                           "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\Untitled.base",
+                           "exists":  true,
+                           "destination_exists":  false,
+                           "summary":  {
+                                           "exists":  true,
+                                           "type":  "file",
+                                           "files":  1,
+                                           "bytes":  0,
+                                           "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                       },
+                           "action":  "copy_verify_then_remove_source"
+                       }
+                   ],
+    "blocked_live_items":  [
+                               "01_Data_Sources",
+                               "05_Data_Pulls",
+                               "06_Signals",
+                               "12_Knowledge_Bases",
+                               "99_System",
+                               "_state",
+                               "_cache",
+                               "scripts",
+                               "00_Cockpit",
+                               "10_Theses",
+                               "20_Entities",
+                               "30_Sources",
+                               "40_Decisions",
+                               "90_Reference",
+                               "AGENTS.md",
+                               "AGENT_RUNBOOK.md",
+                               "CLAUDE.md",
+                               "FRESHNESS_POLICY.md",
+                               "README.md",
+                               ".env"
+                           ],
+    "results":  [
+                    {
+                        "item":  "00_Dashboard",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\00_Dashboard"
+                    },
+                    {
+                        "item":  "02_Strategy_Development",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\02_Strategy_Development"
+                    },
+                    {
+                        "item":  "03_Research_Areas",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\03_Research_Areas"
+                    },
+                    {
+                        "item":  "03_Templates",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\03_Templates"
+                    },
+                    {
+                        "item":  "04_News",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\04_News"
+                    },
+                    {
+                        "item":  "04_Reference",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\04_Reference"
+                    },
+                    {
+                        "item":  "14_Review_and_Research",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\14_Review_and_Research"
+                    },
+                    {
+                        "item":  "16_Agents",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\16_Agents"
+                    },
+                    {
+                        "item":  "500-archive",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\500-archive"
+                    },
+                    {
+                        "item":  "90_System",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\90_System"
+                    },
+                    {
+                        "item":  "Reports",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\Reports"
+                    },
+                    {
+                        "item":  "docs",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\docs"
+                    },
+                    {
+                        "item":  "Untitled.base",
+                        "action":  "moved",
+                        "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\Untitled.base"
+                    }
+                ]
+}

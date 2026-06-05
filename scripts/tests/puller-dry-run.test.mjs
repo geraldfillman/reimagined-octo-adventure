@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { shouldWriteArtifacts as shouldWriteClinicalTrialsArtifacts } from '../pullers/clinicaltrials.mjs';
 import { shouldWriteArtifacts as shouldWriteFdaArtifacts } from '../pullers/fda.mjs';
 import { shouldWriteArtifacts as shouldWriteOpenFemaArtifacts } from '../pullers/openfema.mjs';
+import { shouldWriteArtifacts as shouldWriteApiDataGovArtifacts } from '../pullers/api-data-gov.mjs';
+import { shouldWriteArtifacts as shouldWriteFinraArtifacts } from '../pullers/finra-positioning.mjs';
 
 function runTest(name, fn) {
   try {
@@ -28,4 +30,14 @@ runTest('fda dry-run suppresses artifact writes', () => {
 runTest('openfema dry-run suppresses artifact writes', () => {
   assert.equal(shouldWriteOpenFemaArtifacts({ 'dry-run': true }), false);
   assert.equal(shouldWriteOpenFemaArtifacts({}), true);
+});
+
+runTest('api.data.gov dry-run suppresses artifact writes', () => {
+  assert.equal(shouldWriteApiDataGovArtifacts({ 'dry-run': true }), false);
+  assert.equal(shouldWriteApiDataGovArtifacts({}), true);
+});
+
+runTest('FINRA dry-run suppresses artifact writes', () => {
+  assert.equal(shouldWriteFinraArtifacts({ 'dry-run': true }), false);
+  assert.equal(shouldWriteFinraArtifacts({}), true);
 });

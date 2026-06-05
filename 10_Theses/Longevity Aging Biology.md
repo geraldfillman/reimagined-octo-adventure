@@ -30,38 +30,36 @@ fmp_watchlist_symbols: ["UNTY", "XOMA"]
 fmp_watchlist_symbol_count: 2
 fmp_primary_symbol: "UNTY"
 fmp_technical_symbol_count: 2
-fmp_technical_nonclear_count: 1
+fmp_technical_nonclear_count: 0
 fmp_technical_bearish_count: 0
-fmp_technical_overbought_count: 1
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "clear"
 fmp_primary_technical_bias: "mixed"
 fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 45.29
-fmp_primary_price_vs_sma200_pct: 1.67
+fmp_primary_rsi14: 47.73
+fmp_primary_price_vs_sma200_pct: 2.26
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 524089995
-fmp_primary_trailing_pe: 8.62
-fmp_primary_price_to_sales: 2.48
-fmp_primary_price_to_book: 1.46
-fmp_primary_ev_to_sales: 2.62
-fmp_primary_ev_to_ebitda: 6.89
+fmp_primary_market_cap: 548032431
+fmp_primary_trailing_pe: 9.01
+fmp_primary_price_to_sales: 2.6
+fmp_primary_price_to_book: 1.53
+fmp_primary_ev_to_sales: 2.74
+fmp_primary_ev_to_ebitda: 7.19
 fmp_primary_roe_pct: 17.87
 fmp_primary_roic_pct: 9.41
 fmp_primary_operating_margin_pct: 38.08
 fmp_primary_net_margin_pct: 28.73
 fmp_primary_current_ratio: 0.15
 fmp_primary_debt_to_equity: 0.72
-fmp_primary_price_target: 63
-fmp_primary_analyst_count: 2
-fmp_primary_target_upside_pct: 20.7
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 2
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-05-12"
-fmp_next_earnings_symbols: ["XOMA"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_price_target: 64.67
+fmp_primary_analyst_count: 3
+fmp_primary_target_upside_pct: 18.49
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-05-13"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "longevity", "aging", "biotech", "pre-commercial", "venture"]
 ---
 
@@ -166,6 +164,7 @@ WHERE contains(string(tags), "longevity") OR contains(string(tags), "aging") OR 
 SORT date DESC
 LIMIT 5
 ```
+
 
 
 

@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260511153001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name preclose -TaskLabel My_Data - Preclose Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 35024
+PSVersion: 5.1.26100.8115
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8115
+BuildVersion: 10.0.26100.8115
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Preclose Cadence
+[started] 2026-05-11T15:30:01.0090872-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run preclose
+
+    SKEW Latest: 05/08/2026 = 138.21
+  No signals — all clear.
+  �� KB raw copy → 12_Knowledge_Bases/raw/datasets/2026-05-11_CBOE_SKEW_Index.md
+  Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Market\2026-05-11_CBOE_SKEW_Index.md
+
+  [ok] wrote=1 skipped=0 (0.4s)
+
+[run] yfinance-vol
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Vol\2026-05-11_yfinance_vol_1d.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Vol\2026-05-11_yfinance_vol_1d.json
+  [ok] wrote=0 skipped=0 (13.2s)
+
+[run] research-spine-flow  --documents=preclose-monitoring
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\02_Reports\Monitoring\Preclose\2026-05-11 Preclose
+Monitoring Snapshot.md
+Inbox: wrote 1 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\04_Human_Notes\Inb
+ox.md
+  [ok] wrote=0 skipped=0 (2.5s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\99_System\run_summaries\2026-05-11_15-30.md
+
+[done] 5/5 ok in 23.0s
+
+[done] Done in 23.0s
+
+[finished] 2026-05-11T15:30:24.0331558-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260511153024
+**********************

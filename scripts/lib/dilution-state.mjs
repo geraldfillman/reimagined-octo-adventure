@@ -13,9 +13,9 @@
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, renameSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { getVaultRoot } from './config.mjs';
+import { getEngineCacheDir } from './config.mjs';
 
-const STATE_DIR  = () => join(getVaultRoot(), 'scripts', '.cache');
+const STATE_DIR = () => getEngineCacheDir();
 const STATE_PATH = () => join(STATE_DIR(), 'dilution-state.json');
 
 /**

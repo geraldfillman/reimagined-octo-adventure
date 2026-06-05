@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { getPullsDir, getSignalsDir, getVaultRoot } from './config.mjs';
+import { getPullsDir, getSignalsDir, getThesesDir } from './config.mjs';
 import { parseFrontmatter } from './history.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from './markdown.mjs';
 
@@ -10,10 +10,15 @@ const PRIORITY_ORDER = Object.freeze(['watch', 'medium', 'high']);
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const ROUTING_SIGNAL_RE = /^\d{4}-\d{2}-\d{2}_(CONFIRM|CONTRADICT)_.+\.md$/i;
 
-function stripWikiLink(value) {
-  return String(value || '')
+export function stripWikiLink(value) {
+  const rawValue = Array.isArray(value) ? value[0] : value;
+  return String(rawValue || '')
+    .trim()
     .replace(/^\[\[/, '')
     .replace(/\]\]$/, '')
+    .replace(/^\[/, '')
+    .replace(/\]$/, '')
+    .split('|')[0]
     .trim();
 }
 
@@ -45,7 +50,7 @@ function suggestionStep(order, currentValue) {
 }
 
 function loadThesisState() {
-  const thesesDir = join(getVaultRoot(), '10_Theses');
+  const thesesDir = getThesesDir();
   if (!existsSync(thesesDir)) return new Map();
 
   const entries = new Map();

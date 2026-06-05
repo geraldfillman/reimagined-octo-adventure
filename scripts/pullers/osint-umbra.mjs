@@ -1,5 +1,5 @@
-/**
- * osint-umbra.mjs — Umbra Space SAR open data catalog monitor (Bellingcat)
+﻿/**
+ * osint-umbra.mjs â€” Umbra Space SAR open data catalog monitor (Bellingcat)
  *
  * Usage:
  *   node run.mjs scan osint-umbra --region "25.0,56.0,27.0,58.0"
@@ -21,13 +21,12 @@
 
 import { spawnSync, execSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 // Named region shortcuts
 const NAMED_REGIONS = {
@@ -66,7 +65,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `umbra-${safeLabel}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🛰️  Umbra SAR open data tracker: ${regionLabel}`);
+  console.log(`\nðŸ›°ï¸  Umbra SAR open data tracker: ${regionLabel}`);
   console.log(`   Bounds: lat [${latMin}, ${latMax}], lon [${lonMin}, ${lonMax}]`);
   console.log(`   Output: ${outputFile}`);
 
@@ -82,7 +81,7 @@ export async function pull(flags = {}) {
   const hasTracker = existsSync(trackerScript);
 
   if (!hasTracker) {
-    console.warn('⚠️  umbra-open-data-tracker not found at scripts/vendor/umbra-open-data-tracker/');
+    console.warn('âš ï¸  umbra-open-data-tracker not found at scripts/vendor/umbra-open-data-tracker/');
     console.warn('   Clone with:');
     console.warn('   git clone https://github.com/bellingcat/umbra-open-data-tracker scripts/vendor/umbra-open-data-tracker');
     // Still write a stub output so the scan is recorded
@@ -107,7 +106,7 @@ export async function pull(flags = {}) {
   );
 
   if (result.error) {
-    console.error(`❌ Umbra tracker error: ${result.error.message}`);
+    console.error(`âŒ Umbra tracker error: ${result.error.message}`);
     process.exit(1);
   }
 
@@ -133,16 +132,17 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'umbra-sar', target: regionLabel, targetType: 'coordinates', resultCount: images.length, alertCount: images.length > 0 ? 1 : 0, outputFile, today, tags: ['satellite', 'sar', 'geospatial'] });
 
-  console.log(`\n✅ Umbra scan complete:`);
+  console.log(`\nâœ… Umbra scan complete:`);
   console.log(`   New SAR images: ${images.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   if (images.length > 0) {
     console.log('\n   Recent imagery:');
     images.slice(0, 5).forEach(img =>
-      console.log(`   → ${img.id ?? img.title ?? img.description ?? JSON.stringify(img).slice(0, 80)}`)
+      console.log(`   â†’ ${img.id ?? img.title ?? img.description ?? JSON.stringify(img).slice(0, 80)}`)
     );
   }
 
   return output;
 }
+

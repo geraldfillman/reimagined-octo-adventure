@@ -61,7 +61,10 @@ const SERIES_GROUPS = {
       { id: 'CPIAUCSL', name: 'CPI All Items', unit: 'Index', frequency: 'Monthly' },
       { id: 'CPILFESL', name: 'Core CPI (ex Food & Energy)', unit: 'Index', frequency: 'Monthly' },
       { id: 'PCEPI', name: 'PCE Price Index', unit: 'Index', frequency: 'Monthly' },
+      { id: 'PCEPILFE', name: 'Core PCE (ex Food & Energy)', unit: 'Index', frequency: 'Monthly' },
+      { id: 'T5YIE', name: '5-Year Breakeven Inflation', unit: 'Percent', frequency: 'Daily' },
       { id: 'T10YIE', name: '10-Year Breakeven Inflation', unit: 'Percent', frequency: 'Daily' },
+      { id: 'T5YIFR', name: '5-Year, 5-Year Forward Inflation Expectation', unit: 'Percent', frequency: 'Daily' },
     ],
   },
   rates: {
@@ -70,10 +73,14 @@ const SERIES_GROUPS = {
     question: "What's the rate regime and curve shape?",
     series: [
       { id: 'DFF', name: 'Federal Funds Rate', unit: 'Percent', frequency: 'Daily' },
+      { id: 'IORB', name: 'Interest on Reserve Balances', unit: 'Percent', frequency: 'Daily' },
+      { id: 'SOFR', name: 'Secured Overnight Financing Rate', unit: 'Percent', frequency: 'Daily' },
+      { id: 'DGS3MO', name: '3-Month Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'DGS2', name: '2-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'DGS10', name: '10-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'DGS30', name: '30-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'T10Y2Y', name: '10Y-2Y Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'T10Y3M', name: '10Y-3M Spread', unit: 'Percent', frequency: 'Daily' },
     ],
   },
   credit: {
@@ -84,6 +91,10 @@ const SERIES_GROUPS = {
       { id: 'DRTSCILM', name: 'Loan Officer Survey (C&I Tightening)', unit: 'Percent', frequency: 'Quarterly' },
       { id: 'BUSLOANS', name: 'Commercial & Industrial Loans', unit: 'Billions', frequency: 'Weekly' },
       { id: 'TOTCI', name: 'Total Consumer Credit', unit: 'Billions', frequency: 'Monthly' },
+      { id: 'BAMLC0A0CM', name: 'ICE BofA US Corporate IG Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'NFCI', name: 'Chicago Fed National Financial Conditions Index', unit: 'Index', frequency: 'Weekly' },
+      { id: 'ANFCI', name: 'NFCI Adjusted (controls for econ conditions)', unit: 'Index', frequency: 'Weekly' },
+      { id: 'STLFSI4', name: 'St. Louis Fed Financial Stress Index', unit: 'Index', frequency: 'Weekly' },
     ],
   },
   liquidity: {
@@ -93,6 +104,7 @@ const SERIES_GROUPS = {
     series: [
       { id: 'WALCL', name: 'Fed Total Assets (Balance Sheet)', unit: 'Millions', frequency: 'Weekly' },
       { id: 'RRPONTSYD', name: 'Overnight Reverse Repo', unit: 'Billions', frequency: 'Daily' },
+      { id: 'WTREGEN', name: 'Treasury General Account (TGA)', unit: 'Millions', frequency: 'Weekly' },
       { id: 'BAMLH0A0HYM2', name: 'ICE BofA US High Yield Spread', unit: 'Percent', frequency: 'Daily' },
       { id: 'BAMLC0A4CBBB', name: 'ICE BofA BBB Corporate Spread', unit: 'Percent', frequency: 'Daily' },
       { id: 'WRESBAL', name: 'Reserve Balances with Fed Banks', unit: 'Millions', frequency: 'Weekly' },

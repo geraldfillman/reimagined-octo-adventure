@@ -117,7 +117,7 @@ async function analyzeSymbol({ symbol, assetType, agentNames, flags, relatedThes
   };
 
   const agentSignals = await runAgentsInParallel(state, agentNames);
-  const deterministic = synthesizeDeterministic(agentSignals);
+  const deterministic = synthesizeDeterministic(agentSignals, { symbol });
   const synthesis = await resolveSynthesis({ state, agentSignals, deterministic });
   const signals = buildSignalNames(agentSignals);
   const note = buildAgentAnalysisNote({ state, agentSignals, synthesis, signals, agentNames });

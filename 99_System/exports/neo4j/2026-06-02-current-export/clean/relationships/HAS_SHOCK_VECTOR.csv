@@ -1,0 +1,5 @@
+:START_ID,:END_ID,:TYPE
+scenario:2026-leverage-oil-fed-policy-fragility,shock-vector:margin-debt-stress,HAS_SHOCK_VECTOR
+scenario:2026-leverage-oil-fed-policy-fragility,shock-vector:bond-market-uncertainty,HAS_SHOCK_VECTOR
+scenario:2026-leverage-oil-fed-policy-fragility,shock-vector:iran-hormuz-oil-shock,HAS_SHOCK_VECTOR
+scenario:2026-leverage-oil-fed-policy-fragility,shock-vector:fed-reaction-function-risk,HAS_SHOCK_VECTOR

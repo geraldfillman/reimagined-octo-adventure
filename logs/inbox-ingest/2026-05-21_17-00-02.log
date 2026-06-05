@@ -1,0 +1,11 @@
+[inbox-ingest] Starting at 2026-05-21_17-00-02
+Wrote World_Machine bridge manifest: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\.cache\world-machine-bridge\2026-05-21.json
+World Machine flow (2026-05-21)
+  Manifest: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\.cache\world-machine-bridge\2026-05-21.json
+  World root: C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine
+  Packets: 0
+  Approved packets: 0
+  Approved-only mode: write 0 World_Machine inbox candidate(s).
+
+[done] Done in 1.1s
+[inbox-ingest] Finished with exit code 0 at 17:00:03

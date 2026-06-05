@@ -15,11 +15,20 @@ expected_downside: "Binary trial and regulatory risk remain very high."
 position_sizing: "Optional 0.25-1% sleeve only."
 required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
 required_pull_families: ["clinicaltrials --psychedelics", "pubmed --psychedelics", "fda --recent-approvals", "newsapi --topic business"]
-monitor_status: "on-track"
+monitor_status: "strengthening"
 monitor_last_review: "2026-03-27"
-monitor_change: "Initial monitor baseline established."
+monitor_change: "Machine update: rolling conviction +32 across 8 signal(s); Suggest high conviction and medium priority. Source [[2026-05-07_Conviction_Delta]]."
 break_risk_status: "not-seen"
 monitor_action: "Keep small and review only when a catalyst or signal meaningfully changes."
+
+
+
+
+suggested_allocation_priority: "medium"
+suggested_conviction: "high"
+conviction_last_signal_date: "2026-05-07"
+conviction_signal_count_7d: 8
+conviction_rolling_score_7d: 32
 core_entities: ["[[PSIL]]", "[[ATAI]]", "[[DFTX]]", "[[CMPS]]", "[[ALKS]]", "[[GHRS]]", "[[HELP]]", "[[NBIX]]", "[[JNJ]]", "[[ABBV]]", "[[Healthcare]]", "[[USA]]"]
 supporting_regimes: ["[[Rate Cut Cycle]]", "[[Risk-On]]"]
 key_indicators: ["[[Fed Funds Rate]]", "[[VIX]]"]
@@ -31,23 +40,21 @@ fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "PSIL"
 fmp_technical_symbol_count: 10
 fmp_technical_nonclear_count: 3
-fmp_technical_bearish_count: 4
-fmp_technical_overbought_count: 0
+fmp_technical_bearish_count: 2
+fmp_technical_overbought_count: 1
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "clear"
 fmp_primary_technical_bias: "bullish"
 fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 58.37
-fmp_primary_price_vs_sma200_pct: 8.35
+fmp_primary_rsi14: 55.66
+fmp_primary_price_vs_sma200_pct: 11.02
 fmp_primary_fundamentals_status: "partial"
-fmp_primary_market_cap: 19528257
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 8
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-05-05"
-fmp_next_earnings_symbols: ["ALKS", "NBIX"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 21400337
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 3
+fmp_calendar_pull_date: "2026-05-14"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "biotech", "psychedelics"]
 ---
 
@@ -167,6 +174,8 @@ WHERE contains(string(tags), "ATAI") OR contains(string(tags), "biotech") OR con
 SORT date DESC
 LIMIT 5
 ```
+
+
 
 
 

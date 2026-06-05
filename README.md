@@ -1,139 +1,224 @@
-# My_Data
+﻿# My_Data
 
-High-level overview and current status for the My_Data investment research vault.
+`My_Data` is the execution engine and active report/research vault for an Obsidian-based investment research system. It runs the pullers, signal logic, thesis monitoring, data freshness tracking, dashboards, generated reports, research review surfaces, KB routing, and validation that support the broader research workflow.
 
-This vault is an Obsidian-based research engine for housing, biotech, defense, energy, macro, and cross-domain thesis work. It combines structured notes, automated data pulls, signal detection, dashboards, graph analysis, OSINT scanning, company risk monitoring, and thesis tracking into a single operating environment. Learning content lives in the separate `Dr_Magnifico` vault, KB content lives in the separate `Oy` vault, and FMP Premium is the active financial-data backbone.
+`World_Machine` is now intentionally narrow: it keeps the living Market Positioning Ledger and approved packet-writer surface only. `The Research Spine` is retained as a soft archive for historical reports and links.
 
-## Current State
+Scheduled automation is intentionally narrow: it may run My_Data report/update generation and local analysis synthesis from existing evidence. World_Machine scheduled work is limited to approved packet-writer jobs; `bridge ingest-world-inbox` stays manual with dry-run first. Raw source acquisition pullers such as FMP, FRED, GDELT, CBOE, Treasury, SEC, NewsAPI, arXiv, PubMed, ClinicalTrials, and sector or company scans are manual unless explicitly run by the user.
 
-- `8` MOC files provide the top-level navigation layer (7 domain MOCs + `moc-company-risk`).
-- `16` dashboards provide the main operator surfaces, including Company Risk and OSINT panels.
-- `19` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
-- `21` active thesis notes are tracked in `10_Theses/`.
-- `35` active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
-- `10` KB scripts live in `scripts/kb/` — the intake-to-wiki pipeline.
-- `88` active source definitions across 17 categories in `01_Data_Sources/`.
-- Daily routine is split into daily and weekly cadences via `daily-routine.ps1`.
-- Validation, cleanup, retention, and scorecard maintenance are all wired into the CLI.
+## What This Vault Does
 
-## Completed So Far
+- Pulls market, macro, government, science, news, OSINT, and company-risk evidence.
+- Writes immutable pull notes to `05_Data_Pulls/`.
+- Creates discrete signal notes in `06_Signals/`.
+- Maintains thesis, catalyst, full-picture, and conviction monitoring.
+- Produces canonical strategy, thesis, and market-cycle signal intelligence.
+- Routes clean reporting, update, and research-review output into `My_Data`.
+- Mirrors pull notes into KB raw folders for later wiki compilation.
+- Validates frontmatter contracts and folder conventions.
 
-- Built the vault structure, schema system, templates, MOCs, dashboards, and CLI pull framework.
-- Implemented the thesis-driven signal system with pull notes, signal notes, and Dataview aggregation.
-- Brought `sector-scan` live with sector evidence collection, thesis routing, signal writing, emerging-pattern stubs, and bridge-note support.
-- Added `conviction-delta` plus signal-aware thesis scorecard updates to support rolling conviction and allocation suggestions.
-- Recalibrated sector routing to cut broad false positives, exclude bridge theses from active routing, and reduce default stub churn.
-- Added sector-specific SEC snapshot handling so sector evidence stays stable and reviewable.
-- Retired the local Qlib/quant layer; it can be reinstalled later only if a concrete use case returns.
-- Integrated InfraNodus graph-session generation for structural analysis across notes and folders.
-- Upgraded the active financial-data workflow to FMP Premium.
-- Added `fmp --quote`, `fmp --technical`, `fmp --earnings-calendar`, and `fmp --thesis-watchlists`.
-- Added thesis-level `thesis-fmp-sync` to project FMP tape and catalyst data into thesis frontmatter.
-- Added `thesis-catalysts` plus the Catalyst Radar dashboard for symbol-level catalyst review.
-- Added `thesis-full-picture` plus the Full Picture Reports dashboard for one-note structural + tactical synthesis.
-- Added `macro-bridges` to normalize Debt/GDP, DXY proxy, Defense Budget proxy, Gold, and Bitcoin into a shared bridge note.
-- Added operator dashboard (`node run.mjs dashboard`) with Signal Board, Thesis Status, Pull Health, Technical Risk, Earnings Calendar, and live Data Collection panels.
-- Added OSINT intelligence layer: 21 source notes in `01_Data_Sources/OSINT/`, 11 `scan osint-*` CLI commands, outputs to `05_Data_Pulls/osint/`.
-- Built Company Risk system in `12_Company_Risk/`: Companies, Events, Patterns, Entities, Transactions subfolders; 5 templates; 2 dashboards; `company-risk-scan` puller.
-- Built KB subsystem in `12_Knowledge_Bases/`: 10-script pipeline (`kb ingest → normalize → classify → compile → query`) plus `kb librarian`, `kb health`, `kb suggest`, `kb transcribe`, `kb dispatch`.
-- Restructured `daily-routine.ps1` into daily + weekly cadences. Daily covers macro/market, SEC thesis, FMP watchlists, sector-scan, and company-risk. Weekly (`-IncludeWeekly`) adds FEMA, USASpending, FDA, clinical trials, USPTO, arXiv, PubMed, NewsAPI, and full company-risk score updates.
-- Added Reddit and Telegram social scanners wired into the CLI pull system.
-- Wired KB raw mirroring into the pull system via `scripts/lib/kb-bridge.mjs`. Every pull note written to `05_Data_Pulls/` is automatically mirrored to `12_Knowledge_Bases/raw/{kind}/` (Macro→datasets, Government→articles, Science→papers, etc.). `kb compile` deletes the raw copy after the wiki page is written.
+## Current Core Commands
 
-## Project Structure
+Run commands from `scripts/`:
 
-```text
-000-moc/              8 Master of Content navigation files — start here
-00_Dashboard/         16 primary Dataview dashboards — main operator surfaces
-01_Data_Sources/      88 active source definitions across 17 categories (including OSINT/)
-03_Templates/         19 canonical note templates
-04_Reference/         Schema docs, pull guides, graph conventions, source overview boards
-05_Data_Pulls/        Timestamped pull notes from API pullers and synthesis workflows
-06_Signals/           Discrete signal event notes
-07_Playbooks/         Operating playbooks and Graph Sessions subfolder
-08_Entities/          Stocks, sectors, countries, commodities, ETFs, currencies
-09_Macro/             Macro indicators (17) and regime notes (9)
-10_Theses/            21 active investment theses and bridge notes
-11_Learning/          Moved to Dr_Magnifico; scripts still route there through LEARNING_VAULT_ROOT
-12_Company_Risk/      Company Risk Intelligence — Companies, Events, Patterns, Entities, Transactions
-12_Knowledge_Bases/   Moved to Oy; KB scripts still run from this vault through KB_VAULT_ROOT
-500-archive/          Retired or deprioritized material — do not link from active notes
-scripts/              CLI pullers, KB scripts, maintenance, validation, and helpers
+```powershell
+cd "C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts"
 ```
 
-## What Works Today
+| Task | Command |
+|---|---|
+| Show CLI help | `node run.mjs help` |
+| Validate vault schemas | `node run.mjs system validate` |
+| Check data readiness preflight | `node run.mjs system readiness --cadence <daily|premarket|midday|preclose|eod>` |
+| Run manual full daily pull cadence | `node run.mjs routine daily` |
+| Dry-run manual full daily pull cadence | `node run.mjs routine daily --dry-run --skip-validate` |
+| List configured cadences | `node run.mjs cadence list` |
+| Dry-run scheduled review/analysis cadence | `node run.mjs cadence run premarket --dry-run` |
+| Dry-run Windows review/analysis tasks | `.\install-data-freshness-tasks.ps1 -DryRun` |
+| Register Windows review/analysis tasks | `.\install-data-freshness-tasks.ps1` |
+| Run canonical signal layer | `node run.mjs pull signal-intelligence --scope all` |
+| Dry-run Neo4j BOD/EOD metric snapshots | `node run.mjs pull neo4j-fmp-metric-snapshots --cadence eod --tickers AAPL,MSFT,NVDA --dry-run --json` |
+| Run portfolio health scan | `node run.mjs pull portfolio-health --file "C:\path\to\positions.csv"` |
+| Run positioning checklist synthesis | `node run.mjs pull positioning-checklist --preset workbook-core --dry-run --json` |
+| Generate My_Data reports | `node run.mjs pull my-data-report-flow --all` |
+| Compatibility report alias | `node run.mjs pull research-spine-flow --all` |
+| Run My_Data report/update bridge | `node run.mjs bridge my-data-report-pull --dry-run` |
+| Consolidate old World_Machine content | `node run.mjs bridge consolidate-world-machine --dry-run` |
+| Audit Research Spine without writes | `node run.mjs system audit-research-spine --dry-run --no-inbox` |
+| Generate dashboard manifest | `node run.mjs system dashboard-manifest generate --dry-run` |
+| Update market-cycle status | `node run.mjs pull market-cycle-monitor` |
+| Run streamline report | `node run.mjs pull streamline-report` |
+| Run FMP thesis watchlists | `node run.mjs pull fmp --thesis-watchlists` |
+| Run manual forensic risk screen | `node run.mjs pull forensic-risk --symbols AAPL,MSFT --dry-run` |
+| Export Neo4j blind-spot graph package | `node run.mjs pull neo4j-blind-spot-graph --dry-run --json` |
+| Run FMP cancellation archive dry-run | `node run.mjs pull fmp-harvest --stage all --scope hybrid --dry-run --json` |
+| Run FMP historical price bulk archive | `node run.mjs pull fmp-harvest --stage prices-bulk --from 2020-06-01 --to 2026-06-01 --resume` |
+| Run api.data.gov agency starter pulls | `node run.mjs pull api-data-gov --agency all --dry-run` |
+| Run event scenario research | `node run.mjs pull event-research --scenario fertilizer-shortage --dry-run --handoff-limit 12` |
+| Dry-run manual World_Machine inbox archive processor | `node run.mjs bridge ingest-world-inbox --dry-run` |
+| Rebuild an inbox batch synthesis from archive | `node run.mjs bridge ingest-world-inbox --from-archive --date YYYY-MM-DD --update-existing` |
+| Import inbox ingestion batch into Neo4j | `node run.mjs pull neo4j-inbox-ingestion --date YYYY-MM-DD --dry-run --json` |
+| Run registry FMP screeners | `node run.mjs pull fmp-screener-batch --preset all --dry-run` |
+| Run Semantic Scholar research pull | `node run.mjs pull semantic-scholar --query "market liquidity funding" --top-cited` |
+| Build thesis full picture | `node run.mjs thesis full-picture` |
+| Run sector scan | `node run.mjs scan sectors` |
+| Run company-risk watchlist | `node run.mjs scan company-risk --watchlist` |
 
-- `node scripts/run.mjs status`
-  Verifies configured providers and environment readiness.
-- `node scripts/run.mjs validate`
-  Validates frontmatter contracts and vault health.
-- `node scripts/run.mjs dashboard`
-  Live operator dashboard: signal board, thesis status, pull health, technicals, earnings, data collection.
-- `powershell scripts/daily-routine.ps1`
-  Runs the main automated pull-and-review pipeline (daily cadence).
-- `powershell scripts/daily-routine.ps1 -IncludeWeekly`
-  Adds weekly sources: FDA, clinical trials, USPTO, arXiv, PubMed, NewsAPI, full company-risk updates.
-- `node scripts/run.mjs sector-scan`
-  Pulls sector evidence, routes findings into theses, writes confirms/contradicts.
-- `node scripts/run.mjs conviction-delta`
-  Builds rolling thesis conviction summaries from sector-scan signals.
-- `powershell scripts/update-thesis-scorecards.ps1 -ApplySignals`
-  Applies machine-managed thesis monitoring and suggestion fields.
-- `node scripts/run.mjs fmp --quote SPY`
-  Pulls current market quote snapshots through FMP.
-- `node scripts/run.mjs fmp --technical SPY`
-  Builds technical state notes from FMP price history.
-- `node scripts/run.mjs fmp --earnings-calendar`
-  Pulls earnings calendar data for watchlist and catalyst workflows.
-- `node scripts/run.mjs fmp --thesis-watchlists`
-  Warms FMP fundamentals cache and generates thesis-basket coverage notes.
-- `node scripts/run.mjs thesis-fmp-sync`
-  Projects FMP tape and catalyst data into thesis frontmatter fields.
-- `node scripts/run.mjs thesis-catalysts`
-  Generates symbol-level catalyst notes; feeds Catalyst Radar dashboard.
-- `node scripts/run.mjs thesis-full-picture`
-  Synthesizes structural + tactical thesis summary; feeds Full Picture Reports dashboard.
-- `node scripts/run.mjs macro-bridges`
-  Normalizes Debt/GDP, DXY proxy, Defense Budget, Gold, and Bitcoin into a shared bridge note.
-- `node scripts/run.mjs scan osint-spiderfoot` (and other `scan osint-*` variants)
-  Runs passive OSINT scans; output to `05_Data_Pulls/osint/`.
-- `node scripts/run.mjs kb ingest`
-  Ingests raw source material into `12_Knowledge_Bases/raw/`.
-- `node scripts/run.mjs kb normalize / classify / compile / query`
-  Runs subsequent KB pipeline stages through to searchable wiki output.
-- `node scripts/run.mjs kb librarian / health / suggest / transcribe`
-  KB maintenance: lint, integrity checks, gap analysis, meeting extraction.
+## Data Readiness Preflight
 
-## Potential Next Steps
+Before generating any daily, premarket, preclose, EOD, monitoring, or briefing report, run from `scripts/`:
 
-- Evaluate a structured paid news source to improve company-specific and thesis-specific routing beyond generic headline pulls.
-- If FMP is later upgraded beyond Premium, add transcript workflows, ETF holdings, 13F ownership, and broader global comparison surfaces.
-- Build more formal portfolio-monitoring and capital-allocation automation on top of the conviction and signal layers.
-- Expand OSINT active-scan coverage and integrate scan outputs into thesis routing.
+```powershell
+node run.mjs system readiness --cadence <daily|premarket|midday|preclose|eod>
+```
 
-## Key Docs
+`READY` means report generation may proceed. `WARN` means proceed only where policy allows and carry the warning context into the output. `BLOCKED` means required inputs are stale or missing; stop until refreshed or the user explicitly approves an override.
 
-- `README.md`
-  Canonical high-level overview and current project status.
-- `CLAUDE.md`
-  Compatibility shim for Claude-style tooling. Defers to `AGENTS.md` as the canonical operating guide.
-- `AGENTS.md`
-  Canonical operating instructions and full project map for work inside the vault.
-- `04_Reference/Pull_System_Guide.md`
-  Pull-system command reference and routine workflow details.
-- `04_Reference/Vault_Schemas.md`
-  Frontmatter schemas and validation contracts.
-- `11_Learning/01_Domains/Deep Dive Resources.md`
-  Curated domain-balanced tracks (8 domains) for deeper study. Use only when triggered by retrieval failures, recurring nodes, or project depth needs — not as the daily default.
-- `11_Learning/01_Domains/Learning Agent Instructions.md`
-  V2 operating guide for the Adaptive Generalist System — 8-step Daily Engine, due-review-queue-first workflow, project scarcity rules, domain balance rule, and anti-drift instructions.
-- `11_Learning/00_Dashboard/Mastery_Dashboard.md`
-  Live learning dashboard — Due Today queue, Build Targets, Project Health (conflict alert), Domain Balance scoreboard, Graph Activity, Link Integrity.
-- `11_Learning/00_Dashboard/Link_Integrity_Report.md`
-  Broken link catalogue and project conflict log. Updated by `learning-link-audit.ps1`.
+Policy: `midday` may proceed on `WARN`; `daily`, `premarket`, and `eod` block on stale required inputs; `preclose` blocks only for required market/vol inputs and warns on stale supporting inputs. Do not use `--stale-ok` or `--allow-stale` without explicit user approval.
 
-## Notes
+## Review Queue Retirement
 
-- Pull notes are immutable snapshots. New data should be written as new notes, not by overwriting old pull notes.
-- Specialist sources like SEC, FRED, Treasury, USASpending, FDA, PubMed, and arXiv remain important source-of-truth systems even as FMP is the main financial-data backbone.
-- OSINT scan scripts require local tool installation (SpiderFoot, theHarvester, Amass, Recon-ng) or passive API keys — see each source note in `01_Data_Sources/OSINT/` for prerequisites.
+Generated review queues are retired. `my-data-report-flow`, `research-spine-flow`, `knowledge-gap-tasks`, and `ingest-world-inbox` must not create or update `My_Data/_Inbox/Review Queue.md` or `World_Machine/_Inbox/Review Queue.md`.
+
+Review candidates belong in reports, triage packets, JSON sidecars, dry-run output, or the active chat until the user approves a specific write. `--no-inbox` is compatibility language only.
+
+## Windows Scheduled Tasks
+
+From `scripts/`, install or refresh the review/analysis schedule:
+
+```powershell
+.\install-data-freshness-tasks.ps1 -DryRun
+.\install-data-freshness-tasks.ps1
+```
+
+Registered tasks run as the logged-in Windows user, require network availability, and write logs to `logs/scheduled-cadences/`.
+
+These tasks use `99_System/config/cadences.json`, which is restricted to local-evidence analysis and My_Data report output. They do not run raw source pullers. Run raw source pullers manually when you want fresh data.
+
+Live `node run.mjs cadence run <name>` calls readiness first. `BLOCKED` stops unless the user explicitly approves `--allow-stale`; `WARN` can proceed, with `midday` as the normal policy-allowed warning cadence.
+
+Neo4j metric snapshot BOD/EOD cadences are defined separately in `99_System/config/neo4j-metric-cadences.json`. They call Financial Modeling Prep and remain manual-only unless explicitly promoted later.
+
+Schedule:
+
+| Time | Task |
+|---|---|
+| Mon-Fri 07:00 | `node run.mjs cadence run premarket` - review/analysis only |
+| Mon-Fri 09:45 | `node run.mjs cadence run daily` - review/analysis only |
+| Mon-Fri 12:30 | `node run.mjs cadence run midday` - review/analysis only |
+| Mon-Fri 15:30 | `node run.mjs cadence run preclose` - review/analysis only |
+| Mon-Fri 16:30 | `node run.mjs cadence run eod` - review/analysis only |
+| Mon-Fri 16:55 | `node run.mjs system validate` |
+
+The former weekly deep refresh is retired from the scheduled installer. Use `node run.mjs routine weekly` manually when a broad source refresh is needed. `WM-Routine-S1..S6` also stay unregistered; the six-slot runner is manual/experimental until synthesis errors are repaired.
+
+World_Machine approved packet writing is installed separately through `install-inbox-ingest-tasks.ps1`, which runs `invoke-inbox-ingest.ps1` at 09:00, 12:00, and 17:00 as `My_Data - World Packet Writer 0900/1200/1700`. `node run.mjs bridge ingest-world-inbox` is a manual archive processor: dry-run first, then live only when processable inbox items exist and the user authorizes it. Use `node run.mjs bridge ingest-world-inbox --from-archive --date YYYY-MM-DD --update-existing` to rebuild the generated synthesis from archived inbox items without moving files again. When a generated batch includes a `Neo4j Transfer Block`, import it manually with `node run.mjs pull neo4j-inbox-ingestion --date YYYY-MM-DD --dry-run --json`; live mode writes only reviewable graph nodes and `CandidateLink` proposals.
+
+## Canonical Signal Intelligence
+
+The canonical signal layer is the current shared signal surface for strategies, theses, and market cycles.
+
+It writes:
+
+- `05_Data_Pulls/Signals/YYYY-MM-DD_Signal_Intelligence.md`
+- `12_Knowledge_Bases/raw/signals/YYYY-MM-DD_Signal_Intelligence.md`
+- `scripts/.cache/signal-intelligence/YYYY-MM-DD.json`
+
+It is designed to appear in daily monitoring and briefing reports, along with deeper-dive references from vault notes, research papers, and news/feed artifacts.
+
+Run:
+
+```powershell
+node run.mjs pull signal-intelligence --scope all
+```
+
+## Multi-Vault Architecture
+
+| Vault | Role |
+|---|---|
+| `My_Data` | Engine and report vault: scripts, sources, pulls, signals, theses, reports, research review surfaces, validation |
+| `World_Machine` | Narrow surface: `_Inbox` with the Market Positioning Ledger plus inbox ingestion; generated artifacts stay under `500-archive/` |
+| `The Research Spine` | Soft archive: historical briefings, monitoring snapshots, freshness notes, references, and review context |
+| `Dr_Magnifico` | Learning vault, routed by `LEARNING_VAULT_ROOT` |
+| `Oy` | Knowledge base vault, routed by `KB_VAULT_ROOT` |
+
+`REPORTS_VAULT_ROOT`, `WORLD_MACHINE_ROOT`, `RESEARCH_VAULT_ROOT`, `LEARNING_VAULT_ROOT`, and `KB_VAULT_ROOT` are configured through `.env`. Report output defaults to `My_Data`; use `REPORTS_VAULT_ROOT` for any report-root override. `REVIEW_VAULT_ROOT` is legacy compatibility language only. `WORLD_MACHINE_ROOT` is used only for the ledger, approved packet-writer, and manual inbox archive-processor exceptions.
+
+## Main Folders
+
+```text
+000-moc/              Navigation notes
+00_Dashboard/         Obsidian dashboards and operator boards
+01_Data_Sources/      Source definitions
+03_Templates/         Canonical note templates
+04_Reference/         Schemas, pull guides, graph conventions
+05_Data_Pulls/        Immutable generated pull notes
+06_Signals/           Discrete signal notes
+07_Playbooks/         Operating playbooks and graph sessions
+08_Entities/          Stocks, sectors, countries, commodities, ETFs, currencies
+09_Macro/             Macro indicators and regimes
+10_Theses/            Investment theses and thesis map
+12_Company_Risk/      Company risk intelligence system
+12_Knowledge_Bases/   KB raw mirror/routing area
+90_System/            Audits, command inventory, migration manifests
+500-archive/          Retired or deprioritized material
+scripts/              Automation and tests
+```
+
+## My_Data Report Output
+
+Generate the reporting layer with:
+
+```powershell
+node run.mjs pull my-data-report-flow --all
+```
+
+The compatibility command `node run.mjs pull research-spine-flow --all` still works, but new generated review output routes to `My_Data`. It should contain summaries, links, freshness notes, references, prompts, and review candidates inside reports or sidecars. It should not contain raw API dumps or generated review queues.
+
+## Fresh Chat Anchor
+
+For a new Codex chat, tell the agent to start in `C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts`, read `../AGENTS.md`, `../README.md`, `../AGENT_RUNBOOK.md`, and `../../World_Machine/AGENTS.md`, then verify live state before writing. The critical boundary is: My_Data executes; World_Machine reasons and owns the Market Positioning Ledger; generated review queues are retired; judgment items stay in reports, triage packets, sidecars, dry-runs, or chat until approved.
+
+World_Machine is limited to:
+
+- `_Inbox/Market Positioning Ledger.md`
+- `_Inbox/` and `500-archive/Inbox/`
+- `500-archive/Stale/`
+- `500-archive/Inbox/Event_Connections/`
+- `Reports/Inbox Reports/*Inbox Ingestion Batch*`
+
+## Agent-Neutral Phase D Ledger Bootstrap
+
+Phase D was completed on 2026-06-03 without API keys or provider-specific nested CLI calls. The reasoning artifacts were generated in chat and saved to `../World_Machine/Reports/Regime/2026-06-03-regime-card.*` and `../World_Machine/Reports/Regime/2026-06-03-thesis-draft.*`; the deterministic commit path then populated the World_Machine Market Positioning Ledger.
+
+From `My_Data`, use this only after the regime/thesis JSON artifacts have been reviewed and approved:
+
+```powershell
+node scripts/agents/regime-bootstrap.mjs --stage=commit
+```
+
+Phase 1 has started: the seeded ledger rows' Watchpoint cells now link to their matching Position blocks under the narrow World_Machine policy, and `node run.mjs pull market-positioning-outcomes` provides the agent-neutral outcome/calibration loop. Use `--dry-run --json` to generate a review packet and `--apply <approved-json>` to write approved labels back to the ledger plus `_state/calibration.json`, without API keys.
+
+## Validation
+Use this before calling schema-sensitive work complete:
+
+```powershell
+node run.mjs system validate
+```
+
+Focused tests commonly used for the signal/report layer:
+
+```powershell
+node --test scripts/tests/signal-intelligence.test.mjs
+node --test scripts/tests/report-context.test.mjs scripts/tests/market-cycle-monitor.test.mjs scripts/tests/confluence-scan.test.mjs
+```
+
+## Agent Docs
+
+- `AGENTS.md` is the canonical operating guide for agents.
+- `CLAUDE.md` is a compatibility shim for Claude-style tooling.
+- `README.md` is the operator-facing overview.
+
+If these files conflict, follow `AGENTS.md`.
+
+

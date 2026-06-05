@@ -27,7 +27,6 @@ export const MODULE_REGISTRY = Object.freeze([
   { id: 'pair-metrics',      puller: 'pair-metrics',       data_type: 'pair_metrics',       domain: 'Market',       agent_id: 'market' },
   { id: 'cash-flow-quality', puller: 'cash-flow-quality',  data_type: 'cfq_analysis',       domain: 'Fundamentals', agent_id: 'fundamentals' },
   { id: 'macro-volatility',  puller: 'macro-volatility',   data_type: 'macro_volatility',   domain: 'Macro',        agent_id: 'macro' },
-  { id: 'cot-report',        puller: 'cot-report',         data_type: 'cot_report',         domain: 'Macro',        agent_id: 'macro' },
   { id: 'cboe',              puller: 'cboe',               data_type: 'cboe_vix',           domain: 'Market',       agent_id: 'market' },
   { id: 'fred',              puller: 'fred',               data_type: 'fred_series',        domain: 'Macro',        agent_id: 'macro' },
   { id: 'confluence-scan',   puller: 'confluence-scan',    data_type: 'confluence_scan',    domain: 'Orchestrator', agent_id: 'orchestrator' },

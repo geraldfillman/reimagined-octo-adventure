@@ -1,5 +1,5 @@
 /**
- * options-review.mjs — Manual options checklist scaffold for review queue candidates.
+ * options-review.mjs — Manual options checklist scaffold for candidates under chat review.
  *
  * Reads the latest Streamline Report sidecar and generates a pre-filled checklist
  * for manual Fidelity/broker verification. No broker execution is generated.
@@ -67,6 +67,11 @@ export async function pull(flags = {}) {
 }
 
 function buildOptionsNote({ candidates, targetSymbol, reportDate }) {
+  const signals = Array.from(new Set(candidates.flatMap(item => {
+    const itemSignals = Array.isArray(item.signals) ? item.signals : [];
+    return [item.title, ...itemSignals].map(signal => String(signal ?? '').trim()).filter(Boolean);
+  }))).slice(0, 25);
+
   const checklistRows = candidates.map(item => [
     item.title,
     item.signal_status,
@@ -90,6 +95,8 @@ function buildOptionsNote({ candidates, targetSymbol, reportDate }) {
       report_date: reportDate ?? today(),
       domain: 'market',
       data_type: 'options_review',
+      frequency: 'on-demand',
+      signals,
       candidate_count: candidates.length,
       signal_status: candidates.some(i => ['alert', 'critical'].includes(i.signal_status)) ? 'watch' : 'clear',
       tags: ['options-review', 'manual-check', 'execution-quality'],

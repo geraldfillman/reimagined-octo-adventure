@@ -1,7 +1,7 @@
-/**
- * convergence-scan.mjs — Cross-domain convergence detector
+﻿/**
+ * convergence-scan.mjs â€” Cross-domain convergence detector
  *
- * Reads recent alert/critical pull notes and detects when ≥3 distinct domains
+ * Reads recent alert/critical pull notes and detects when â‰¥3 distinct domains
  * independently flag the same thesis or ticker. Writes a convergence signal
  * note to 06_Signals/ with severity "critical".
  *
@@ -12,13 +12,12 @@
  */
 
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join, resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join, relative } from 'path';
+import { getPullsDir, getSignalsDir } from '../lib/config.mjs';
+import { emitOutput } from '../lib/markdown.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT  = resolve(__dirname, '..', '..');
-const PULLS_DIR   = join(VAULT_ROOT, '05_Data_Pulls');
-const SIGNALS_DIR = join(VAULT_ROOT, '06_Signals');
+const PULLS_DIR = getPullsDir();
+const SIGNALS_DIR = getSignalsDir();
 
 const DEFAULT_DAYS        = 7;
 const DEFAULT_MIN_DOMAINS = 3;
@@ -56,10 +55,13 @@ function listMdFilesRecursive(dir) {
 }
 
 function domainFromPath(filePath) {
-  // e.g. 05_Data_Pulls/Market/foo.md → "Market"
-  const parts = filePath.replace(/\\/g, '/').split('05_Data_Pulls/');
-  if (parts.length < 2) return 'Unknown';
-  return parts[1].split('/')[0] ?? 'Unknown';
+  const rel = relative(PULLS_DIR, filePath).replace(/\\/g, '/');
+  if (rel.startsWith('..')) return 'Unknown';
+  return rel.split('/')[0] ?? 'Unknown';
+}
+
+function pullRelative(filePath) {
+  return relative(PULLS_DIR, filePath).replace(/\\/g, '/');
 }
 
 function toSlug(str) {
@@ -79,12 +81,12 @@ function writeConvergenceSignal({ key, keyType, domains, paths: pullPaths, today
 
   const sourcePulls = pullPaths
     .slice(0, 5)
-    .map(p => p.replace(/\\/g, '/').split('05_Data_Pulls/')[1] ?? p)
+    .map(pullRelative)
     .join(', ');
 
   const body = `---
 signal_id: "${signalId}"
-signal_name: "Cross-Domain Convergence — ${key}"
+signal_name: "Cross-Domain Convergence â€” ${key}"
 severity: "critical"
 signal_state: "new"
 date: "${today}"
@@ -97,7 +99,7 @@ direction: "confirm"
 suggested_action: "review"
 tags: ["signal", "convergence", "cross-domain", "${slug.toLowerCase()}"]
 ---
-## Cross-Domain Convergence — ${key}
+## Cross-Domain Convergence â€” ${key}
 
 **Domains:** ${domainList.join(', ')}
 **Domain count:** ${domainList.length} independent sources
@@ -109,7 +111,7 @@ ${domainList.map(d => `- **${d}** flagged \`${key}\` at alert or critical severi
 
 ## Why This Matters
 
-${domainList.length} independent agent domains have flagged the same ${keyType === 'thesis' ? 'thesis' : 'ticker'} within ${DEFAULT_DAYS} days. Cross-domain convergence is a strong confirming signal — each domain uses different data sources, reducing the probability this is noise.
+${domainList.length} independent agent domains have flagged the same ${keyType === 'thesis' ? 'thesis' : 'ticker'} within ${DEFAULT_DAYS} days. Cross-domain convergence is a strong confirming signal â€” each domain uses different data sources, reducing the probability this is noise.
 
 ## Suggested Action
 
@@ -117,7 +119,7 @@ Review the source pull notes listed below and consider escalating conviction or 
 
 ## Source Pulls
 
-${pullPaths.slice(0, 10).map(p => `- \`${p.replace(/\\/g, '/').split('05_Data_Pulls/')[1] ?? p}\``).join('\n')}
+${pullPaths.slice(0, 10).map(p => `- \`${pullRelative(p)}\``).join('\n')}
 `;
 
   if (dryRun) {
@@ -128,6 +130,7 @@ ${pullPaths.slice(0, 10).map(p => `- \`${p.replace(/\\/g, '/').split('05_Data_Pu
 
   if (!existsSync(SIGNALS_DIR)) mkdirSync(SIGNALS_DIR, { recursive: true });
   writeFileSync(filePath, body, 'utf-8');
+  emitOutput(filePath);
   return filePath;
 }
 
@@ -141,15 +144,15 @@ export async function pull(flags = {}) {
   cutoff.setDate(cutoff.getDate() - days);
   const cutoffStr = cutoff.toISOString().slice(0, 10);
 
-  console.log(`\n🔗 Convergence Scan`);
+  console.log(`\nðŸ”— Convergence Scan`);
   console.log(`   Window     : last ${days} days (since ${cutoffStr})`);
-  console.log(`   Threshold  : ≥${minDomains} distinct domains`);
+  console.log(`   Threshold  : â‰¥${minDomains} distinct domains`);
   console.log(`   Mode       : ${dryRun ? 'DRY RUN' : 'LIVE'}\n`);
 
   const pullFiles = listMdFilesRecursive(PULLS_DIR);
   console.log(`   Scanning ${pullFiles.length} pull notes...\n`);
 
-  // key → { domains: Set<string>, paths: string[] }
+  // key â†’ { domains: Set<string>, paths: string[] }
   const thesisMap = new Map();
   const tickerMap = new Map();
 
@@ -213,21 +216,22 @@ export async function pull(flags = {}) {
   for (const event of convergences) {
     const result = writeConvergenceSignal({ ...event, today, dryRun });
     if (result) {
-      console.log(`   ✓ Convergence signal: ${event.key} (${event.domains.size} domains)`);
+      console.log(`   âœ“ Convergence signal: ${event.key} (${event.domains.size} domains)`);
       written.push(result);
     }
   }
 
-  console.log(`\n📊 Summary`);
+  console.log(`\nðŸ“Š Summary`);
   console.log(`   Pull notes scanned  : ${scanned}`);
   console.log(`   Eligible (alert+)   : ${eligible}`);
   console.log(`   Convergences found  : ${convergences.length}`);
-  console.log(`   Signals written     : ${written.length}${dryRun ? ' (dry-run — none written)' : ''}`);
+  console.log(`   Signals written     : ${written.length}${dryRun ? ' (dry-run â€” none written)' : ''}`);
 
   if (convergences.length === 0) {
-    console.log(`\n   ℹ️  No convergence detected in the last ${days} days.`);
+    console.log(`\n   â„¹ï¸  No convergence detected in the last ${days} days.`);
     console.log(`      Try --days 14 or --min-domains 2 to widen the window.`);
   }
 
   return { convergences: convergences.length, written: written.length, dryRun };
 }
+

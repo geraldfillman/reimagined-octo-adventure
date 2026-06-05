@@ -1,0 +1,4 @@
+[regime] Stage 1: classify
+[regime] Found 19 fresh sources, 22 output paths.
+[regime] Invoking Regime Classifier via llm-router...
+[regime] LLM error: claude-code: Error: Claude Code cannot be launched inside another Claude Code session.

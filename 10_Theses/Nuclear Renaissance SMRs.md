@@ -31,37 +31,35 @@ fmp_watchlist_symbol_count: 6
 fmp_primary_symbol: "CEG"
 fmp_technical_symbol_count: 6
 fmp_technical_nonclear_count: 5
-fmp_technical_bearish_count: 5
+fmp_technical_bearish_count: 6
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "alert"
 fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 50.59
-fmp_primary_price_vs_sma200_pct: -9.21
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 36.12
+fmp_primary_price_vs_sma200_pct: -17.16
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 92750150790
-fmp_primary_trailing_pe: 40.09
-fmp_primary_price_to_sales: 3.63
-fmp_primary_price_to_book: 6.4
-fmp_primary_ev_to_sales: 3.84
-fmp_primary_ev_to_ebitda: 16.91
-fmp_primary_roe_pct: 16.78
-fmp_primary_roic_pct: 3.99
-fmp_primary_operating_margin_pct: 12.09
-fmp_primary_net_margin_pct: 9.08
-fmp_primary_current_ratio: 1.53
-fmp_primary_debt_to_equity: 0.62
-fmp_primary_price_target: 399.57
-fmp_primary_analyst_count: 14
-fmp_primary_target_upside_pct: 34.54
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 6
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-05-05"
-fmp_next_earnings_symbols: ["CCJ"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 106215161826
+fmp_primary_trailing_pe: 27.37
+fmp_primary_price_to_sales: 3.56
+fmp_primary_price_to_book: 3.11
+fmp_primary_ev_to_sales: 4.27
+fmp_primary_ev_to_ebitda: 18.09
+fmp_primary_roe_pct: 20.07
+fmp_primary_roic_pct: 3.83
+fmp_primary_operating_margin_pct: 16.58
+fmp_primary_net_margin_pct: 12.74
+fmp_primary_current_ratio: 1.36
+fmp_primary_debt_to_equity: 0.67
+fmp_primary_price_target: 394
+fmp_primary_analyst_count: 16
+fmp_primary_target_upside_pct: 33.98
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 3
+fmp_calendar_pull_date: "2026-05-14"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "energy", "nuclear", "smr", "infrastructure", "uranium", "ai-power"]
 ---
 
@@ -167,6 +165,7 @@ WHERE contains(string(tags), "nuclear") OR contains(string(tags), "CEG") OR cont
 SORT date DESC
 LIMIT 5
 ```
+
 
 
 

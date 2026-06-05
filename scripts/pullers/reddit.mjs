@@ -1,5 +1,5 @@
-/**
- * reddit.mjs — Thesis-aware Reddit sentiment puller
+﻿/**
+ * reddit.mjs â€” Thesis-aware Reddit sentiment puller
  *
  * Usage:
  *   node run.mjs pull reddit --subreddit wallstreetbets --query AAPL
@@ -15,14 +15,14 @@
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
+import { withRetry, RateLimitError, parseRetryAfter } from '../lib/retry.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'social');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'social');
 
-// Thesis → subreddit mapping for auto-routing
+// Thesis â†’ subreddit mapping for auto-routing
 const THESIS_SUBREDDIT_MAP = {
   'housing':        ['realestate', 'REBubble', 'FirstTimeHomeBuyer', 'RealEstate'],
   'biotech':        ['biotech', 'investing', 'medicine', 'stocks'],
@@ -60,15 +60,26 @@ async function getOAuthToken() {
   const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
   const userAgent = process.env.REDDIT_USER_AGENT ?? 'vault-osint/1.0';
 
-  const res = await fetch('https://www.reddit.com/api/v1/access_token', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Basic ${credentials}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'User-Agent': userAgent,
+  const res = await withRetry(
+    async () => {
+      const r = await fetch('https://www.reddit.com/api/v1/access_token', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${credentials}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': userAgent,
+        },
+        body: 'grant_type=client_credentials',
+      });
+      if (r.status === 429) {
+        const retryAfterMs = parseRetryAfter(r.headers.get('Retry-After'));
+        throw new RateLimitError(retryAfterMs, 'Reddit OAuth token endpoint rate limited');
+      }
+      return r;
     },
-    body: 'grant_type=client_credentials',
-  });
+    { maxAttempts: 3, baseDelayMs: 2000, exponential: true,
+      onRetry: (err, attempt, waitMs) => console.warn(`  Reddit OAuth retry ${attempt} in ${waitMs}ms: ${err.message}`) },
+  );
 
   if (!res.ok) return null;
   const data = await res.json();
@@ -93,10 +104,25 @@ async function fetchSubreddit(subreddit, query, limit = 25, token = null) {
     ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
   };
 
-  const res = await fetch(endpoint, { headers });
-  if (!res.ok) {
-    throw new Error(`Reddit API error ${res.status} for r/${subreddit}`);
-  }
+  const res = await withRetry(
+    async () => {
+      const r = await fetch(endpoint, { headers });
+      if (r.status === 429) {
+        const retryAfterMs = parseRetryAfter(r.headers.get('Retry-After'));
+        throw new RateLimitError(retryAfterMs, `Reddit rate limited on r/${subreddit}`);
+      }
+      if (r.status >= 500) {
+        throw new Error(`Reddit server error ${r.status} for r/${subreddit}`);
+      }
+      if (!r.ok) {
+        throw new Error(`Reddit API error ${r.status} for r/${subreddit}`);
+      }
+      return r;
+    },
+    { maxAttempts: 3, baseDelayMs: 2000, exponential: true,
+      shouldRetry: (err) => err instanceof RateLimitError || /server error|network|ECONNRESET/i.test(err.message),
+      onRetry: (err, attempt, waitMs) => console.warn(`  Reddit r/${subreddit} retry ${attempt} in ${waitMs}ms: ${err.message}`) },
+  );
   const json = await res.json();
   return (json.data?.children ?? []).map(c => c.data);
 }
@@ -122,11 +148,11 @@ function scoreSignal(posts) {
 function writePullNote(subreddit, query, posts, signal, today, outputFile) {
   const topPosts = posts
     .slice(0, 10)
-    .map(p => `- [${p.title?.slice(0, 80)}](https://reddit.com${p.permalink}) — ↑${p.score} | 💬${p.num_comments}`)
+    .map(p => `- [${p.title?.slice(0, 80)}](https://reddit.com${p.permalink}) â€” â†‘${p.score} | ðŸ’¬${p.num_comments}`)
     .join('\n');
 
   const content = `---
-title: "Reddit — r/${subreddit}${query ? ` — ${query}` : ''}"
+title: "Reddit â€” r/${subreddit}${query ? ` â€” ${query}` : ''}"
 source: "Reddit API"
 date_pulled: "${today}"
 domain: "social_sentiment"
@@ -141,11 +167,11 @@ tags:
   - ${subreddit.toLowerCase()}
 ---
 
-## r/${subreddit}${query ? ` · "${query}"` : ''}
+## r/${subreddit}${query ? ` Â· "${query}"` : ''}
 
 **Pulled:** ${today}
 **Posts fetched:** ${posts.length}
-**Signal:** ${signal.level.toUpperCase()} — ${signal.summary}
+**Signal:** ${signal.level.toUpperCase()} â€” ${signal.summary}
 
 ## Top Posts
 
@@ -188,7 +214,7 @@ export async function pull(flags = {}) {
 
   if (dryRun) {
     console.log('\n[dry-run] Would pull from:');
-    targets.forEach(t => console.log(`  r/${t.subreddit}${t.query ? ` → query: "${t.query}"` : ''}`));
+    targets.forEach(t => console.log(`  r/${t.subreddit}${t.query ? ` â†’ query: "${t.query}"` : ''}`));
     return;
   }
 
@@ -197,9 +223,9 @@ export async function pull(flags = {}) {
   // Get OAuth token if credentials available
   const token = await getOAuthToken();
   if (token) {
-    console.log('🔑 Using OAuth (60 req/min)');
+    console.log('ðŸ”‘ Using OAuth (60 req/min)');
   } else {
-    console.log('📖 Using public API (1 req/sec) — set REDDIT_CLIENT_ID for higher limits');
+    console.log('ðŸ“– Using public API (1 req/sec) â€” set REDDIT_CLIENT_ID for higher limits');
   }
 
   const results = [];
@@ -218,23 +244,24 @@ export async function pull(flags = {}) {
       const mdFile = join(OUTPUT_DIR, `${today}_reddit-${subreddit}.md`);
       writePullNote(subreddit, q, posts, signal, today, mdFile);
 
-      console.log(`${posts.length} posts — ${signal.level.toUpperCase()}`);
+      console.log(`${posts.length} posts â€” ${signal.level.toUpperCase()}`);
       results.push({ subreddit, posts: posts.length, signal: signal.level });
 
       // Rate limit: 1 req/sec without OAuth
       if (!token) await new Promise(r => setTimeout(r, 1100));
 
     } catch (err) {
-      console.log(`❌ ${err.message}`);
+      console.log(`âŒ ${err.message}`);
     }
   }
 
-  console.log(`\n✅ Reddit pull complete: ${results.length} subreddits scanned`);
+  console.log(`\nâœ… Reddit pull complete: ${results.length} subreddits scanned`);
   const alerts = results.filter(r => r.signal !== 'clear');
   if (alerts.length > 0) {
-    console.log(`⚠️  ${alerts.length} elevated signal(s):`);
-    alerts.forEach(r => console.log(`   r/${r.subreddit} → ${r.signal.toUpperCase()}`));
+    console.log(`âš ï¸  ${alerts.length} elevated signal(s):`);
+    alerts.forEach(r => console.log(`   r/${r.subreddit} â†’ ${r.signal.toUpperCase()}`));
   }
 
   return results;
 }
+

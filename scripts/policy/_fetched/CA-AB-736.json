@@ -1,0 +1,893 @@
+﻿{
+    "id":  "ocd-bill/fc02c35f-6b30-41e3-9e1c-63b833ddccd5",
+    "session":  "20252026",
+    "jurisdiction":  {
+                         "id":  "ocd-jurisdiction/country:us/state:ca/government",
+                         "name":  "California",
+                         "classification":  "state"
+                     },
+    "from_organization":  {
+                              "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                              "name":  "Assembly",
+                              "classification":  "lower"
+                          },
+    "identifier":  "AB 736",
+    "title":  "The Affordable Housing Bond Act of 2026.",
+    "classification":  [
+                           "bill"
+                       ],
+    "subject":  [
+                    "TheAffordableHousingBondActof2026"
+                ],
+    "extras":  {
+                   "tags":  [
+                                "fiscal committee",
+                                "urgency"
+                            ],
+                   "impact_clause":  "An act to add Part 16.1 (commencing with Section 54050) to Division 31 of the Health and Safety Code, relating to housing, by providing the funds necessary therefor through an election for the issuance and sale of bonds of the State of California and for the handling and disposition of those funds, and declaring the urgency thereof, to take effect immediately."
+               },
+    "created_at":  "2025-02-19T05:57:57.103096+00:00",
+    "updated_at":  "2026-05-09T09:19:21.995188+00:00",
+    "openstates_url":  "https://openstates.org/ca/bills/20252026/AB736/",
+    "first_action_date":  "2025-02-18",
+    "latest_action_date":  "2026-04-22",
+    "latest_action_description":  "From committee: Do pass and re-refer to Com. on APPR. (Ayes 8. Noes 1.) (April 21). Re-referred to Com. on APPR.",
+    "latest_passage_date":  "2025-06-03",
+    "abstracts":  [
+                      {
+                          "abstract":  "Under existing law, there are programs providing assistance for, among other things, emergency housing, multifamily housing, farmworker housing, home ownership for very low and low-income households, and downpayment assistance for first-time home buyers. Existing law also authorizes the issuance of bonds in specified amounts pursuant to the State General Obligation Bond Law and requires that proceeds from the sale of these bonds be used to finance various existing housing programs, capital outlay related to infill development, brownfield cleanup that promotes infill development, and housing-related parks.\n\nThis bill would enact the Affordable Housing Bond Act of 2026, which, if adopted, would authorize the issuance of bonds in the amount of $10,000,000,000 pursuant to the State General Obligation Bond Law. Proceeds from the sale of these bonds would be used to finance programs to fund affordable rental housing and home ownership programs, including, among others, the Multifamily Housing Program, the CalHome Program, and the Joe Serna, Jr. Farmworker Housing Grant Program.\n\nThis bill would provide for submission of the bond act to the voters at the June 2, 2026, statewide primary election, in accordance with specified law.\n\nThis bill would declare that it is to take effect immediately as an urgency statute.",
+                          "note":  "summary"
+                      }
+                  ],
+    "sponsorships":  [
+                         {
+                             "id":  "aa25c8db-ffc2-40a0-a59c-555f3e05a10f",
+                             "name":  "Haney",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/cc6eb833-e16b-472a-83ec-31e7df1b1cd9",
+                                            "name":  "Matt Haney",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "17",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:17"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "author"
+                         },
+                         {
+                             "id":  "e9955b32-ba7f-4762-bb9b-696f644f8e6b",
+                             "name":  "Quirk-Silva",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/840aa009-3ae4-4484-b9f0-5c5f5060e7db",
+                                            "name":  "Sharon Quirk-Silva",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "67",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:67"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "author"
+                         },
+                         {
+                             "id":  "2f6ec403-c9ce-467d-982f-f6fe6e889691",
+                             "name":  "Wicks",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/8230907e-9ae3-4ae9-b52a-c8464a157f64",
+                                            "name":  "Buffy Wicks",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "14",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:14"
+                                                             }
+                                        },
+                             "primary":  true,
+                             "classification":  "author"
+                         },
+                         {
+                             "id":  "46279826-fe55-4a73-8c17-7e5371d5f01a",
+                             "name":  "Ransom",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/86d18985-f35b-4e16-9fcc-663394a156ff",
+                                            "name":  "Rhodesia Ransom",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "13",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:13"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "9abe31fc-97f8-450e-bb12-16a04fe4f6d1",
+                             "name":  "ArreguÃ­n",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/83a64401-d95d-42c5-8cfc-03bd29e4adc8",
+                                            "name":  "Jesse ArreguÃ­n",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "7",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:7"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "0f793c94-dc65-43aa-bd9d-6a491468a1aa",
+                             "name":  "Becker",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/c71137b2-3fc3-48bf-b0ad-6c29aff98268",
+                                            "name":  "Josh Becker",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "13",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:13"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "8c4f8369-7d79-4ac2-b1cf-473a169806c0",
+                             "name":  "Blakespear",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/39e3ce0f-c2e2-4480-9e99-76e1e62f366d",
+                                            "name":  "Catherine Blakespear",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "38",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:38"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "1efb1674-37fd-4819-8c05-46182fa90204",
+                             "name":  "Cabaldon",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/8833976f-b95a-45bf-bbd9-ccdb66946d20",
+                                            "name":  "Christopher Cabaldon",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "3",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:3"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "6995c09c-8a12-4bb7-bdc4-a5019cc9018a",
+                             "name":  "Wiener",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/de84277e-1c23-4036-bd64-b27c310a1c0e",
+                                            "name":  "Scott Wiener",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "11",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:11"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "principal coauthor"
+                         },
+                         {
+                             "id":  "f2112150-53a1-46de-a5c3-43f71c0d8b36",
+                             "name":  "Alvarez",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/52f6ccc1-eb4a-4c09-8614-5e4022395605",
+                                            "name":  "David Alvarez",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "80",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:80"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "5d0d0023-9ebc-4f83-af6b-c81d0724d904",
+                             "name":  "Ãvila FarÃ­as",
+                             "entity_type":  "person",
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "97c07de1-77d8-4261-b42b-1e1c5e56d09b",
+                             "name":  "Bennett",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/1e0ccfc0-2d57-4e57-8d16-589d07c1bc72",
+                                            "name":  "Steve Bennett",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "38",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:38"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "904687c3-dd78-40b1-b685-c466b66788da",
+                             "name":  "Berman",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/24facf9e-7fb1-4475-9120-05cd0145c7c1",
+                                            "name":  "Marc Berman",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "23",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:23"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "26259859-c5f3-4fc0-8607-68ddd421082b",
+                             "name":  "Caloza",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/81d9225e-7584-43c9-9e9b-f12b7e7dbd4e",
+                                            "name":  "Jessica Caloza",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "52",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:52"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "77bf6ef2-8171-4537-ba99-e81188a5a1ad",
+                             "name":  "Connolly",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/32e06e60-77ac-4c5e-af1e-2110b602dc97",
+                                            "name":  "Damon Connolly",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "12",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:12"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "34d2f9b1-a1ba-443d-8650-214ca239792e",
+                             "name":  "Mark GonzÃ¡lez",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/4a6f5a5d-275e-4fb2-a8bf-bb1272d4dfbb",
+                                            "name":  "Mark GonzÃ¡lez",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "54",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:54"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "0795e545-5730-4cf9-b6eb-d83250b4033c",
+                             "name":  "Harabedian",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/0253bb3f-2fcb-49ed-a85d-578fee726be8",
+                                            "name":  "John Harabedian",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "41",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:41"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "4a66f6c4-aa56-4f5b-bc13-66f55a44b49f",
+                             "name":  "Jackson",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/e351eaa3-8aa1-4f26-a8ff-2a260a0ad383",
+                                            "name":  "Corey Jackson",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "60",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:60"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "61d85cb5-c3c4-400a-8e5a-a0b65bbc0a0d",
+                             "name":  "Kalra",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/820619fd-d053-4915-b099-1d134a880228",
+                                            "name":  "Ash Kalra",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "25",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:25"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "6d0b63e1-fb69-4cc2-bd8b-cc6c3b5c9936",
+                             "name":  "Krell",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/e8ac7b26-03a5-4818-b05d-0f379029bbdb",
+                                            "name":  "Maggy Krell",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "6",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:6"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "972ebbf1-984a-41ab-a90b-f5ef2d0ce53f",
+                             "name":  "McKinnor",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/1aa5dff4-3d71-4642-a5e6-e3d00a5b99f9",
+                                            "name":  "Tina McKinnor",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "61",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:61"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "e90ad218-6e99-46af-a737-4829ab4b52db",
+                             "name":  "Muratsuchi",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/78610d0e-c790-4fc9-ab8e-0887adbbe063",
+                                            "name":  "Al Muratsuchi",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "66",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:66"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "0b387e61-b2ae-49d0-a8e8-8543577b1d8a",
+                             "name":  "Nguyen",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/62102f53-b531-4290-9699-05a0d7687cae",
+                                            "name":  "Stephanie Nguyen",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "10",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:10"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "afc6fc10-2259-42e4-9c71-48ee37662a09",
+                             "name":  "Schiavo",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/d12d3275-2086-4bf5-886b-c4de3823fbf9",
+                                            "name":  "Pilar Schiavo",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "40",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:40"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "768a459b-87d7-48d4-b5ee-cd86fb9b2559",
+                             "name":  "Schultz",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/06ae0707-255b-4af9-8e3e-c940e8f29600",
+                                            "name":  "Nick Schultz",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "44",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:44"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "3e97e03e-082c-479e-83e9-df11115f8ad6",
+                             "name":  "Soria",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/d2a8e29a-5eac-4e2a-a686-d1bdb04927e7",
+                                            "name":  "Esmeralda Soria",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "27",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:27"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "cde0c1b4-9d6a-480d-a4e7-c9f1a02cf60e",
+                             "name":  "Ward",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/71590420-10d6-4deb-8d59-453256d625b6",
+                                            "name":  "Chris Ward",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "78",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:78"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "3679b593-5036-498b-a06a-bd9926d3ac2e",
+                             "name":  "Wilson",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/926d1337-0318-4c12-a291-178f10199b23",
+                                            "name":  "Lori Wilson",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "11",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:11"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "822315a2-b104-429d-b066-84ef9008879f",
+                             "name":  "Zbur",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/6b7e3458-361f-4fce-8a8c-069282db2af7",
+                                            "name":  "Rick Zbur",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "51",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:51"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "e3b88b67-60c0-4789-bf01-24a7323ef567",
+                             "name":  "Ashby",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/564f2203-7cae-4a40-bc93-5c05a935b98f",
+                                            "name":  "Angelique Ashby",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "8",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:8"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "caf0bcbc-a652-45d9-8fbd-c4f8bcd83dd8",
+                             "name":  "Grayson",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/972cffb0-32a6-4cef-8a0f-a8cd901395b0",
+                                            "name":  "Tim Grayson",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "9",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:9"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "4188c59d-12db-4931-8a08-55f80e729b5f",
+                             "name":  "PÃ©rez",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/aa59bbc8-0f05-4974-a88a-2e805deb26b4",
+                                            "name":  "Sasha PÃ©rez",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "25",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:25"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         },
+                         {
+                             "id":  "5ffd2be6-4ace-49a5-ae08-460c28dd139c",
+                             "name":  "Umberg",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/cecabb81-51ab-46f5-9815-cc3486da0632",
+                                            "name":  "Tom Umberg",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Senator",
+                                                                 "org_classification":  "upper",
+                                                                 "district":  "34",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldu:34"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         }
+                     ],
+    "actions":  [
+                    {
+                        "id":  "b6f00b07-c42f-4854-b19f-b39694ea5c81",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read first time. To print.",
+                        "date":  "2025-02-18",
+                        "classification":  [
+                                               "reading-1"
+                                           ],
+                        "order":  0,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "1050c454-b645-4827-8237-64f30ec9096a",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Introduced measure version corrected.",
+                        "date":  "2025-02-19",
+                        "classification":  [
+                                               "introduction"
+                                           ],
+                        "order":  1,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "848c8f12-c530-4726-ae41-a36d7001fa13",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From printer. May be heard in committee March 21.",
+                        "date":  "2025-02-19",
+                        "classification":  [
+
+                                           ],
+                        "order":  2,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "7405c677-f9ad-4910-bc4c-ee33cfcde50a",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Referred to Com. on H. \u0026 C.D.",
+                        "date":  "2025-03-03",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  3,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on H. \u0026 C.D.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "633d6158-d454-4f22-baca-91991b96d359",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee: Amend, and do pass as amended and re-refer to Com. on APPR. (Ayes 10. Noes 1.) (April 9).",
+                        "date":  "2025-04-09",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "committee-passage",
+                                               "referral-committee"
+                                           ],
+                        "order":  4,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "06501a02-b60d-4709-bb08-7741b19d10ca",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read second time and amended.",
+                        "date":  "2025-04-10",
+                        "classification":  [
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  5,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "888a63df-fe4c-48a4-af8e-85f5ccd98554",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on APPR.",
+                        "date":  "2025-04-21",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  6,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on APPR.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "79ddac78-69a7-4ee4-9b1e-ad388f679f45",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "In committee: Set, first hearing. Referred to suspense file.",
+                        "date":  "2025-04-30",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  7,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "suspense file.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "a8fd11ca-3bd1-4465-9491-56554b26595c",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee: Do pass. (Ayes 11. Noes 2.) (May 23).",
+                        "date":  "2025-05-23",
+                        "classification":  [
+                                               "committee-passage",
+                                               "committee-passage-favorable"
+                                           ],
+                        "order":  8,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "e4d154cd-51f3-4771-9d05-a7a98c58d86f",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read second time. Ordered to third reading.",
+                        "date":  "2025-05-27",
+                        "classification":  [
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  9,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "4fc446d7-04e7-478b-884b-730bd91ac1ba",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read third time. Urgency clause adopted. Passed. Ordered to the Senate. (Ayes 65. Noes 11. Page 1980.).",
+                        "date":  "2025-06-03",
+                        "classification":  [
+                                               "passage",
+                                               "reading-1",
+                                               "reading-3"
+                                           ],
+                        "order":  10,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "a4ca5119-8db0-4c78-bc18-627246c2b3e2",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "In Senate. Read first time. To Com. on RLS. for assignment.",
+                        "date":  "2025-06-04",
+                        "classification":  [
+                                               "reading-1"
+                                           ],
+                        "order":  11,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "92432962-8c00-46c9-97be-e4519a3abacb",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "Referred to Com. on HOUSING.",
+                        "date":  "2026-04-15",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  12,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on HOUSING.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "6123bd0a-f0b1-494f-b0f4-ffc2dbab3903",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "From committee: Do pass and re-refer to Com. on APPR. (Ayes 8. Noes 1.) (April 21). Re-referred to Com. on APPR.",
+                        "date":  "2026-04-22",
+                        "classification":  [
+                                               "committee-passage",
+                                               "committee-passage-favorable",
+                                               "referral-committee"
+                                           ],
+                        "order":  13,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on APPR.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    }
+                ]
+}

@@ -1,0 +1,5 @@
+id,label,name,date,kind,status,score,route,source_count,evidence_count,summary,vault,relative_path,obsidian_url,command,tags
+route:02-strategy-development-watchpoints,ReviewRoute,02_Strategy_Development/Watchpoints,2026-05-25,review-route,,,02_Strategy_Development/Watchpoints,,,Suggested World_Machine review route: 02_Strategy_Development/Watchpoints,,,,,review-route;world-machine
+route:03-macro-and-economy-observations,ReviewRoute,03_Macro_and_Economy/Observations,2026-05-25,review-route,,,03_Macro_and_Economy/Observations,,,Suggested World_Machine review route: 03_Macro_and_Economy/Observations,,,,,review-route;world-machine
+route:policy-observations,ReviewRoute,Policy/Observations,2026-05-25,review-route,,,Policy/Observations,,,Suggested World_Machine review route: Policy/Observations,,,,,review-route;world-machine
+route:reports-source-gap-register-md,ReviewRoute,Reports/Source Gap Register.md,2026-05-25,review-route,,,Reports/Source Gap Register.md,,,Suggested World_Machine review route: Reports/Source Gap Register.md,,,,,review-route;world-machine

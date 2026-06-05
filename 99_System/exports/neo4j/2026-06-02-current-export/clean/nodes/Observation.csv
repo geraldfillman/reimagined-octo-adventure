@@ -1,0 +1,3 @@
+id:ID,archive_root_rel_path,candidate_link_count,date,event_trend_count,import_status,importedAt,processed_item_count,source,source_rel_path,source_vault,title,:LABEL
+world:inbox-ingestion-batch:2026-06-02,500-archive/Inbox/2026-06-02,7,2026-06-02,7,review,2026-06-02T15:08:08.614000000Z,4,ingest-world-inbox,03_Macro_and_Economy/Observations/2026-06-02 - Inbox Ingestion Batch.md,World_Machine,2026-06-02 - Inbox Ingestion Batch,InboxIngestionBatch;Observation
+world:inbox-ingestion-batch:2026-06-02:23a56500bbff911f,500-archive/Inbox/2026-06-02,7,2026-06-02,7,review,2026-06-02T16:51:51.404000000Z,25,ingest-world-inbox,03_Macro_and_Economy/Observations/2026-06-02 - Inbox Ingestion Batch 2.md,World_Machine,2026-06-02 - Inbox Ingestion Batch 2,InboxIngestionBatch;Observation

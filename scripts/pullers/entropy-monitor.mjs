@@ -8,9 +8,9 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
-import { getPullsDir, getVaultRoot } from '../lib/config.mjs';
+import { getEngineCacheDir, getPullsDir, toResearchRelative } from '../lib/config.mjs';
 import { fetchIntradayPrices, fetchQuote } from '../lib/fmp-client.mjs';
-import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
+import { buildNote, buildTable, dateStampedFilename, emitOutput, today, writeNote } from '../lib/markdown.mjs';
 import { setProperties } from '../lib/obsidian-cli.mjs';
 import { computeTransitionEntropyFromBars } from '../agents/marketmind/entropy.mjs';
 import { normalizeIntradayBars } from '../lib/bars.mjs';
@@ -18,8 +18,8 @@ import { normalizeIntradayBars } from '../lib/bars.mjs';
 const DEFAULT_SYMBOLS = Object.freeze(['SPY', 'QQQ']);
 const DEFAULT_LOOKBACK = 120;
 const DEFAULT_HORIZONS = Object.freeze([5, 15, 30, 60, 120]);
-const LEDGER_PATH = join(getVaultRoot(), 'scripts', '.cache', 'entropy-monitor', 'entropy-monitor-ledger.csv');
-const BACKTEST_DIR = join(getVaultRoot(), 'scripts', '.cache', 'entropy-monitor', 'backtests');
+const LEDGER_PATH = getEngineCacheDir('entropy-monitor', 'entropy-monitor-ledger.csv');
+const BACKTEST_DIR = getEngineCacheDir('entropy-monitor', 'backtests');
 const LEDGER_COLUMNS = Object.freeze([
   'run_id',
   'created_at',
@@ -830,7 +830,7 @@ function median(values) {
 }
 
 function relativeVaultPath(filePath) {
-  return String(filePath).replace(`${getVaultRoot()}\\`, '').replace(`${getVaultRoot()}/`, '').replace(/\\/g, '/');
+  return toResearchRelative(filePath);
 }
 
 function readLedger() {
@@ -850,6 +850,7 @@ function writeLedger(rows) {
     ...sorted.map(row => LEDGER_COLUMNS.map(column => csvEscape(row[column] ?? '')).join(',')),
   ].join('\n');
   writeFileSync(LEDGER_PATH, `${csv}\n`, 'utf-8');
+  emitOutput(LEDGER_PATH);
 }
 
 function writeCsvRows(filePath, columns, rows) {
@@ -859,6 +860,7 @@ function writeCsvRows(filePath, columns, rows) {
     ...rows.map(row => columns.map(column => csvEscape(row[column] ?? '')).join(',')),
   ].join('\n');
   writeFileSync(filePath, `${csv}\n`, 'utf-8');
+  emitOutput(filePath);
 }
 
 function parseCsv(text) {

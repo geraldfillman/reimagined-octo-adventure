@@ -1,5 +1,5 @@
-/**
- * osint-columbus.mjs — Fast passive subdomain discovery via Columbus Project API
+﻿/**
+ * osint-columbus.mjs â€” Fast passive subdomain discovery via Columbus Project API
  *
  * Usage:
  *   node run.mjs scan osint-columbus --domain example.com
@@ -13,13 +13,12 @@
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 const BASE_URL = 'https://columbus.elmasy.com/api/v1';
 
@@ -35,7 +34,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `columbus-${domain}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🏛️  Columbus Project subdomain discovery: ${domain}`);
+  console.log(`\nðŸ›ï¸  Columbus Project subdomain discovery: ${domain}`);
   console.log(`   Output: ${outputFile}`);
 
   if (dryRun) {
@@ -54,7 +53,7 @@ export async function pull(flags = {}) {
     const data = await res.json();
     subdomains = Array.isArray(data) ? data : (data.subdomains ?? data.results ?? []);
   } catch (err) {
-    console.error(`❌ Columbus API error: ${err.message}`);
+    console.error(`âŒ Columbus API error: ${err.message}`);
     process.exit(1);
   }
 
@@ -78,15 +77,16 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'columbus-project', target: domain, targetType: 'domain', resultCount: subdomainStrings.length, alertCount: interesting.length, outputFile, today, tags: ['subdomain', 'passive'] });
 
-  console.log(`\n✅ Columbus scan complete:`);
+  console.log(`\nâœ… Columbus scan complete:`);
   console.log(`   Total subdomains:       ${subdomainStrings.length}`);
   console.log(`   Interesting (dev/beta): ${interesting.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   if (interesting.length > 0) {
     console.log('\n   Notable subdomains:');
-    interesting.slice(0, 8).forEach(s => console.log(`   → ${s}`));
+    interesting.slice(0, 8).forEach(s => console.log(`   â†’ ${s}`));
   }
 
   return output;
 }
+

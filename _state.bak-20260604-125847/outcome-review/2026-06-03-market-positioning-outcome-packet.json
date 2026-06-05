@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "source": "chat-agent-neutral",
+  "provider": "none",
+  "generated_by": "scripts/pullers/market-positioning-outcomes.mjs",
+  "as_of_date": "2026-06-03",
+  "label_set": [
+    "Played out",
+    "Directionally right / poorly timed",
+    "Noisy",
+    "Missed",
+    "Stale",
+    "Rebuild"
+  ],
+  "candidate_count": 4,
+  "eligible_count": 0,
+  "candidates": [
+    {
+      "row": "Liquidity Friction Tail Hedge",
+      "stance": "Prepare",
+      "gate": 2,
+      "eligibility": "monitor_only",
+      "reason": "Monitor only until Gate 3 trigger confirmation or explicit stale/rebuild review.",
+      "source_refs": [
+        "My_Data/05_Data_Pulls/Orchestrator/2026-06-02_Confluence_Scan.md"
+      ],
+      "watchpoint": "[[Market Positioning Ledger - Positions#liquidity-friction-tail-hedge|ledger watchpoint]]",
+      "position_block": "[[Market Positioning Ledger - Positions#liquidity-friction-tail-hedge]]",
+      "trigger_watch": "Prepare a fresh entry only if VIX closes above 18.5 or VIX3M-VIX slope compresse",
+      "invalidation": "Stand aside if VIX remains below 17, VIX3M-VIX stays above +3.0, and credit stre",
+      "current_outcome_status": "fresh seed",
+      "suggested_review": {
+        "approved": false,
+        "label": null,
+        "labels": [
+          "Played out",
+          "Directionally right / poorly timed",
+          "Noisy",
+          "Missed",
+          "Stale",
+          "Rebuild"
+        ],
+        "realized_path": null,
+        "outcome_note": null
+      }
+    },
+    {
+      "row": "Hard Assets Debasement Watch",
+      "stance": "Observe",
+      "gate": 1,
+      "eligibility": "monitor_only",
+      "reason": "Monitor only until Gate 3 trigger confirmation or explicit stale/rebuild review.",
+      "source_refs": [
+        "My_Data/05_Data_Pulls/Macro/2026-06-02_Macro_Bridge_Indicators.md"
+      ],
+      "watchpoint": "[[Market Positioning Ledger - Positions#hard-assets-dollar-debasement-watch|ledger watchpoint]]",
+      "position_block": "[[Market Positioning Ledger - Positions#hard-assets-dollar-debasement-watch]]",
+      "trigger_watch": "Prepare a fresh entry only if XAUUSD reclaims the prior snapshot level near 4488",
+      "invalidation": "Stand aside if XAUUSD breaks below the latest pull level of 4476.31 while the DX",
+      "current_outcome_status": "fresh seed",
+      "suggested_review": {
+        "approved": false,
+        "label": null,
+        "labels": [
+          "Played out",
+          "Directionally right / poorly timed",
+          "Noisy",
+          "Missed",
+          "Stale",
+          "Rebuild"
+        ],
+        "realized_path": null,
+        "outcome_note": null
+      }
+    },
+    {
+      "row": "Energy Shock Oil Watch",
+      "stance": "Prepare",
+      "gate": 1,
+      "eligibility": "monitor_only",
+      "reason": "Monitor only until Gate 3 trigger confirmation or explicit stale/rebuild review.",
+      "source_refs": [
+        "My_Data/05_Data_Pulls/SourceWatch/2026-06-02_Source_Watch_Posts.md"
+      ],
+      "watchpoint": "[[Market Positioning Ledger - Positions#energy-shock-oil-watch|ledger watchpoint]]",
+      "position_block": "[[Market Positioning Ledger - Positions#energy-shock-oil-watch]]",
+      "trigger_watch": "Prepare a fresh entry if USO closes above the auction value-area high near 137.1",
+      "invalidation": "Stand aside if USO stays inside the 134.73-137.18 value area and follow-up sourc",
+      "current_outcome_status": "fresh seed",
+      "suggested_review": {
+        "approved": false,
+        "label": null,
+        "labels": [
+          "Played out",
+          "Directionally right / poorly timed",
+          "Noisy",
+          "Missed",
+          "Stale",
+          "Rebuild"
+        ],
+        "realized_path": null,
+        "outcome_note": null
+      }
+    },
+    {
+      "row": "Quality Software Dispersion",
+      "stance": "Prepare",
+      "gate": 2,
+      "eligibility": "monitor_only",
+      "reason": "Monitor only until Gate 3 trigger confirmation or explicit stale/rebuild review.",
+      "source_refs": [
+        "My_Data/05_Data_Pulls/Fundamentals/2026-06-02_Cash_Flow_Quality.md"
+      ],
+      "watchpoint": "[[Market Positioning Ledger - Positions#quality-software-dispersion|ledger watchpoint]]",
+      "position_block": "[[Market Positioning Ledger - Positions#quality-software-dispersion]]",
+      "trigger_watch": "Gate 3 only if a high-CFQ name confirms relative strength while a tactical short",
+      "invalidation": "Stand aside if auction structure remains balanced and the tactical short candida",
+      "current_outcome_status": "fresh seed",
+      "suggested_review": {
+        "approved": false,
+        "label": null,
+        "labels": [
+          "Played out",
+          "Directionally right / poorly timed",
+          "Noisy",
+          "Missed",
+          "Stale",
+          "Rebuild"
+        ],
+        "realized_path": null,
+        "outcome_note": null
+      }
+    }
+  ],
+  "apply_instructions": {
+    "command": "node run.mjs pull market-positioning-outcomes --apply <approved-json>",
+    "required_fields": [
+      "row",
+      "approved",
+      "label",
+      "realized_path",
+      "outcome_note"
+    ],
+    "rule": "Only rows with approved:true are applied. The apply step never invents labels or row matches."
+  }
+}

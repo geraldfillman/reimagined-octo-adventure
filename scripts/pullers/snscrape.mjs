@@ -1,5 +1,5 @@
-/**
- * snscrape.mjs — Multi-platform social media scraping via Bellingcat's snscrape
+﻿/**
+ * snscrape.mjs â€” Multi-platform social media scraping via Bellingcat's snscrape
  *
  * Usage:
  *   node run.mjs scan osint-snscrape --platform twitter --query "AAPL earnings"
@@ -17,13 +17,12 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'social');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'social');
 
 const SUPPORTED_PLATFORMS = ['twitter', 'instagram', 'reddit', 'mastodon'];
 
@@ -60,7 +59,7 @@ export async function pull(flags = {}) {
   const scrapeArg = user ?? query;
   const args = [scrapeTarget, '--max-results', String(limit), '--jsonl', scrapeArg];
 
-  console.log(`\n📡 snscrape ${platform} scan: ${query ?? `@${user}`}`);
+  console.log(`\nðŸ“¡ snscrape ${platform} scan: ${query ?? `@${user}`}`);
   console.log(`   Limit: ${limit} posts | Output: ${outputFile}`);
 
   if (dryRun) {
@@ -76,7 +75,7 @@ export async function pull(flags = {}) {
   });
 
   if (result.error) {
-    console.error(`❌ snscrape error: ${result.error.message}`);
+    console.error(`âŒ snscrape error: ${result.error.message}`);
     console.error('   Install with: pip install snscrape');
     process.exit(1);
   }
@@ -120,7 +119,7 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'snscrape', target: query ?? user ?? platform, targetType: 'user', resultCount: simplified.length, alertCount: avgEngagement > 1000 ? 1 : 0, outputFile, today, tags: ['social', platform, 'sentiment'] });
 
-  console.log(`\n✅ snscrape complete:`);
+  console.log(`\nâœ… snscrape complete:`);
   console.log(`   Posts retrieved:   ${simplified.length}`);
   console.log(`   Avg engagement:    ${avgEngagement}`);
   console.log(`   Saved: ${outputFile}`);
@@ -130,8 +129,9 @@ export async function pull(flags = {}) {
     [...simplified]
       .sort((a, b) => (b.likes + b.retweets) - (a.likes + a.retweets))
       .slice(0, 3)
-      .forEach(p => console.log(`   [${p.likes}♥ ${p.retweets}🔁] ${(p.content ?? '').slice(0, 80)}`));
+      .forEach(p => console.log(`   [${p.likes}â™¥ ${p.retweets}ðŸ”] ${(p.content ?? '').slice(0, 80)}`));
   }
 
   return output;
 }
+

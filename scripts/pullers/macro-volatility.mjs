@@ -24,10 +24,9 @@
  *   node run.mjs pull macro-volatility --dry-run
  */
 
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-import { getPullsDir, getVaultRoot } from '../lib/config.mjs';
+import { getPullsDir, toResearchRelative } from '../lib/config.mjs';
 import { readFolderWhere } from '../lib/frontmatter.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
 
@@ -55,7 +54,6 @@ const LOOKBACK_DAYS = 30;
 
 export async function pull(flags = {}) {
   const window = Number(flags.window) > 0 ? Number(flags.window) : LOOKBACK_DAYS;
-  const vaultRoot = getVaultRoot();
   const pullsDir  = getPullsDir();
 
   const macroDirs  = [join(pullsDir, 'Macro'), join(pullsDir, 'Market')];
@@ -70,7 +68,7 @@ export async function pull(flags = {}) {
       d => isMacroNote(d) && isRecent(d, cutoffDate)
     );
     allNotes.push(...notes);
-    console.log(`  ${dir.replace(vaultRoot, '').replace(/\\/g, '/')}: ${notes.length} note(s)`);
+    console.log(`  ${toResearchRelative(dir)}: ${notes.length} note(s)`);
   }
 
   if (!allNotes.length) {

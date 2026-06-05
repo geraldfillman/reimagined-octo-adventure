@@ -1,16 +1,17 @@
 {
+  "_audit_2026_06_03": "macro retired (was emitting BULLISH 98/98 — broken/constant). symbolBullishGating added: BULLISH verdicts on GEV/ETN/AMZN forced to NEUTRAL after the audit found 11-25% accuracy. Combined intervention validated +126pp P&L lift over baseline on 98-record historical replay. See World_Machine/ROADMAP.md Phase 2 indicator-audit block and My_Data/_state/refutation-log/2026-06-03.json.",
   "agentWeights": {
     "price": 1.2,
     "risk": 1.4,
     "sentiment": 0.8,
     "microstructure": 0.9,
-    "macro": 1.1,
+    "macro": 0.0,
     "fundamentals": 1.1,
     "prediction_market": 0.7,
     "default": 0.8
   },
   "downsideBoost": 1.25,
-  "downsideBoostedAgents": ["risk", "macro"],
+  "downsideBoostedAgents": ["risk"],
   "verdictThresholds": {
     "bullish": 0.18,
     "bearish": -0.18
@@ -32,7 +33,13 @@
   "bearishRiskCluster": {
     "primaryAgent": "risk",
     "primaryMinConfidence": 0.60,
-    "confirmationAgents": ["macro", "price", "microstructure"],
+    "confirmationAgents": ["price", "microstructure"],
     "confirmationMinConfidence": 0.45
+  },
+  "symbolBullishGating": {
+    "blockedSymbols": ["GEV", "ETN", "AMZN"],
+    "fallbackVerdict": "NEUTRAL",
+    "rationale": "Per 2026-06-03 calibration audit: BULLISH calls on these symbols historically 11-25% accurate. Block until upstream reweighting (microstructure coverage gap + risk-bearish promotion) is data-validated forward.",
+    "review_after": "2026-08-01"
   }
 }

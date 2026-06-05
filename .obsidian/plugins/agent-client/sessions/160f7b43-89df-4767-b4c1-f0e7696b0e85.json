@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "sessionId": "160f7b43-89df-4767-b4c1-f0e7696b0e85",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "f5bef3b5-f527-4b49-a3fa-8de0e2967a95",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "I want to clean up the vault structures and script pulls. I want Research Spine data freshness and research scripts pulled into world machine and then archive research Spine. I want to review all the scripts we have coming in from My_Data and direct or bridge them to the World_Machine. \n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine"
+        }
+      ],
+      "timestamp": "2026-05-15T22:50:18.648Z"
+    }
+  ],
+  "savedAt": "2026-05-15T22:50:20.937Z"
+}

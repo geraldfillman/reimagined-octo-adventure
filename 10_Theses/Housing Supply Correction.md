@@ -30,22 +30,22 @@ fmp_watchlist_symbols: ["DHI", "LEN", "NVR", "TOL", "TMHC", "SKY"]
 fmp_watchlist_symbol_count: 6
 fmp_primary_symbol: "DHI"
 fmp_technical_symbol_count: 6
-fmp_technical_nonclear_count: 5
+fmp_technical_nonclear_count: 6
 fmp_technical_bearish_count: 6
 fmp_technical_overbought_count: 0
-fmp_technical_oversold_count: 0
+fmp_technical_oversold_count: 1
 fmp_primary_technical_status: "alert"
 fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 52.19
-fmp_primary_price_vs_sma200_pct: -1.49
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 35.41
+fmp_primary_price_vs_sma200_pct: -12.02
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 43004907000
-fmp_primary_trailing_pe: 13.76
-fmp_primary_price_to_sales: 1.29
-fmp_primary_price_to_book: 1.85
-fmp_primary_ev_to_sales: 1.43
-fmp_primary_ev_to_ebitda: 11.53
+fmp_primary_market_cap: 40758897776
+fmp_primary_trailing_pe: 13.04
+fmp_primary_price_to_sales: 1.22
+fmp_primary_price_to_book: 1.75
+fmp_primary_ev_to_sales: 1.36
+fmp_primary_ev_to_ebitda: 10.98
 fmp_primary_roe_pct: 13.24
 fmp_primary_roic_pct: 9.65
 fmp_primary_operating_margin_pct: 11.76
@@ -54,12 +54,14 @@ fmp_primary_current_ratio: 6.86
 fmp_primary_debt_to_equity: 0.28
 fmp_primary_price_target: 167.5
 fmp_primary_analyst_count: 18
-fmp_primary_target_upside_pct: 10.45
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 1
-fmp_calendar_pull_date: "2026-04-07"
-fmp_last_sync: "2026-04-30"
+fmp_primary_target_upside_pct: 16.54
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 2
+fmp_calendar_pull_date: "2026-05-26"
+fmp_next_earnings_date: "2026-05-26"
+fmp_next_earnings_symbols: ["SKY"]
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "housing", "real-estate", "homebuilders", "macro", "rates"]
 ---
 
@@ -167,6 +169,7 @@ WHERE contains(string(tags), "housing") OR contains(string(tags), "DHI") OR cont
 SORT date DESC
 LIMIT 5
 ```
+
 
 
 

@@ -23,6 +23,7 @@ function Register-OrbTask {
         [string]$ScriptFile,
         [int]$Hour,
         [int]$Minute,
+        [int]$ExecutionTimeLimitMinutes = 15,
         [string]$LogFile
     )
 
@@ -40,7 +41,7 @@ function Register-OrbTask {
         -At $triggerAt
 
     $settings = New-ScheduledTaskSettingsSet `
-        -ExecutionTimeLimit (New-TimeSpan -Minutes 15) `
+        -ExecutionTimeLimit (New-TimeSpan -Minutes $ExecutionTimeLimitMinutes) `
         -StartWhenAvailable `
         -RunOnlyIfNetworkAvailable
 
@@ -64,7 +65,7 @@ function Register-OrbTask {
         -Description "ORB trading system -- $ScriptFile" `
         -ErrorAction Stop | Out-Null
 
-    Write-Host ("  Registered: {0}  ->  {1:D2}:{2:D2} ET (Mon-Fri)  Log: {3}" -f $TaskName, $Hour, $Minute, $LogFile)
+    Write-Host ("  Registered: {0}  ->  {1:D2}:{2:D2} ET (Mon-Fri)  Limit: {3}m  Log: {4}" -f $TaskName, $Hour, $Minute, $ExecutionTimeLimitMinutes, $LogFile)
 }
 
 # --- Register tasks -----------------------------------------------------------
@@ -95,6 +96,7 @@ Register-OrbTask `
     -ScriptFile 'task-compression-scan.ps1' `
     -Hour       16 `
     -Minute     30 `
+    -ExecutionTimeLimitMinutes 60 `
     -LogFile    (Join-Path $logDir 'task-compression-scan.log')
 
 # --- Summary -----------------------------------------------------------------

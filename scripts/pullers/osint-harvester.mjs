@@ -1,5 +1,5 @@
-/**
- * osint-harvester.mjs — theHarvester passive email/subdomain scan
+﻿/**
+ * osint-harvester.mjs â€” theHarvester passive email/subdomain scan
  *
  * Usage:
  *   node run.mjs scan osint-harvester --domain example.com
@@ -14,15 +14,14 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
-// Default passive sources — no active brute force
+// Default passive sources â€” no active brute force
 const DEFAULT_SOURCES = 'google,bing,duckduckgo,yahoo,baidu,crtsh';
 
 export async function pull(flags = {}) {
@@ -38,7 +37,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `harvester-${domain}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🌾 theHarvester passive scan: ${domain}`);
+  console.log(`\nðŸŒ¾ theHarvester passive scan: ${domain}`);
   console.log(`   Sources: ${sources}`);
   console.log(`   Output:  ${outputFile}`);
 
@@ -61,15 +60,15 @@ export async function pull(flags = {}) {
   );
 
   if (result.error) {
-    console.error(`❌ theHarvester error: ${result.error.message}`);
+    console.error(`âŒ theHarvester error: ${result.error.message}`);
     console.error('   Install with: pip install theHarvester');
     process.exit(1);
   }
 
-  // theHarvester writes <tmpJson>.json — read and rewrite to our output path
+  // theHarvester writes <tmpJson>.json â€” read and rewrite to our output path
   const tmpJsonPath = `${tmpJson}.json`;
   if (!existsSync(tmpJsonPath)) {
-    console.error('❌ No JSON output file produced.');
+    console.error('âŒ No JSON output file produced.');
     console.error('   stdout:', result.stdout.slice(0, 300));
     process.exit(1);
   }
@@ -83,7 +82,7 @@ export async function pull(flags = {}) {
     const xmlPath = `${tmpJson}.xml`;
     if (existsSync(xmlPath)) unlinkSync(xmlPath);
   } catch {
-    console.error('❌ Failed to parse theHarvester JSON output.');
+    console.error('âŒ Failed to parse theHarvester JSON output.');
     process.exit(1);
   }
 
@@ -102,16 +101,17 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'theHarvester', target: domain, targetType: 'domain', resultCount: output.emails.length + output.hosts.length + output.ips.length, alertCount: output.emails.length, outputFile, today, tags: ['email', 'subdomain', 'passive'] });
 
-  console.log(`\n✅ Scan complete:`);
+  console.log(`\nâœ… Scan complete:`);
   console.log(`   Emails found:  ${output.emails.length}`);
   console.log(`   Hosts found:   ${output.hosts.length}`);
   console.log(`   IPs found:     ${output.ips.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   if (output.emails.length > 0) {
-    console.log('\n📧 Sample emails:');
+    console.log('\nðŸ“§ Sample emails:');
     output.emails.slice(0, 5).forEach(e => console.log(`   ${e}`));
   }
 
   return output;
 }
+

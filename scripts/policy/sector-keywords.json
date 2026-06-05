@@ -1,0 +1,44 @@
+{
+  "housing": [
+    "housing",
+    "rental",
+    "mortgage",
+    "FHA",
+    "GSE",
+    "Section 8",
+    "LIHTC",
+    "zoning",
+    "affordable housing",
+    "eviction",
+    "fair housing",
+    "homeownership"
+  ],
+  "defense": [
+    "defense",
+    "NDAA",
+    "DoD",
+    "appropriations",
+    "veterans",
+    "armed services",
+    "military",
+    "procurement",
+    "defense contractors",
+    "weapons systems",
+    "national security"
+  ],
+  "tech": [
+    "artificial intelligence",
+    "AI",
+    "antitrust",
+    "Section 230",
+    "privacy",
+    "data localization",
+    "spectrum",
+    "broadband",
+    "technology regulation",
+    "digital services",
+    "cybersecurity",
+    "encryption",
+    "Big Tech"
+  ]
+}

@@ -1,0 +1,31 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260604165500
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\harness\run-scheduled.ps1 -CommandType system -Name validate -TaskLabel My_Data - Post-Close Validate -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 8852
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled-harness] My_Data - Post-Close Validate
+[started] 2026-06-04T16:55:00.6148125-04:00
+[VAULT_ROOT] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data
+[command] C:\Program Files\nodejs\node.exe C:\Users\CaveUser\harness\engine\run.mjs system validate
+
+Warnings (1)
+  - Puller not registry-addressable (no pull/run export): pullers/sourcewatch.mjs
+
+[finished] 2026-06-04T16:55:01.0768559-04:00 exit=0
+**********************
+Windows PowerShell transcript end
+End time: 20260604165501
+**********************

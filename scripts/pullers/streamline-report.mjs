@@ -23,6 +23,11 @@ import { loadLatestAgentThreads } from '../lib/agent-interactions.mjs';
 import { readFolder } from '../lib/frontmatter.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
 import { loadLatestLedger } from '../lib/run-ledger.mjs';
+import {
+  loadLatestSignalIntelligence,
+  renderCanonicalDeepDiveBlock,
+  renderCanonicalSignalBlock,
+} from '../lib/signal-intelligence.mjs';
 import { computeModuleScores, summarizeScores } from '../lib/signal-quality.mjs';
 import { loadLatestPositioningSidecar } from './positioning-report.mjs';
 
@@ -79,6 +84,7 @@ export async function pull(flags = {}) {
 
   console.log(`Streamline Report: reading local vault notes since ${since} [cadence=${cadence}, focus=${focusKey}]...`);
   const positioningSidecar = await loadLatestPositioningSidecar().catch(() => null);
+  const signalIntelligence = await loadLatestSignalIntelligence().catch(() => null);
   const rawData = await loadReportData({ since, limit, positioningSidecar });
   const filteredQueue = applyFocusFilter(rawData.reviewQueue, focusKey);
   const dedupedQueue = deduplicateReviewQueue(filteredQueue);
@@ -135,6 +141,7 @@ export async function pull(flags = {}) {
     includeInteractions,
     newSince: sidecar.new_since_last_report,
     resolvedSince: sidecar.resolved_since_last_report,
+    signalIntelligence,
   });
 
   const filePath = join(getPullsDir(), 'Orchestrator', dateStampedFilename('Streamline_Report'));
@@ -292,7 +299,7 @@ async function loadReportData({ since, limit, positioningSidecar = null }) {
   };
 }
 
-function buildStreamlineNote({ data, since, windowDays, limit, status, signals, cadence = 'daily', focus = 'all', includeInteractions = false, newSince = 0, resolvedSince = 0 }) {
+function buildStreamlineNote({ data, since, windowDays, limit, status, signals, cadence = 'daily', focus = 'all', includeInteractions = false, newSince = 0, resolvedSince = 0, signalIntelligence = null }) {
   const quietDay = data.reviewQueue.length === 0;
   const reviewRows = data.reviewQueue.map(note => {
     const scores = scoreReviewItem(note);
@@ -368,12 +375,20 @@ function buildStreamlineNote({ data, since, windowDays, limit, status, signals, 
     sections: [
       ...cadenceSections,
       {
+        heading: 'Canonical Signal Intelligence',
+        content: renderCanonicalSignalBlock(signalIntelligence, { limit: 10 }),
+      },
+      {
+        heading: 'Canonical Deeper Dive Queue',
+        content: renderCanonicalDeepDiveBlock(signalIntelligence, { limit: 5 }),
+      },
+      {
         heading: 'Executive Brief',
         content: quietDay
           ? buildQuietDayBrief(data)
           : [
             `- **Regime**: ${data.regime.label}. ${data.regime.reason}`,
-            `- **Active review queue**: ${data.reviewQueue.length} item(s) since ${since}; worst status is ${status}.`,
+            `- **Manual review candidates**: ${data.reviewQueue.length} item(s) since ${since}; worst status is ${status}.`,
             `- **Agent coordination**: ${data.agentRollup ? `${noteTitle(data.agentRollup)} is the latest rollup (${noteDate(data.agentRollup)}).` : 'No agent rollup found in the window; run the agent thesis scan for a fuller read.'}`,
             `- **Primary workflow**: ${recommendWorkflow(data)}`,
             `- **Guide gaps**: ${formatGapSummary(data.coverageRows)}`,
@@ -386,7 +401,7 @@ function buildStreamlineNote({ data, since, windowDays, limit, status, signals, 
         content: buildTable(['Question', 'Current Read', 'Action'], questionRows),
       },
       {
-        heading: 'Active Alerts And Review Queue',
+        heading: 'Active Alerts And Manual Review',
         content: reviewRows.length
           ? buildTable(['Status', 'Severity', 'Item', 'Domain', 'Date', 'Freshness', 'Confidence', 'Coverage', 'Disposition', 'Evidence', 'Note'], reviewRows)
           : '_No active alert, watch, or critical pull notes found in the report window._',
@@ -426,7 +441,7 @@ function buildStreamlineNote({ data, since, windowDays, limit, status, signals, 
           : '_No catalyst, earnings calendar, or PEAD-style notes found._',
       },
       {
-        heading: 'Manual Fidelity Review Queue',
+        heading: 'Manual Fidelity Checks',
         content: manualRows.length
           ? buildTable(['Candidate', 'Edge', 'Strategy', 'Why Review', 'Invalidation', 'Next Action'], manualRows)
           : '_No manual review candidates were promoted by the current signals._',
@@ -789,7 +804,7 @@ function buildCadenceSections({ data, cadence, since, signalQualityScores = {} }
       content: [
         `- **Period**: ${cadence.charAt(0).toUpperCase() + cadence.slice(1)} review since ${since}.`,
         `- **Signal breakdown**: ${criticalCount} critical, ${alertCount} alert, ${watchCount} watch across all pull notes in window.`,
-        `- **Active review queue**: ${data.reviewQueue.length} deduplicated item(s) after focus filter.`,
+        `- **Manual review candidates**: ${data.reviewQueue.length} deduplicated item(s) after focus filter.`,
         `- **Coverage gaps**: ${gapCount} guide module(s) still missing.`,
       ].join('\n'),
     }];
@@ -1132,7 +1147,7 @@ function buildLearningRows(data, limit) {
           externalLink('Options Industry Council education', 'https://www.optionseducation.org/'),
           'Review bid/ask spread, OI, volume, IV, event dates, assignment risk, and expiration fit.',
         ],
-        'Add a manual options checklist before any options candidate reaches the review queue.'
+        'Add a manual options checklist before any options candidate is discussed for promotion.'
       );
     }
   }

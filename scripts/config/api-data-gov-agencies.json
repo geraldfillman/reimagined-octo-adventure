@@ -1,0 +1,520 @@
+{
+  "version": 1,
+  "description": "Agency registry for the shared api.data.gov puller. Starter-ready endpoints are verified enough to run; configured-no-starter agencies stay documented until a stable endpoint is selected.",
+  "agencies": [
+    {
+      "slug": "usda",
+      "name": "Department of Agriculture",
+      "category": "Supply_Chain_Trade",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Crop, food supply, export, rural infrastructure, and commodity-chain context.",
+      "example": "Food inflation, fertilizer, crop disease, or rural credit stress background.",
+      "tags": ["api-data-gov", "usda", "food", "agriculture"],
+      "endpoints": [
+        {
+          "slug": "fooddata-search",
+          "name": "FoodData Central search",
+          "status": "starter-ready",
+          "url": "https://api.nal.usda.gov/fdc/v1/foods/search",
+          "auth": "query",
+          "default_params": { "query": "corn", "pageSize": 10 },
+          "records_path": "foods",
+          "columns": [
+            { "label": "Description", "path": "description" },
+            { "label": "Data Type", "path": "dataType" },
+            { "label": "Brand", "path": "brandOwner" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "commerce",
+      "name": "Department of Commerce",
+      "category": "Macro",
+      "domain": "Macro",
+      "priority": "watch",
+      "status": "configured-no-starter",
+      "use_case": "Trade, business formation, economic development, weather/ocean, and industry datasets depending on endpoint availability.",
+      "example": "Trade and industrial capacity context for reshoring theses.",
+      "tags": ["api-data-gov", "commerce", "trade", "industrial-policy"],
+      "endpoints": []
+    },
+    {
+      "slug": "education",
+      "name": "Department of Education",
+      "category": "Macro",
+      "domain": "Macro",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "School finance, student loans, institutional outcomes, and workforce pipeline context.",
+      "example": "Long-horizon labor supply and consumer-credit pressure monitor.",
+      "tags": ["api-data-gov", "education", "student-loans", "workforce"],
+      "endpoints": [
+        {
+          "slug": "college-scorecard",
+          "name": "College Scorecard schools",
+          "status": "starter-ready",
+          "url": "https://api.data.gov/ed/collegescorecard/v1/schools",
+          "auth": "query",
+          "default_params": {
+            "fields": "school.name,school.state,latest.student.size,latest.cost.tuition.in_state",
+            "per_page": 10
+          },
+          "records_path": "results",
+          "columns": [
+            { "label": "School", "path": "school.name" },
+            { "label": "State", "path": "school.state" },
+            { "label": "Students", "path": "latest.student.size" },
+            { "label": "In-State Tuition", "path": "latest.cost.tuition.in_state" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "justice",
+      "name": "Department of Justice",
+      "category": "Legal_Courts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Enforcement, crime statistics, civil rights, antitrust, FOIA, and public-safety datasets.",
+      "example": "Legal enforcement intensity or fraud-risk context for sectors.",
+      "tags": ["api-data-gov", "justice", "crime", "enforcement"],
+      "endpoints": [
+        {
+          "slug": "fbi-estimates",
+          "name": "FBI crime estimates",
+          "status": "starter-ready",
+          "url": "https://api.usa.gov/crime/fbi/cde/estimates/states",
+          "auth": "query",
+          "default_params": { "from": 2022, "to": 2023 },
+          "records_path": "results",
+          "columns": [
+            { "label": "State", "path": "state_name" },
+            { "label": "Year", "path": "year" },
+            { "label": "Population", "path": "population" },
+            { "label": "Violent Crime", "path": "violent_crime" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "treasury",
+      "name": "Department of Treasury",
+      "category": "Macro",
+      "domain": "Macro",
+      "priority": "foundation",
+      "status": "configured-no-starter",
+      "use_case": "Bank supervision, charter/licensing, enforcement, and financial-system plumbing context.",
+      "example": "Bank regulatory pressure and fintech charter watch.",
+      "tags": ["api-data-gov", "treasury", "banking", "financial-system"],
+      "existing_puller": "treasury",
+      "endpoints": []
+    },
+    {
+      "slug": "eia",
+      "name": "Energy Information Administration",
+      "category": "Climate_Energy",
+      "domain": "Energy",
+      "priority": "foundation",
+      "status": "starter-ready",
+      "use_case": "Grid load, generation mix, electricity demand, energy price, and infrastructure pressure.",
+      "example": "Power-grid and industrial-capex pressure monitor.",
+      "tags": ["api-data-gov", "eia", "energy", "grid"],
+      "existing_puller": "eia",
+      "endpoints": [
+        {
+          "slug": "electricity-generation",
+          "name": "EIA electricity generation mix",
+          "status": "starter-ready",
+          "url": "https://api.eia.gov/v2/electricity/electric-power-operational-data/data/",
+          "auth": "query",
+          "default_params": {
+            "frequency": "monthly",
+            "data[0]": "generation",
+            "facets[fueltypeid][]": "ALL",
+            "sort[0][column]": "period",
+            "sort[0][direction]": "desc",
+            "length": 10
+          },
+          "records_path": "response.data",
+          "columns": [
+            { "label": "Period", "path": "period" },
+            { "label": "Fuel", "path": "fuelTypeDescription" },
+            { "label": "Generation", "path": "generation" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "epa",
+      "name": "Environmental Protection Agency",
+      "category": "Climate_Energy",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "configured-no-starter",
+      "use_case": "Facility emissions, environmental enforcement, and industrial/regulatory pressure.",
+      "example": "Industrial emissions and environmental enforcement watch.",
+      "tags": ["api-data-gov", "epa", "emissions", "regulatory-risk"],
+      "endpoints": []
+    },
+    {
+      "slug": "fcc",
+      "name": "Federal Communications Commission",
+      "category": "Government_Contracts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "configured-no-starter",
+      "use_case": "Broadband, spectrum, telecom licensing, outages, media ownership, and infrastructure policy.",
+      "example": "Spectrum/regulatory read-through for telecom, satellites, rural broadband, and data-center connectivity.",
+      "tags": ["api-data-gov", "fcc", "telecom", "spectrum"],
+      "endpoints": []
+    },
+    {
+      "slug": "fdic",
+      "name": "Federal Deposit Insurance Corporation",
+      "category": "Macro",
+      "domain": "Macro",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Bank structure, failed-bank history, institution metadata, and deposit-system stress context.",
+      "example": "Regional bank stress and deposit-franchise backgrounder.",
+      "tags": ["api-data-gov", "fdic", "banks", "deposits"],
+      "endpoints": [
+        {
+          "slug": "institutions",
+          "name": "FDIC active institutions",
+          "status": "starter-ready",
+          "url": "https://banks.data.fdic.gov/api/institutions",
+          "auth": "none",
+          "default_params": {
+            "filters": "ACTIVE:1",
+            "fields": "NAME,CITY,STNAME,CERT",
+            "limit": 10,
+            "format": "json"
+          },
+          "records_path": "data",
+          "columns": [
+            { "label": "Bank", "path": "data.NAME" },
+            { "label": "City", "path": "data.CITY" },
+            { "label": "State", "path": "data.STNAME" },
+            { "label": "Cert", "path": "data.CERT" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fec",
+      "name": "Federal Election Commission",
+      "category": "Government_Contracts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Political spending, lobbying-adjacent campaign flow, and regulatory-risk context.",
+      "example": "Campaign-finance flow around policy-sensitive sectors.",
+      "tags": ["api-data-gov", "fec", "campaign-finance", "policy-risk"],
+      "endpoints": [
+        {
+          "slug": "candidates",
+          "name": "FEC candidate search",
+          "status": "starter-ready",
+          "url": "https://api.open.fec.gov/v1/candidates/search/",
+          "auth": "query",
+          "default_params": { "per_page": 10, "sort": "-cycles" },
+          "records_path": "results",
+          "columns": [
+            { "label": "Name", "path": "name" },
+            { "label": "Party", "path": "party_full" },
+            { "label": "State", "path": "state" },
+            { "label": "Office", "path": "office_full" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ftc",
+      "name": "Federal Trade Commission",
+      "category": "Legal_Courts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "configured-no-starter",
+      "use_case": "Competition, consumer protection, enforcement actions, merger pressure, and ad-tech/platform risk.",
+      "example": "Antitrust enforcement watch for mega-cap tech, healthcare rollups, or consumer-finance models.",
+      "tags": ["api-data-gov", "ftc", "antitrust", "consumer-protection"],
+      "endpoints": []
+    },
+    {
+      "slug": "fda",
+      "name": "Food and Drug Administration",
+      "category": "Biotech_Healthcare",
+      "domain": "Biotech",
+      "priority": "foundation",
+      "status": "starter-ready",
+      "use_case": "Approvals, enforcement, healthcare policy pressure, and biotech catalysts.",
+      "example": "Drug approval and enforcement catalyst monitor.",
+      "tags": ["api-data-gov", "fda", "openfda", "biotech"],
+      "existing_puller": "fda",
+      "endpoints": [
+        {
+          "slug": "drug-approvals",
+          "name": "openFDA drug approvals",
+          "status": "starter-ready",
+          "url": "https://api.fda.gov/drug/drugsfda.json",
+          "auth": "query",
+          "default_params": {
+            "search": "submissions.submission_type:\"ORIG\" AND submissions.submission_status:\"AP\"",
+            "sort": "submissions.submission_status_date:desc",
+            "limit": 10
+          },
+          "records_path": "results",
+          "columns": [
+            { "label": "Application", "path": "application_number" },
+            { "label": "Sponsor", "path": "sponsor_name" },
+            { "label": "Brand", "path": "products.0.brand_name" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gsa",
+      "name": "General Services Administration",
+      "category": "Government_Contracts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "configured-no-starter",
+      "use_case": "Procurement, federal digital services, real estate, acquisition platforms, and government operating infrastructure.",
+      "example": "Federal software/vendor demand proxy or public-sector modernization tracker.",
+      "tags": ["api-data-gov", "gsa", "procurement", "federal-it"],
+      "existing_puller": "sam",
+      "endpoints": []
+    },
+    {
+      "slug": "gpo",
+      "name": "Government Publishing Office",
+      "category": "Legal_Courts",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Primary-source federal documents, hearings, CFR/Federal Register-style material, and official reports.",
+      "example": "Source-of-truth packet for regulatory changes before market commentary distorts it.",
+      "tags": ["api-data-gov", "gpo", "govinfo", "policy"],
+      "endpoints": [
+        {
+          "slug": "packages",
+          "name": "GovInfo packages",
+          "status": "starter-ready",
+          "url": "https://api.govinfo.gov/packages",
+          "auth": "query",
+          "default_params": { "pageSize": 10 },
+          "records_path": "packages",
+          "columns": [
+            { "label": "Package", "path": "packageId" },
+            { "label": "Title", "path": "title" },
+            { "label": "Date Issued", "path": "dateIssued" },
+            { "label": "Collection", "path": "collectionCode" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "loc",
+      "name": "Library of Congress",
+      "category": "Legal_Courts",
+      "domain": "Research",
+      "priority": "supplementary",
+      "status": "starter-ready",
+      "use_case": "Legislative and historical context for policy regimes, industrial strategy, trade disputes, and recurring crisis narratives.",
+      "example": "Policy precedent packet for export controls, tariffs, or wartime production.",
+      "tags": ["api-data-gov", "library-of-congress", "history", "policy-context"],
+      "endpoints": [
+        {
+          "slug": "search",
+          "name": "Library of Congress search",
+          "status": "starter-ready",
+          "url": "https://www.loc.gov/search/",
+          "auth": "none",
+          "default_params": { "fo": "json", "q": "industrial policy", "c": 10 },
+          "records_path": "results",
+          "columns": [
+            { "label": "Title", "path": "title" },
+            { "label": "Date", "path": "date" },
+            { "label": "Type", "path": "type.0" },
+            { "label": "URL", "path": "url" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nasa",
+      "name": "National Aeronautics and Space Administration",
+      "category": "Climate_Energy",
+      "domain": "Research",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Climate, geospatial, resource, wildfire, land, water, space, and infrastructure risk.",
+      "example": "Space, climate, and infrastructure risk context for aerospace and power theses.",
+      "tags": ["api-data-gov", "nasa", "space", "climate"],
+      "endpoints": [
+        {
+          "slug": "apod",
+          "name": "NASA astronomy picture metadata",
+          "status": "starter-ready",
+          "url": "https://api.nasa.gov/planetary/apod",
+          "auth": "query",
+          "default_params": { "count": 5 },
+          "records_path": "",
+          "columns": [
+            { "label": "Title", "path": "title" },
+            { "label": "Date", "path": "date" },
+            { "label": "Media Type", "path": "media_type" },
+            { "label": "URL", "path": "url" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nih",
+      "name": "National Institutes of Health",
+      "category": "Biotech_Healthcare",
+      "domain": "Biotech",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Biomedical research, grant activity, disease focus, and translational science context.",
+      "example": "Research-funding signal for therapeutic-area momentum.",
+      "tags": ["api-data-gov", "nih", "biotech", "research-funding"],
+      "endpoints": [
+        {
+          "slug": "reporter-projects",
+          "name": "NIH RePORTER active projects",
+          "status": "starter-ready",
+          "url": "https://api.reporter.nih.gov/v2/projects/search",
+          "auth": "none",
+          "method": "POST",
+          "default_body": {
+            "criteria": { "advanced_text_search": { "operator": "and", "search_text": "antimicrobial resistance" } },
+            "limit": 10
+          },
+          "records_path": "results",
+          "columns": [
+            { "label": "Project", "path": "project_title" },
+            { "label": "Org", "path": "organization.org_name" },
+            { "label": "FY", "path": "fy" },
+            { "label": "Award", "path": "award_amount" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nps",
+      "name": "National Park Service",
+      "category": "Geospatial",
+      "domain": "Government",
+      "priority": "supplementary",
+      "status": "starter-ready",
+      "use_case": "Climate, geospatial, resource, wildfire, land, water, and infrastructure risk.",
+      "example": "Land-use, wildfire, tourism, and federal-site exposure context.",
+      "tags": ["api-data-gov", "nps", "parks", "geospatial"],
+      "endpoints": [
+        {
+          "slug": "parks",
+          "name": "NPS parks",
+          "status": "starter-ready",
+          "url": "https://developer.nps.gov/api/v1/parks",
+          "auth": "query",
+          "default_params": { "limit": 10 },
+          "records_path": "data",
+          "columns": [
+            { "label": "Park", "path": "fullName" },
+            { "label": "States", "path": "states" },
+            { "label": "Designation", "path": "designation" },
+            { "label": "URL", "path": "url" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nrel",
+      "name": "National Renewable Energy Laboratory",
+      "category": "Climate_Energy",
+      "domain": "Energy",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Renewable deployment, alternative-fuel infrastructure, building efficiency, and clean-energy resource context.",
+      "example": "EV charging and clean-energy infrastructure read-through.",
+      "tags": ["api-data-gov", "nrel", "renewables", "ev-charging"],
+      "endpoints": [
+        {
+          "slug": "alt-fuel-stations",
+          "name": "Alternative fuel stations",
+          "status": "starter-ready",
+          "url": "https://developer.nrel.gov/api/alt-fuel-stations/v1.json",
+          "auth": "query",
+          "default_params": { "limit": 10, "fuel_type": "ELEC" },
+          "records_path": "fuel_stations",
+          "columns": [
+            { "label": "Station", "path": "station_name" },
+            { "label": "City", "path": "city" },
+            { "label": "State", "path": "state" },
+            { "label": "Fuel", "path": "fuel_type_code" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "smithsonian",
+      "name": "Smithsonian Institution",
+      "category": "Frontier_Science",
+      "domain": "Research",
+      "priority": "supplementary",
+      "status": "starter-ready",
+      "use_case": "Cultural and public-interest signals around science, aviation, energy, biodiversity, and technology adoption.",
+      "example": "Narrative context for public acceptance of nuclear, drones, space, or climate adaptation.",
+      "tags": ["api-data-gov", "smithsonian", "science-culture", "narrative"],
+      "endpoints": [
+        {
+          "slug": "openaccess-search",
+          "name": "Smithsonian open access search",
+          "status": "starter-ready",
+          "url": "https://api.si.edu/openaccess/api/v1.0/search",
+          "auth": "query",
+          "default_params": { "q": "nuclear energy", "rows": 10 },
+          "records_path": "response.rows",
+          "columns": [
+            { "label": "Title", "path": "title" },
+            { "label": "Type", "path": "type" },
+            { "label": "Unit", "path": "unitCode" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usgs",
+      "name": "U.S. Geological Survey",
+      "category": "Geospatial",
+      "domain": "Government",
+      "priority": "watch",
+      "status": "starter-ready",
+      "use_case": "Climate, geospatial, resource, wildfire, land, water, earthquake, minerals, and infrastructure risk.",
+      "example": "Resource, seismic, water, and land-risk context for infrastructure and commodity theses.",
+      "tags": ["api-data-gov", "usgs", "geospatial", "earthquake"],
+      "endpoints": [
+        {
+          "slug": "earthquakes",
+          "name": "USGS recent significant earthquakes",
+          "status": "starter-ready",
+          "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson",
+          "auth": "none",
+          "records_path": "features",
+          "columns": [
+            { "label": "Place", "path": "properties.place" },
+            { "label": "Magnitude", "path": "properties.mag" },
+            { "label": "Time", "path": "properties.time" },
+            { "label": "URL", "path": "properties.url" }
+          ]
+        }
+      ]
+    }
+  ]
+}

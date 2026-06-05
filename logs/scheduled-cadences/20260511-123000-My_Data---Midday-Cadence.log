@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260511123000
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name midday -TaskLabel My_Data - Midday Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 77076
+PSVersion: 5.1.26100.8115
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8115
+BuildVersion: 10.0.26100.8115
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Midday Cadence
+[started] 2026-05-11T12:30:00.8303061-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run midday
+
+  GDELT fetch error: fetch failed. Retry 1/2 in 30s...
+  GDELT fetch error: fetch failed. Retry 2/2 in 30s...
+  Macro / Fed: fetch failed (fetch failed)
+  �� KB raw copy → 12_Knowledge_Bases/raw/articles/2026-05-11_1233_GDELT_News_Monitor.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\News\2026-05-11_1233_GDELT_News_Monitor.md
+  [ok] wrote=1 skipped=0 (213.8s)
+
+[run] yfinance-vol
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Vol\2026-05-11_yfinance_vol_1d.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Vol\2026-05-11_yfinance_vol_1d.json
+  [ok] wrote=0 skipped=0 (7.0s)
+
+[run] research-spine-flow  --documents=midday-monitoring
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\02_Reports\Monitoring\Midday\2026-05-11 Midday Moni
+toring Snapshot.md
+Inbox: wrote 1 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\04_Human_Notes\Inb
+ox.md
+  [ok] wrote=0 skipped=0 (3.7s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\99_System\run_summaries\2026-05-11_12-33.md
+
+[done] 6/6 ok in 230.7s
+
+[done] Done in 230.7s
+
+[finished] 2026-05-11T12:33:51.6016986-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260511123351
+**********************

@@ -11,57 +11,63 @@
 import { join } from 'node:path';
 
 import { getBaseUrl, getPullsDir } from '../lib/config.mjs';
-import { getJson, sleep } from '../lib/fetcher.mjs';
+import { sleep } from '../lib/fetcher.mjs';
+import { keepEnglishContent } from '../lib/language-filter.mjs';
 import { buildNote, buildTable, today, writeNote } from '../lib/markdown.mjs';
+import { withRetry, RateLimitError, parseRetryAfter } from '../lib/retry.mjs';
 
 const DEFAULT_TIMESPAN = '15min';
 const DEFAULT_LIMIT = 75;
 const MAX_RECORDS = 250;
+const GDELT_REQUEST_INTERVAL_MS = 30_000;
+const GDELT_RETRY_DELAY_MS = 30_000;
+const GDELT_MAX_ATTEMPTS = 3;
+let lastGdeltRequestAt = 0;
 
 const TOPIC_QUERIES = Object.freeze({
   markets: {
     label: 'Markets',
-    query: '("stock market" OR equities OR "S&P 500" OR Nasdaq OR "Federal Reserve")',
+    query: '"stock market"',
     domainHint: 'market',
   },
   macro: {
     label: 'Macro / Fed',
-    query: '("Federal Reserve" OR inflation OR CPI OR "interest rates" OR recession)',
+    query: '"Federal Reserve"',
     domainHint: 'macro',
   },
   credit: {
     label: 'Credit Stress',
-    query: '("credit stress" OR "bank stress" OR "high yield" OR "credit spreads" OR liquidity)',
+    query: '"bank stress"',
     domainHint: 'macro',
   },
   energy: {
     label: 'Energy Shock',
-    query: '(oil OR LNG OR grid OR electricity OR "energy prices" OR "power demand")',
+    query: '"oil prices"',
     domainHint: 'energy',
   },
   housing: {
     label: 'Housing',
-    query: '("housing market" OR mortgage OR homebuilders OR rents OR "commercial real estate")',
+    query: '"housing market"',
     domainHint: 'housing',
   },
   defense: {
     label: 'Defense / Autonomy',
-    query: '(defense OR drones OR "autonomous systems" OR hypersonic OR "missile defense")',
+    query: '"missile defense"',
     domainHint: 'government',
   },
   biotech: {
     label: 'Biotech / FDA',
-    query: '(biotech OR FDA OR "clinical trial" OR pharma OR "drug approval")',
+    query: '"clinical trial"',
     domainHint: 'biotech',
   },
   aipower: {
     label: 'AI Power Infrastructure',
-    query: '("AI data center" OR "power grid" OR "data center electricity" OR "AI infrastructure")',
+    query: '"AI data center"',
     domainHint: 'market',
   },
   dilution: {
     label: 'Small-Cap Dilution',
-    query: '("registered direct" OR "stock offering" OR "at-the-market offering" OR "shelf registration")',
+    query: '"stock offering"',
     domainHint: 'fundamentals',
   },
 });
@@ -71,14 +77,21 @@ export async function pull(flags = {}) {
   const limit = Math.min(MAX_RECORDS, Math.max(1, Number(flags.limit) || DEFAULT_LIMIT));
   const topics = resolveTopics(flags);
   const alertThreshold = Math.max(1, Number(flags['alert-threshold']) || 60);
+  const maxAttempts = resolveMaxAttempts(flags['max-attempts']);
   const dryRun = Boolean(flags['dry-run']);
+  const englishOnly = !Boolean(flags['all-languages'] || flags.allLanguages);
 
   if (dryRun) {
     const plan = {
       source: 'GDELT DOC API',
       timespan,
       limit,
-      topics: topics.map(topic => ({ id: topic.id, label: topic.label, query: topic.query })),
+      language: englishOnly ? 'english' : 'all',
+      topics: topics.map(topic => ({
+        id: topic.id,
+        label: topic.label,
+        query: englishOnly ? appendGdeltEnglishFilter(topic.query) : topic.query,
+      })),
       command: `node run.mjs pull gdelt ${flags.all ? '--all ' : ''}--timespan ${timespan} --limit ${limit}`,
     };
     console.log(JSON.stringify(plan, null, 2));
@@ -91,7 +104,7 @@ export async function pull(flags = {}) {
   for (let index = 0; index < topics.length; index += 1) {
     const topic = topics[index];
     try {
-      const articles = await fetchTopic(topic, { timespan, limit });
+      const articles = await fetchTopic(topic, { timespan, limit, maxAttempts, englishOnly });
       results.push({ ...topic, articles, error: null });
       console.log(`  ${topic.label}: ${articles.length} article(s)`);
     } catch (error) {
@@ -140,18 +153,104 @@ export async function pull(flags = {}) {
   return output;
 }
 
-async function fetchTopic(topic, { timespan, limit }) {
-  const params = new URLSearchParams({
+async function fetchTopic(topic, { timespan, limit, maxAttempts = GDELT_MAX_ATTEMPTS, englishOnly = true }) {
+  const url = buildGdeltDocUrl({
+    baseUrl: getBaseUrl('gdelt'),
     query: topic.query,
+    timespan,
+    limit,
+    englishOnly,
+  });
+  const data = await fetchGdeltJson(url, { maxAttempts });
+  return normalizeArticles(Array.isArray(data?.articles) ? data.articles : []);
+}
+
+export function buildGdeltDocUrl({ baseUrl = getBaseUrl('gdelt'), query, timespan, limit, englishOnly = true }) {
+  const params = new URLSearchParams({
+    query: englishOnly ? appendGdeltEnglishFilter(query) : query,
     mode: 'artlist',
     format: 'json',
     timespan,
     maxrecords: String(limit),
     sort: 'datedesc',
   });
-  const url = `${getBaseUrl('gdelt')}?${params.toString()}`;
-  const data = await getJson(url, { timeout: 30_000, retries: 2 });
-  return normalizeArticles(Array.isArray(data?.articles) ? data.articles : []);
+  return `${baseUrl}?${params.toString()}`;
+}
+
+export function appendGdeltEnglishFilter(query) {
+  const text = String(query || '').trim();
+  if (!text) return 'sourcelang:english';
+  if (/\bsourcelang:/i.test(text)) return text;
+  return `${text} sourcelang:english`;
+}
+
+async function fetchGdeltJson(url, { maxAttempts = GDELT_MAX_ATTEMPTS } = {}) {
+  return withRetry(
+    async () => {
+      await waitForGdeltSlot();
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 45_000);
+        const response = await fetch(url, {
+          headers: { 'User-Agent': 'MyData-Vault/1.0 (GDELT DOC monitor)' },
+          signal: controller.signal,
+        });
+        clearTimeout(timer);
+
+        if (response.status === 429) {
+          const body = cleanText(await response.text().catch(() => ''));
+          const retryAfterMs = parseRetryAfter(response.headers.get('Retry-After')) ?? GDELT_RETRY_DELAY_MS;
+          throw new RateLimitError(retryAfterMs, body || 'GDELT rate limit');
+        }
+
+        const text = await response.text();
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${cleanText(text).slice(0, 200)}`);
+        }
+        try {
+          return JSON.parse(text);
+        } catch (error) {
+          throw new Error(`Invalid JSON from GDELT: ${error.message}; body=${cleanText(text).slice(0, 200)}`);
+        }
+      } catch (error) {
+        if (error?.name === 'AbortError') throw new Error(`Request timed out after 45000ms: ${url}`);
+        throw error;
+      } finally {
+        markGdeltRequestFinished();
+      }
+    },
+    {
+      maxAttempts,
+      baseDelayMs: GDELT_RETRY_DELAY_MS,
+      onRetry: (err, attempt, waitMs) => {
+        const wait = Math.round(waitMs / 1000);
+        if (err instanceof RateLimitError) {
+          console.warn(`  GDELT rate limited (429). Waiting ${wait}s before retry...`);
+        } else {
+          console.warn(`  GDELT fetch error: ${err.message}. Retry ${attempt}/${maxAttempts - 1} in ${wait}s...`);
+        }
+      },
+    }
+  );
+}
+
+function resolveMaxAttempts(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isInteger(parsed) || parsed <= 0) return GDELT_MAX_ATTEMPTS;
+  return Math.min(parsed, GDELT_MAX_ATTEMPTS);
+}
+
+export const resolveGdeltMaxAttemptsForTest = resolveMaxAttempts;
+
+async function waitForGdeltSlot() {
+  const elapsed = Date.now() - lastGdeltRequestAt;
+  if (lastGdeltRequestAt && elapsed < GDELT_REQUEST_INTERVAL_MS) {
+    await sleep(GDELT_REQUEST_INTERVAL_MS - elapsed);
+  }
+}
+
+function markGdeltRequestFinished() {
+  lastGdeltRequestAt = Date.now();
 }
 
 function buildGdeltNote({ results, allArticles, timespan, limit, signalStatus, signals, alertThreshold, fetchErrors }) {
@@ -225,7 +324,7 @@ function buildGdeltNote({ results, allArticles, timespan, limit, signalStatus, s
   });
 }
 
-function resolveTopics(flags) {
+export function resolveTopics(flags) {
   if (flags.query) {
     return [{
       id: slugify(flags.topic || 'custom'),
@@ -265,8 +364,15 @@ function normalizeArticles(articles) {
     language: String(article.language || '').trim(),
     sourcecountry: String(article.sourcecountry || '').trim(),
     socialimage: String(article.socialimage || '').trim(),
-  })).filter(article => article.url || article.title);
+  }))
+    .filter(article => article.url || article.title)
+    .filter(article => keepEnglishContent(article, {
+      languageFields: ['language'],
+      textFields: ['title'],
+    }));
 }
+
+export const normalizeGdeltArticlesForTest = normalizeArticles;
 
 function dedupeArticles(articles) {
   const seen = new Set();
@@ -300,11 +406,15 @@ function buildSignals(results, allArticles, alertThreshold, fetchErrors = []) {
   return signals.slice(0, 24);
 }
 
-function normalizeTimespan(value) {
+export function normalizeTimespan(value) {
   const text = String(value || DEFAULT_TIMESPAN).trim();
   if (/^\d+(min|h|hours|d|days|w|weeks|m|months)$/i.test(text)) return text;
   if (/^\d+$/.test(text)) return `${text}min`;
   return DEFAULT_TIMESPAN;
+}
+
+export function getGdeltRetryDelayMs(retryAfter, _attempt = 0) {
+  return parseRetryAfter(retryAfter) ?? GDELT_RETRY_DELAY_MS;
 }
 
 function normalizeSeenDate(value) {

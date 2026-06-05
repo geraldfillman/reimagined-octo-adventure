@@ -11,14 +11,12 @@
  */
 
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'fs';
-import { join, resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getPullsDir, getSignalsDir } from '../lib/config.mjs';
 import { VALID_SIGNAL_STATES } from '../lib/schema.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = resolve(__dirname, '..', '..');
-const SIGNALS_DIR = join(VAULT_ROOT, '06_Signals');
-const PULLS_DIR   = join(VAULT_ROOT, '05_Data_Pulls');
+const SIGNALS_DIR = getSignalsDir();
+const PULLS_DIR = getPullsDir();
 
 const DEFAULT_EXPIRE_DAYS = 30;
 

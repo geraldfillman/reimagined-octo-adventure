@@ -1,5 +1,5 @@
-/**
- * osint-leaker.mjs — Passive multi-database breach/credential enumeration
+﻿/**
+ * osint-leaker.mjs â€” Passive multi-database breach/credential enumeration
  *
  * Usage:
  *   node run.mjs scan osint-leaker --domain example.com
@@ -12,17 +12,16 @@
  * Output:
  *   05_Data_Pulls/osint/leaker-<target>-<date>.json
  *
- * Signal trigger: breach findings → P2 signal note in 06_Signals/
+ * Signal trigger: breach findings â†’ P2 signal note in 06_Signals/
  */
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 export async function pull(flags = {}) {
   const domain = flags.domain;
@@ -41,7 +40,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `leaker-${safeTarget}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🔍 Leaker passive breach scan: ${target} (${targetType})`);
+  console.log(`\nðŸ” Leaker passive breach scan: ${target} (${targetType})`);
   console.log(`   Searching across 10 breach databases...`);
   console.log(`   Output: ${outputFile}`);
 
@@ -64,7 +63,7 @@ export async function pull(flags = {}) {
   });
 
   if (result.error) {
-    console.error(`❌ Leaker error: ${result.error.message}`);
+    console.error(`âŒ Leaker error: ${result.error.message}`);
     console.error('   Install with: pip install leaker');
     process.exit(1);
   }
@@ -98,17 +97,18 @@ export async function pull(flags = {}) {
 
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
 
-  console.log(`\n✅ Leaker scan complete:`);
+  console.log(`\nâœ… Leaker scan complete:`);
   console.log(`   Total findings: ${findings.length}`);
   console.log(`   High-risk:      ${highRisk.length}`);
   console.log(`   Signal status:  ${signalStatus}`);
   console.log(`   Saved: ${outputFile}`);
 
   if (highRisk.length > 0) {
-    console.log('\n⚠️  High-risk findings:');
+    console.log('\nâš ï¸  High-risk findings:');
     highRisk.slice(0, 5).forEach(f => console.log(`   [${f.source ?? 'unknown'}] ${f.description ?? JSON.stringify(f)}`));
-    console.log('\n→ Consider creating a P2 signal note in 06_Signals/');
+    console.log('\nâ†’ Consider creating a P2 signal note in 06_Signals/');
   }
 
   return output;
 }
+

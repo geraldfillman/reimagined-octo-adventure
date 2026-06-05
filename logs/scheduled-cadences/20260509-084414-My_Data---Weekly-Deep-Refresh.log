@@ -1,0 +1,23 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260509084414
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType routine -Name weekly -TaskLabel My_Data - Weekly Deep Refresh -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 66504
+PSVersion: 5.1.26100.8115
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8115
+BuildVersion: 10.0.26100.8115
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Weekly Deep Refresh
+[started] 2026-05-09T08:44:14.6958974-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs routine weekly
+

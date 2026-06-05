@@ -30,38 +30,38 @@ fmp_watchlist_symbols: ["ETN", "GEV", "HUBB", "POWL", "PWR", "MTZ", "STRL", "MYR
 fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "ETN"
 fmp_technical_symbol_count: 10
-fmp_technical_nonclear_count: 1
-fmp_technical_bearish_count: 0
-fmp_technical_overbought_count: 1
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 1
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 61.2
-fmp_primary_price_vs_sma200_pct: 13.46
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 46.6
+fmp_primary_price_vs_sma200_pct: 8.85
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 159372598450
-fmp_primary_trailing_pe: 39
-fmp_primary_price_to_sales: 5.81
-fmp_primary_price_to_book: 8.21
-fmp_primary_ev_to_sales: 6.19
-fmp_primary_ev_to_ebitda: 27.36
-fmp_primary_roe_pct: 21.67
-fmp_primary_roic_pct: 13.12
-fmp_primary_operating_margin_pct: 19.05
-fmp_primary_net_margin_pct: 14.9
-fmp_primary_current_ratio: 1.32
-fmp_primary_debt_to_equity: 0.57
-fmp_primary_price_target: 386.86
-fmp_primary_analyst_count: 22
-fmp_primary_target_upside_pct: -5.82
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 5
-fmp_calendar_pull_date: "2026-04-27"
-fmp_next_earnings_date: "2026-04-30"
-fmp_next_earnings_symbols: ["HUBB", "MTZ"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 151961205000
+fmp_primary_trailing_pe: 38.07
+fmp_primary_price_to_sales: 5.33
+fmp_primary_price_to_book: 7.69
+fmp_primary_ev_to_sales: 6.07
+fmp_primary_ev_to_ebitda: 29.27
+fmp_primary_roe_pct: 20.81
+fmp_primary_roic_pct: 9.23
+fmp_primary_operating_margin_pct: 18.13
+fmp_primary_net_margin_pct: 13.99
+fmp_primary_current_ratio: 1.19
+fmp_primary_debt_to_equity: 1.1
+fmp_primary_price_target: 412
+fmp_primary_analyst_count: 21
+fmp_primary_target_upside_pct: 5.28
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-05-26"
+fmp_next_earnings_date: "2026-05-27"
+fmp_next_earnings_symbols: ["AMSC"]
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "grid-equipment", "electrification", "power", "industrials", "ai-infrastructure"]
 ---
 
@@ -130,3 +130,4 @@ WHERE contains(string(tags), "grid-equipment") OR contains(string(related_theses
 SORT date_pulled DESC
 LIMIT 10
 ```
+

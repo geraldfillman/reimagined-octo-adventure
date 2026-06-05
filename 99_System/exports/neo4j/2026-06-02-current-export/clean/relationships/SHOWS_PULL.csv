@@ -1,0 +1,3 @@
+:START_ID,:END_ID,:TYPE
+dashboard-panel:neo4j-metrics:eod,datapull:financial_modeling_prep:quote_close:eod:2026-06-01,SHOWS_PULL
+dashboard-panel:neo4j-metrics:bod,datapull:financial_modeling_prep:quote_premarket:bod:2026-06-01,SHOWS_PULL

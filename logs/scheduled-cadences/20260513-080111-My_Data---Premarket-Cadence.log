@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260513080111
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name premarket -TaskLabel My_Data - Premarket Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 34572
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Premarket Cadence
+[started] 2026-05-13T08:01:11.4526345-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run premarket
+
+  Fetching VIX History...
+  Fetching VIX3M History...
+    OK — 4187 rows
+    OK — 9183 rows
+    VIX Latest: 05/12/2026 = 17.99
+    VIX3M Latest: 05/12/2026 = 21.04
+  No signals — all clear.
+  �� KB raw copy → 12_Knowledge_Bases/raw/datasets/2026-05-13_CBOE_VIX_Term_Structure.md
+  Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Market\2026-05-13_CBOE_VIX_Term_Structure.md
+
+  [ok] wrote=1 skipped=0 (0.3s)
+
+[run] research-spine-flow  --documents=premarket-monitoring
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\02_Reports\Monitoring\Premarket\2026-05-13 Premarke
+t Monitoring Snapshot.md
+Inbox: wrote 1 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\04_Human_Notes\Inb
+ox.md
+  [ok] wrote=0 skipped=0 (1.6s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\99_System\run_summaries\2026-05-13_08-06.md
+
+[done] 7/7 ok in 335.2s
+
+[done] Done in 335.3s
+
+[finished] 2026-05-13T08:06:49.2072002-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260513080649
+**********************

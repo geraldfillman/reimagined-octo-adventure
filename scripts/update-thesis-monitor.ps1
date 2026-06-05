@@ -1,8 +1,11 @@
 $ErrorActionPreference = 'Stop'
 
-$vaultRoot = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'lib\paths.ps1')
+
+$vaultRoot = Get-MyDataRoot
 $thesesDir = Join-Path $vaultRoot '10_Theses'
 $today = Get-Date -Format 'yyyy-MM-dd'
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
 function Get-MonitorAction {
   param([string]$Priority)
@@ -16,7 +19,7 @@ function Get-MonitorAction {
 }
 
 foreach ($file in Get-ChildItem $thesesDir -File -Filter *.md) {
-  $content = Get-Content $file.FullName -Raw
+  $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
   $match = [regex]::Match($content, '(?s)^---\r?\n(.*?)\r?\n---\r?\n')
   if (-not $match.Success) { continue }
 
@@ -68,5 +71,7 @@ foreach ($file in Get-ChildItem $thesesDir -File -Filter *.md) {
   }
 
   $updated = "---`r`n$frontmatter`r`n---`r`n$body"
-  Set-Content $file.FullName $updated
+  if ($updated -ne $content) {
+    [System.IO.File]::WriteAllText($file.FullName, $updated, $utf8NoBom)
+  }
 }

@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260604123001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name midday -TaskLabel My_Data - Midday Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 6632
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Midday Cadence
+[started] 2026-06-04T12:30:01.0597338-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run midday
+
+Wrote cycle status: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\Freshness\Market_Cycles\breaking-points-p
+olicy-backstops.md
+Wrote cycle status: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\Freshness\Market_Cycles\historical-case-s
+tudies.md
+  [ok] wrote=0 skipped=0 (1.4s)
+
+[run] my-data-report-flow  --documents=midday-monitoring
+WARN data readiness for midday
+READY Signal Intelligence: 2026-06-04
+WARN FMP Market Performance: stale (24.0h old)
+  refresh: node run.mjs pull fmp --market-performance --limit=20
+WARN General Market News: stale (24.0h old)
+  refresh: node run.mjs pull fmp --general-news --limit=15
+WARN Vol Surface: stale (24.0h old)
+  refresh: node run.mjs pull yfinance-vol
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\Midday\Monitoring\2026-06-04 Midday Monitoring Snapsho
+t.md
+  [ok] wrote=0 skipped=0 (4.2s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\System\run_summaries\2026-06-04_12-30.md
+
+[done] 3/3 ok in 15.8s
+
+[done] Done in 19.1s
+
+[finished] 2026-06-04T12:30:20.2429603-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260604123020
+**********************

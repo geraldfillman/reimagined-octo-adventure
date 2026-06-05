@@ -15,11 +15,16 @@ expected_downside: "Trial disappointment or slow uptake keeps the thesis a value
 position_sizing: "Satellite 0.5-2% sleeve with disciplined event-risk sizing."
 required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
 required_pull_families: ["fda --recent-approvals", "clinicaltrials --alzheimers", "pubmed --alzheimers", "newsapi --topic business"]
-monitor_status: "on-track"
+monitor_status: "strengthening"
 monitor_last_review: "2026-03-27"
-monitor_change: "Initial monitor baseline established."
+monitor_change: "Machine update: rolling conviction +13 across 3 signal(s); Suggest high conviction and high priority. Source [[2026-05-07_Conviction_Delta]]."
 break_risk_status: "not-seen"
-monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
+suggested_allocation_priority: "high"
+suggested_conviction: "high"
+conviction_last_signal_date: "2026-05-07"
+conviction_signal_count_7d: 3
+conviction_rolling_score_7d: 13
 core_entities: ["[[BIIB]]", "[[LLY]]", "[[PRTA]]", "[[ACAD]]", "[[Neurology]]", "[[Rare Disease]]", "[[USA]]"]
 supporting_regimes: ["[[Innovation Cycle]]", "[[Goldilocks]]"]
 key_indicators: ["[[Lecanemab Prescriptions]]", "[[Donanemab Revenue]]", "[[Amyloid PET Adoption]]", "[[CMS Coverage Expansion]]"]
@@ -30,38 +35,36 @@ fmp_watchlist_symbols: ["BIIB", "LLY", "PRTA", "ACAD"]
 fmp_watchlist_symbol_count: 4
 fmp_primary_symbol: "BIIB"
 fmp_technical_symbol_count: 4
-fmp_technical_nonclear_count: 2
+fmp_technical_nonclear_count: 1
 fmp_technical_bearish_count: 2
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 61.03
-fmp_primary_price_vs_sma200_pct: 18.64
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 53.17
+fmp_primary_price_vs_sma200_pct: 14.73
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 28527014420
+fmp_primary_market_cap: 28606145120
 fmp_primary_trailing_pe: 20.78
-fmp_primary_price_to_sales: 2.89
+fmp_primary_price_to_sales: 2.9
 fmp_primary_price_to_book: 1.53
 fmp_primary_ev_to_sales: 3.22
-fmp_primary_ev_to_ebitda: 10.99
+fmp_primary_ev_to_ebitda: 11.4
 fmp_primary_roe_pct: 7.55
-fmp_primary_roic_pct: 5.66
-fmp_primary_operating_margin_pct: 16.28
+fmp_primary_roic_pct: 5.44
+fmp_primary_operating_margin_pct: 15.65
 fmp_primary_net_margin_pct: 13.92
 fmp_primary_current_ratio: 3.06
 fmp_primary_debt_to_equity: 0.35
-fmp_primary_price_target: 201.49
-fmp_primary_analyst_count: 35
-fmp_primary_target_upside_pct: 3.66
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 4
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-04-30"
-fmp_next_earnings_symbols: ["LLY"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_price_target: 202.95
+fmp_primary_analyst_count: 37
+fmp_primary_target_upside_pct: 4.74
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-05-26"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "biotech", "neurology", "alzheimers", "cns", "disease-modification"]
 ---
 
@@ -165,6 +168,8 @@ WHERE contains(string(tags), "alzheimers") OR contains(string(tags), "BIIB") OR 
 SORT date DESC
 LIMIT 5
 ```
+
+
 
 
 

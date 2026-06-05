@@ -1,0 +1,2 @@
+id,source_id,target_id,type,weight,status,summary,command
+rel:batch:2026-05-25:HAS_ARTIFACT:artifact:2026-05-25:plotly,batch:2026-05-25,artifact:2026-05-25:plotly,HAS_ARTIFACT,1,,Batch writes the interactive Plotly review artifact.,

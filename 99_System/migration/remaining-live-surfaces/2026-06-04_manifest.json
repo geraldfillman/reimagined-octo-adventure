@@ -1,0 +1,84 @@
+﻿{
+    "date":  "2026-06-04",
+    "my_data_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data",
+    "harness_root":  "C:\\Users\\CaveUser\\harness",
+    "world_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine",
+    "archive_root":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces",
+    "seeded":  [
+                   {
+                       "label":  "pulls-cache",
+                       "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls",
+                       "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\_cache\\pulls",
+                       "source_file_count":  7282,
+                       "destination_file_count":  7282
+                   },
+                   {
+                       "label":  "signals-cache",
+                       "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\06_Signals",
+                       "destination":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\_cache\\signals",
+                       "source_file_count":  101,
+                       "destination_file_count":  101
+                   },
+                   {
+                       "label":  "engine-cache",
+                       "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\.cache",
+                       "destination":  "C:\\Users\\CaveUser\\harness\\_cache",
+                       "source_file_count":  3606,
+                       "destination_file_count":  9814
+                   },
+                   {
+                       "label":  "kb-cache-vault",
+                       "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\12_Knowledge_Bases",
+                       "destination":  "C:\\Users\\CaveUser\\harness\\_cache\\kb-vault\\12_Knowledge_Bases",
+                       "source_file_count":  6208,
+                       "destination_file_count":  6208
+                   }
+               ],
+    "moved":  [
+                  {
+                      "name":  "05_Data_Pulls",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces\\05_Data_Pulls",
+                      "moved":  true,
+                      "archived_only":  false,
+                      "error":  null,
+                      "file_count":  7282
+                  },
+                  {
+                      "name":  "01_Data_Sources",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\01_Data_Sources",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces\\01_Data_Sources",
+                      "moved":  true,
+                      "archived_only":  false,
+                      "error":  null,
+                      "file_count":  102
+                  },
+                  {
+                      "name":  "06_Signals",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\06_Signals",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces\\06_Signals",
+                      "moved":  true,
+                      "archived_only":  false,
+                      "error":  null,
+                      "file_count":  101
+                  },
+                  {
+                      "name":  "12_Knowledge_Bases",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\12_Knowledge_Bases",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces\\12_Knowledge_Bases",
+                      "moved":  true,
+                      "archived_only":  false,
+                      "error":  null,
+                      "file_count":  6208
+                  },
+                  {
+                      "name":  "scripts",
+                      "source":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts",
+                      "archive":  "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\500-archive\\Legacy_From_My_Data\\2026-06-04\\remaining-live-surfaces\\scripts",
+                      "moved":  false,
+                      "archived_only":  true,
+                      "error":  "The process cannot access the file because it is being used by another process.",
+                      "file_count":  6597
+                  }
+              ]
+}

@@ -4,10 +4,10 @@
 
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { getVaultRoot } from './config.mjs';
+import { getEngineCacheDir } from './config.mjs';
 import { normalizeSymbol } from './thesis-watchlists.mjs';
 
-const CACHE_ROOT = join(getVaultRoot(), 'scripts', '.cache');
+const CACHE_ROOT = getEngineCacheDir();
 const CACHE_DIRS = Object.freeze({
   profile: join(CACHE_ROOT, 'fmp-profile'),
   ratios: join(CACHE_ROOT, 'fmp-ratios-ttm'),

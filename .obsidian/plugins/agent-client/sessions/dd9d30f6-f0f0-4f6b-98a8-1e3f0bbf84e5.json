@@ -1,0 +1,1256 @@
+{
+  "version": 1,
+  "sessionId": "dd9d30f6-f0f0-4f6b-98a8-1e3f0bbf84e5",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "c6faf992-9f28-4201-95ba-a8ff0e4c8934",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Can you clear the inbox for World MAchine vault starting here: C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Inbox Ingestion Runbook.md \n\nThen run the detailed EOD report with questions here: C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\_TEMPLATE - EOD Report.md"
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:45.592Z"
+    },
+    {
+      "id": "6253dc8c-f6ca-48ea-8283-79ba06ec1c29",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": "The user wants me to:\n1. Clear the inbox for the World Machine vault, starting with the Inbox Ingestion Runbook\n2. Run the detailed EOD report with questions from the template\n\nLet me first read both files to understand what's needed."
+        },
+        {
+          "type": "text",
+          "text": "I'll read both files in parallel to understand the inbox runbook and EOD template before proceeding."
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:47.521Z"
+    },
+    {
+      "id": "fc301f10-c481-4d8f-887c-f7df1121f861",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0139cZHKNQMp6CQfnzyvNGQ3",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Inbox Ingestion Runbook.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Inbox Ingestion Runbook.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Inbox Ingestion Runbook.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:48.382Z"
+    },
+    {
+      "id": "d3c44ad1-3cc6-4ccc-8fc0-9c04b35ccbf2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Nuo5SLHfKwbWu4ZYvBECfA",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\_TEMPLATE - EOD Report.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\_TEMPLATE - EOD Report.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\_TEMPLATE - EOD Report.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I need to:\n1. Scan the inbox to see what's there\n2. Process each item according to the runbook\n3. Generate the EOD report\n\nLet me first check what's in the inbox folder."
+        },
+        {
+          "type": "text",
+          "text": "Good. Now let me scan the inbox contents and the current vault state in parallel to build context for both tasks."
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:48.848Z"
+    },
+    {
+      "id": "7ad4940e-0981-4a8e-82d4-394583856075",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Sq8JL2MVDQL7HxQSmHSEtW",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now let me scan the inbox and gather vault state information using the ctx_batch_execute tool."
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:52.799Z"
+    },
+    {
+      "id": "e0f132b4-6f8d-43e8-a4da-c7e879f5f40b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HQvQArxLxcvbVHeSXHA4Pw",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Inbox files",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox' -File | Select-Object Name, LastWriteTime, Length | Format-Table -AutoSize"
+              },
+              {
+                "label": "Inbox content",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox' -File | Where-Object { $_.Name -ne 'Inbox Ingestion Runbook.md' } | ForEach-Object { Write-Output \"\\n=== $($_.Name) ===\"; Get-Content $_.FullName }"
+              },
+              {
+                "label": "Current regime state",
+                "command": "Get-Content 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Regimes\\_Current Regime State.md'"
+              },
+              {
+                "label": "Macro-to-Strategy bridge",
+                "command": "Get-Content 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md' | Select-Object -First 80"
+              },
+              {
+                "label": "Watchpoints list",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Watchpoints' -File | Sort-Object LastWriteTime -Descending | Select-Object -First 10 | Select-Object Name, LastWriteTime"
+              },
+              {
+                "label": "Strategy branches",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development' -File | Select-Object Name"
+              },
+              {
+                "label": "Observations folder",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\08_Macro_and_Economy\\Observations' -File | Sort-Object LastWriteTime -Descending | Select-Object -First 5 | Select-Object Name, LastWriteTime"
+              },
+              {
+                "label": "Last EOD report",
+                "command": "Get-ChildItem 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD' -File | Sort-Object LastWriteTime -Descending | Select-Object -First 3 | Select-Object Name, LastWriteTime"
+              }
+            ],
+            "queries": [
+              "inbox files clippings articles signals",
+              "current regime inflation rates risk growth",
+              "watchpoints active threshold",
+              "strategy branches active",
+              "macro indicators signals today"
+            ],
+            "timeout": 60000
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The context-mode sandbox runs bash, not PowerShell. Let me redo the commands using bash syntax."
+        },
+        {
+          "type": "text",
+          "text": "The sandbox runs bash — let me redo with bash commands."
+        }
+      ],
+      "timestamp": "2026-05-14T20:37:55.215Z"
+    },
+    {
+      "id": "eab95bbe-8ba2-4ee2-a6ea-3497645571c8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01EzrWpCf2Fvh7aYMRCr4UCm",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Inbox files",
+                "command": "ls -la '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/_Inbox/' 2>/dev/null || ls '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/_Inbox/' 2>&1"
+              },
+              {
+                "label": "Inbox content",
+                "command": "for f in '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/_Inbox/'*.md; do fname=$(basename \"$f\"); if [ \"$fname\" != 'Inbox Ingestion Runbook.md' ]; then echo \"\\n=== $fname ===\"; cat \"$f\"; fi; done"
+              },
+              {
+                "label": "Current regime state",
+                "command": "cat '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/Macro/Regimes/_Current Regime State.md'"
+              },
+              {
+                "label": "Macro strategy bridge top",
+                "command": "head -100 '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/06_Strategy_Development/Macro-to-Strategy Signal Bridge.md'"
+              },
+              {
+                "label": "Watchpoints recent",
+                "command": "ls -lt '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/06_Strategy_Development/Watchpoints/' | head -15"
+              },
+              {
+                "label": "Strategy files",
+                "command": "ls '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/06_Strategy_Development/'"
+              },
+              {
+                "label": "Recent observations",
+                "command": "ls -lt '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/08_Macro_and_Economy/Observations/' | head -10"
+              },
+              {
+                "label": "Recent EOD reports",
+                "command": "ls -lt '/mnt/c/Users/CaveUser/Documents/Obsidian Vault/World_Machine/Reports/EOD/' | head -5"
+              }
+            ],
+            "queries": [
+              "inbox files articles clippings content",
+              "regime inflation growth risk rates status",
+              "watchpoints active threshold strategy",
+              "observations recent macro signals",
+              "EOD report last filed"
+            ],
+            "timeout": 60000
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The bash context doesn't seem to have access to the /mnt/c path. Let me use the PowerShell tool directly. Let me use the Glob tool to check the inbox files directly."
+        },
+        {
+          "type": "text",
+          "text": "The sandbox can't access the vault via `/mnt/c`. Let me use native tools directly."
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:07.031Z"
+    },
+    {
+      "id": "17b5ba00-7188-4ef8-950b-3e392c29ce41",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01MpHE9PjU6ZUnkmZGHmRyKG",
+          "title": "Find `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox` `**/*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox"
+            }
+          ],
+          "rawInput": {
+            "pattern": "**/*.md",
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:17.581Z"
+    },
+    {
+      "id": "66537b21-7af9-439a-a637-dbb3eda67a0b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Wou6mbgGsUKqQg27ugAxmL",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Regimes\\_Current Regime State.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Regimes\\_Current Regime State.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Regimes\\_Current Regime State.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a good picture of:\n\n1. **Inbox files** (excluding runbook and README):\n   - `Risk-Reward Ratio_ What it is + Why it Matters when Trading.md`\n   - `A Guide To Trading Volatility.md`\n   - `When Will Online Spending Exceed Spending on Motor Vehicles and Parts_.md`\n   - `India Panics, Further Tightens Gold Flows As Rupee Collapses.md`\n\n2. **Current regime state** - Very detailed. Key active regimes:\n   - AI Growth Offset vs Energy Shock (PRIMARY — ACTIVE)\n   - Narrow Concentrated Rally (ACTIVE)\n   - Iran-Hormuz Oil Shock (ACTIVE)\n   - Yen Carry Trade Risk (WATCH — APPROACHING TRIGGER)\n   - Private Credit Stress (WATCH — ELEVATED)\n\n3. **Key indicators as of 2026-05-14**: PPI is running hot at +1.4% MoM and +6.0% YoY which is flagged as an alert, while retail sales remain resilient at +0.5% MoM and +4.9% YoY.\n\nThe 10Y Treasury has climbed to 4.47% and the 30Y just broke above 5% for the first time since 2007 — both concerning. USD/JPY is approaching 165, the Russell 2000 relative to the S&P 500 is at its lowest point in decades, and I'm tracking emerging risks from UK political instability, El Niño patterns, and crypto policy capture. Now I need to process the inbox files by routing each one according to the runbook, creating notes, archiving them, and then pulling together the end-of-day report."
+        },
+        {
+          "type": "text",
+          "text": "Good. Now I need to read all 4 inbox items. Let me do that in parallel."
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:18.032Z"
+    },
+    {
+      "id": "f0c8b962-3406-4ade-9462-a43f2d479009",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FKMZFx63Q7WRPF93CryLWy",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:TodoWrite",
+            "max_results": 1
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:30.558Z"
+    },
+    {
+      "id": "1d2a5114-d11e-4956-bf7a-e8e0b139f0e9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QvkjRnDrXcrVrpAswU5kpW",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Risk-Reward Ratio_ What it is + Why it Matters when Trading.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Risk-Reward Ratio_ What it is + Why it Matters when Trading.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\Risk-Reward Ratio_ What it is + Why it Matters when Trading.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:30.558Z"
+    },
+    {
+      "id": "e3fa2765-c7c3-4518-9d12-9ec47b7a00c7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01UotExQDh2LDhuCwJrjcnw7",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\A Guide To Trading Volatility.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\A Guide To Trading Volatility.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\A Guide To Trading Volatility.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:31.174Z"
+    },
+    {
+      "id": "523e2c68-c577-474a-bdd8-6c464844bb7e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0134YArMxghjYSNckvuq31m9",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\When Will Online Spending Exceed Spending on Motor Vehicles and Parts_.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\When Will Online Spending Exceed Spending on Motor Vehicles and Parts_.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\When Will Online Spending Exceed Spending on Motor Vehicles and Parts_.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:31.693Z"
+    },
+    {
+      "id": "c93868e8-ee40-44b5-b70f-a67f106f49c0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018kiU1rdPkutVAuNzfirHV7",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\India Panics, Further Tightens Gold Flows As Rupee Collapses.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\India Panics, Further Tightens Gold Flows As Rupee Collapses.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\\India Panics, Further Tightens Gold Flows As Rupee Collapses.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have all 4 inbox items. Let me route them per the runbook:\n\n1. **Risk-Reward Ratio: What it is + Why it Matters when Trading** (IG.com)\n   - This is a conceptual/educational piece about risk-reward ratios, stop-loss, leverage, VaR, beta, diversification, hedging\n   - Route: **C** (New Concept → Create Foundation/Indicator Note) — specifically `00_Foundations/` since it's an evergreen concept note, not a live signal\n   - Actually, re-reading the runbook: Route A is \"Pure Noise\" — opinion pieces without new data. \n\nThis is foundational reference material that ties directly to the Risk-Reward Calculation Log already embedded in my EOD template, so it belongs in `00_Foundations/` as a Route C note to support the trading methodology.\n\nFor the volatility guide, this is substantive content covering VIX trading strategies like calls, term structure dynamics, and hedging approaches—and it connects to the current market regime with Iran-driven elevated volatility and the VIXEQ-VIX spread I'm already tracking. I'll route this as C + I + J: create a VIX Strategies reference in `04_Technical_Indicators/` while updating the existing VIX indicator note with live regime context.\n\nOn the retail spending piece, I'm seeing a structural shift where ecommerce is approaching motor vehicle spending share, with real inflation-adjusted sales declining despite nominal growth—this aligns with the +0.5% MoM retail data already in my regime state, but the insight about department store collapse and the changing composition of consumer spending is new context worth capturing.\n\nFor the India gold story, there's a convergence of capital controls (tariff increase to 15%), rupee weakness from energy import costs, and a shift toward investment-led gold demand through ETFs and crypto alternatives—this ties into the Iran-Hormuz oil regime I'm already tracking.\n\nNow I'm mapping out the routing strategy: I'll add an observation note on India's capital controls and rupee collapse as a contagion signal, flag a watchpoint for whether gold suppression drives smuggling or crypto adoption, and monitor this as potential EM policy spillover.\n\nFor the execution plan, I'm creating a foundational Risk-Reward Framework as an evergreen reference, building out a VIX trading strategies note that bridges technical indicators with live market context, and updating the Retail Sales indicator with the structural composition breakdown.\n\nBefore I start creating files, I need to check what already exists in the directories so I can decide whether to update or create fresh notes. I'm also going to review the Macro-to-Strategy Signal Bridge and a few existing indicator notes to understand the current structure and avoid duplicating work."
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Route and process 4 inbox items per runbook",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Create/update vault notes from inbox routing",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Archive processed inbox files",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Generate 2026-05-14 EOD Vault State Report",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "`★ Insight ─────────────────────────────────────`\nThe 4 inbox items span 3 distinct route types: **C** (new evergreen concepts → Foundations/Indicators), **B** (new data → update existing indicator), and **D+F+G** (convergent geopolitical signal → observation + watchpoint). The India/Rupee piece is the highest-signal item — it connects the active Iran-Hormuz regime directly to EM capital controls and a crypto-as-escape-valve narrative that links to the CLARITY Act emerging signal already in the regime card.\n`─────────────────────────────────────────────────`\n\nRouting decisions:\n- **Risk-Reward Ratio** → Route **C** → `00_Foundations/Risk-Reward Framework.md`\n- **Guide To Trading Volatility** → Route **C + I + J** → `04_Technical_Indicators/VIX Trading Strategies.md` (with live context + Trade Expression Layer)\n- **Online Spending vs Motor Vehicles** → Route **B** → update `Macro/Indicators/Retail Sales.md` structural composition\n- **India Gold/Rupee** → Route **D + F + G** → Observation note + Watchpoint, connects Iran regime + Crypto signal\n\nLet me check existing indicator structure and read the signal bridge in parallel."
+        }
+      ],
+      "timestamp": "2026-05-14T20:38:32.175Z"
+    },
+    {
+      "id": "ea8a12b1-7311-486e-8cc7-6969d62b2641",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01V16iUuuXPfNH3tDG2Utcrv",
+          "title": "Find `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations` `**/*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations"
+            }
+          ],
+          "rawInput": {
+            "pattern": "**/*.md",
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:17.865Z"
+    },
+    {
+      "id": "7bfd90a6-c4d4-4296-b4d0-18cb5e498c97",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017HXpSJbz94EmbzWnfre4D7",
+          "title": "Find `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators` `**/*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators"
+            }
+          ],
+          "rawInput": {
+            "pattern": "**/*.md",
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:18.765Z"
+    },
+    {
+      "id": "9dfaa9be-cd3f-4590-a3de-ff1585447740",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Bs1niK3bnB4EtMVDgB6JCC",
+          "title": "Find `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators` `Retail Sales*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators"
+            }
+          ],
+          "rawInput": {
+            "pattern": "Retail Sales*.md",
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:19.699Z"
+    },
+    {
+      "id": "d4fe4591-7a4a-4881-b2f1-82011ba8bbb4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01MX89VfBuD9XGNTqeDrG47g",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md (1 - 80)",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md",
+            "limit": 80
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Good. I can see:\n1. `00_Foundations/Risk-Reward Ratio.md` already exists — I'll update it (Route C - update existing)\n2. No VIX trading strategies file in `04_Technical_Indicators/` — but there's `00_Foundations/Trading Terms/Volatility.md` — I'll create a new one in `04_Technical_Indicators/`\n3. `Macro/Indicators/Retail Sales.md` exists — I'll update it (Route B)\n4. Need to create India Rupee observation note + watchpoint\n\nLet me also read the Signal Bridge more (it was truncated) to see the tail of the May 12 addendum, and read the Retail Sales indicator note and the existing Risk-Reward Ratio note to understand what to add.\n\n\nNow I'm being more strategic about what to read — I'll focus on just the files I need to edit and check whether there's already a 2026-05-14 EOD report filed.\n\nLooking at the git status, the 2026-05-14 EOD Vault State Report was already modified in the last session, so it exists. The user is asking me to run a detailed EOD report with questions, which means I need to figure out if they want me to replace the existing one or create a new comprehensive version based on the template.\n\nSince the user pointed me to the template location, I should generate the report using that template and update the existing file. Before I do that, I need to read the current 2026-05-14 report to see what's already there, and also pull in the Signal Bridge tail and Retail Sales note for context."
+        },
+        {
+          "type": "text",
+          "text": "Good — `Risk-Reward Ratio.md` already exists (update, not create). Let me read what I need to update/reference in parallel."
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:20.640Z"
+    },
+    {
+      "id": "52340cfb-b562-4303-99fa-f90764115661",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QzkZDkLDPCdEBeRdehjHuy",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations\\Risk-Reward Ratio.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations\\Risk-Reward Ratio.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\00_Foundations\\Risk-Reward Ratio.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:38.983Z"
+    },
+    {
+      "id": "dd231ddc-0c84-4839-adbe-d3ddc91517cb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GZiwjasHmrmjMfAoL34bBm",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:39.582Z"
+    },
+    {
+      "id": "d6afbc8f-86f5-4f6f-81d5-35ddc933382b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01F94p5suvAxcH5fSTo7JyA5",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md (1 - 60)",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "limit": 60
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:40.132Z"
+    },
+    {
+      "id": "9053079f-6be3-4d27-a906-056b6a048e94",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WJ9B7rPZzLj2FWZpwGtATW",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md (76 - 135)",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 76,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md",
+            "offset": 76,
+            "limit": 60
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have a complete picture. Let me synthesize what I need to do:\n\n**Inbox Routing Decisions:**\n\n1. **Risk-Reward Ratio** (IG.com) → Route **A** — The vault already has `00_Foundations/Risk-Reward Ratio.md` which is comprehensive and well-connected. This article adds nothing new beyond what's already captured. Archive it.\n\n2. **A Guide To Trading Volatility** (McMillan) → Route **C + I + J** — Create a new note in `04_Technical_Indicators/` called `VIX Trading Strategies.md`. The vault has `00_Foundations/Trading Terms/Volatility.md` and `Options Skew.md` but no VIX-specific trading strategy note. \n\nThis is substantive and evergreen content that ties directly into active monitoring—geopolitical events like Iran-Hormuz tensions are already driving VIX movements, and the term structure dynamics align with what I'm tracking in the Signal Bridge.\n\n3. **When Will Online Spending Exceed Spending on Motor Vehicles and Parts?** (Shedlock) → Route **B** — The Retail Sales indicator note has the latest print but lacks the structural composition breakdown. This article provides critical detail: ecommerce is now 18.17% of total retail (36.37% excluding auto, gas, and groceries) and closing in on motor vehicle share, while department stores have collapsed from 8.88% to 1.47%. This real inflation-adjusted perspective fills a gap in my existing analysis.\n\n4. **India Panics, Further Tightens Gold Flows As Rupee Collapses** (ZeroHedge) → Route **D + F + G** — This creates multiple connection points: an observation note capturing the rupee collapse and gold capital controls, a watchpoint tracking EM capital controls and crypto as an escape valve. The chain is clear—oil shock stress on emerging markets, currency pressure in India, capital controls tightening, and ultimately crypto adoption accelerating as a workaround.\n\nNow I'm checking the EOD Vault State Report to see what's already been captured. the earlier version. Let me check what's already populated in the existing report by reading through it completely, particularly focusing on whether the detective questions section and other key components are fully fleshed out or need expansion with today's inbox signals."
+        },
+        {
+          "type": "text",
+          "text": "I need to read the rest of the existing EOD report before deciding whether to update or replace it."
+        }
+      ],
+      "timestamp": "2026-05-14T20:39:41.341Z"
+    },
+    {
+      "id": "d0eccf7e-e69e-44a5-b174-31a36f295cbb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Kx5vWXJLBP6Vf7R7WEKvbo",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md (from line 60)",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 60,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "offset": 60
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I have the full picture. The existing 2026-05-14 EOD report is quite complete already — it has:\n- Executive Read ✓\n- Vault Intake ✓ (6 source clusters)\n- Big-Picture Connections ✓ (5 connections)\n- Strategy Suggestions ✓ (6 branches)\n- Knowledge Review Queue ✓ (6 items)\n- Tomorrow Watchboard ✓ (7 items)\n- Detective Questions ✓ (with 4 sections: Market Structure, Inflation and Rates, Geopolitical, Healthcare Theses)\n\n\n- Source Trail ✓\n\nBut I'm missing the Risk/Reward Check and Active Regime Check sections, and the detective questions don't align with the template structure (should be Market Structure, Inflation And Energy, Rates And FX, Policy, Strategy Development). So I need to update the existing report to add those missing sections and reorganize the detective questions to match the proper template format.\n\nActually, looking at the user's request again—they're pointing directly at the template file. I think they want me to generate a fresh comprehensive EOD report using that template structure, incorporating the new inbox findings about India/Rupee, VIX strategies, and retail structural data alongside what was covered this morning.\n\nThe cleanest approach is to update the existing 2026-05-14 report by inserting the missing template sections like Active Regime Check and Risk/Reward Check, weaving the new signals into Vault Intake, and restructuring the Detective Questions to match the template's five sections. Rather than replacing solid work already done, I'm completing what's there and adding the India/Rupee connection as a new Big-Picture link.\n\nNow I'm processing the inbox items to see what needs routing or integration. The Risk-Reward Ratio document is already comprehensive and well-connected, so that can be archived without changes.\n\nFor the Guide to Trading Volatility, I should create a new technical indicators file on VIX trading strategies, pulling in the current market context around Iran tensions and the elevated VIX-SVXY spread, then connect it to a trade expression for the current regime.\n\nThe Online Spending versus Motor Vehicles item needs an update to the Retail Sales indicator file with the structural breakdown showing ecommerce approaching motor vehicle share while real sales decline underneath the inflation narrative.\n\nNow I'm setting up the India rupee and gold situation with two new files—one for the macro observation on the rupee collapse and capital controls, another for the strategic watchpoints connecting India's capital controls to the broader EM and crypto dynamics. I'll also need to update the Signal Bridge with this new entry, then move into the EOD report updates: adding the Active Regime Check and Risk/Reward tables, integrating India into the Vault Intake, establishing the Big-Picture Connection linking India through Iran to EM capital controls and crypto, restructuring the Detective Questions across all template sections, and refreshing the Source Trail.\n\nLet me work through this systematically—starting with the VIX Trading Strategies note, then updating Retail Sales with structural composition, creating the India Rupee observation and watchpoint files, updating Signal Bridge, and finally tackling the EOD report with all the missing sections and new signals before archiving the inbox files.\n\nI'm documenting the key VIX trading rules: the term structure dynamics and when to buy VIX products (only at zero or negative premium), the time decay drag on short-term products like UVIX and VXX, the specific hedge strategy of pairing VIX and SPY calls when front-month futures trade at steep discounts, the inverse VIX play with SVXY only during upward-sloping term structures, and calendar spread tactics for anticipated inversions—all with the current Iran war context keeping volatility elevated and requiring close monitoring of term structure shifts.\n\nNow I'm looking at retail sales composition data showing ecommerce has grown dramatically to 18% of total retail and over a third of addressable retail, nearly matching the COVID peak, while traditional categories like department stores have essentially vanished from BLS reporting after collapsing from nearly 9% to under 2% over three decades. The real concern is that April's nominal sales gains appear inflated by price increases rather than actual volume growth.\n\nIndia's facing a cascading currency crisis triggered by energy import shocks, pushing the rupee to record lows and forcing increasingly aggressive capital controls on gold imports—the government's tightened restrictions four times in the past few days, progressively capping advance authorizations and linking export permissions to performance requirements. This is driving investors toward crypto and bitcoin as alternative stores of value outside the government's reach.\n\nThe real risk is contagion: if India's gold suppression strategy actually works, other emerging markets dealing with similar energy-driven FX stress will likely follow suit, but if it fails, we'll see a surge in smuggling networks and accelerated crypto adoption across the region. I'm tracking this weekly given the potential spillover effects and the monsoon/fertilizer uncertainty that could compound the pressure through August. I'm identifying the missing structural pieces for the EOD report—the Active Regime Check and Risk/Reward Check tables need to be inserted in specific locations, and I need to integrate the India/Rupee signal into the Vault Intake section while updating the detective questions to align with the template format. I'll also need to refresh the Source Trail with the new India observation and then move on to updating the Signal Bridge with an additional row.\n\nFor the archiving piece, I'm working through the runbook's guidance on processed clippings—they should go into a 500-archive folder or be deleted. Since these have already been encoded into the structured notes, I'll delete the original inbox files rather than archive them.\n\nNow I'm mapping out the execution plan: three new files to create across technical indicators, macro observations, and strategy watchpoints; three existing files to update with new content and the May 14 addendum; and four inbox files to delete once they've been processed into the vault.\n\nFor the EOD report, I need to add the Active Regime Check section with current status on the AI growth offset, the concentrated rally escalation, and the Iran-Hormuz situation.\n\nThen I'm compiling the Risk/Reward Check table with the tariff beneficiary setup — entry confirmation, stops at the 200-day moving average retracement, and a 10-15% target range pending confirmation.\n\nI'm also tracking the TLT counter-trend setup with a 1:2.5 risk-reward ratio, needing CPI/PCE confirmation and validation that the 30-year yield stays below 5.25%. The El Niño soft commodities play is still waiting on the NOAA declaration and crop yield data before I can finalize entry and target levels.\n\nNow I'm realizing the existing report structure doesn't match the template I should be using. I need to add a Risk/Reward Check section, insert the India/Rupee positions into both the Vault Intake table and Big-Picture Connections, and restructure the Detective Questions from the current four sections into the five template sections: Market Structure, Inflation and Energy, Rates and FX, Policy, and Strategy Development. I'm also planning to add an Active Regime Check section after Position Assumption. This is going to require several edits to reorganize everything properly.\n\nFor the Source Trail, I need to add new items, and the Signal Bridge needs rows added to the May 14 Inbox Ingestion Addendum section. Rather than doing these sequentially, I should batch the work—I'll create three new notes in parallel (VIX Trading Strategies, India Observation, and India Watchpoint), update the Retail Sales note, edit the Signal Bridge and EOD report, then clean up the archived inbox items."
+        },
+        {
+          "type": "text",
+          "text": "The existing EOD report is solid but missing the **Active Regime Check** and **Risk/Reward Check** template sections, and the detective questions need restructuring to match the 5-section template. Now I'll process everything in parallel.\n\n`★ Insight ─────────────────────────────────────`\nThe India/Rupee piece is the highest-signal item in this batch: it creates a **second-order chain** from the already-active Iran-Hormuz regime. The energy shock → import costs → rupee collapse → capital controls → gold suppression → crypto escape valve chain directly amplifies the CLARITY Act / Crypto Policy Capture Risk signal already marked EMERGING in the regime card. Two independent pathways (US policy capture + EM capital suppression) pointing at the same asset class is the hallmark of a convergent signal worth a watchpoint.\n`─────────────────────────────────────────────────`"
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Route and process 4 inbox items per runbook",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Create/update vault notes from inbox routing",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Archive processed inbox files",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Generate 2026-05-14 EOD Vault State Report",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-14T20:40:07.140Z"
+    },
+    {
+      "id": "3a356f2f-88a6-4150-ad45-2cbbe85dad8d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LxgpAhv8dyvYKfHudKyiBm",
+          "title": "Write C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators\\VIX Trading Strategies.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators\\VIX Trading Strategies.md",
+              "newText": "---\ntype: indicator\ncategory: volatility\ncreated: 2026-05-14\ntags: [volatility, VIX, options, term-structure, strategy, indicator]\nsource: \"Lawrence G. McMillan — A Guide To Trading Volatility (Option Strategist, 2026-03-15)\"\n---\n\n# VIX Trading Strategies\n\nThis note documents the primary implied volatility trading strategies for $VIX products. It is an evergreen reference — not a live trade setup. Live applications are recorded in dated chart analysis or observation notes and linked back here.\n\n---\n\n## Term Structure — The Master Signal\n\nThe $VIX futures term structure determines whether any VIX position has structural support:\n\n| Structure | Shape | Condition | What it means |\n|---|---|---|---|\n| **Contango (normal)** | Upward-sloping (front < back) | Bull/flat market | Futures at premium to $VIX; decay drag on long vol products; favors short-vol (SVXY) |\n| **Backwardation (inverted)** | Downward-sloping (front > back) | Fear regime | Futures at discount to $VIX; no decay drag; long vol products gain structural edge |\n\n**Critical rule:** Do not buy UVIX, VXX, or UVXY when VIX futures are trading at a premium to $VIX — the term-structure drag will erode any long position.\n\n---\n\n## Strategy 1 — Simple Long Volatility Speculation\n\n**When to use:** VIX futures premium to $VIX = zero or negative (futures at parity or discount).\n\n**Instruments:**\n- Buy call options on $VIX futures (Cboe-listed; underlying is the VIX futures contract, NOT spot VIX)\n- Buy UVIX (2x VIX futures ETN) or VXX calls — short-term only; roll forward at expiry\n\n**Key constraint:** Stay at most one month out in time. Intermediate-term VIX ETFs (VIXM) lose value in all market conditions due to structural roll costs. The rule: front-month only, roll if it expires.\n\n**Signal trigger:** When the VIX futures premium goes to zero or negative, UVIX no longer has a structural drag and two-sided upside returns are possible.\n\n---\n\n## Strategy 2 — VIX Futures Calendar Spread (Term Structure Trade)\n\n**When to use:** Expecting the term structure to invert (or invert further), i.e., expecting a fear escalation.\n\n**Structure:**\n- **Buy** front-month $VIX futures\n- **Sell** second-month $VIX futures\n\n**Risk:** Unlimited — term structure can revert rapidly, reversing the spread. Requires considerable margin. Not recommended for retail without constant monitoring.\n\n**Options equivalent:** Buy a front-month VIX call / sell a second-month VIX call. Brokerage margin is assessed as naked on the short leg because the two expirations don't behave like a standard options calendar.\n\n---\n\n## Strategy 3 — VIX/SPY Hedge (Discount Capture)\n\n**When to use:** Front-month $VIX futures trading at a steep discount to spot $VIX (typically ≥ 3.00 points below). This occurs during or just after major fear events.\n\n**Structure:**\n- Buy 2 slightly ITM $VIX calls\n- Buy 1 slightly ITM SPY call\n\n**Logic:** $VIX and SPY move inversely. Owning both creates a quasi-long straddle. The VIX futures discount must narrow to zero by expiration — capturing that convergence is the edge. SPY calls hedge against $VIX falling back.\n\n**Roll/exit rule:**\n- Roll either leg up if it becomes deeply in-the-money\n- Remove entire spread when $VIX futures begin trading at a premium to $VIX again\n\n**Historical setup conditions:** October 2008, March 2020, April 2025 (to a lesser extent).\n\n---\n\n## Strategy 4 — Short Volatility via SVXY\n\n**When to use:** Term structure upward-sloping (contango confirmed) AND $VIX futures at healthy premiums to $VIX.\n\n**Instrument:** SVXY (inverse $VIX ETN) or calls on SVXY.\n\n**Do NOT use when:** Term structure is inverted or $VIX futures are at a discount. April 2025 equity decline was a clear SVXY avoid condition.\n\n**Exit signal:** When futures begin to trade at a premium again (post-fear normalization), re-entry into SVXY is appropriate.\n\n---\n\n## Live Market Application — 2026-05-14\n\nThe Iran-Hormuz Oil Shock regime is driving sustained VIX elevation. As of 2026-05-14:\n\n| Signal | Read |\n|---|---|\n| [[Macro/Regimes/Iran-Hormuz Oil Shock]] | Active — fear regime driving elevated implied vol |\n| VIXEQ-VIX spread | Elevated per [[Macro/Regimes/_Current Regime State]] |\n| OVX | Sustained elevation — physical energy market stress |\n| Term structure posture | Watch for inversion deepening as Iran escalation continues |\n\n**Current strategy read:** The elevated VIX environment is a potential setup for the VIX/SPY hedge (Strategy 3) IF the front-month VIX futures discount reaches ≥ 3.00 points below spot VIX. This has not been confirmed. Do not buy SVXY in the current fear regime.\n\n## Trade Expression Layer\n\n| Layer | Read |\n|---|---|\n| Regime | [[Macro/Regimes/Iran-Hormuz Oil Shock]] |\n| Directional thesis | Fear regime sustains elevated implied vol; term structure inversion deepens |\n| Strategy family | Long volatility speculation or VIX/SPY hedge if discount ≥ 3.00 pts confirmed |\n| Technical confirmation | Front-month VIX futures at zero or negative premium to spot VIX; OVX sustained above range |\n| Volatility / options overlay | [[Options Skew]] · VIX futures term structure; IV rank/percentile on VXX or UVIX |\n| Expression candidates | UVIX or VXX calls (front-month); VIX/SPY hedge structure if discount confirmed |\n| Invalidation | Iran de-escalation confirmed in physical markets (OVX falls, LNG spreads normalize); VIX futures return to healthy premium → SVXY favorable |\n| Next data pull | Check front-month VIX futures price vs spot $VIX; OVX level; Iran physical market indicators |\n\n---\n\n## Related\n\n- [[00_Foundations/Trading Terms/Volatility]]\n- [[00_Foundations/Risk-Reward Ratio]]\n- [[04_Technical_Indicators/Options Skew]]\n- [[Macro/Regimes/Iran-Hormuz Oil Shock]]\n- [[Macro/Regimes/_Current Regime State]]\n- [[06_Strategy_Development/Trade Expression Layer]]\n- [[06_Strategy_Development/Watchpoints/2026-05-11 - Volatility Regime Watchpoints]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators\\VIX Trading Strategies.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\04_Technical_Indicators\\VIX Trading Strategies.md",
+            "content": "---\ntype: indicator\ncategory: volatility\ncreated: 2026-05-14\ntags: [volatility, VIX, options, term-structure, strategy, indicator]\nsource: \"Lawrence G. McMillan — A Guide To Trading Volatility (Option Strategist, 2026-03-15)\"\n---\n\n# VIX Trading Strategies\n\nThis note documents the primary implied volatility trading strategies for $VIX products. It is an evergreen reference — not a live trade setup. Live applications are recorded in dated chart analysis or observation notes and linked back here.\n\n---\n\n## Term Structure — The Master Signal\n\nThe $VIX futures term structure determines whether any VIX position has structural support:\n\n| Structure | Shape | Condition | What it means |\n|---|---|---|---|\n| **Contango (normal)** | Upward-sloping (front < back) | Bull/flat market | Futures at premium to $VIX; decay drag on long vol products; favors short-vol (SVXY) |\n| **Backwardation (inverted)** | Downward-sloping (front > back) | Fear regime | Futures at discount to $VIX; no decay drag; long vol products gain structural edge |\n\n**Critical rule:** Do not buy UVIX, VXX, or UVXY when VIX futures are trading at a premium to $VIX — the term-structure drag will erode any long position.\n\n---\n\n## Strategy 1 — Simple Long Volatility Speculation\n\n**When to use:** VIX futures premium to $VIX = zero or negative (futures at parity or discount).\n\n**Instruments:**\n- Buy call options on $VIX futures (Cboe-listed; underlying is the VIX futures contract, NOT spot VIX)\n- Buy UVIX (2x VIX futures ETN) or VXX calls — short-term only; roll forward at expiry\n\n**Key constraint:** Stay at most one month out in time. Intermediate-term VIX ETFs (VIXM) lose value in all market conditions due to structural roll costs. The rule: front-month only, roll if it expires.\n\n**Signal trigger:** When the VIX futures premium goes to zero or negative, UVIX no longer has a structural drag and two-sided upside returns are possible.\n\n---\n\n## Strategy 2 — VIX Futures Calendar Spread (Term Structure Trade)\n\n**When to use:** Expecting the term structure to invert (or invert further), i.e., expecting a fear escalation.\n\n**Structure:**\n- **Buy** front-month $VIX futures\n- **Sell** second-month $VIX futures\n\n**Risk:** Unlimited — term structure can revert rapidly, reversing the spread. Requires considerable margin. Not recommended for retail without constant monitoring.\n\n**Options equivalent:** Buy a front-month VIX call / sell a second-month VIX call. Brokerage margin is assessed as naked on the short leg because the two expirations don't behave like a standard options calendar.\n\n---\n\n## Strategy 3 — VIX/SPY Hedge (Discount Capture)\n\n**When to use:** Front-month $VIX futures trading at a steep discount to spot $VIX (typically ≥ 3.00 points below). This occurs during or just after major fear events.\n\n**Structure:**\n- Buy 2 slightly ITM $VIX calls\n- Buy 1 slightly ITM SPY call\n\n**Logic:** $VIX and SPY move inversely. Owning both creates a quasi-long straddle. The VIX futures discount must narrow to zero by expiration — capturing that convergence is the edge. SPY calls hedge against $VIX falling back.\n\n**Roll/exit rule:**\n- Roll either leg up if it becomes deeply in-the-money\n- Remove entire spread when $VIX futures begin trading at a premium to $VIX again\n\n**Historical setup conditions:** October 2008, March 2020, April 2025 (to a lesser extent).\n\n---\n\n## Strategy 4 — Short Volatility via SVXY\n\n**When to use:** Term structure upward-sloping (contango confirmed) AND $VIX futures at healthy premiums to $VIX.\n\n**Instrument:** SVXY (inverse $VIX ETN) or calls on SVXY.\n\n**Do NOT use when:** Term structure is inverted or $VIX futures are at a discount. April 2025 equity decline was a clear SVXY avoid condition.\n\n**Exit signal:** When futures begin to trade at a premium again (post-fear normalization), re-entry into SVXY is appropriate.\n\n---\n\n## Live Market Application — 2026-05-14\n\nThe Iran-Hormuz Oil Shock regime is driving sustained VIX elevation. As of 2026-05-14:\n\n| Signal | Read |\n|---|---|\n| [[Macro/Regimes/Iran-Hormuz Oil Shock]] | Active — fear regime driving elevated implied vol |\n| VIXEQ-VIX spread | Elevated per [[Macro/Regimes/_Current Regime State]] |\n| OVX | Sustained elevation — physical energy market stress |\n| Term structure posture | Watch for inversion deepening as Iran escalation continues |\n\n**Current strategy read:** The elevated VIX environment is a potential setup for the VIX/SPY hedge (Strategy 3) IF the front-month VIX futures discount reaches ≥ 3.00 points below spot VIX. This has not been confirmed. Do not buy SVXY in the current fear regime.\n\n## Trade Expression Layer\n\n| Layer | Read |\n|---|---|\n| Regime | [[Macro/Regimes/Iran-Hormuz Oil Shock]] |\n| Directional thesis | Fear regime sustains elevated implied vol; term structure inversion deepens |\n| Strategy family | Long volatility speculation or VIX/SPY hedge if discount ≥ 3.00 pts confirmed |\n| Technical confirmation | Front-month VIX futures at zero or negative premium to spot VIX; OVX sustained above range |\n| Volatility / options overlay | [[Options Skew]] · VIX futures term structure; IV rank/percentile on VXX or UVIX |\n| Expression candidates | UVIX or VXX calls (front-month); VIX/SPY hedge structure if discount confirmed |\n| Invalidation | Iran de-escalation confirmed in physical markets (OVX falls, LNG spreads normalize); VIX futures return to healthy premium → SVXY favorable |\n| Next data pull | Check front-month VIX futures price vs spot $VIX; OVX level; Iran physical market indicators |\n\n---\n\n## Related\n\n- [[00_Foundations/Trading Terms/Volatility]]\n- [[00_Foundations/Risk-Reward Ratio]]\n- [[04_Technical_Indicators/Options Skew]]\n- [[Macro/Regimes/Iran-Hormuz Oil Shock]]\n- [[Macro/Regimes/_Current Regime State]]\n- [[06_Strategy_Development/Trade Expression Layer]]\n- [[06_Strategy_Development/Watchpoints/2026-05-11 - Volatility Regime Watchpoints]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:41:48.241Z"
+    },
+    {
+      "id": "68a2a0c1-0e29-48fb-9950-925faed98882",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01ApeGEB5MYsLnXwNR45DVS8",
+          "title": "Write C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\08_Macro_and_Economy\\Observations\\2026-05-14 - India Rupee Collapse and Gold Capital Controls.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\08_Macro_and_Economy\\Observations\\2026-05-14 - India Rupee Collapse and Gold Capital Controls.md",
+              "newText": "---\ntype: observation\ncreated: 2026-05-14\ntags: [macro, india, gold, rupee, capital-controls, EM, crypto, iran-hormuz, emerging-markets]\nsignal_status: watch\nsources:\n  - \"Tyler Durden (ZeroHedge) – India Panics, Further Tightens Gold Flows As Rupee Collapses (2026-05-14)\"\n---\n\n# 2026-05-14 - India Rupee Collapse and Gold Capital Controls\n\n> *The insight is not that India tightened gold import rules — it is that the Iran-Hormuz Oil Shock is directly transmitting into EM currency collapse and capital control escalation. The suppression of the gold escape route creates a crypto/non-fiat alternative channel. This is the first confirmed EM second-order effect of the Hormuz regime.*\n\n---\n\n## What Happened\n\nIndia escalated capital controls on gold in a three-step tightening over 4 days:\n\n| Day | Action |\n|---|---|\n| −4 days (≈ 2026-05-10) | PM Modi rare weekend appeal — urged citizens to forgo gold purchases and unnecessary foreign travel |\n| −2 days (2026-05-12) | Gold import tariff doubled to **15%**; silver tariff raised to **6%** |\n| Today (2026-05-14) | Advance authorisation route tightened: imports >100kg require prior authorization; subsequent imports only granted after 50% export performance; stricter first-time applicant checks; future import approvals linked to export performance |\n\nThe Rupee is at record lows against the USD. The RBI has been selling dollars to defend the currency.\n\n---\n\n## Why It Matters — The Regime Chain\n\nThis is a second-order transmission from the active [[Macro/Regimes/Iran-Hormuz Oil Shock]]:\n\n```\nIran-Hormuz Oil Shock\n  → Energy disruption in Persian Gulf\n  → India energy import costs spike (world's 3rd-largest oil importer)\n  → FX outflows accelerate (energy bill + gold = two largest import categories)\n  → Rupee falls to record lows\n  → RBI sells dollars (reserves depletion risk)\n  → Government imposes capital controls targeting gold escape route\n  → IF gold suppression successful → demand routes via smuggling or crypto\n  → IF suppression fails → precedent for other EM currencies in similar stress\n```\n\n---\n\n## Structural Shift in Indian Gold Market\n\nIndia's gold market is no longer purely jewellery-driven:\n\n| Feature | Old pattern | Current pattern |\n|---|---|---|\n| Demand driver | Jewellery fabrication | Investment-led (ETFs, financial holdings) |\n| Sensitivity to controls | Moderate (jewellery demand inelastic) | High (investment demand highly elastic to regulatory friction) |\n| ETF behaviour | Lagging physical | Leading physical (Indian ETFs sold ~20 tonnes in the opening week of the Middle East escalation) |\n\nThis shift means government suppression is more effective at reducing *financial* gold demand than traditional jewellery demand — but it also means displaced investment demand is more likely to route via non-traditional channels.\n\n---\n\n## Risk Channels to Monitor\n\n| Channel | Signal | Threshold |\n|---|---|---|\n| Rupee further decline | USD/INR new record low; RBI reserve depletion signal | New all-time low close without RBI defence |\n| Gold smuggling escalation | Mumbai-route smuggling reports; onshore/offshore gold price spread widens | Spread >$30/oz onshore premium (historical precedent) |\n| Crypto as escape valve | BTC on-chain India volume; INR-denominated exchange volumes; USDT premium in INR | USDT INR premium >3%; Binance India volume spike |\n| EM contagion | Other energy-import-heavy EM currencies (TRY, PKR, EGP) imposing similar capital controls | Second EM currency hits record low and imposes gold/FX controls within 30 days |\n| Urea/fertilizer disruption | Monsoon cycle starts Aug — urea supply uncertainty → rural incomes → gold demand suppression | NOAA confirms Iran-Hormuz route disruption for urea shipments |\n\n---\n\n## Connection to Crypto Policy Capture Signal\n\nThis observation directly reinforces [[Macro/Indicators/Crypto Policy Capture Risk]] via an independent pathway:\n\n- The US CLARITY Act pathway: regulatory legitimisation of crypto infrastructure\n- The India pathway: capital-control suppression of gold creating demand routing into crypto/Bitcoin\n\nZeroHedge explicitly notes: if gold suppression works and pathways are constrained, India joins other financially suppressed developing nations in \"actively pursuing non-fiat alternatives as tether and bitcoin.\"\n\nTwo independent catalysts pointing at the same asset class is a convergence signal, not a thesis — but it warrants watchpoint coverage.\n\n---\n\n## Signal Scorecard\n\n| Dimension | Score | Notes |\n|---|---|---|\n| Source convergence | 2 of 3 | ZeroHedge (1 source); regime connection confirmed (2) |\n| Quantified threshold | Partial | Rupee record low confirmed; gold tariff 15% confirmed; crypto threshold TBD |\n| Investable implication | Conditional | Requires crypto escape valve evidence before actionable |\n| Regime alignment | Strong | Directly downstream of Iran-Hormuz Oil Shock (active) |\n| Signal status | `watch` | Approaching watchpoint fire condition but not confirmed |\n\n---\n\n## Related\n\n- [[Macro/Regimes/Iran-Hormuz Oil Shock]]\n- [[Macro/Indicators/Crypto Policy Capture Risk]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n- [[Macro/Regimes/_Current Regime State]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\08_Macro_and_Economy\\Observations\\2026-05-14 - India Rupee Collapse and Gold Capital Controls.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\08_Macro_and_Economy\\Observations\\2026-05-14 - India Rupee Collapse and Gold Capital Controls.md",
+            "content": "---\ntype: observation\ncreated: 2026-05-14\ntags: [macro, india, gold, rupee, capital-controls, EM, crypto, iran-hormuz, emerging-markets]\nsignal_status: watch\nsources:\n  - \"Tyler Durden (ZeroHedge) – India Panics, Further Tightens Gold Flows As Rupee Collapses (2026-05-14)\"\n---\n\n# 2026-05-14 - India Rupee Collapse and Gold Capital Controls\n\n> *The insight is not that India tightened gold import rules — it is that the Iran-Hormuz Oil Shock is directly transmitting into EM currency collapse and capital control escalation. The suppression of the gold escape route creates a crypto/non-fiat alternative channel. This is the first confirmed EM second-order effect of the Hormuz regime.*\n\n---\n\n## What Happened\n\nIndia escalated capital controls on gold in a three-step tightening over 4 days:\n\n| Day | Action |\n|---|---|\n| −4 days (≈ 2026-05-10) | PM Modi rare weekend appeal — urged citizens to forgo gold purchases and unnecessary foreign travel |\n| −2 days (2026-05-12) | Gold import tariff doubled to **15%**; silver tariff raised to **6%** |\n| Today (2026-05-14) | Advance authorisation route tightened: imports >100kg require prior authorization; subsequent imports only granted after 50% export performance; stricter first-time applicant checks; future import approvals linked to export performance |\n\nThe Rupee is at record lows against the USD. The RBI has been selling dollars to defend the currency.\n\n---\n\n## Why It Matters — The Regime Chain\n\nThis is a second-order transmission from the active [[Macro/Regimes/Iran-Hormuz Oil Shock]]:\n\n```\nIran-Hormuz Oil Shock\n  → Energy disruption in Persian Gulf\n  → India energy import costs spike (world's 3rd-largest oil importer)\n  → FX outflows accelerate (energy bill + gold = two largest import categories)\n  → Rupee falls to record lows\n  → RBI sells dollars (reserves depletion risk)\n  → Government imposes capital controls targeting gold escape route\n  → IF gold suppression successful → demand routes via smuggling or crypto\n  → IF suppression fails → precedent for other EM currencies in similar stress\n```\n\n---\n\n## Structural Shift in Indian Gold Market\n\nIndia's gold market is no longer purely jewellery-driven:\n\n| Feature | Old pattern | Current pattern |\n|---|---|---|\n| Demand driver | Jewellery fabrication | Investment-led (ETFs, financial holdings) |\n| Sensitivity to controls | Moderate (jewellery demand inelastic) | High (investment demand highly elastic to regulatory friction) |\n| ETF behaviour | Lagging physical | Leading physical (Indian ETFs sold ~20 tonnes in the opening week of the Middle East escalation) |\n\nThis shift means government suppression is more effective at reducing *financial* gold demand than traditional jewellery demand — but it also means displaced investment demand is more likely to route via non-traditional channels.\n\n---\n\n## Risk Channels to Monitor\n\n| Channel | Signal | Threshold |\n|---|---|---|\n| Rupee further decline | USD/INR new record low; RBI reserve depletion signal | New all-time low close without RBI defence |\n| Gold smuggling escalation | Mumbai-route smuggling reports; onshore/offshore gold price spread widens | Spread >$30/oz onshore premium (historical precedent) |\n| Crypto as escape valve | BTC on-chain India volume; INR-denominated exchange volumes; USDT premium in INR | USDT INR premium >3%; Binance India volume spike |\n| EM contagion | Other energy-import-heavy EM currencies (TRY, PKR, EGP) imposing similar capital controls | Second EM currency hits record low and imposes gold/FX controls within 30 days |\n| Urea/fertilizer disruption | Monsoon cycle starts Aug — urea supply uncertainty → rural incomes → gold demand suppression | NOAA confirms Iran-Hormuz route disruption for urea shipments |\n\n---\n\n## Connection to Crypto Policy Capture Signal\n\nThis observation directly reinforces [[Macro/Indicators/Crypto Policy Capture Risk]] via an independent pathway:\n\n- The US CLARITY Act pathway: regulatory legitimisation of crypto infrastructure\n- The India pathway: capital-control suppression of gold creating demand routing into crypto/Bitcoin\n\nZeroHedge explicitly notes: if gold suppression works and pathways are constrained, India joins other financially suppressed developing nations in \"actively pursuing non-fiat alternatives as tether and bitcoin.\"\n\nTwo independent catalysts pointing at the same asset class is a convergence signal, not a thesis — but it warrants watchpoint coverage.\n\n---\n\n## Signal Scorecard\n\n| Dimension | Score | Notes |\n|---|---|---|\n| Source convergence | 2 of 3 | ZeroHedge (1 source); regime connection confirmed (2) |\n| Quantified threshold | Partial | Rupee record low confirmed; gold tariff 15% confirmed; crypto threshold TBD |\n| Investable implication | Conditional | Requires crypto escape valve evidence before actionable |\n| Regime alignment | Strong | Directly downstream of Iran-Hormuz Oil Shock (active) |\n| Signal status | `watch` | Approaching watchpoint fire condition but not confirmed |\n\n---\n\n## Related\n\n- [[Macro/Regimes/Iran-Hormuz Oil Shock]]\n- [[Macro/Indicators/Crypto Policy Capture Risk]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n- [[Macro/Regimes/_Current Regime State]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:42:26.433Z"
+    },
+    {
+      "id": "290352ce-7db3-416d-b041-c292ec793933",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LWNqmNGueXUDmcds4kHs2M",
+          "title": "Write C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Watchpoints\\2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Watchpoints\\2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints.md",
+              "newText": "---\ntype: watchpoint\ncategory: regulatory-policy\ncreated: 2026-05-14\nsource: \"[[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\"\nregimes:\n  - \"[[Macro/Regimes/Iran-Hormuz Oil Shock]]\"\n  - \"[[Macro/Indicators/Crypto Policy Capture Risk]]\"\nstatus: active\nreview_cadence: weekly\ntags: [watchpoint, india, gold, rupee, EM, capital-controls, crypto, iran-hormuz]\n---\n\n# India EM Capital Controls and Crypto Escape Valve Watchpoints\n\n> *Downstream watchpoint from the [[Macro/Regimes/Iran-Hormuz Oil Shock]] regime. India's gold capital control escalation creates a conditional crypto/bitcoin escape valve signal that amplifies the existing [[Macro/Indicators/Crypto Policy Capture Risk]] watch.*\n\n---\n\n## Position Assumption\n\nAll positions flat. No trade is implied by this watchpoint. These are threshold conditions — when a threshold fires, the vault action is to escalate the signal or prepare a fresh entry candidate, not to enter a position.\n\n---\n\n## Watch Table\n\n| Watch Item | Signal Threshold | Scanner / Alert Criteria | Opportunity When Fired |\n|---|---|---|---|\n| Rupee further collapse | USD/INR records a new all-time low with RBI unable to defend | USD/INR daily close; RBI FX reserve weekly data | EM currency contagion — monitor TRY, PKR, EGP; escalate Iran-Hormuz regime to CRITICAL if sustained; gold mining names under EM currency pressure |\n| India gold onshore premium | Onshore gold spot >$30/oz above London fix | Gold price data India vs LBMA spread; Bullion Vault India dashboard | Smuggling escalation confirms capital control failure; watch for physical market bifurcation |\n| Crypto escape valve — USDT INR premium | USDT/INR premium >3% on major exchanges (Binance, CoinDCX, WazirX) | USDT/INR vs USD/INR ratio on exchange data; Kaiko or CoinGecko INR pairs | Crypto adoption accelerating as capital control workaround; reinforce [[Macro/Indicators/Crypto Policy Capture Risk]] to ALERT; prepare fresh entry candidate in BTC proxies (IBIT, FBTC, MSTR) |\n| EM contagion — second currency | A second energy-import-heavy EM currency (TRY, PKR, EGP) imposes gold or FX controls within 30 days | EM central bank policy announcements; Bloomberg EM FX monitor | EM capital control wave emerging; regime-level event; stand aside from EM carry; monitor hard asset allocation |\n| India ETF gold outflows resume | Indian gold ETF net redemptions return after initial Middle East-driven selling | AMFI India ETF flow data (monthly); UBS India gold import data | Investment-demand erosion confirmed; domestic savings routing to crypto or foreign assets |\n| Urea/fertilizer risk | NOAA or shipping reports confirm Iran-Hormuz route disruption for urea/fertilizer shipments affecting Indian supply | NOAA Hormuz shipping updates; Indian import data; WASDE crop cycle impact | Rural income compression → gold buying suppression extends; monitor agri commodity complex |\n\n---\n\n## Policy Tail Risk Register\n\n| Risk | Binary Trigger | Sector / Instrument Exposed | Cross-Reference |\n|---|---|---|---|\n| India capital controls expand beyond gold (FX controls, crypto ban) | Government notification restricting crypto exchanges or foreign currency transactions | USDT/BTC on-chain India; Indian exchange volumes drop | [[Macro/Indicators/Crypto Policy Capture Risk]] — ban scenario |\n| Iran-Hormuz physical market relief | OVX falls below pre-escalation range; LNG/coal spreads normalize | Energy names, India import bill relief, Rupee reversal | [[Macro/Regimes/Iran-Hormuz Oil Shock]] — invalidation check |\n\n---\n\n## Trade Expression Layer (Conditional)\n\nThis watchpoint feeds into the [[06_Strategy_Development/Trade Expression Layer]] only if the crypto escape valve threshold fires.\n\n| Layer | Read |\n|---|---|\n| Regime | [[Macro/Regimes/Iran-Hormuz Oil Shock]] + [[Macro/Indicators/Crypto Policy Capture Risk]] |\n| Directional thesis | EM capital control suppression of gold → crypto as escape valve → BTC/stablecoin demand from suppressed EM markets |\n| Strategy family | Long crypto infrastructure proxies; long BTC ETFs; long stablecoin issuer exposure |\n| Technical confirmation | USDT INR premium >3%; BTC holding above 50-DMA; on-chain India volumes spike |\n| Volatility / options overlay | [[Options Skew]] on IBIT; IV percentile on crypto proxies (MSTR, COIN) |\n| Expression candidates | IBIT (BTC ETF), FBTC (BTC ETF), MSTR (high-beta proxy), COIN (exchange proxy), HOOD (retail crypto exposure) |\n| Invalidation | Iran physical market relief removes energy import pressure on Rupee; India reverses capital controls; Bitcoin fails at 50-DMA on volume |\n| Next data pull | USDT/INR premium; AMFI India ETF flows; USD/INR rate; OVX level; BTC on-chain India metrics |\n\n---\n\n## Signal Bridge Registration\n\nThis watchpoint is registered in [[06_Strategy_Development/Macro-to-Strategy Signal Bridge]] under the May 14 Late Inbox Ingestion Addendum.\n\n- Source observation: [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\n- Regime populated: [[Macro/Regimes/Iran-Hormuz Oil Shock]] · [[Macro/Indicators/Crypto Policy Capture Risk]]\n- Cross-reference: [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Watchpoints\\2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Watchpoints\\2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints.md",
+            "content": "---\ntype: watchpoint\ncategory: regulatory-policy\ncreated: 2026-05-14\nsource: \"[[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\"\nregimes:\n  - \"[[Macro/Regimes/Iran-Hormuz Oil Shock]]\"\n  - \"[[Macro/Indicators/Crypto Policy Capture Risk]]\"\nstatus: active\nreview_cadence: weekly\ntags: [watchpoint, india, gold, rupee, EM, capital-controls, crypto, iran-hormuz]\n---\n\n# India EM Capital Controls and Crypto Escape Valve Watchpoints\n\n> *Downstream watchpoint from the [[Macro/Regimes/Iran-Hormuz Oil Shock]] regime. India's gold capital control escalation creates a conditional crypto/bitcoin escape valve signal that amplifies the existing [[Macro/Indicators/Crypto Policy Capture Risk]] watch.*\n\n---\n\n## Position Assumption\n\nAll positions flat. No trade is implied by this watchpoint. These are threshold conditions — when a threshold fires, the vault action is to escalate the signal or prepare a fresh entry candidate, not to enter a position.\n\n---\n\n## Watch Table\n\n| Watch Item | Signal Threshold | Scanner / Alert Criteria | Opportunity When Fired |\n|---|---|---|---|\n| Rupee further collapse | USD/INR records a new all-time low with RBI unable to defend | USD/INR daily close; RBI FX reserve weekly data | EM currency contagion — monitor TRY, PKR, EGP; escalate Iran-Hormuz regime to CRITICAL if sustained; gold mining names under EM currency pressure |\n| India gold onshore premium | Onshore gold spot >$30/oz above London fix | Gold price data India vs LBMA spread; Bullion Vault India dashboard | Smuggling escalation confirms capital control failure; watch for physical market bifurcation |\n| Crypto escape valve — USDT INR premium | USDT/INR premium >3% on major exchanges (Binance, CoinDCX, WazirX) | USDT/INR vs USD/INR ratio on exchange data; Kaiko or CoinGecko INR pairs | Crypto adoption accelerating as capital control workaround; reinforce [[Macro/Indicators/Crypto Policy Capture Risk]] to ALERT; prepare fresh entry candidate in BTC proxies (IBIT, FBTC, MSTR) |\n| EM contagion — second currency | A second energy-import-heavy EM currency (TRY, PKR, EGP) imposes gold or FX controls within 30 days | EM central bank policy announcements; Bloomberg EM FX monitor | EM capital control wave emerging; regime-level event; stand aside from EM carry; monitor hard asset allocation |\n| India ETF gold outflows resume | Indian gold ETF net redemptions return after initial Middle East-driven selling | AMFI India ETF flow data (monthly); UBS India gold import data | Investment-demand erosion confirmed; domestic savings routing to crypto or foreign assets |\n| Urea/fertilizer risk | NOAA or shipping reports confirm Iran-Hormuz route disruption for urea/fertilizer shipments affecting Indian supply | NOAA Hormuz shipping updates; Indian import data; WASDE crop cycle impact | Rural income compression → gold buying suppression extends; monitor agri commodity complex |\n\n---\n\n## Policy Tail Risk Register\n\n| Risk | Binary Trigger | Sector / Instrument Exposed | Cross-Reference |\n|---|---|---|---|\n| India capital controls expand beyond gold (FX controls, crypto ban) | Government notification restricting crypto exchanges or foreign currency transactions | USDT/BTC on-chain India; Indian exchange volumes drop | [[Macro/Indicators/Crypto Policy Capture Risk]] — ban scenario |\n| Iran-Hormuz physical market relief | OVX falls below pre-escalation range; LNG/coal spreads normalize | Energy names, India import bill relief, Rupee reversal | [[Macro/Regimes/Iran-Hormuz Oil Shock]] — invalidation check |\n\n---\n\n## Trade Expression Layer (Conditional)\n\nThis watchpoint feeds into the [[06_Strategy_Development/Trade Expression Layer]] only if the crypto escape valve threshold fires.\n\n| Layer | Read |\n|---|---|\n| Regime | [[Macro/Regimes/Iran-Hormuz Oil Shock]] + [[Macro/Indicators/Crypto Policy Capture Risk]] |\n| Directional thesis | EM capital control suppression of gold → crypto as escape valve → BTC/stablecoin demand from suppressed EM markets |\n| Strategy family | Long crypto infrastructure proxies; long BTC ETFs; long stablecoin issuer exposure |\n| Technical confirmation | USDT INR premium >3%; BTC holding above 50-DMA; on-chain India volumes spike |\n| Volatility / options overlay | [[Options Skew]] on IBIT; IV percentile on crypto proxies (MSTR, COIN) |\n| Expression candidates | IBIT (BTC ETF), FBTC (BTC ETF), MSTR (high-beta proxy), COIN (exchange proxy), HOOD (retail crypto exposure) |\n| Invalidation | Iran physical market relief removes energy import pressure on Rupee; India reverses capital controls; Bitcoin fails at 50-DMA on volume |\n| Next data pull | USDT/INR premium; AMFI India ETF flows; USD/INR rate; OVX level; BTC on-chain India metrics |\n\n---\n\n## Signal Bridge Registration\n\nThis watchpoint is registered in [[06_Strategy_Development/Macro-to-Strategy Signal Bridge]] under the May 14 Late Inbox Ingestion Addendum.\n\n- Source observation: [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\n- Regime populated: [[Macro/Regimes/Iran-Hormuz Oil Shock]] · [[Macro/Indicators/Crypto Policy Capture Risk]]\n- Cross-reference: [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Good. Now let me:\n1. Update Retail Sales indicator note with structural composition data\n2. Update Signal Bridge with May 14 late addendum rows\n3. Update EOD report with missing sections\n4. Archive inbox files\n\nLet me do the Retail Sales update and the Signal Bridge update in parallel, then do the EOD report update."
+        },
+        {
+          "type": "text",
+          "text": "Three new notes created. Now updating the Retail Sales indicator and Signal Bridge in parallel."
+        }
+      ],
+      "timestamp": "2026-05-14T20:43:00.000Z"
+    },
+    {
+      "id": "be07bfe9-400f-4853-986d-78a326d3207b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QQ7NP9Pg4iGWcgK5Q4Bbng",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md",
+              "newText": "\nStrategy read: read retail sales by income tier and category mix. Strong headline sales are less bullish if driven by affluent households, price inflation, and AI/profit wealth effects while lower-income real consumption weakens.\n\n## Structural Composition Update — 2026-05-14\n\nSource: Mike Shedlock (MishTalk), citing Advance Retail Sales, April 2026\n\nThe composition of retail sales reveals a structural channel shift that the headline number obscures:\n\n| Category | Share (Jan 1992) | Share (2026) | Direction |\n|---|---|---|---|\n| Nonstore (ecommerce) | 3.20% of total | **18.17% of total** | Surging |\n| Nonstore (ex-auto/gas/grocery) | — | **36.37% of addressable** | Approaching/topping COVID spike high |\n| Motor vehicles + parts | — | Nonstore approaching parity | Declining share |\n| Department stores | 8.88% of total | **1.47%** (Mar 2025); **delisted Apr 2025** | Structural collapse |\n\n**Ecommerce is the new car-buying:** Nonstore retail is on the verge of surpassing motor vehicles + parts as a share of total retail sales — a structural milestone that reflects the completed shift away from physical retail.\n\n**Real vs nominal divergence:** Despite April nominal retail sales +0.5% MoM, inflation-adjusted (real) retail sales are declining. The Shedlock read: \"The second chart in this post is nothing but a mirage of inflation.\" Nominal resilience overstates volume growth.\n\n**Department stores** effectively ceased to exist as a tracked category — BLS stopped reporting the segment in April 2025 after its share fell from 8.88% (1992) to 1.47% (2025).\n\nRead with [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]] and [[Macro/Indicators/CPI]].\n\n## Impact Chain\n1. Retail sales declining → consumer weakness → [[Recession]] risk\n2. Strong retail → [[Risk-On]], but also fuels inflation → [[Inflationary Boom]]",
+              "oldText": "\nStrategy read: read retail sales by income tier and category mix. Strong headline sales are less bullish if driven by affluent households, price inflation, and AI/profit wealth effects while lower-income real consumption weakens.\n\n## Impact Chain\n1. Retail sales declining → consumer weakness → [[Recession]] risk\n2. Strong retail → [[Risk-On]], but also fuels inflation → [[Inflationary Boom]]"
+            }
+          ],
+          "locations": [
+            {
+              "line": 62,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Macro\\Indicators\\Retail Sales.md",
+            "old_string": "## Impact Chain\n1. Retail sales declining → consumer weakness → [[Recession]] risk\n2. Strong retail → [[Risk-On]], but also fuels inflation → [[Inflationary Boom]]\n3. Directly impacts [[Consumer Discretionary]] earnings",
+            "new_string": "## Structural Composition Update — 2026-05-14\n\nSource: Mike Shedlock (MishTalk), citing Advance Retail Sales, April 2026\n\nThe composition of retail sales reveals a structural channel shift that the headline number obscures:\n\n| Category | Share (Jan 1992) | Share (2026) | Direction |\n|---|---|---|---|\n| Nonstore (ecommerce) | 3.20% of total | **18.17% of total** | Surging |\n| Nonstore (ex-auto/gas/grocery) | — | **36.37% of addressable** | Approaching/topping COVID spike high |\n| Motor vehicles + parts | — | Nonstore approaching parity | Declining share |\n| Department stores | 8.88% of total | **1.47%** (Mar 2025); **delisted Apr 2025** | Structural collapse |\n\n**Ecommerce is the new car-buying:** Nonstore retail is on the verge of surpassing motor vehicles + parts as a share of total retail sales — a structural milestone that reflects the completed shift away from physical retail.\n\n**Real vs nominal divergence:** Despite April nominal retail sales +0.5% MoM, inflation-adjusted (real) retail sales are declining. The Shedlock read: \"The second chart in this post is nothing but a mirage of inflation.\" Nominal resilience overstates volume growth.\n\n**Department stores** effectively ceased to exist as a tracked category — BLS stopped reporting the segment in April 2025 after its share fell from 8.88% (1992) to 1.47% (2025).\n\nRead with [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]] and [[Macro/Indicators/CPI]].\n\n## Impact Chain\n1. Retail sales declining → consumer weakness → [[Recession]] risk\n2. Strong retail → [[Risk-On]], but also fuels inflation → [[Inflationary Boom]]\n3. Directly impacts [[Consumer Discretionary]] earnings"
+          }
+        }
+      ],
+      "timestamp": "2026-05-14T20:43:33.399Z"
+    },
+    {
+      "id": "aef58a77-39d2-49b1-8262-615ba7e6cfbc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GfwaKJRZtq3f8ZyBt9BpTA",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md",
+              "newText": "| [[2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]] | [[Macro/Regimes/Narrow Concentrated Rally]] (RSP/SPX bottom 1% since 1975); [[Macro/Regimes/AI Growth Offset vs Energy Shock]]; [[Macro/Indicators/AI Capex Energy Demand]] | [[06_Strategy_Development/Watchpoints/2026-05-12 - Inflation and Breadth Regime Watchpoints]]; [[06_Strategy_Development/Watchpoints/2026-05-12 - Semiconductor Bubble Derisking Watchpoints]]; [[06_Strategy_Development/Watchpoints/2026-05-13 - Fiscal Duration and AI Systemic Risk Watchpoints]] | ✅ Fully routed via existing breadth/AI watchpoints |\n| *(My_Data Opportunity Viewpoints — healthcare conviction signals 2026-05-14)* | Healthcare conviction delta: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42) | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] (new) | ✅ New receiving watchpoint created |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]] | [[Macro/Indicators/Crypto Policy Capture Risk]]; [[Policy/Bills/Digital Asset Market Clarity Act of 2025]]; [[Politics/Observations/2026-05-14 - Warsh Crypto Disclosure and Policy Capture Risk]] | [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]] | Fully routed; action label stays `Prepare` until Senate/final-text and market confirmation align |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]] | [[Macro/Regimes/Iran-Hormuz Oil Shock]] (second-order EM transmission); [[Macro/Indicators/Crypto Policy Capture Risk]] (EM escape valve pathway reinforces US policy-capture signal) | [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]] | ✅ Fully wired; convergent crypto signal (two independent pathways: CLARITY Act + EM capital controls) |\n| *(VIX Trading Strategies — McMillan, 2026-05-14 inbox)* | [[Macro/Regimes/Iran-Hormuz Oil Shock]] (elevated VIX environment); [[Macro/Indicators/VIX]] · [[Macro/Indicators/VIXEQ]] — live term structure context added | [[06_Strategy_Development/Watchpoints/2026-05-11 - Volatility Regime Watchpoints]] | ✅ Evergreen strategy note created at [[04_Technical_Indicators/VIX Trading Strategies]]; routed via existing volatility watchpoint |\n| *(Retail Sales structural composition — Shedlock, 2026-05-14 inbox)* | [[Macro/Indicators/Retail Sales]] updated with ecommerce share data (36.37% of addressable) and real-vs-nominal divergence | Via [[2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]] | ✅ Indicator note updated; no new watchpoint needed |\n\n---\n",
+              "oldText": "| [[2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]] | [[Macro/Regimes/Narrow Concentrated Rally]] (RSP/SPX bottom 1% since 1975); [[Macro/Regimes/AI Growth Offset vs Energy Shock]]; [[Macro/Indicators/AI Capex Energy Demand]] | [[06_Strategy_Development/Watchpoints/2026-05-12 - Inflation and Breadth Regime Watchpoints]]; [[06_Strategy_Development/Watchpoints/2026-05-12 - Semiconductor Bubble Derisking Watchpoints]]; [[06_Strategy_Development/Watchpoints/2026-05-13 - Fiscal Duration and AI Systemic Risk Watchpoints]] | ✅ Fully routed via existing breadth/AI watchpoints |\n| *(My_Data Opportunity Viewpoints — healthcare conviction signals 2026-05-14)* | Healthcare conviction delta: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42) | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] (new) | ✅ New receiving watchpoint created |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]] | [[Macro/Indicators/Crypto Policy Capture Risk]]; [[Policy/Bills/Digital Asset Market Clarity Act of 2025]]; [[Politics/Observations/2026-05-14 - Warsh Crypto Disclosure and Policy Capture Risk]] | [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]] | Fully routed; action label stays `Prepare` until Senate/final-text and market confirmation align |\n\n---\n"
+            }
+          ],
+          "locations": [
+            {
+              "line": 111,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\06_Strategy_Development\\Macro-to-Strategy Signal Bridge.md",
+            "old_string": "| [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]] | [[Macro/Indicators/Crypto Policy Capture Risk]]; [[Policy/Bills/Digital Asset Market Clarity Act of 2025]]; [[Politics/Observations/2026-05-14 - Warsh Crypto Disclosure and Policy Capture Risk]] | [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]] | Fully routed; action label stays `Prepare` until Senate/final-text and market confirmation align |",
+            "new_string": "| [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]] | [[Macro/Indicators/Crypto Policy Capture Risk]]; [[Policy/Bills/Digital Asset Market Clarity Act of 2025]]; [[Politics/Observations/2026-05-14 - Warsh Crypto Disclosure and Policy Capture Risk]] | [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]] | Fully routed; action label stays `Prepare` until Senate/final-text and market confirmation align |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]] | [[Macro/Regimes/Iran-Hormuz Oil Shock]] (second-order EM transmission); [[Macro/Indicators/Crypto Policy Capture Risk]] (EM escape valve pathway reinforces US policy-capture signal) | [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]] | ✅ Fully wired; convergent crypto signal (two independent pathways: CLARITY Act + EM capital controls) |\n| *(VIX Trading Strategies — McMillan, 2026-05-14 inbox)* | [[Macro/Regimes/Iran-Hormuz Oil Shock]] (elevated VIX environment); [[Macro/Indicators/VIX]] · [[Macro/Indicators/VIXEQ]] — live term structure context added | [[06_Strategy_Development/Watchpoints/2026-05-11 - Volatility Regime Watchpoints]] | ✅ Evergreen strategy note created at [[04_Technical_Indicators/VIX Trading Strategies]]; routed via existing volatility watchpoint |\n| *(Retail Sales structural composition — Shedlock, 2026-05-14 inbox)* | [[Macro/Indicators/Retail Sales]] updated with ecommerce share data (36.37% of addressable) and real-vs-nominal divergence | Via [[2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]] | ✅ Indicator note updated; no new watchpoint needed |"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now I need to update the EOD report with:\n1. Add \"## Active Regime Check\" section after \"## Position Assumption\"\n2. Add India/Rupee row to Vault Intake table\n3. Add India/Rupee to Big-Picture Connections\n4. Add \"## Risk/Reward Check\" section after \"## Strategy Suggestions\"\n5. Restructure Detective Questions to 5 template sections\n6. Update Source Trail\n\nLet me do all these edits to the EOD report.\n\nThe EOD report currently has:\n\n\n- Position Assumption\n- Executive Read\n- Vault Intake\n- Big-Picture Connections (5 items)\n- Strategy Suggestions\n- Knowledge Review Queue\n- Tomorrow Watchboard\n- Detective Questions (4 sections: Market Structure, Inflation and Rates, Geopolitical, Healthcare Theses)\n- Source Trail\n\nI need to:\n1. Add Active Regime Check after Position Assumption\n2. Add India/Rupee to Vault Intake\n3. Add India connection to Big-Picture Connections (#6)\n4. Add Risk/Reward Check after Strategy Suggestions\n5. Restructure Detective Questions to: Market Structure, Inflation And Energy\n\n, Rates And FX, Policy, Strategy Development\n6. Update Source Trail\n\nLet me work through these edits sequentially since each one shifts the structure. Starting with inserting the Active Regime Check right after Position Assumption, then adding India/Rupee details to the Vault Intake section, followed by incorporating that India connection as the sixth item in Big-Picture Connections. After Strategy Suggestions, I'll add the Risk/Reward Check. The Detective Questions need a more substantial restructure—collapsing the current four sections into five new ones that better organize around market dynamics, energy considerations, and policy implications. Finally, I'll review and update the Source Trail to reflect these changes.\n\nLet me tackle these one at a time, starting with the Active Regime Check insertion."
+        },
+        {
+          "type": "text",
+          "text": "Now updating the EOD report with all missing sections. Each edit is sequential.\n\n**Edit 1 — Add Active Regime Check:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:43:46.366Z"
+    },
+    {
+      "id": "2af097b2-559e-477f-bb66-e83e18924a06",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01C8r5zEEU1zQ2VyoCzyskPQ",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "\nAssume no active positions unless a report or note explicitly says otherwise. Strategy language starts from a flat-book baseline: each candidate needs a new entry point, trigger, required data check, and invalidation. Phrases like \"reduce,\" \"trim,\" \"hold,\" or \"stay long\" apply only when an existing position is explicitly documented.\n\n## Active Regime Check\n\nCurrent regime state: [[Macro/Regimes/_Current Regime State]]\n\n| Regime | Status | Change from yesterday |\n|---|---|---|\n| [[Macro/Regimes/AI Growth Offset vs Energy Shock]] | Active | No change — PPI ALERT (+1.4% MoM) reinforces energy-inflation pressure; AI earnings (NVDA May 20) remain the hold-together pin |\n| [[Macro/Regimes/Narrow Concentrated Rally]] | Active | Escalating — RSP/SPX at bottom 1% since 1975; breadth divergence deepening despite index rally |\n| Iran-Hormuz Oil Shock | Active — surface cooling | Five-T summit produced de-escalation language; physical markets (OVX, LNG spreads) unconfirmed; second-order EM effects emerging (India Rupee) |\n| [[Macro/Indicators/Yen Carry Trade Risk]] | Watch — Approaching Trigger | Escalating — USD/JPY approaching 165; BoJ Masu hawkish; 15bps June hike priced |\n| [[Macro/Indicators/Private Credit Stress]] | Watch — Elevated | No change — BDC mark dispersion watch continues |\n\n---\n\n## Executive Read\n\nThe surface read for 2026-05-14 is risk-on: the US-China summit produced a \"Five T\" de-escalation framework (Trump-Xi, tariff truce, tech cooperation, Tesla EV access, Treasury coordination) and partial Iran de-escalation signals added to a broad risk bid. The underlying data broke the other direction. PPI printed +1.4% MoM (+6.0% YoY) — the largest monthly print since March 2022 — driving a PCE nowcast of 3.8% YoY. The 30Y Treasury closed above 5% for the first time since 2007. Retail sales were resilient (+0.5% MoM, Control Group +0.5%) but K-shaped: upper-income households are driving the headline while lower-income stress is building.",
+              "oldText": "\nAssume no active positions unless a report or note explicitly says otherwise. Strategy language starts from a flat-book baseline: each candidate needs a new entry point, trigger, required data check, and invalidation. Phrases like \"reduce,\" \"trim,\" \"hold,\" or \"stay long\" apply only when an existing position is explicitly documented.\n\n## Executive Read\n\nThe surface read for 2026-05-14 is risk-on: the US-China summit produced a \"Five T\" de-escalation framework (Trump-Xi, tariff truce, tech cooperation, Tesla EV access, Treasury coordination) and partial Iran de-escalation signals added to a broad risk bid. The underlying data broke the other direction. PPI printed +1.4% MoM (+6.0% YoY) — the largest monthly print since March 2022 — driving a PCE nowcast of 3.8% YoY. The 30Y Treasury closed above 5% for the first time since 2007. Retail sales were resilient (+0.5% MoM, Control Group +0.5%) but K-shaped: upper-income households are driving the headline while lower-income stress is building."
+            }
+          ],
+          "locations": [
+            {
+              "line": 29,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "## Executive Read",
+            "new_string": "## Active Regime Check\n\nCurrent regime state: [[Macro/Regimes/_Current Regime State]]\n\n| Regime | Status | Change from yesterday |\n|---|---|---|\n| [[Macro/Regimes/AI Growth Offset vs Energy Shock]] | Active | No change — PPI ALERT (+1.4% MoM) reinforces energy-inflation pressure; AI earnings (NVDA May 20) remain the hold-together pin |\n| [[Macro/Regimes/Narrow Concentrated Rally]] | Active | Escalating — RSP/SPX at bottom 1% since 1975; breadth divergence deepening despite index rally |\n| Iran-Hormuz Oil Shock | Active — surface cooling | Five-T summit produced de-escalation language; physical markets (OVX, LNG spreads) unconfirmed; second-order EM effects emerging (India Rupee) |\n| [[Macro/Indicators/Yen Carry Trade Risk]] | Watch — Approaching Trigger | Escalating — USD/JPY approaching 165; BoJ Masu hawkish; 15bps June hike priced |\n| [[Macro/Indicators/Private Credit Stress]] | Watch — Elevated | No change — BDC mark dispersion watch continues |\n\n---\n\n## Executive Read"
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Edit 2 — Add India/Rupee to Vault Intake and Big-Picture Connection #6:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:44:12.541Z"
+    },
+    {
+      "id": "efe27ff9-c219-4a19-8084-12e4fd8c0892",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NcghRhTrkhf6NF2rPNyrmQ",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "| UK Political Transition watchpoint | Streeting resigned; Labour leadership contest (81 MP nominations threshold); 30Y gilt 5.74%; fiscal tail risk if left-wing candidate wins | [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]] |\n| El Niño 2026 watchpoint | NOAA 61% probability by May–Jul; 14-week lead time to official declaration; soft commodity, energy, and insurance compound shock pathway | [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]] |\n| My_Data Opportunity Viewpoints | Conviction Momentum signals: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42); Dilution overlays: AMZN, CEG, JNJ, KTOS, LEN | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]] | Iran-Hormuz second-order EM transmission: Rupee at record lows, gold import tariff doubled to 15%, advance authorisation caps imposed; crypto escape valve pathway opening | [[Macro/Regimes/Iran-Hormuz Oil Shock]] · [[Macro/Indicators/Crypto Policy Capture Risk]] · [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]] |\n\n---\n",
+              "oldText": "| UK Political Transition watchpoint | Streeting resigned; Labour leadership contest (81 MP nominations threshold); 30Y gilt 5.74%; fiscal tail risk if left-wing candidate wins | [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]] |\n| El Niño 2026 watchpoint | NOAA 61% probability by May–Jul; 14-week lead time to official declaration; soft commodity, energy, and insurance compound shock pathway | [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]] |\n| My_Data Opportunity Viewpoints | Conviction Momentum signals: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42); Dilution overlays: AMZN, CEG, JNJ, KTOS, LEN | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] |\n\n---\n"
+            }
+          ],
+          "locations": [
+            {
+              "line": 63,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "| My_Data Opportunity Viewpoints | Conviction Momentum signals: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42); Dilution overlays: AMZN, CEG, JNJ, KTOS, LEN | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] |",
+            "new_string": "| My_Data Opportunity Viewpoints | Conviction Momentum signals: Psychedelic (146), AMR (84), Alzheimer's (72), GLP-1 (42); Dilution overlays: AMZN, CEG, JNJ, KTOS, LEN | [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]] |\n| [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]] | Iran-Hormuz second-order EM transmission: Rupee at record lows, gold import tariff doubled to 15%, advance authorisation caps imposed; crypto escape valve pathway opening | [[Macro/Regimes/Iran-Hormuz Oil Shock]] · [[Macro/Indicators/Crypto Policy Capture Risk]] · [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]] |"
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Edit 3 — Add connection #6 to Big-Picture Connections and add Risk/Reward Check:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:44:22.150Z"
+    },
+    {
+      "id": "c504dc4c-a67a-4ed4-88d0-67e84d565060",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BE5wXoZ9ax1Tyk67UibUHa",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "3. **Sticky inflation is hardening the policy constraint.** PCE nowcast at 3.8% YoY means the Fed's runway for rate cuts is narrowing materially. The 30Y above 5% is a structural Treasury demand signal: foreign buyers are not absorbing supply at pre-shock yields.\n4. **New geopolitical and climate channels are opening before old ones close.** UK political risk and El Niño 2026 compound commodity shock are emerging while Iran de-escalation remains surface-level and unconfirmed in physical markets. The risk surface is widening, not narrowing.\n5. **Healthcare theses are gaining conviction momentum in My_Data before World_Machine has catchment watchpoints.** Four healthcare theses show positive signal momentum in My_Data's conviction delta. The new Healthcare Conviction Momentum Queue watchpoint is the bridge.\n6. **The Iran-Hormuz Oil Shock is transmitting into EM capital controls that amplify the crypto thesis from a second independent pathway.** India's rupee collapse (driven by Persian Gulf energy import costs) triggered gold suppression, which routes suppressed investment demand toward crypto/non-fiat alternatives. This is a structurally independent pathway to the same [[Macro/Indicators/Crypto Policy Capture Risk]] signal already active from the CLARITY Act. Two independent catalysts — US regulatory legitimisation and EM capital control suppression — pointing at the same asset class is a convergence signal requiring watchpoint coverage.\n\n---\n",
+              "oldText": "3. **Sticky inflation is hardening the policy constraint.** PCE nowcast at 3.8% YoY means the Fed's runway for rate cuts is narrowing materially. The 30Y above 5% is a structural Treasury demand signal: foreign buyers are not absorbing supply at pre-shock yields.\n4. **New geopolitical and climate channels are opening before old ones close.** UK political risk and El Niño 2026 compound commodity shock are emerging while Iran de-escalation remains surface-level and unconfirmed in physical markets. The risk surface is widening, not narrowing.\n5. **Healthcare theses are gaining conviction momentum in My_Data before World_Machine has catchment watchpoints.** Four healthcare theses show positive signal momentum in My_Data's conviction delta. The new Healthcare Conviction Momentum Queue watchpoint is the bridge.\n\n---\n"
+            }
+          ],
+          "locations": [
+            {
+              "line": 74,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "5. **Healthcare theses are gaining conviction momentum in My_Data before World_Machine has catchment watchpoints.** Four healthcare theses show positive signal momentum in My_Data's conviction delta. The new Healthcare Conviction Momentum Queue watchpoint is the bridge.\n\n---\n\n## Strategy Suggestions",
+            "new_string": "5. **Healthcare theses are gaining conviction momentum in My_Data before World_Machine has catchment watchpoints.** Four healthcare theses show positive signal momentum in My_Data's conviction delta. The new Healthcare Conviction Momentum Queue watchpoint is the bridge.\n6. **The Iran-Hormuz Oil Shock is transmitting into EM capital controls that amplify the crypto thesis from a second independent pathway.** India's rupee collapse (driven by Persian Gulf energy import costs) triggered gold suppression, which routes suppressed investment demand toward crypto/non-fiat alternatives. This is a structurally independent pathway to the same [[Macro/Indicators/Crypto Policy Capture Risk]] signal already active from the CLARITY Act. Two independent catalysts — US regulatory legitimisation and EM capital control suppression — pointing at the same asset class is a convergence signal requiring watchpoint coverage.\n\n---\n\n## Strategy Suggestions"
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Edit 4 — Add Risk/Reward Check after Strategy Suggestions:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:44:31.650Z"
+    },
+    {
+      "id": "f60f6353-9126-4fb9-8eda-9f83b344f705",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01XGxs166UNXSyD52qYvzBeK",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "\n---\n\n## Risk/Reward Check\n\n| Setup | Action label | Entry / stop / target | Risk:Reward | R multiple | Status | Quality flag | Log link / required data check |\n|---|---|---|---|---|---|---|---|\n| US-China tariff beneficiaries (KWEB, EIDO, VNM) | Prepare | Entry: post-confirmation close above 200DMA / Stop: reversal below 200DMA / Target: 10–15% range extension | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires named-source enforcement mechanism; specific price levels; option chain data |\n| TLT counter-trend | Observe | Entry: close above 87.12 / Stop: close below 85.50 / Target: 91.00 (50DMA) | 1:2.3 | 2.3R | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires CPI/PCE rolling over simultaneous; 30Y above 5.25% = invalidation; current setup harder given PPI ALERT |\n| El Niño soft commodities (WEAT, MOS, CF, NTR) | Observe | Entry: NOAA official declaration / Stop: TBD / Target: TBD | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires NOAA declaration; crop yield data; futures spread; position size relative to declaration probability |\n| Crypto proxies — EM escape valve (IBIT, FBTC, MSTR) | Observe | Entry: USDT INR premium >3% confirmed + BTC above 50DMA / Stop: BTC close below 50DMA / Target: prior high | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires on-chain India data; USDT premium confirmation; option chain; IV percentile check on IBIT |\n\n---\n\n## Knowledge Review Queue\n\n| Priority | Review item | Why |",
+              "oldText": "\n---\n\n## Knowledge Review Queue\n\n| Priority | Review item | Why |"
+            }
+          ],
+          "locations": [
+            {
+              "line": 91,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "---\n\n## Knowledge Review Queue",
+            "new_string": "---\n\n## Risk/Reward Check\n\n| Setup | Action label | Entry / stop / target | Risk:Reward | R multiple | Status | Quality flag | Log link / required data check |\n|---|---|---|---|---|---|---|---|\n| US-China tariff beneficiaries (KWEB, EIDO, VNM) | Prepare | Entry: post-confirmation close above 200DMA / Stop: reversal below 200DMA / Target: 10–15% range extension | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires named-source enforcement mechanism; specific price levels; option chain data |\n| TLT counter-trend | Observe | Entry: close above 87.12 / Stop: close below 85.50 / Target: 91.00 (50DMA) | 1:2.3 | 2.3R | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires CPI/PCE rolling over simultaneous; 30Y above 5.25% = invalidation; current setup harder given PPI ALERT |\n| El Niño soft commodities (WEAT, MOS, CF, NTR) | Observe | Entry: NOAA official declaration / Stop: TBD / Target: TBD | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires NOAA declaration; crop yield data; futures spread; position size relative to declaration probability |\n| Crypto proxies — EM escape valve (IBIT, FBTC, MSTR) | Observe | Entry: USDT INR premium >3% confirmed + BTC above 50DMA / Stop: BTC close below 50DMA / Target: prior high | Pending Inputs | Pending Inputs | Pending Inputs | Pending Inputs | [[06_Strategy_Development/Risk-Reward Calculation Log]] — requires on-chain India data; USDT premium confirmation; option chain; IV percentile check on IBIT |\n\n---\n\n## Knowledge Review Queue"
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Edit 5 — Restructure Detective Questions to full 5-section template + update Source Trail:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:44:40.762Z"
+    },
+    {
+      "id": "f1914509-b729-42d1-8409-9ec8da5fe7b4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016gbMzdQyEgxX5pjjkn7WgJ",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "\n### Market Structure\n\n- Did the Five-T rally close on breadth participation or was it a mega-cap-only headline gap — and does the RSP/SPX ratio show any inflection from the 1975-level extreme?\n- Is NVDA option IV already pricing regime-break risk for May 20, or is the binary underpriced relative to the concentration extreme?\n- Can the index hold if NVDA disappoints marginally — what would the 5-day drawdown look like if RSP/SPX is still at 1975-level extremes at the print?\n- Is the USD/JPY chart forming a directional break toward 165, or is this range noise within the yen carry regime watch?\n\n### Inflation And Energy\n\n- What does PPI +1.4% MoM in April imply for the May CPI print — is the pipeline pressuring goods categories specifically or is services still the dominant driver?\n- Is the PCE nowcast at 3.8% YoY a confirmed floor or a methodology artifact of the energy shock timing?\n- Is the energy complex (OVX, LNG spreads, TD3C tanker rates) confirming or beginning to diverge from the Iran-Hormuz [[Macro/Regimes/Iran-Hormuz Oil Shock]] read — did the Five-T summit move physical markers at all?\n- Is India's rupee collapse and energy import cost spike now the clearest second-order signal of the Iran-Hormuz regime that physical oil prices have not yet confirmed?\n\n### Rates And FX\n\n- Is the 30Y above 5% a one-auction structural demand shift or a one-day overshoot — what did the bid-to-cover and foreign participation look like at the last auction?\n- Has the [[Macro/Indicators/10Y Treasury]] term premium widened in a way that changes the [[Macro/Regimes/AI Growth Offset vs Energy Shock]] assessment (threshold: 10Y above 4.65%, 30Y sustained above 5.25%)?\n- Is FX pricing in the yen carry unwind risk that the vault has not fully reflected — specifically, is the cross-market JGB/Treasury selling channel showing stress signals yet?\n- What is the Rupee/USD trajectory vs RBI reserve depletion — at what reserve draw rate does RBI's ability to defend the currency become constrained?\n\n### Policy\n\n- What are the specific tariff terms from the Trump-Xi summit — are they enforceable with named mechanisms, or declaratory language requiring follow-up documentation?\n- Is the Iran de-escalation signal a named-source joint statement or a single-source market inference — what would physical confirmation look like (OVX level, LNG spread, Hormuz shipping data)?\n- Does the latest BoJ communication from Governor Masu shift the weight of evidence on the June hike probability — 15bps priced; what would move it to 25bps?\n- What is the fiscal platform of the most likely UK Labour leadership candidates — specifically, do any frontrunners hold positions that would require a fiscal expansion that UK gilt markets haven't priced?\n- Does the CLARITY Act's advancement through Senate Banking change the Senate floor timeline — what is the next procedural gate after Banking Committee coverage?\n\n### Strategy Development\n\n- What specific confirmation would move the US-China tariff beneficiary branch from **Prepare** to **Triggered** — is a named enforcement mechanism sufficient, or is it also conditional on semiconductor cooperation terms?\n- Is there a VIX trade that makes sense given the current Iran-Hormuz elevated-vol environment — specifically, is the front-month VIX futures discount reaching the ≥ 3.00 point threshold that would activate the VIX/SPY hedge (see [[04_Technical_Indicators/VIX Trading Strategies]])?\n- What specific confirmation would move the crypto escape valve watch from **Observe** to **Prepare** — USDT INR premium >3%, or BTC on-chain India volume spike, or both required?\n- For healthcare thesis signals (Psychedelic 146, AMR 84), are the conviction delta scores driven by repeatable data events or one-off source spikes — and which thesis needs the most urgent full-picture report refresh before the next My_Data pull?\n\n---\n\n## Source Trail",
+              "oldText": "\n### Market Structure\n\n- Did the Five-T rally close on breadth participation or was it a mega-cap-only headline gap?\n- Is NVDA option IV already pricing a regime-break risk for May 20, or is the binary underpriced?\n- Can the index hold if NVDA disappoints even marginally given RSP/SPX at 1975-level extremes?\n\n### Inflation and Rates\n\n- What does PPI +1.4% MoM in April imply for the May CPI print?\n- Is the PCE nowcast at 3.8% YoY a confirmed floor or a methodology artifact?\n- Is the 30Y above 5% a one-auction event or a structural demand shift from foreign buyers?\n\n### Geopolitical\n\n- What are the specific tariff terms from the Trump-Xi summit — are they enforceable or declaratory?\n- Is Iran de-escalation signal a named-source joint statement or a single-source inference?\n- What is the fiscal platform of the most likely UK Labour leadership candidates?\n\n### Healthcare Theses\n\n- Are the Psychedelic Mental Health and AMR Pipeline signals in My_Data repeatable or one-off?\n- What specific data events are driving the conviction delta scores?\n- Which healthcare thesis needs the most urgent full-picture report refresh?\n\n---\n\n## Source Trail"
+            }
+          ],
+          "locations": [
+            {
+              "line": 133,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "## Detective Questions Before The Next Open\n\n### Market Structure\n\n- Did the Five-T rally close on breadth participation or was it a mega-cap-only headline gap?\n- Is NVDA option IV already pricing a regime-break risk for May 20, or is the binary underpriced?\n- Can the index hold if NVDA disappoints even marginally given RSP/SPX at 1975-level extremes?\n\n### Inflation and Rates\n\n- What does PPI +1.4% MoM in April imply for the May CPI print?\n- Is the PCE nowcast at 3.8% YoY a confirmed floor or a methodology artifact?\n- Is the 30Y above 5% a one-auction event or a structural demand shift from foreign buyers?\n\n### Geopolitical\n\n- What are the specific tariff terms from the Trump-Xi summit — are they enforceable or declaratory?\n- Is Iran de-escalation signal a named-source joint statement or a single-source inference?\n- What is the fiscal platform of the most likely UK Labour leadership candidates?\n\n### Healthcare Theses\n\n- Are the Psychedelic Mental Health and AMR Pipeline signals in My_Data repeatable or one-off?\n- What specific data events are driving the conviction delta scores?\n- Which healthcare thesis needs the most urgent full-picture report refresh?",
+            "new_string": "## Detective Questions Before The Next Open\n\n### Market Structure\n\n- Did the Five-T rally close on breadth participation or was it a mega-cap-only headline gap — and does the RSP/SPX ratio show any inflection from the 1975-level extreme?\n- Is NVDA option IV already pricing regime-break risk for May 20, or is the binary underpriced relative to the concentration extreme?\n- Can the index hold if NVDA disappoints marginally — what would the 5-day drawdown look like if RSP/SPX is still at 1975-level extremes at the print?\n- Is the USD/JPY chart forming a directional break toward 165, or is this range noise within the yen carry regime watch?\n\n### Inflation And Energy\n\n- What does PPI +1.4% MoM in April imply for the May CPI print — is the pipeline pressuring goods categories specifically or is services still the dominant driver?\n- Is the PCE nowcast at 3.8% YoY a confirmed floor or a methodology artifact of the energy shock timing?\n- Is the energy complex (OVX, LNG spreads, TD3C tanker rates) confirming or beginning to diverge from the Iran-Hormuz [[Macro/Regimes/Iran-Hormuz Oil Shock]] read — did the Five-T summit move physical markers at all?\n- Is India's rupee collapse and energy import cost spike now the clearest second-order signal of the Iran-Hormuz regime that physical oil prices have not yet confirmed?\n\n### Rates And FX\n\n- Is the 30Y above 5% a one-auction structural demand shift or a one-day overshoot — what did the bid-to-cover and foreign participation look like at the last auction?\n- Has the [[Macro/Indicators/10Y Treasury]] term premium widened in a way that changes the [[Macro/Regimes/AI Growth Offset vs Energy Shock]] assessment (threshold: 10Y above 4.65%, 30Y sustained above 5.25%)?\n- Is FX pricing in the yen carry unwind risk that the vault has not fully reflected — specifically, is the cross-market JGB/Treasury selling channel showing stress signals yet?\n- What is the Rupee/USD trajectory vs RBI reserve depletion — at what reserve draw rate does RBI's ability to defend the currency become constrained?\n\n### Policy\n\n- What are the specific tariff terms from the Trump-Xi summit — are they enforceable with named mechanisms, or declaratory language requiring follow-up documentation?\n- Is the Iran de-escalation signal a named-source joint statement or a single-source market inference — what would physical confirmation look like (OVX level, LNG spread, Hormuz shipping data)?\n- Does the latest BoJ communication from Governor Masu shift the weight of evidence on the June hike probability — 15bps priced; what would move it to 25bps?\n- What is the fiscal platform of the most likely UK Labour leadership candidates — specifically, do any frontrunners hold positions that would require a fiscal expansion that UK gilt markets haven't priced?\n- Does the CLARITY Act's advancement through Senate Banking change the Senate floor timeline — what is the next procedural gate after Banking Committee coverage?\n\n### Strategy Development\n\n- What specific confirmation would move the US-China tariff beneficiary branch from **Prepare** to **Triggered** — is a named enforcement mechanism sufficient, or is it also conditional on semiconductor cooperation terms?\n- Is there a VIX trade that makes sense given the current Iran-Hormuz elevated-vol environment — specifically, is the front-month VIX futures discount reaching the ≥ 3.00 point threshold that would activate the VIX/SPY hedge (see [[04_Technical_Indicators/VIX Trading Strategies]])?\n- What specific confirmation would move the crypto escape valve watch from **Observe** to **Prepare** — USDT INR premium >3%, or BTC on-chain India volume spike, or both required?\n- For healthcare thesis signals (Psychedelic 146, AMR 84), are the conviction delta scores driven by repeatable data events or one-off source spikes — and which thesis needs the most urgent full-picture report refresh before the next My_Data pull?"
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Edit 6 — Update Source Trail:**"
+        }
+      ],
+      "timestamp": "2026-05-14T20:44:55.733Z"
+    },
+    {
+      "id": "eb89bdf0-00dc-434c-ba6b-f98dd57cdefb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Kf3WtD2QBRgvr29QJXPDNz",
+          "title": "Edit C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+              "newText": "- [[08_Macro_and_Economy/Observations/2026-05-14 - Five-T Rally - Trump-Xi Summit, Iran, and Tech Melt-Up]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\n\n**Watchpoints**\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - US-China Tariff Cliff and Hormuz Resolution Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]]\n\n**Indicators updated**\n- [[Macro/Indicators/Retail Sales]] — structural composition added (ecommerce 36.37% of addressable; department store collapse; real vs nominal divergence)\n\n**Evergreen notes created**\n- [[04_Technical_Indicators/VIX Trading Strategies]] — term structure, VIX/SPY hedge, SVXY timing; live context from Iran-Hormuz regime\n\n**Regime state**\n- [[Macro/Regimes/_Current Regime State]]\n",
+              "oldText": "- [[08_Macro_and_Economy/Observations/2026-05-14 - Five-T Rally - Trump-Xi Summit, Iran, and Tech Melt-Up]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]]\n\n**Watchpoints**\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - US-China Tariff Cliff and Hormuz Resolution Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]]\n\n**Regime state**\n- [[Macro/Regimes/_Current Regime State]]\n"
+            }
+          ],
+          "locations": [
+            {
+              "line": 175,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md",
+            "old_string": "**Observations**\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Five-T Rally - Trump-Xi Summit, Iran, and Tech Melt-Up]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]]\n\n**Watchpoints**\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - US-China Tariff Cliff and Hormuz Resolution Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]]\n\n**Regime state**\n- [[Macro/Regimes/_Current Regime State]]\n\n**Signal infrastructure**\n- [[06_Strategy_Development/Macro-to-Strategy Signal Bridge]]",
+            "new_string": "**Observations**\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Five-T Rally - Trump-Xi Summit, Iran, and Tech Melt-Up]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Sticky Inflation Regime - PPI, Retail Sales, and Treasury Premium]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Market Breadth Fracture and AI Infrastructure Gap]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - Crypto Policy Capture - CLARITY Act and Warsh Risk]]\n- [[08_Macro_and_Economy/Observations/2026-05-14 - India Rupee Collapse and Gold Capital Controls]]\n\n**Watchpoints**\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - US-China Tariff Cliff and Hormuz Resolution Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - UK Political Transition and Gilt Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - El Nino 2026 Commodity Risk Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - Crypto Policy Capture and CLARITY Act Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/2026-05-14 - India EM Capital Controls and Crypto Escape Valve Watchpoints]]\n- [[06_Strategy_Development/Watchpoints/Healthcare Conviction Momentum Queue]]\n\n**Indicators updated**\n- [[Macro/Indicators/Retail Sales]] — structural composition added (ecommerce 36.37% of addressable; department store collapse; real vs nominal divergence)\n\n**Evergreen notes created**\n- [[04_Technical_Indicators/VIX Trading Strategies]] — term structure, VIX/SPY hedge, SVXY timing; live context from Iran-Hormuz regime\n\n**Regime state**\n- [[Macro/Regimes/_Current Regime State]]\n\n**Signal infrastructure**\n- [[06_Strategy_Development/Macro-to-Strategy Signal Bridge]]"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Now let me archive the inbox files. Per the runbook:\n- Processed clippings → `500-archive/` or delete (they're now encoded in structured notes)\n- Risk-Reward Ratio article → Route A (archive/delete) — nothing new was added to vault since note exists\n- VIX Trading Strategies → Route C+I+J — new note created → delete original\n- Online Spending article → Route B — indicator updated → delete original\n- India/Rupee article → Route D+F+G — observation + watchpoint created → delete original\n\nLet me delete all 4 processed inbox files. \n\nThe runbook stays in `_Inbox/` for reuse, so I'll use PowerShell to delete just the processed files since they're on Windows paths."
+        },
+        {
+          "type": "text",
+          "text": "Now archiving the 4 processed inbox files (encoded into structured notes per runbook Step 6)."
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Route and process 4 inbox items per runbook",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Create/update vault notes from inbox routing",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Archive processed inbox files",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Generate 2026-05-14 EOD Vault State Report",
+              "priority": "medium",
+              "status": "in_progress"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-14T20:45:28.717Z"
+    },
+    {
+      "id": "67a9cf4c-7f29-4e34-ad50-18e17f535d30",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016L278QohwVtFV88fZi9SMc",
+          "title": "PowerShell",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "command": "$base = \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\_Inbox\"\nRemove-Item \"$base\\Risk-Reward Ratio_ What it is + Why it Matters when Trading.md\" -Force\nRemove-Item \"$base\\A Guide To Trading Volatility.md\" -Force\nRemove-Item \"$base\\When Will Online Spending Exceed Spending on Motor Vehicles and Parts_.md\" -Force\nRemove-Item \"$base\\India Panics, Further Tightens Gold Flows As Rupee Collapses.md\" -Force\nWrite-Output \"Remaining inbox files:\"\nGet-ChildItem $base -File | Select-Object -ExpandProperty Name",
+            "description": "Delete 4 processed inbox files, show remaining"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "The inbox is now clear — only the Runbook and README remain. \n\nNow let me mark all tasks as complete.\n\nLet me provide a summary of what was done."
+        },
+        {
+          "type": "text",
+          "text": "Inbox cleared — only the Runbook and README remain as intended.`★ Insight ─────────────────────────────────────`\nThe VIX term structure discipline from McMillan is worth internalizing: the **sign of the futures premium vs spot VIX** is the master gate for every long-vol strategy. Buying UVIX/VXX when futures are at a premium (normal contango) is structurally negative-expectation — you're paying both time value and roll cost. The only time long-vol products have positive structural support is when the premium goes to zero or negative (backwardation), which is rare and only happens during genuine fear regimes. The Iran-Hormuz environment warrants monitoring this spread daily.\n`─────────────────────────────────────────────────`\n\n---\n\n**Inbox cleared. EOD Report updated. Here's what was done:**\n\n**Inbox routing (4 items → 0 remaining):**\n| Article | Route | Output |\n|---|---|---|\n| Risk-Reward Ratio (IG.com) | A — archive | `00_Foundations/Risk-Reward Ratio.md` already comprehensive; nothing new; deleted |\n| Guide To Trading Volatility (McMillan) | C + I + J | Created `04_Technical_Indicators/VIX Trading Strategies.md` with term structure rules, 4 strategies, live regime context, Trade Expression Layer |\n| Online Spending vs Motor Vehicles (Shedlock) | B | Updated `Macro/Indicators/Retail Sales.md` — ecommerce 36.37% of addressable retail, department store structural collapse, real vs nominal divergence |\n| India Gold/Rupee (ZeroHedge) | D + F + G | Created observation + watchpoint with full Iran→EM→crypto chain; registered in Signal Bridge |\n\n**EOD Report additions (2026-05-14):**\n- **Active Regime Check** table — all 5 regimes with status and change direction\n- **Big-Picture Connection #6** — India/Rupee as Iran second-order EM transmission amplifying crypto signal\n- **Risk/Reward Check** table — 4 setup candidates (all Pending Inputs pending price data)\n- **Detective Questions** restructured to all 5 template sections (Market Structure, Inflation And Energy, Rates And FX, Policy, Strategy Development)\n- Source Trail updated with all new notes"
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Route and process 4 inbox items per runbook",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Create/update vault notes from inbox routing",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Archive processed inbox files",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Generate 2026-05-14 EOD Vault State Report",
+              "priority": "medium",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-14T20:45:55.775Z"
+    },
+    {
+      "id": "b1c7514e-aab6-4d80-869b-109c5d6a360d",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Can you fill out suggested risk reward metrics? You can pull any info from FMP, yfinance, or AlphaVantage\n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\World_Machine\\Reports\\EOD\\2026-05-14 - EOD Vault State Report.md"
+        }
+      ],
+      "timestamp": "2026-05-14T22:26:48.191Z"
+    },
+    {
+      "id": "6e73f31f-d680-4230-9396-1086245aa181",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": "The user wants me to pull actual market data to fill out the Risk/Reward Check table in the EOD report. I need to get current price data for:\n\n1. US-China tariff beneficiaries: KWEB, EIDO, VNM (ETFs)\n2. TLT (Treasury duration counter-trend)\n3. El Niño soft commodities: WEAT, MOS, CF, NTR\n4. Crypto proxies: IBIT, FBTC, MSTR\n\nI'll use FMP MCP tools or yfinance to get current quotes, 50DMA, 200DMA for these tickers. Let me use the FMP MCP tools since they're available.\n\n\nNow I'm pulling the quote and chart data from FMP to get the current prices and moving averages for all these tickers."
+        },
+        {
+          "type": "text",
+          "text": "I'll pull live price, moving average, and options data from FMP for all 4 setups simultaneously."
+        }
+      ],
+      "timestamp": "2026-05-14T22:26:51.655Z"
+    },
+    {
+      "id": "585a6b52-355f-46cf-b798-4c6f15956968",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013Ry8T7m54Dp44SamzmgTKH",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:mcp__fmp__quote,mcp__fmp__technicalIndicators,mcp__fmp__chart",
+            "max_results": 3
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": "Good. Now let me pull live quotes and technical indicators for all the tickers I need:\n\nSetup 1 - US-China tariff beneficiaries: KWEB, EIDO, VNM\nSetup 2 - TLT (duration counter-trend)\nSetup 3 - El Niño soft commodities: WEAT, MOS, CF, NTR\nSetup 4 - Crypto proxies: IBIT, FBTC, MSTR\n\nI need:\n- Current price (quote)\n- 50-day SMA\n- 200-day SMA\n- RSI (for quality check)\n"
+        }
+      ],
+      "timestamp": "2026-05-14T22:26:56.147Z"
+    }
+  ],
+  "savedAt": "2026-05-14T22:30:21.237Z"
+}

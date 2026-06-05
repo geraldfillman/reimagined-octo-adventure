@@ -37,31 +37,29 @@ fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "alert"
 fmp_primary_technical_bias: "bearish"
 fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 44.82
-fmp_primary_price_vs_sma200_pct: -13.7
+fmp_primary_rsi14: 34.05
+fmp_primary_price_vs_sma200_pct: -21.38
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 52065495617
-fmp_primary_trailing_pe: 55.36
-fmp_primary_price_to_sales: 3.11
-fmp_primary_price_to_book: 10.23
-fmp_primary_ev_to_sales: 4.28
-fmp_primary_ev_to_ebitda: 14.66
-fmp_primary_roe_pct: 18.91
-fmp_primary_roic_pct: 2.41
-fmp_primary_operating_margin_pct: 5.83
-fmp_primary_net_margin_pct: 5.64
-fmp_primary_current_ratio: 0.78
-fmp_primary_debt_to_equity: 3.99
-fmp_primary_price_target: 229.19
-fmp_primary_analyst_count: 26
-fmp_primary_target_upside_pct: 49.03
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 4
-fmp_calendar_pull_date: "2026-04-29"
-fmp_next_earnings_date: "2026-05-04"
-fmp_next_earnings_symbols: ["STRL"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 52691504274
+fmp_primary_trailing_pe: 23.7
+fmp_primary_price_to_sales: 3.25
+fmp_primary_price_to_book: 9.49
+fmp_primary_ev_to_sales: 4.44
+fmp_primary_ev_to_ebitda: 13
+fmp_primary_roe_pct: 43.22
+fmp_primary_roic_pct: 0.8
+fmp_primary_operating_margin_pct: 2.07
+fmp_primary_net_margin_pct: 13.82
+fmp_primary_current_ratio: 0.9
+fmp_primary_debt_to_equity: 3.56
+fmp_primary_price_target: 228.48
+fmp_primary_analyst_count: 27
+fmp_primary_target_upside_pct: 46.21
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-05-26"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "energy", "ai-infrastructure", "power", "utilities", "data-centers"]
 ---
 
@@ -166,6 +164,7 @@ WHERE contains(string(tags), "aipower") OR contains(string(tags), "VST") OR cont
 SORT date DESC
 LIMIT 5
 ```
+
 
 
 

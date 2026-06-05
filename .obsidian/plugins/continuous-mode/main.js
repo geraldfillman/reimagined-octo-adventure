@@ -9,8 +9,6 @@ let DEFAULT_SETTINGS = {
 	'allowSingleClickOpenFolderAction':	'disabled',
 	'alwaysHideNoteHeaders':			false,
 	'defaultSortOrder':					'alphabetical',
-//	'disableScrollRootItemsIntoView':	false,
-	'disableWarnings':					false,
 	'enableScrollIntoView':				true,
 	'enableSmoothScroll':				true,
 	'enableTypewriterScroll':			true,
@@ -21,11 +19,12 @@ let DEFAULT_SETTINGS = {
 	'includeEmbeddedFiles':				false,
 	'includedFileTypes':				['markdown'],
 	'indexFilesAtTop':					true,
-	"maximumItemsToOpen":				'0',
+	"maximumItemsToOpen":				'10',
 	'navigateInPlace':					false,
 	'onlyShowFileName':					false,
 	'openFoldersRecursively':			false,
 	'tabGroupIds':						[],
+	'warnOnReplace':					false
 };
 
 class ContinuousModePlugin extends obsidian.Plugin {
@@ -181,7 +180,7 @@ class ContinuousModePlugin extends obsidian.Plugin {
 		 	items.forEach( item => sorted.push(item.view.file) );
 			openItemsInContinuousMode(sorted,'replace',sort_order);
 		};
-		const prepItems = (e,items,action,type,recent_leaf) => {															// filter, dedupe, sort, move items before opening
+		const prepItems = (e,items,action,type,recent_leaf) => {	 														// filter, dedupe, sort, move items before opening
 			if ( this.settings.openFoldersRecursively === true ) { items = getFileExplorerItemsRecursively(items,[]) }
 			let sort_order = getSortOrder(type), extensions, included_extensions = [], open_files = [], found;
 			workspace.activeTabGroup.containerEl.dataset.sort_order = sort_order;											// set data-sort_order
@@ -203,9 +202,9 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			recent_leaf.parent?.children.forEach( leaf => open_files.push( leaf.view.file ) );																		// get open files for comparison
 			switch(true) {
 				case ( !/alphabetical|time|file/i.test(type) && /append|replace/.test(action) && compareArrs(items,open_files) ):		items = [];			break;	// items === open files => do nothing
-				case ( /append/.test(action) && items.length === 1 ):
+				case ( /append/.test(action) && items.length === 1 ): 
 					found = recent_leaf.parent?.children.find( (leaf) => leaf.view.file === items[0] );
-					if ( found ) { workspace.setActiveLeaf(found,{focus:true}); items = found }																break;
+					if ( found ) { workspace.setActiveLeaf(found,{focus:true});  items = [] }								break; //scrollActiveLeaf(e,found,'start');
 				case ( !/replace|up|down|left|right/.test(action) ):
 					recent_leaf.parent?.children.forEach( (leaf) => { items = items.filter( item => item !== leaf.view.file) } );							break;	// filter items to prevent dupe leaves
 			}
@@ -371,11 +370,15 @@ class ContinuousModePlugin extends obsidian.Plugin {
 		/*-----------------------------------------------*/
 		// SCROLL ACTIVE ITEMS INTO VIEW
 		const scrollTabHeader = () => {
-			workspace.activeLeaf.tabHeaderEl.parentElement.scrollTo({left:(workspace.activeLeaf.tabHeaderEl.offsetLeft - workspace.activeLeaf.tabHeaderEl.offsetWidth),behavior:scrollBehavior()});
+			if ( !workspace.activeLeaf.parent.containerEl.classList.contains('mod-stacked') ) {
+				workspace.activeLeaf.tabHeaderEl.parentElement.scrollTo({left:(workspace.activeLeaf.tabHeaderEl.offsetLeft - workspace.activeLeaf.tabHeaderEl.offsetWidth),behavior:scrollBehavior()});
+			}
 		}
 		const scrollActiveLeaf = (e,leaf,block) => {
-			leaf.containerEl.scrollIntoView({behavior:scrollBehavior(),block:(block || scrollBlock())})
-			scrollTabHeader(e); 																										// scroll tab into view
+			if ( !workspace.activeLeaf.parent.containerEl.classList.contains('mod-stacked') ) {
+				leaf.containerEl.scrollIntoView({behavior:scrollBehavior(),block:(block || scrollBlock())})
+				scrollTabHeader(e); 																										// scroll tab into view
+			}
 		}
 		const scrollActiveLeafContent = obsidian.debounce( (e,leaf) => {
 			if ( this.settings.enableTypewriterScroll === false && leaf.view.getViewType() === 'markdown' ) { return }
@@ -401,6 +404,7 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			}
 		},10);
 		const scrollItemsIntoView = (e,leaf,type,block) => {
+			if ( workspace.activeLeaf.parent.containerEl.classList.contains('mod-stacked') ) 																{ return }
 			if ( !leaf || this.settings.enableScrollIntoView === false || !/is_continuous_mode/.test(leaf.parent.containerEl.className) ) 					{ return }
 			switch(true) {
 				case type === 'leaf' && leaf.view.getViewType() !== 'markdown' && !leaf.view.tree:		scrollActiveLeaf(e,leaf,block);						break;	// scroll non-md leaves
@@ -542,15 +546,14 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			let mode = ( /^semi_compact/m.test(action) ? '@2' : /compact/.test(action) ? '@1' : '@0' )
 			let recent_leaf = workspace.getMostRecentLeaf(), new_leaf, siblings, direction, bool; 
 			items = prepItems(e,items,action,type,recent_leaf);																		// prep items (filter, sort, etc.)
-			if ( items.length === 0 ) { resetPinnedLeaves(); return; }																// if no items, reset pins and end
+			if ( items.length === 0 ) { 
+				resetPinnedLeaves(); scrollActiveLeaf(e,workspace.getActiveViewOfType(obsidian.View),'start'); 				return;	// if no items, reset pins, scroll active leaf, end
+			}
 			switch(true) {																											// warnings
-				case items.length > this.settings.maximumItemsToOpen && this.settings.disableWarnings !== true 
-					&& !window.confirm('Continuous Mode:\nOpening '+ this.settings.maximumItemsToOpen +' of '+ items.length 
-					+' items.\n\n(Change the “Maximum number of items to open at one time” setting to adjust this value.)'):			resetPinnedLeaves(); return; // opening multiple items
-				case (/replace/.test(action)) && this.settings.disableWarnings !== true 
+				case (/replace/.test(action)) && this.settings.warnOnReplace === true 
 					&& !window.confirm(`Continuous Mode:\nYou are about to replace all items currently open in the active split.
 						\nAre you sure you want to do this?\n\n(This warning can be disabled in the settings.)`): 						resetPinnedLeaves(); return; // confirm replacing open items
-				case items.length === 0 && this.settings.disableWarnings !== true:
+				case items.length === 0:
 					alert(type === 'document links' ? `Continuous Mode: No document links found.` : 
 						`Continuous Mode:\n\nNo readable files found. 
 						\n\nCheck the Settings to see if you have included any specific file types to be opened in Continuous Mode.`);	resetPinnedLeaves(); return; // alert no items found
@@ -572,6 +575,10 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			}
 			const openItems = async (items) => {																					// open items
 				let maximumItemsToOpen = ( this.settings.maximumItemsToOpen < 1 || this.settings.maximumItemsToOpen === undefined ? Infinity : this.settings.maximumItemsToOpen );
+				if ( items.length > this.settings.maximumItemsToOpen ) {															// show notice if items.length > maximumItemsToOpen
+					const notice = (text) => { new Notice(text); return text; }
+					notice('Opening '+ maximumItemsToOpen +' of '+ items.length +' items.')
+				}
 				for ( let i = 0; i < maximumItemsToOpen && i < items.length; i++ ) {												// limit number of items to open
 					switch(true) {
 						case i === 0 && /replace/.test(action):																		// replace items
@@ -599,12 +606,6 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			}
 			openItems(items);
 			resetPinnedLeaves();
-			setTimeout( () => {
-				workspace.setActiveLeaf(workspace.activeTabGroup.children[0],{focus:true}); 
-				workspace.activeTabGroup.children[0].tabHeaderInnerTitleEl.click();
-				workspace.revealLeaf(workspace.activeTabGroup.children[0]); 
-				workspace.activeTabGroup.children[0].containerEl.scrollIntoView({ behavior:scrollBehavior() });
-			},0)
 		}
 		// end openItemsInContinuousMode
 		/*-----------------------------------------------*/
@@ -627,6 +628,7 @@ class ContinuousModePlugin extends obsidian.Plugin {
 		this.registerDomEvent(document,'click', (e) => {
 			let active_compact_leaf;
 			switch(true) {
+				case e.target.closest('.workspace-tabs.mod-stacked') !== null:																			return true;
 				case e.target.closest('.workspace-tab-header-status-icon.mod-pinned') !== null:
 				case e.target.closest('.sidebar-toggle-button') !== null:										e.stopPropagation();					break;
 				case typeof e.target.className === 'string' && e.target?.className?.includes('metadata-'):												break;
@@ -638,18 +640,19 @@ class ContinuousModePlugin extends obsidian.Plugin {
 						if ( active_compact_leaf.parent.containerEl.classList.contains('is_compact_mode') ) { openInRightSplit(active_compact_leaf); }
 						workspace.setActiveLeaf(active_compact_leaf,{focus:true});
 						scrollActiveLeaf(e,workspace.activeLeaf,'start');
-						scrollTabHeader(e,workspace.activeLeaf);																					break;	// click tab, scroll into view
+						scrollTabHeader(e,workspace.activeLeaf);																						break;	// click tab, scroll into view
 				case ( /workspace-tab-header|nav-header|view-header-title-container|menu-item-title/.test(e.target.className) 
 						&& workspace.activeTabGroup.containerEl.classList.contains('is_continuous_mode') 
 						&& !/view-header-title|inline-title/.test(e.target.className)):
-						scrollActiveLeaf(e,workspace.activeLeaf,'start')
-						scrollTabHeader(e,workspace.activeLeaf);																					break;	// click tab, scroll into view
+						scrollTabHeader(e,workspace.activeLeaf);		
+						scrollActiveLeaf(e,workspace.activeLeaf,'start');																				break;	// click tab, scroll into view
 			}
 		});
 		this.registerDomEvent(document,'mousedown', (e) => {
 			let action = this.settings.allowSingleClickOpenFolderAction;
 			const testStr = /append .+ in active tab group|replace active tab group|open .+ in new split|compact mode:/i;
 			switch(true) {
+				case e.target.closest('.workspace-tabs.mod-stacked') !== null:																			return true;
 				case ( e.target.classList.contains('menu-item-title') && testStr.test(e.target.innerText) ): 	setPinnedLeaves();						break; // CM menu items
 				case ( /nav-folder-title/.test(e.target.className) && this.settings.allowSingleClickOpenFolder === true && !e.altKey && !e.ctrlKey && !e.shiftKey && e.button !== 2 ):
 					setPinnedLeaves(action,'folder');
@@ -665,11 +668,12 @@ class ContinuousModePlugin extends obsidian.Plugin {
 		this.registerDomEvent(document,'mouseup', (e) => {
 			let action = this.settings.allowSingleClickOpenFolderAction;
 			switch(true) {
+				case e.target.closest('.workspace-tabs.mod-stacked') !== null:																			return;
 				case ( /nav-folder-title/.test(e.target.className) && this.settings.allowSingleClickOpenFolder === true )  								// open file explorer folders on single click
 					&& e.target.closest('.nav-folder-collapse-indicator') === null && e.target.closest('.collapse-icon') === null
 					&& !e.altKey && !e.ctrlKey && !e.shiftKey && e.button !== 2:
 					switch(true) {
-						case action === 'disabled' && this.settings.disableWarnings !== true:	return alert("Continuous Mode:\nPlease select a single click action in the settings.");
+						case action === 'disabled':									return alert("Continuous Mode:\nPlease select a single click action in the settings.");
 						default: 													openItemsInContinuousMode(getFileExplorerItems(e),action,'folder',e);
 					}																																	break;
 				case ( /nav-file-title/.test(e.target.className) && this.settings.allowSingleClickOpenFolder === true ) && !e.altKey && !e.ctrlKey && !e.shiftKey && e.button !== 2:
@@ -706,9 +710,11 @@ class ContinuousModePlugin extends obsidian.Plugin {
 			}
 		});
 		this.registerDomEvent(window,'keydown', (e) => {
-			if ( /pageup|pagedown|arrow/i.test(e.key) && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && !/form|input|textarea|select/i.test(e.target.tagName ) ) { continuousNavigation(e); }
+			if ( /pageup|pagedown|arrow/i.test(e.key) && !/meta|alt|control|shift|escape|f\d/i.test(e.key) && !/form|input|textarea|select/i.test(e.target.tagName ) ) { continuousNavigation(e); }
 		});
-		this.registerDomEvent(window,'keyup', (e) => { if ( e.target.cmView ) { scrollActiveLeafContent(e,workspace.activeLeaf); } });							// typewriter scroll
+		this.registerDomEvent(window,'keyup', (e) => {
+			if ( e.target.cmView && !/meta|alt|control|shift|escape|f\d/i.test(e.key) ) { scrollActiveLeafContent(e,workspace.activeLeaf); } 					// typewriter scroll
+		});
 		this.registerDomEvent(window,'dragstart', (e) => {
 			if ( e.target.nodeType !== 1 || !e.target?.closest('.workspace-tabs')?.classList?.contains('is_continuous_mode') ) { return; }
 			if ( e.target.classList.contains('workspace-tab-header') ) { onTabHeaderDragEnd(e,getTabHeaderIndex(e)); }					// get initial tab header index for onTabHeaderDragEnd()
@@ -1249,7 +1255,7 @@ class ContinuousModePlugin extends obsidian.Plugin {
 				name: 'Open selected file explorer item in new split '+action,
 				callback: () => {
 					let items = workspace.getLeavesOfType('file-explorer')[0].view.tree.focusedItem?.file?.children || workspace.getLeavesOfType('file-explorer')[0].view.tree?.focusedItem?.file || workspace.getLeavesOfType('file-explorer')[0].view.tree?.activeDom?.file;
-					if ( !items && this.settings.disableWarnings !== true ) { 
+					if ( !items ) { 
 						alert('Continuous Mode:\nNo file explorer item selected') 
 					} else {
 						setPinnedLeaves();
@@ -1286,7 +1292,7 @@ class ContinuousModePlugin extends obsidian.Plugin {
 				callback: () => {
 					if ( workspace.activeTabGroup.containerEl.classList.contains('is_continuous_mode') ) {
 						changeSortOrder(this.app.appId +'_'+ workspace.activeTabGroup.id,key);
-					} else if ( this.settings.disableWarnings !== true ) {
+					} else {
 						alert('Continuous Mode:\nActive tab group is not in continuous mode.');
 					}
 				}
@@ -1332,7 +1338,12 @@ class ContinuousModePlugin extends obsidian.Plugin {
 	// load settings
     async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-		if ( this.settings.includedFileTypes.length === 0 ) { this.settings.includedFileTypes.push('markdown'); this.saveSettings(); }
+		for (let key in this.settings) { 
+			if (!(key in DEFAULT_SETTINGS)) { 
+				delete this.settings[key]; 
+			}		// sanitize settings 
+		}
+		if ( this.settings.includedFileTypes.length === 0 ) { this.settings.includedFileTypes.push('markdown'); this.saveSettings(); }		
     }
     // save settings
     async saveSettings() { await this.saveData(this.settings); }
@@ -1410,14 +1421,14 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 				await this.plugin.saveSettings();
 		}));
 
-		new obsidian.Setting(containerEl).setName("2. Opening Multiple Items in Continuous Mode").setHeading().setDesc('The settings in this section provide options for opening multiple items in Continuous Mode (e.g., File Explorer folders).');
-        new obsidian.Setting(containerEl).setName('Allow single click to open File Explorer items in Continuous Mode').setDesc('Enable this setting to make it possible to open the items in the File Explorer with a single click. Set the default single click action below.').setClass("cm-setting-indent")
+		new obsidian.Setting(containerEl).setName("2. Opening Items in Continuous Mode").setHeading().setDesc('The settings in this section provide options for opening items in Continuous Mode (e.g., single/multiple files or folders in the File Explorer).');
+        new obsidian.Setting(containerEl).setName('Allow single click to open File Explorer items in Continuous Mode').setDesc('Enable this setting to make it possible to open items from the File Explorer with a single click. Set the default single click action below.').setClass("cm-setting-indent")
         	.addToggle( (A) => A.setValue(this.plugin.settings.allowSingleClickOpenFolder)
         	.onChange(async (value) => {
         		this.plugin.settings.allowSingleClickOpenFolder = value;
         		await this.plugin.saveSettings();
         }));
-		new obsidian.Setting(containerEl).setName('Set default single-click action:').setClass("cm-setting-indent").setClass('hidden')
+		new obsidian.Setting(containerEl).setName('Set default single-click action:').setClass("cm-setting-indent-2").setClass('hidden')
 			.addDropdown((dropDown) => {
 				dropDown.addOption("disabled", "—");
 				dropDown.addOption("append", "Append file explorer items in active tab group");
@@ -1437,13 +1448,19 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 					await this.plugin.saveSettings();
 		  });
 		});
-        new obsidian.Setting(containerEl).setName('Open folders recursively.').setDesc('Recursively open all items in a folder, including those in subfolders. Sorting is based on the default sort order setting (below). Note: If the default sort is “File Explorer order”, items in collapsed folders will be ignored (i.e., only visible items will be opened.); however, clicking a collapsed folder will open all the contained items in alphabetical order.').setClass("cm-setting-indent")
+		new obsidian.Setting(containerEl).setName('Warn on replace').setClass('next-hidden').setDesc('Warn when replacing active tab group items with new items.').setClass("cm-setting-indent-2")
+			.addToggle( A => A.setValue(this.plugin.settings.warnOnReplace)
+			.onChange(async (value) => {
+				this.plugin.settings.warnOnReplace = value;
+				await this.plugin.saveSettings();
+		}));
+        new obsidian.Setting(containerEl).setName('Open folders recursively').setDesc('Recursively open all items in a folder, including those in subfolders. Sorting is based on the default sort order setting (below). If the default sort is “File Explorer order”, items in collapsed folders will be ignored (i.e., only visible files will be opened). To open all items in a File Explorer folder recursively, the folder must be collapsed (“closed”); all the contained items in alphabetical order.').setClass("cm-setting-indent")
         	.addToggle( (A) => A.setValue(this.plugin.settings.openFoldersRecursively)
         	.onChange(async (value) => {
         		this.plugin.settings.openFoldersRecursively = value;
         		await this.plugin.saveSettings();
         }));
-		new obsidian.Setting(containerEl).setName('Maximum number of items to open at one time').setDesc('Leave empty (or set to 0) to open all items at once. Hint: Setting a value here allows you to append the items in a folder incrementally by repeatedly clicking it (with the default single click action set to “Append”) or selecting one of the “append” menu/command options. This is useful for dealing with folders containing a large number of items.').setClass("cm-setting-indent")
+		new obsidian.Setting(containerEl).setName('Maximum number of items to open at one time').setDesc('Default is 10. Leave empty (or set to 0) to open all items at once. Hint: Setting a low value here allows you to append the items in a folder incrementally by repeatedly clicking it (with the default single click action set to “Append”) or selecting one of the “append” menu/command options. This is useful for dealing with folders containing a large number of items.').setClass("cm-setting-indent")
 			.addText((A) => A.setPlaceholder("").setValue(this.plugin.settings.maximumItemsToOpen?.toString() || '0')
 			.onChange(async (value) => {
 				if ( isNaN(Number(value)) || !Number.isInteger(Number(value)) ) { 
@@ -1520,13 +1537,6 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 		}));
 
 		new obsidian.Setting(containerEl).setName("4. Other Settings").setHeading();
-		new obsidian.Setting(containerEl).setName('Enable navigate in place:').setDesc('From the first or last line of the active editor, use the arrow up/down keys to open the previous or next file (as listed in the File Explorer) in the same tab instead of moving into the previous or next tab.').setClass("cm-setting-indent")
-			.addToggle( A => A.setValue(this.plugin.settings.navigateInPlace)
-			.onChange(async (value) => {
-				this.plugin.settings.navigateInPlace = value;
-				await this.plugin.saveSettings();
-		}));
-
 		new obsidian.Setting(containerEl).setName('Enable scroll-into-view').setDesc('Enable auto-scrolling of leaves, tab headers, etc. into view when clicked, when typing in the active editor, or when using the arrow keys.').setClass("cm-setting-indent")
 			.addToggle( A => A.setValue(this.plugin.settings.enableScrollIntoView)
 			.onChange(async (value) => {
@@ -1543,7 +1553,7 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 				}
 				await this.plugin.saveSettings();
 		}));
-		new obsidian.Setting(containerEl).setName('Use smooth scrolling').setClass("cm-setting-indent").setClass('hidden').setDesc('Only available when scroll-into-view is enabled.').setClass("cm-setting-indent")
+		new obsidian.Setting(containerEl).setName('Use smooth scrolling').setClass("cm-setting-indent-2").setClass('hidden').setDesc('Only available when scroll-into-view is enabled.')
 			.addToggle( A => A.setValue(this.plugin.settings.enableSmoothScroll)
 			.onChange(async (value) => {
 				this.plugin.settings.enableSmoothScroll = value;
@@ -1555,7 +1565,7 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 				}
 				await this.plugin.saveSettings();
 		}));
-		new obsidian.Setting(containerEl).setName('Enable typewriter scrolling').setClass("cm-setting-indent").setClass('next-hidden').setDesc('Keeps the active paragraph in the center of the screen. Only available when scroll-into-view is enabled.')
+		new obsidian.Setting(containerEl).setName('Enable typewriter scrolling').setClass("cm-setting-indent-2").setClass('next-hidden').setDesc('Keeps the active paragraph in the center of the screen. Only available when scroll-into-view is enabled.')
 			.addToggle( A => A.setValue(this.plugin.settings.enableTypewriterScroll)
 			.onChange(async (value) => {
 				this.plugin.settings.enableTypewriterScroll = value;
@@ -1567,12 +1577,13 @@ let ContinuousModeSettings = class extends obsidian.PluginSettingTab {
 				}
 				await this.plugin.saveSettings();
 		}));
-		new obsidian.Setting(containerEl).setName('Disable warnings').setDesc('Disable all warnings: when replacing active tab group with folder contents; no readable files or links found; no file explorer item selected; opening in compact view; opening more items than the maximum allowed in the settings; etc.').setClass("cm-setting-indent")
-			.addToggle( A => A.setValue(this.plugin.settings.disableWarnings)
+		new obsidian.Setting(containerEl).setName('Enable navigate in place:').setDesc('From the first or last line of the active editor, use the arrow up/down keys to open the previous or next file (as listed in the File Explorer) in the same tab instead of moving into the previous or next tab.').setClass("cm-setting-indent")
+			.addToggle( A => A.setValue(this.plugin.settings.navigateInPlace)
 			.onChange(async (value) => {
-				this.plugin.settings.disableWarnings = value;
+				this.plugin.settings.navigateInPlace = value;
 				await this.plugin.saveSettings();
 		}));
+
 		new obsidian.Setting(containerEl).setName('Donate').setDesc('If you like this plugin, please consider donating to support continued development.')
 			.addButton((button) => {
 				button.buttonEl.setAttr("style", "background-color: transparent; height: 30pt; padding: 0px;");

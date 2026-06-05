@@ -11,7 +11,7 @@
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { getPullsDir, getSignalsDir, getVaultRoot } from '../lib/config.mjs';
+import { getPullsDir, getSignalsDir, getThesesDir } from '../lib/config.mjs';
 import { buildNote, dateStampedFilename, today } from '../lib/markdown.mjs';
 import { listPullFiles } from '../lib/history.mjs';
 import { findSector, SECTOR_MAP } from '../lib/sector-map.mjs';
@@ -269,10 +269,9 @@ export async function pull(flags = {}) {
   const newThesisOnly = Boolean(flags['new-thesis-only']);
   const noFmp = Boolean(flags['no-fmp']);
   const sectorFilter = flags.sector ? String(flags.sector) : null;
-  const vaultRoot = getVaultRoot();
   const sectorsDir = join(getPullsDir(), 'Sectors');
   const signalsDir = getSignalsDir();
-  const thesesDir = join(vaultRoot, '10_Theses');
+  const thesesDir = getThesesDir();
   const currentDate = today();
 
   let sectors = SECTOR_MAP;

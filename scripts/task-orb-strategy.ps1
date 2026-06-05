@@ -9,13 +9,16 @@
 #
 # Schedule: ~09:40 AM ET -- after task-orb.ps1 completes at 09:35
 
+. (Join-Path $PSScriptRoot 'lib\paths.ps1')
+
+$myDataRoot = Get-MyDataRoot
 Set-Location $PSScriptRoot
 $ts    = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 $today = Get-Date -Format 'yyyy-MM-dd'
 Write-Host "[$ts] ORB Strategy Overlay starting..."
 
 # -- Step 1: find today's ORB_Entropy_Screen note --------------------------------
-$marketDir  = Join-Path $PSScriptRoot '..\05_Data_Pulls\Market'
+$marketDir  = Join-Path $myDataRoot '05_Data_Pulls\Market'
 $screenFile = Get-ChildItem $marketDir -Filter "${today}_ORB_Entropy_Screen*.md" `
               -ErrorAction SilentlyContinue |
               Sort-Object Name -Descending |
@@ -73,7 +76,7 @@ $failed    = 0
 foreach ($sym in $symbolDirMap.Keys) {
     $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
     Write-Host "[$ts]   Scoring $sym ..."
-    & node run.mjs agent-analyst --symbol $sym --score-and-alert 2>&1 |
+    & node run.mjs pull agent-analyst --symbol $sym --score-and-alert 2>&1 |
         ForEach-Object { Write-Host "      $_" }
     if ($LASTEXITCODE -eq 0) {
         $succeeded++
@@ -88,7 +91,7 @@ Write-Host "[$ts] Scoring complete: $succeeded ok, $failed failed."
 Write-Host ""
 
 # -- Step 4: read alert notes, extract key fields, build result rows -------------
-$alertsDir = Join-Path $PSScriptRoot '..\05_Data_Pulls\Alerts'
+$alertsDir = Join-Path $myDataRoot '05_Data_Pulls\Alerts'
 
 function Get-FrontmatterField ([string]$text, [string]$field) {
     if ($text -match "(?m)^${field}:\s*[`"']?([^`"'\r\n]+)[`"']?") {

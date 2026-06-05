@@ -10,7 +10,8 @@
 
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
-import { getVaultRoot } from '../lib/config.mjs';
+import { fileURLToPath } from 'url';
+import { getResearchDashboardDir } from '../lib/config.mjs';
 
 // ─── Layout constants ────────────────────────────────────────────────────────
 
@@ -608,8 +609,24 @@ const edges = [
 
 // ─── Write Canvas ─────────────────────────────────────────────────────────────
 
-const outPath = resolve(getVaultRoot(), '00_Dashboard', 'Vault Process Flow.canvas');
-const canvas = { nodes, edges };
-writeFileSync(outPath, JSON.stringify(canvas, null, '\t'), 'utf8');
-console.log(`Written: ${outPath}`);
-console.log(`  ${nodes.length} nodes, ${edges.length} edges`);
+export function buildVaultProcessCanvas() {
+  return { nodes, edges };
+}
+
+export async function pull(flags = {}) {
+  const outPath = resolve(getResearchDashboardDir(), 'Vault Process Flow.canvas');
+  const canvas = buildVaultProcessCanvas();
+  if (flags['dry-run']) {
+    console.log(`[dry-run] Would write: ${outPath}`);
+    console.log(`  ${canvas.nodes.length} nodes, ${canvas.edges.length} edges`);
+    return { filePath: null, nodes: canvas.nodes.length, edges: canvas.edges.length };
+  }
+  writeFileSync(outPath, JSON.stringify(canvas, null, '\t'), 'utf8');
+  console.log(`Written: ${outPath}`);
+  console.log(`  ${canvas.nodes.length} nodes, ${canvas.edges.length} edges`);
+  return { filePath: outPath, nodes: canvas.nodes.length, edges: canvas.edges.length };
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  await pull(Object.fromEntries(process.argv.slice(2).map(flag => [flag.replace(/^--/, ''), true])));
+}

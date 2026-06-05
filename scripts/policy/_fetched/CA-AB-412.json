@@ -1,0 +1,559 @@
+﻿{
+    "id":  "ocd-bill/5a432a34-c0bf-424c-8ac1-17068873f8df",
+    "session":  "20252026",
+    "jurisdiction":  {
+                         "id":  "ocd-jurisdiction/country:us/state:ca/government",
+                         "name":  "California",
+                         "classification":  "state"
+                     },
+    "from_organization":  {
+                              "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                              "name":  "Assembly",
+                              "classification":  "lower"
+                          },
+    "identifier":  "AB 412",
+    "title":  "Generative artificial intelligence: training data: copyrighted materials.",
+    "classification":  [
+                           "bill"
+                       ],
+    "subject":  [
+                    "Generativeartificialintelligence",
+                    "copyrightedmaterials",
+                    "trainingdata"
+                ],
+    "extras":  {
+                   "tags":  [
+
+                            ],
+                   "impact_clause":  "An act to add Title 15.3 (commencing with Section 3115) to Part 4 of Division 3 of the Civil Code, relating to artificial intelligence."
+               },
+    "created_at":  "2025-02-05T05:55:36.678611+00:00",
+    "updated_at":  "2026-05-07T09:08:33.361772+00:00",
+    "openstates_url":  "https://openstates.org/ca/bills/20252026/AB412/",
+    "first_action_date":  "2025-02-04",
+    "latest_action_date":  "2026-05-06",
+    "latest_action_description":  "Re-referred to Coms. on P., D.T., \u0026 C.P., JUD., and APPR.",
+    "latest_passage_date":  "2025-05-12",
+    "abstracts":  [
+                      {
+                          "abstract":  "Existing federal law, through copyright, provides authors of original works of authorship, as defined, with certain rights and protections. Existing federal law generally gives the owner of the copyright the right to reproduce the work in copies or phonorecords and the right to distribute copies or phonorecords of the work to the public. Existing federal law provides that sound recordings fixed before February 15, 1972, are not subject to copyright, but are subject to similar rights and protections under the Classics Protection and Access Act.\n\nExisting law requires, on or before January 1, 2026, and before each time thereafter that a generative artificial intelligence system or service, as defined, or a substantial modification to a generative artificial intelligence system or service, released on or after January 1, 2022, is made available to Californians for use, regardless of whether the terms of that use include compensation, a developer of the system or service to post on the developer\u0027s internet website documentation, as specified, regarding the data used to train the generative artificial intelligence system or service.\n\nThis bill would require a developer of a generative artificial intelligence model to, among other things, document any covered materials that the developer knows were used by the developer to train the model. The bill would require the developer to make available a mechanism on the developer\u0027s internet website allowing a rights owner to submit a request for information about the developer\u0027s use of covered materials that would allow the rights owner to provide the developer with, among other things, registration, preregistration, or index numbers and fingerprints for one or more covered materials. The bill would, subject to specified exceptions, require a developer to, within 30 days of receiving that request from the rights owner, assess whether the covered material represented by a fingerprint provided by the rights owner is likely to be present in the developer\u0027s dataset and provide the rights owner with a list of their covered materials that were used to train the model and are likely to be present in the developer\u0027s dataset, as specified. The bill would provide that each day following the 30-day period that a developer fails to provide a rights owner with that information constitutes a discrete violation. The bill would authorize a rights owner who complies with specified requirements for submitting a request that is not provided with information according to these provisions to bring a civil action against the developer for specified relief. The bill would provide that the bill\u0027s requirements do not apply to a model that meets certain criteria, including, among other things, being trained exclusively using data the developer makes publicly available at no cost, as specified. The bill would define various terms for these purposes.",
+                          "note":  "summary"
+                      }
+                  ],
+    "sponsorships":  [
+                         {
+                             "id":  "98ca687c-c515-45aa-9793-1b179fc2518e",
+                             "name":  "Bauer-Kahan",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/2918acca-40a2-4819-a79a-b2873c7895bc",
+                                            "name":  "Rebecca Bauer-Kahan",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "16",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:16"
+                                                             }
+                                        },
+                             "primary":  true,
+                             "classification":  "author"
+                         },
+                         {
+                             "id":  "f36ac6cb-b811-4881-becb-5d2047947f0d",
+                             "name":  "Kalra",
+                             "entity_type":  "person",
+                             "person":  {
+                                            "id":  "ocd-person/820619fd-d053-4915-b099-1d134a880228",
+                                            "name":  "Ash Kalra",
+                                            "party":  "Democratic",
+                                            "current_role":  {
+                                                                 "title":  "Assemblymember",
+                                                                 "org_classification":  "lower",
+                                                                 "district":  "25",
+                                                                 "division_id":  "ocd-division/country:us/state:ca/sldl:25"
+                                                             }
+                                        },
+                             "primary":  false,
+                             "classification":  "coauthor"
+                         }
+                     ],
+    "actions":  [
+                    {
+                        "id":  "bd559adf-5b27-47ec-a1bd-6962425a5022",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read first time. To print.",
+                        "date":  "2025-02-04",
+                        "classification":  [
+                                               "reading-1"
+                                           ],
+                        "order":  0,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "0799486a-5cb5-4edd-9905-39fa60d817ec",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From printer. May be heard in committee March 7.",
+                        "date":  "2025-02-05",
+                        "classification":  [
+
+                                           ],
+                        "order":  1,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "bdd7aac9-d5f4-4986-8280-3ff060421c31",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Referred to Coms. on P. \u0026 C.P. and JUD.",
+                        "date":  "2025-02-18",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  2,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Coms. on P. \u0026 C.P. and JUD.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "ccc0f45d-1df9-43bb-bee1-e59f631e128a",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee chair, with author\u0027s amendments: Amend, and re-refer to Com. on P. \u0026 C.P. Read second time and amended.",
+                        "date":  "2025-02-25",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  3,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "d4045478-c3bf-4cf8-a594-6798ee6d332c",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on P. \u0026 C.P.",
+                        "date":  "2025-02-26",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  4,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on P. \u0026 C.P.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "7bf5bccf-ffeb-4e1b-bb49-aa9e6420df87",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee chair, with author\u0027s amendments: Amend, and re-refer to Com. on P. \u0026 C.P. Read second time and amended.",
+                        "date":  "2025-03-10",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  5,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "b3593af0-9540-4f02-b23a-c92cc622158c",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on P. \u0026 C.P.",
+                        "date":  "2025-03-11",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  6,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on P. \u0026 C.P.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "635c2eb9-f913-44e7-8959-5dc4262acb20",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee: Amend, and do pass as amended and re-refer to Com. on JUD. (Ayes 10. Noes 3.) (March 18).",
+                        "date":  "2025-03-19",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "committee-passage",
+                                               "referral-committee"
+                                           ],
+                        "order":  7,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "ba1842fb-5458-46c9-82c5-c5faaefe2259",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read second time and amended.",
+                        "date":  "2025-03-20",
+                        "classification":  [
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  8,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "681fb2a3-a4a3-44d2-aa70-28a079584628",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on JUD.",
+                        "date":  "2025-03-24",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  9,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on JUD.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "d75a5c41-6db5-4b90-be79-109ade0c231d",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "In committee: Hearing postponed by committee.",
+                        "date":  "2025-03-28",
+                        "classification":  [
+
+                                           ],
+                        "order":  10,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "35bef737-d482-4055-bb02-b62ad7aef202",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee chair, with author\u0027s amendments: Amend, and re-refer to Com. on JUD. Read second time and amended.",
+                        "date":  "2025-04-21",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  11,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "24a31a60-906b-49be-8416-9f307556ec27",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on JUD.",
+                        "date":  "2025-04-22",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  12,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on JUD.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "8bfff6ae-095c-47e5-940d-da6549ed79e9",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee chair, with author\u0027s amendments: Amend, and re-refer to Com. on JUD. Read second time and amended.",
+                        "date":  "2025-04-28",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  13,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "80f68786-ec6a-4c5b-a7c1-dd44361c1040",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Re-referred to Com. on JUD.",
+                        "date":  "2025-04-29",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  14,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on JUD.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "61fd636c-855a-430f-8092-7780c42035cd",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "From committee: Amend, and do pass as amended. (Ayes 9. Noes 1.) (May 6).",
+                        "date":  "2025-05-06",
+                        "classification":  [
+                                               "amendment-introduction",
+                                               "amendment-passage",
+                                               "committee-passage"
+                                           ],
+                        "order":  15,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "a0c38fba-7ba4-4db5-bad2-8244453fa1e4",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read second time and amended. Ordered returned to second reading.",
+                        "date":  "2025-05-07",
+                        "classification":  [
+                                               "amendment-passage",
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  16,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "23a2fd8f-0a7d-4b97-95c3-dd6d83fadc69",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read second time. Ordered to third reading.",
+                        "date":  "2025-05-08",
+                        "classification":  [
+                                               "reading-1",
+                                               "reading-2"
+                                           ],
+                        "order":  17,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "42ec94e2-3568-4ba5-88e2-cf816fdd268f",
+                        "organization":  {
+                                             "id":  "ocd-organization/e70e812e-44d2-46b0-9eae-2f3b9a1d5150",
+                                             "name":  "Assembly",
+                                             "classification":  "lower"
+                                         },
+                        "description":  "Read third time. Passed. Ordered to the Senate. (Ayes 45. Noes 16. Page 1517.)",
+                        "date":  "2025-05-12",
+                        "classification":  [
+                                               "passage",
+                                               "reading-1",
+                                               "reading-3"
+                                           ],
+                        "order":  18,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "b624ff16-164e-474d-894f-f8bbc7d07172",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "In Senate. Read first time. To Com. on RLS. for assignment.",
+                        "date":  "2025-05-13",
+                        "classification":  [
+                                               "reading-1"
+                                           ],
+                        "order":  19,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "386b00a0-0d2d-403f-b662-68f12510f86f",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "Referred to Coms. on JUD. and APPR.",
+                        "date":  "2025-05-21",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  20,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Coms. on JUD. and APPR.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "9ed77b4c-58de-4f67-b42b-6c6024c80d8e",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "In committee: Set, first hearing. Hearing canceled at the request of author.",
+                        "date":  "2025-07-09",
+                        "classification":  [
+
+                                           ],
+                        "order":  21,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "a47fd664-b3a1-487a-a589-045c3bd0ee45",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "Withdrawn from committee.",
+                        "date":  "2026-04-27",
+                        "classification":  [
+
+                                           ],
+                        "order":  22,
+                        "related_entities":  [
+
+                                             ]
+                    },
+                    {
+                        "id":  "e7af637a-9b7c-4eca-9531-be6be1cb153c",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "Re-referred to Com. on RLS.",
+                        "date":  "2026-04-27",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  23,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Com. on RLS.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    },
+                    {
+                        "id":  "d10f937b-9c5e-449f-8938-e0adf2cd5887",
+                        "organization":  {
+                                             "id":  "ocd-organization/98623fa0-f9c3-47ae-80bb-51465349ed71",
+                                             "name":  "Senate",
+                                             "classification":  "upper"
+                                         },
+                        "description":  "Re-referred to Coms. on P., D.T., \u0026 C.P., JUD., and APPR.",
+                        "date":  "2026-05-06",
+                        "classification":  [
+                                               "referral-committee"
+                                           ],
+                        "order":  24,
+                        "related_entities":  [
+                                                 {
+                                                     "name":  "Coms. on P., D.T., \u0026 C.P., JUD., and APPR.",
+                                                     "entity_type":  "organization"
+                                                 }
+                                             ]
+                    }
+                ]
+}

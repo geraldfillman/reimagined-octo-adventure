@@ -1,0 +1,3 @@
+:START_ID,:END_ID,:TYPE
+dashboard:neo4j-metric-cadence,dashboard-panel:neo4j-metrics:bod,HAS_PANEL
+dashboard:neo4j-metric-cadence,dashboard-panel:neo4j-metrics:eod,HAS_PANEL

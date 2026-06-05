@@ -1,5 +1,5 @@
-/**
- * osint-osmsearch.mjs — Proximity-based OpenStreetMap feature search (Bellingcat osm-search)
+﻿/**
+ * osint-osmsearch.mjs â€” Proximity-based OpenStreetMap feature search (Bellingcat osm-search)
  *
  * Usage:
  *   node run.mjs scan osint-osmsearch --lat 25.3 --lon 56.3 --radius 10000
@@ -15,13 +15,12 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 // Named coordinate shortcuts for common research locations
 const NAMED_LOCATIONS = {
@@ -55,7 +54,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `osmsearch-${coordLabel}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🗺️  OSM proximity search: (${lat}, ${lon}) radius ${radius}m`);
+  console.log(`\nðŸ—ºï¸  OSM proximity search: (${lat}, ${lon}) radius ${radius}m`);
   console.log(`   Feature filter: ${feature} | Output: ${outputFile}`);
 
   if (dryRun) {
@@ -68,7 +67,7 @@ export async function pull(flags = {}) {
   const searchScript = join(VAULT_ROOT, 'scripts', 'vendor', 'osm-search', 'search.py');
 
   if (!existsSync(searchScript)) {
-    console.warn('⚠️  osm-search not found at scripts/vendor/osm-search/');
+    console.warn('âš ï¸  osm-search not found at scripts/vendor/osm-search/');
     console.warn('   Clone with:');
     console.warn('   git clone https://github.com/bellingcat/osm-search scripts/vendor/osm-search');
 
@@ -86,7 +85,7 @@ export async function pull(flags = {}) {
   });
 
   if (result.error) {
-    console.error(`❌ osm-search error: ${result.error.message}`);
+    console.error(`âŒ osm-search error: ${result.error.message}`);
     process.exit(1);
   }
 
@@ -132,7 +131,7 @@ out body;
       today, outputFile, source: 'overpass-api-fallback'
     });
   } catch (err) {
-    console.error(`❌ Overpass fallback failed: ${err.message}`);
+    console.error(`âŒ Overpass fallback failed: ${err.message}`);
     process.exit(1);
   }
 }
@@ -153,9 +152,10 @@ function writeOutput(features, { lat, lon, radius, feature, coordLabel, today, o
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'osm-search', target: coordLabel, targetType: 'coordinates', resultCount: features.length, alertCount: 0, outputFile, today, tags: ['geospatial', 'osm', 'infrastructure'] });
 
-  console.log(`\n✅ OSM search complete:`);
+  console.log(`\nâœ… OSM search complete:`);
   console.log(`   Features found: ${features.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   return output;
 }
+

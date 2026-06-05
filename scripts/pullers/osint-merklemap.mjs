@@ -1,5 +1,5 @@
-/**
- * osint-merklemap.mjs — Certificate transparency subdomain discovery via Merklemap
+﻿/**
+ * osint-merklemap.mjs â€” Certificate transparency subdomain discovery via Merklemap
  *
  * Usage:
  *   node run.mjs scan osint-merklemap --domain example.com
@@ -14,13 +14,12 @@
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 const BASE_URL = 'https://api.merklemap.com';
 
@@ -46,7 +45,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `merklemap-${domain}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🗺️  Merklemap CT subdomain discovery: ${domain}`);
+  console.log(`\nðŸ—ºï¸  Merklemap CT subdomain discovery: ${domain}`);
   console.log(`   Pages: ${maxPages} | Output: ${outputFile}`);
 
   if (dryRun) {
@@ -94,15 +93,16 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'merklemap', target: domain, targetType: 'domain', resultCount: subdomainStrings.length, alertCount: interesting.length, outputFile, today, tags: ['subdomain', 'cert-transparency'] });
 
-  console.log(`\n✅ Merklemap scan complete:`);
+  console.log(`\nâœ… Merklemap scan complete:`);
   console.log(`   Total subdomains:       ${subdomainStrings.length}`);
   console.log(`   Interesting (dev/beta): ${interesting.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   if (interesting.length > 0) {
     console.log('\n   Notable subdomains:');
-    interesting.slice(0, 8).forEach(s => console.log(`   → ${s}`));
+    interesting.slice(0, 8).forEach(s => console.log(`   â†’ ${s}`));
   }
 
   return output;
 }
+

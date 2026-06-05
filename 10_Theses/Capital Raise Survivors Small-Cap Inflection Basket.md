@@ -30,38 +30,38 @@ fmp_watchlist_symbols: ["BW", "TNC", "PPIH", "ECPG", "PRKS", "BRBR", "IIPR", "NK
 fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "BW"
 fmp_technical_symbol_count: 10
-fmp_technical_nonclear_count: 3
+fmp_technical_nonclear_count: 2
 fmp_technical_bearish_count: 3
 fmp_technical_overbought_count: 0
-fmp_technical_oversold_count: 0
+fmp_technical_oversold_count: 1
 fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "mixed"
-fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 45.84
-fmp_primary_price_vs_sma200_pct: 112.23
+fmp_primary_technical_bias: "bullish"
+fmp_primary_momentum_state: "positive"
+fmp_primary_rsi14: 61.28
+fmp_primary_price_vs_sma200_pct: 148.25
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 1558000312
-fmp_primary_trailing_pe: -49.86
-fmp_primary_price_to_sales: 2.45
-fmp_primary_price_to_book: -13.68
-fmp_primary_ev_to_sales: 2.89
-fmp_primary_ev_to_ebitda: 39.58
-fmp_primary_roe_pct: 14.8
-fmp_primary_roic_pct: 7.66
-fmp_primary_operating_margin_pct: 5.22
-fmp_primary_net_margin_pct: -5.68
-fmp_primary_current_ratio: 1.22
-fmp_primary_debt_to_equity: -2.8
-fmp_primary_price_target: 11.25
-fmp_primary_analyst_count: 4
-fmp_primary_target_upside_pct: -23.88
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 9
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-05-04"
-fmp_next_earnings_symbols: ["IIPR", "TNC"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 2177925262
+fmp_primary_trailing_pe: -19.76
+fmp_primary_price_to_sales: 3.26
+fmp_primary_price_to_book: -14.8
+fmp_primary_ev_to_sales: 3.5
+fmp_primary_ev_to_ebitda: 60.91
+fmp_primary_roe_pct: 61.01
+fmp_primary_roic_pct: 8.34
+fmp_primary_operating_margin_pct: 4.22
+fmp_primary_net_margin_pct: -19.28
+fmp_primary_current_ratio: 0.99
+fmp_primary_debt_to_equity: -1.87
+fmp_primary_price_target: 13.6
+fmp_primary_analyst_count: 5
+fmp_primary_target_upside_pct: -28.57
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 4
+fmp_calendar_pull_date: "2026-05-26"
+fmp_next_earnings_date: "2026-06-09"
+fmp_next_earnings_symbols: ["PPIH"]
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "smallcap", "capital-raise", "dilution", "inflection", "special-situations"]
 ---
 
@@ -124,3 +124,4 @@ WHERE contains(string(tags), "smallcap") OR contains(string(tags), "capital-rais
 SORT date_pulled DESC
 LIMIT 10
 ```
+

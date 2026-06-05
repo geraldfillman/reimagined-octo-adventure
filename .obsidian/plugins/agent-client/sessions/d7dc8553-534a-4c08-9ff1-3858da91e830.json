@@ -1,0 +1,1598 @@
+{
+  "version": 1,
+  "sessionId": "d7dc8553-534a-4c08-9ff1-3858da91e830",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "e6be1da0-94ab-44a8-b09f-ca5e4344bb77",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Using skills available audit the vaults below:\n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\n\nC:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\n\nThe task is to start at Claude.MD and then Agent.MD in both vaults to understand flow and then to review new features/pull system and outline a plan with bugs/fixes, current implementation flow improvements, and features that can be fixed or improved along with a roadmap.",
+          "autoMentionContext": {
+            "noteName": "CLAUDE",
+            "notePath": "CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:05.054Z"
+    },
+    {
+      "id": "890eb7c7-cc05-4d39-94ca-88a98cb24c2c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "I'll audit both vaults starting from their canonical instructions, then review the pull system and current state. Let me launch parallel Explore agents."
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:09.083Z"
+    },
+    {
+      "id": "7be6c71f-929d-4e8a-9976-8e4cb5e5b48f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WsuM8kAUeaphJutn3NYUvh",
+          "title": "My_Data vault canonical instructions and pull system",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "My_Data vault canonical instructions and pull system",
+            "subagent_type": "Explore",
+            "prompt": "Explore the My_Data vault at C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data to understand its architecture and current pull system.\n\nStart with these canonical files (read fully):\n1. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\CLAUDE.md\n2. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\AGENTS.md\n3. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\README.md\n4. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Vault_Schemas.md (if exists)\n5. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\run.mjs (if exists)\n\nThen map the pull system:\n- List C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\ — name each puller and one-line purpose\n- List C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\ — system scripts\n- Look at recently modified scripts (use git log or file mtime) to identify NEW features\n- Check for: research-spine-flow.mjs, freshness-source-writer.mjs, migrate-content-candidates.mjs, audit-research-spine.mjs (these were recent per session summary)\n\nIdentify:\n1. The data flow: how pullers run, where output goes, how it reaches dashboards\n2. New/recent features (last 2 weeks of commits) — what's working, what's half-finished\n3. Pull system architecture: scheduler, validation, error handling\n4. Known bugs or TODOs in code comments\n5. Coverage gaps: data sources defined but no puller, or pullers without dashboard surfacing\n\nReport findings in <500 words organized as: (a) flow summary, (b) recent features, (c) bugs/TODOs found, (d) gaps. Include exact file paths."
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:11.164Z"
+    },
+    {
+      "id": "167668d2-33f0-4d4d-9143-04d2fd6b0338",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01YaR34weNxWoaEwXrYnMkN6",
+          "title": "Research Spine vault canonical instructions",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Research Spine vault canonical instructions",
+            "subagent_type": "Explore",
+            "prompt": "Explore the Research Spine vault at C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine to understand its purpose, structure, and current state.\n\nStart with canonical files:\n1. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\CLAUDE.md (if exists)\n2. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\AGENTS.md (if exists)\n3. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\README.md (if exists)\n4. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Research Spine Dashboard.md\n5. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Today.md\n6. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md\n7. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Research Base Index.md\n8. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System\\Market Feedback Loop System.md\n9. C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\phase0-findings-20260507.md (recent audit)\n\nMap the top-level directory structure (00_Home, 01_*, 02_*, etc.) and characterize each section's role.\n\nThis vault is described as a \"link-only reporting layer over My_Data\" — the human-facing review/reporting vault. Verify this:\n- Are there executable scripts here? (there shouldn't be)\n- Does it link back to My_Data sources, or duplicate content?\n- Does the Inbox/04_Human_Notes show it's actively used?\n- Is the Market Feedback Loop System wired up or aspirational?\n\nAlso check:\n- C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\audit-research-spine.mjs — what does this auditor check?\n- Recent git log entries touching The Research Spine\n\nIdentify:\n1. Vault purpose (per its own canonical docs) and whether reality matches\n2. Section organization and what's filled vs empty\n3. The \"losing organization shape\" problem mentioned previously\n4. Integration points with My_Data (links, automation, freshness writers)\n5. Bugs/inconsistencies: broken links, stale content, schema drift\n\nReport in <500 words: (a) purpose & structure, (b) integration with My_Data, (c) organizational issues, (d) recent refactor state. Include exact paths."
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:20.091Z"
+    },
+    {
+      "id": "fc64b110-432c-4dfa-85a1-d33e4a1ba0cb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01EidEMK1BjYxVfAGsEjuxKo",
+          "title": "Read CLAUDE.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\CLAUDE.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:31.174Z"
+    },
+    {
+      "id": "5cb2077c-0e07-4bb5-953d-3cb6b6b2e88f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CWgMtaJd2o39NdwBVd7BCS",
+          "title": "Read AGENTS.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\AGENTS.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\AGENTS.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:31.174Z"
+    },
+    {
+      "id": "6268202c-8c19-4245-b79a-421ddc8ba420",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018wRDz7DB1VGkgfNXZxt3AL",
+          "title": "Read README.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\README.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\README.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:31.174Z"
+    },
+    {
+      "id": "605505db-b4fd-466f-b740-2a9d56135c89",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BNsus4zyGRUfVCgGvdop9T",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Vault_Schemas",
+                "command": "cat 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Vault_Schemas.md' | head -100"
+              },
+              {
+                "label": "Pullers_Directory",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\'"
+              },
+              {
+                "label": "System_Scripts",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\'"
+              },
+              {
+                "label": "Run_MJS",
+                "command": "head -150 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\run.mjs'"
+              },
+              {
+                "label": "Recent_Commits",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' && git log --oneline -20"
+              },
+              {
+                "label": "Script_Tree",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts' && find . -maxdepth 2 -type f -name '*.mjs' | head -30"
+              }
+            ],
+            "queries": [
+              "research-spine-flow freshness source writer migrate content candidates audit research spine",
+              "TODO BUG FIXME error handling validation schema",
+              "recent features commits added last 2 weeks",
+              "puller scheduler error handling data flow validation"
+            ],
+            "timeout": 60000
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:31.253Z"
+    },
+    {
+      "id": "f4f9519e-52e0-4796-b9cf-5aa346620a17",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GSNNovSQgBBfyyYgQXsW74",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Canonical Files (CLAUDE, AGENTS, README)",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine' | head -30"
+              },
+              {
+                "label": "Top-level Directory Structure",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine' /ad"
+              },
+              {
+                "label": "Home Dashboard",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Research Spine Dashboard.md' 2>$null || echo 'File not found'"
+              },
+              {
+                "label": "Today Dashboard",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Today.md' 2>$null || echo 'File not found'"
+              },
+              {
+                "label": "Automation Guide",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md' 2>$null | head -80"
+              },
+              {
+                "label": "Recent Audit File",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\phase0-findings-20260507.md' 2>$null || echo 'File not found'"
+              },
+              {
+                "label": "Research Spine Git Log",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine' && git log --oneline --all -- . | head -20"
+              },
+              {
+                "label": "Audit Script Info",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\audit-research-spine.mjs' 2>$null | head -100"
+              }
+            ],
+            "queries": [
+              "purpose of Research Spine vault canonical docs",
+              "organization structure sections 00_Home 01_02_03_04_",
+              "integration links to My_Data sources",
+              "executable scripts or data writing",
+              "recent changes or refactoring to Research Spine"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:36.342Z"
+    },
+    {
+      "id": "c8b17754-af67-4d0b-8ec2-7c314524e8f4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0142W4qrZJPLrryW7uN4NGNP",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "language": "shell",
+            "code": "\n# Read the three canonical files\necho \"=== CLAUDE.md ===\"\ntype 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\CLAUDE.md'\necho \"\"\necho \"=== README.md ===\"\ntype 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\README.md'\necho \"\"\necho \"=== AGENTS.md (first 150 lines) ===\"\ntype 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\AGENTS.md' | head -150\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:39.975Z"
+    },
+    {
+      "id": "bfc74191-f4f5-461e-8b3f-95ebb6960963",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01ADMDyBDqvPJmPMUdf8usAo",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\CLAUDE.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\CLAUDE.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:42.108Z"
+    },
+    {
+      "id": "2a2ded38-8aff-4fc9-b2a3-6a4a1230fa22",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PDri2gEGdnYB3AFdT6PMFk",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\README.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\README.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\README.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:42.309Z"
+    },
+    {
+      "id": "3f17c40a-a8d6-4415-8f28-468b33ffcfc0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NDKS3eVWg7i2o5jPCrMYLC",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\AGENTS.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\AGENTS.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\AGENTS.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:42.309Z"
+    },
+    {
+      "id": "0e51c6ae-3736-4dea-b1c6-0d9ae12c8a69",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HFb38uuurpmickbKcq3sMo",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Explore 00_Home contents",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home'"
+              },
+              {
+                "label": "Explore 01_Freshness structure",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\01_Freshness' /s /b"
+              },
+              {
+                "label": "Explore 02_Reports structure",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\02_Reports' /s /b | head -20"
+              },
+              {
+                "label": "Explore 03_References structure",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References' /s /b | head -20"
+              },
+              {
+                "label": "Explore 04_Human_Notes",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes'"
+              },
+              {
+                "label": "Explore 99_System structure",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System' /s /b | head -30"
+              },
+              {
+                "label": "Check for executable scripts in Research Spine",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine' -type f \\( -name '*.mjs' -o -name '*.js' -o -name '*.py' -o -name '*.sh' \\) 2>/dev/null | head -10"
+              },
+              {
+                "label": "Git history of Research Spine recent commits",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine' && git log --oneline --all -- . 2>/dev/null | head -20 || echo 'Git command failed'"
+              }
+            ],
+            "queries": [
+              "populated sections vs empty sections",
+              "what data flows from My_Data into Research Spine",
+              "has content been written to 01_Freshness or 02_Reports yet",
+              "is the vault actively used or aspirational",
+              "broken links or missing referenced files"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:47.758Z"
+    },
+    {
+      "id": "9e07834f-fd8d-4325-93fa-84a61ff28918",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01F68wQzZTUQhA16iEaCy3XR",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\research-spine-flow.mjs",
+            "language": "javascript",
+            "code": "\n// Extract function signatures, TODO/FIXME/BUG comments, and error handling\nconst fs = require('fs');\nconst content = fs.readFileSync(process.argv[0], 'utf8');\n\nconst lines = content.split('\\n');\nconst issues = [];\nconst functions = [];\n\nlines.forEach((line, idx) => {\n  // Capture TODOs, FIXMEs, BUGs\n  if (/TODO|FIXME|BUG|XXX|HACK/i.test(line)) {\n    issues.push(`Line ${idx + 1}: ${line.trim()}`);\n  }\n  // Capture function definitions\n  if (/^(async\\s+)?function\\s+\\w+|const\\s+\\w+\\s*=\\s*(async\\s*)?\\(/. test(line)) {\n    functions.push(line.trim().substring(0, 80));\n  }\n});\n\nconsole.log('=== FUNCTIONS ===');\nfunctions.slice(0, 10).forEach(f => console.log(f));\nconsole.log('\\n=== ISSUES (TODO/FIXME/BUG) ===');\nif (issues.length === 0) {\n  console.log('(none found)');\n} else {\n  issues.forEach(issue => console.log(issue));\n}\nconsole.log('\\n=== FILE SIZE & SCOPE ===');\nconsole.log('Lines:', lines.length, '| Size:', (content.length / 1024).toFixed(1), 'KB');\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:48.174Z"
+    },
+    {
+      "id": "d378d80c-3187-479c-b62d-c9d72d163b4a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015SV6DHxtMaZjJiVEP8VhqU",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Audit_Research_Spine",
+                "command": "head -60 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\audit-research-spine.mjs'"
+              },
+              {
+                "label": "Migrate_Content",
+                "command": "head -60 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\migrate-content-candidates.mjs'"
+              },
+              {
+                "label": "Freshness_Writer",
+                "command": "head -60 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\freshness-source-writer.mjs'"
+              },
+              {
+                "label": "Market_Cycle_Monitor",
+                "command": "head -80 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\market-cycle-monitor.mjs'"
+              }
+            ],
+            "queries": [
+              "TODO FIXME BUG error handling",
+              "recent modifications 2026-05-07 2026-05-06",
+              "data flow validation schema",
+              "puller integration freshness content candidates"
+            ],
+            "timeout": 60000
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:53.808Z"
+    },
+    {
+      "id": "5f23a31c-e7fb-43b9-bb51-d62f0d2ba487",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LHTo48qfeJYAxbDNZC7Y67",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_search",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "queries": [
+              "run.mjs entry point CLI command structure",
+              "pull system scheduler routine daily",
+              "KB routing output path The Research Spine",
+              "validation errors signal-intelligence",
+              "streaming report portfolio health"
+            ],
+            "source": "Audit_Research_Spine Migrate_Content Freshness_Writer Market_Cycle_Monitor",
+            "limit": 5
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:57.459Z"
+    },
+    {
+      "id": "6d364455-1367-4f5c-90e9-95cb3f77ceb7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01AKHS99Yqr11j7oR94E1wGs",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Audit script details",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\audit-research-spine.mjs' 2>&1"
+              },
+              {
+                "label": "Sample 00_Home files",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home' && echo '--- File sizes ---' && wc -l 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home'/*.md 2>/dev/null | head -20"
+              },
+              {
+                "label": "Check Freshness/Sources content",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\01_Freshness\\Sources' 2>&1 | head -15"
+              },
+              {
+                "label": "Check Briefings content",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\02_Reports\\Briefings' 2>&1 | head -15"
+              },
+              {
+                "label": "Check Content_Candidates",
+                "command": "dir 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Content_Candidates' 2>&1 | head -15"
+              },
+              {
+                "label": "Check Inbox status",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\Inbox.md' 2>/dev/null | head -50"
+              }
+            ],
+            "queries": [
+              "what does audit-research-spine.mjs verify or check",
+              "populated vs empty folders in 01_Freshness 02_Reports 03_References",
+              "is 04_Human_Notes Inbox being actively used",
+              "recent data pulls into the vault"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:58.324Z"
+    },
+    {
+      "id": "a08997a4-43a6-4696-a038-d7bb22bd810c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019Y3KKKLp1k7Qe1xotAZtn3",
+          "title": "Read run.mjs (1 - 200)",
+          "status": "failed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\run.mjs"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\run.mjs",
+            "limit": 200
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:51:59.942Z"
+    },
+    {
+      "id": "59143b8a-2d89-4f87-9051-1d0a6e61d8bb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013ggfbdxX3yxajVP73XKSZh",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Research Spine Dashboard.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Research Spine Dashboard.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home\\Research Spine Dashboard.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:01.908Z"
+    },
+    {
+      "id": "0de64f04-9ea2-4f37-aa69-91a13811d340",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01ANHLKWr3v4no5htG3DuEo6",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\Inbox.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\Inbox.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\Inbox.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:02.325Z"
+    },
+    {
+      "id": "b7133b49-04eb-4e6b-859a-1d3923f1aec9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JB32hMvo9iKwDcU24fvZKo",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:02.455Z"
+    },
+    {
+      "id": "5bec9c74-9520-42a4-a3c5-e45273430239",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RhhdMorSRsrZUcr45uuTBy",
+          "title": "find \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" -name \"run.mjs\" -type f",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "find \"C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\" -name \"run.mjs\" -type f"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:02.721Z"
+    },
+    {
+      "id": "c661fc88-bf19-4804-9073-16ec1655a8ee",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01T3ZPTu9VnXexJatCUjpP5L",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System\\Market Feedback Loop System.md",
+            "language": "shell",
+            "code": "cat \"$FILE_CONTENT\" | head -80"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:06.325Z"
+    },
+    {
+      "id": "ff5180c8-8b75-4077-bbc5-7b2f12c1ee8b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01K5oJp4cCeT43FJxnWRYyLU",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "RunMJS_Head",
+                "command": "head -100 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\run.mjs'"
+              },
+              {
+                "label": "Git_Recent_Details",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data' && git log --oneline --all -30 --date-order"
+              },
+              {
+                "label": "Last_Modified_Scripts",
+                "command": "cd 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers' && ls -lt *.mjs | head -15"
+              },
+              {
+                "label": "Data_Sources_Count",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\01_Data_Sources' -name '*.md' -type f | wc -l"
+              },
+              {
+                "label": "Pull_Notes_Recent",
+                "command": "find 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\05_Data_Pulls' -name '*.md' -type f -mtime -14 | wc -l"
+              }
+            ],
+            "queries": [
+              "TODO FIXME BUG known issues",
+              "error handling validation contract",
+              "recent commits new features May 2026",
+              "data source integration coverage",
+              "pull notes output schema freshness"
+            ],
+            "timeout": 60000
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:08.542Z"
+    },
+    {
+      "id": "8db29406-05e2-43c5-ad5f-4a241c537e5a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0155bjidCWP2p5x2mxfujWdV",
+          "title": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "commands": [
+              {
+                "label": "Market Feedback Loop file check",
+                "command": "ls -la 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System' 2>&1 | head -20"
+              },
+              {
+                "label": "Research Base Index content",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Research Base Index.md' 2>&1 | head -60"
+              },
+              {
+                "label": "Source Gap Register",
+                "command": "type 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Source Gap Register.md' 2>&1 | head -60"
+              },
+              {
+                "label": "Count files by section",
+                "command": "echo '=== 00_Home ===' && ls -1 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\00_Home' | wc -l && echo '=== 01_Freshness/Sources ===' && ls -1 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\01_Freshness\\Sources' 2>/dev/null | wc -l && echo '=== 02_Reports/Briefings ===' && ls -1 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\02_Reports\\Briefings' 2>/dev/null | wc -l"
+              },
+              {
+                "label": "Recent freshness audit",
+                "command": "ls -ltr 'C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory' 2>&1 | tail -5"
+              }
+            ],
+            "queries": [
+              "are Market Feedback Loop files present and populated",
+              "are there recent audit reports showing vault state"
+            ]
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:15.974Z"
+    },
+    {
+      "id": "4df21f93-079b-400a-960d-f1aa4f022fbd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QduMmMr3nqKUj6geedMSsa",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Research Base Index.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Research Base Index.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Research Base Index.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:22.658Z"
+    },
+    {
+      "id": "96a596a1-8711-4997-ba9e-dda0b1ac0f6e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QESFRgbPpQUCG2xBkwhWJe",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Source Gap Register.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Source Gap Register.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Source Gap Register.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:22.874Z"
+    },
+    {
+      "id": "5bf3b933-4862-4fa7-ae16-79be4c984b1a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01KcfRCE5McprXTpKQAP1sJW",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System\\Market Feedback Loop System.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System\\Market Feedback Loop System.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Market_Feedback_Loop_System\\Market Feedback Loop System.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-05-07T19:52:23.088Z"
+    },
+    {
+      "id": "bc518d86-6dd4-4ffc-846d-7e9e3f5e92dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Ns67Qjyx4PZgTtnAbRF3b4",
+          "title": "Read C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\research-spine-audit-20260507.md (1 - 120)",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\research-spine-audit-20260507.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\research-spine-audit-20260507.md",
+            "limit": 120
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "I have sufficient context from both Explore agents and the audit excerpt. Let me write the plan file.\n\n`★ Insight ─────────────────────────────────────`\n- Two-vault separation works as designed: My_Data is the engine (40+ pullers, 4831 raw notes, 95 sources), Research Spine is the link-only review layer (498 notes, 0 scripts).\n- Asymmetry is the real problem: 60 freshness notes vs. 3 briefings = \"raw pile\" effect despite link-first policy.\n- Recent feature velocity is high (signal-intelligence, research-spine-flow, portfolio-health all from May 7) but coverage validation between sources↔pullers↔dashboards is missing.\n`─────────────────────────────────────────────────`"
+        }
+      ],
+      "timestamp": "2026-05-07T19:53:14.901Z"
+    },
+    {
+      "id": "5604303b-582d-4221-9874-92d6cf279fd9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017Y8kSdPYxZ43osxEhpxCqG",
+          "title": "Write C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md",
+              "newText": "# Vault Audit & Roadmap — My_Data + The Research Spine\n\n**Date:** 2026-05-07\n**Scope:** Audit both vaults starting from CLAUDE.md/AGENTS.md, review the pull system, surface bugs/improvements/roadmap.\n\n---\n\n## Context\n\nTwo-vault architecture:\n\n- **`My_Data`** — engine vault. ~40 pullers under `scripts/pullers/`, 95 defined data sources, 4,831 timestamped raw pull notes in `05_Data_Pulls/`, KB mirrors in `12_Knowledge_Bases/raw/`. CLI is `node run.mjs <group> <subcmd>`. `AGENTS.md` is canonical; `CLAUDE.md` is a shim.\n- **`The Research Spine`** — link-only human review layer. 498 notes, 0 executable scripts (verified). Sections `00_Home`, `01_Freshness`, `02_Reports`, `03_References`, `04_Human_Notes`, `99_System`. `AGENTS.md` is canonical and aligned with `My_Data` boundaries.\n\nRecent feature velocity (last 2 weeks, commits `f73f7bb`→`716399c`) added signal lifecycle, convergence scan, retention policy, dashboard freshness filters, and three new pullers: `signal-intelligence.mjs`, `research-spine-flow.mjs`, `portfolio-health.mjs`. The Spine vault was refactored on 2026-05-07 (Phase 4 collapse: 3 human-note folders → single `Inbox.md`).\n\nThe user reports the Spine is \"losing organization shape.\" The latest audit (`99_System/inventory/research-spine-audit-20260507.md`) confirms **asymmetric density**: `03_References` has 390 files, `01_Freshness` 68, but `02_Reports` only 10 — auto-generated freshness without commensurate report consolidation creates a raw pile despite link-first policy.\n\nGoal: punch list of bugs to fix, flow improvements, feature work, and a sequenced roadmap.\n\n---\n\n## Findings\n\n### Bugs / Defects\n\n1. **No partial-failure recovery in `scripts/run.mjs`** — top-level `catch(err)` aborts the whole run; one failing puller in a daily cadence kills downstream. Needs per-puller try/catch + structured failure log.\n2. **`audit-research-spine.mjs` is read-only** — flags broken links, orphan folders, schema drift, but never auto-fixes or opens issues; findings rot in `99_System/inventory/`.\n3. **Phase 4 Inbox collapse unverified** — `04_Human_Notes/Inbox.md` has a seed task \"confirm Phase 4 collapse worked\"; Dataview queries on Dashboard reference the unified path but no test pass recorded.\n4. **`02_Reports` orphan folders** — audit shows `Daily/`, `Weekly/`, `Monthly/` at the `02_Reports/` root with 0 files; not written by current `research-spine-flow.mjs`. Either delete or wire up.\n5. **`migrate-content-candidates.mjs` placeholder** — sets `published_at: null` with a TODO that future publishers should populate from upstream feed metadata. Currently silent gap — content candidates have no real publish dates.\n6. **Stale puller references in docs** — `03_References/Automation Guide.md` notes prior PowerShell scripts (`Invoke-ResearchSpineRoutine.ps1`) that don't exist; minor confusion risk.\n7. **No source↔puller↔dashboard coverage validation** — 95 sources defined; ~40 pullers visible; no script verifies every active source has a `linked_puller` and that its output reaches a dashboard.\n8. **Signal retention policy location undocumented** — `f73f7bb` added retention but where the cutoff is enforced is not surfaced in `04_Reference/Vault_Schemas.md` or any README.\n9. **`freshness-source-writer --prune` has no documented error handling** — silent prune failures could leave stale Source notes mixed with current ones.\n\n### Implementation Flow Improvements\n\n1. **Per-puller error envelope** — every `pull(flags)` returns `{ok, errors[], wrote[], skipped[]}`; `run.mjs` aggregates and writes `99_System/run_summaries/YYYY-MM-DD.md` with red/green per puller.\n2. **Cadence orchestrator** — replace ad-hoc `--all` flags with declared cadences (`premarket`, `midday`, `eod`) in a single config (`99_System/config/cadences.json`) consumed by `run.mjs cadence run premarket`.\n3. **Dashboard manifest** — emit `00_Dashboard/.manifest.json` declaring which pull types feed which dashboard; audit can then verify Dataview FROM clauses match.\n4. **Spine consolidation step** — after every cadence, run a \"report rollup\" that aggregates the day's freshness deltas into a single `02_Reports/Briefings/<date>.md` so Reports density catches up to Freshness density.\n5. **Audit-driven issue log** — `audit-research-spine.mjs` should append findings to `04_Human_Notes/Inbox.md` as actionable tasks (severity + file path), not just a static manifest.\n6. **Schema lint as a gate** — `node run.mjs system validate` should block on missing required frontmatter (per `Vault_Schemas.md`) before pull notes are accepted; today drift accumulates silently.\n\n### Features to Fix / Improve\n\n1. **Signal Intelligence surfacing** — `signal-intelligence.mjs` writes a single daily note; add a Spine-side signal board page that filters by `signal_status` (clear/watch/alert/critical) and severity over a rolling window.\n2. **Portfolio Health account aggregation** — Jefferson DC + BrokerageLink need explicit aggregation rules in code, not manual CSV cleanup.\n3. **Content Candidate promotion pipeline** — `03_References/Content_Candidates/` has subfolder stubs (Posts, Books, Papers, Videos, etc.) but no promotion-status tracker; add a stuck-candidate Dataview (>30 days unreviewed) and a `published_at` backfill.\n4. **Market Feedback Loop System** — file is well-structured but referenced \"Knowledge Gap Report\" is missing; either generate it or remove the link.\n5. **KB sync verification** — `12_Knowledge_Bases/raw/` mirrors flow into the sibling `Oy` vault via `KB_VAULT_ROOT`, but no audit confirms parity. Add `system kb-audit`.\n\n### Roadmap (sequenced)\n\n**Phase A — Stabilize (1–2 days)**\n- Fix top-level error handling in `run.mjs` (per-puller envelopes + run summary).\n- Verify Phase 4 Inbox collapse; close the seed task.\n- Delete or wire up the orphan `02_Reports/{Daily,Weekly,Monthly}` folders.\n- Strip stale PowerShell references from `Automation Guide.md`.\n\n**Phase B — Validate (2–3 days)**\n- Add `system coverage-audit` (sources↔pullers↔dashboards triple-link).\n- Promote `audit-research-spine.mjs` findings into `Inbox.md` as tasks (severity-scored).\n- Add `system kb-audit` (raw mirrors ↔ canonical KB).\n- Document signal retention policy in `Vault_Schemas.md`.\n\n**Phase C — Consolidate (3–5 days)**\n- Cadence orchestrator (`cadences.json` + `run.mjs cadence run <name>`).\n- Spine rollup step that turns daily freshness deltas into one `02_Reports/Briefings/<date>.md`, fixing the asymmetric-density problem.\n- Dashboard manifest + Dataview FROM-clause validator.\n\n**Phase D — Feature (5–7 days)**\n- Signal Intelligence Spine board (rolling window filter view).\n- Content Candidate promotion tracker + `published_at` backfill.\n- Portfolio Health account aggregation rules.\n- Resolve Market Feedback Loop System gap report.\n\n---\n\n## Critical Files\n\n**My_Data**\n- `scripts/run.mjs` — CLI dispatch + error handling (Phase A bug 1).\n- `scripts/system/audit-research-spine.mjs` — promote to issue-emitter (Phase B).\n- `scripts/system/migrate-content-candidates.mjs` — `published_at` backfill (Phase D).\n- `scripts/system/freshness-source-writer.mjs` — prune error handling (Phase A).\n- `scripts/pullers/research-spine-flow.mjs` — add rollup mode (Phase C).\n- `scripts/pullers/signal-intelligence.mjs` — Spine-side board (Phase D).\n- `scripts/pullers/portfolio-health.mjs` — account aggregation (Phase D).\n- `04_Reference/Vault_Schemas.md` — document retention policy (Phase B).\n- `99_System/config/cadences.json` (NEW) — Phase C.\n\n**The Research Spine**\n- `00_Home/Research Spine Dashboard.md`, `Today.md` — Dataview validation after manifest (Phase C).\n- `02_Reports/{Daily,Weekly,Monthly}/` — delete or populate (Phase A).\n- `03_References/Automation Guide.md` — strip PS references (Phase A).\n- `03_References/Market_Feedback_Loop_System/Market Feedback Loop System.md` — resolve broken link (Phase D).\n- `04_Human_Notes/Inbox.md` — confirm Phase 4 collapse (Phase A); audit findings sink (Phase B).\n\n---\n\n## Verification\n\nAfter each phase:\n1. `node run.mjs system validate` — schema gate must pass.\n2. `node run.mjs system audit` (or `audit-research-spine.mjs`) — diff against prior manifest in `99_System/inventory/`.\n3. `node run.mjs cadence run premarket` (Phase C) — observe new run summary file lists every puller as ok/error.\n4. Open Spine `00_Home/Research Spine Dashboard.md` in Obsidian; Dataview queries must render with no \"no results\" surprises that aren't intentional.\n5. `02_Reports/Briefings/<today>.md` should exist after a cadence run (Phase C onward) — proves asymmetric-density fix.\n\n**Reuse:** existing patterns in `audit-research-spine.mjs` (manifest writer), `freshness-source-writer.mjs` (group-by-frontmatter), and `run.mjs` deprecation aliases — extend, don't reinvent.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md",
+            "content": "# Vault Audit & Roadmap — My_Data + The Research Spine\n\n**Date:** 2026-05-07\n**Scope:** Audit both vaults starting from CLAUDE.md/AGENTS.md, review the pull system, surface bugs/improvements/roadmap.\n\n---\n\n## Context\n\nTwo-vault architecture:\n\n- **`My_Data`** — engine vault. ~40 pullers under `scripts/pullers/`, 95 defined data sources, 4,831 timestamped raw pull notes in `05_Data_Pulls/`, KB mirrors in `12_Knowledge_Bases/raw/`. CLI is `node run.mjs <group> <subcmd>`. `AGENTS.md` is canonical; `CLAUDE.md` is a shim.\n- **`The Research Spine`** — link-only human review layer. 498 notes, 0 executable scripts (verified). Sections `00_Home`, `01_Freshness`, `02_Reports`, `03_References`, `04_Human_Notes`, `99_System`. `AGENTS.md` is canonical and aligned with `My_Data` boundaries.\n\nRecent feature velocity (last 2 weeks, commits `f73f7bb`→`716399c`) added signal lifecycle, convergence scan, retention policy, dashboard freshness filters, and three new pullers: `signal-intelligence.mjs`, `research-spine-flow.mjs`, `portfolio-health.mjs`. The Spine vault was refactored on 2026-05-07 (Phase 4 collapse: 3 human-note folders → single `Inbox.md`).\n\nThe user reports the Spine is \"losing organization shape.\" The latest audit (`99_System/inventory/research-spine-audit-20260507.md`) confirms **asymmetric density**: `03_References` has 390 files, `01_Freshness` 68, but `02_Reports` only 10 — auto-generated freshness without commensurate report consolidation creates a raw pile despite link-first policy.\n\nGoal: punch list of bugs to fix, flow improvements, feature work, and a sequenced roadmap.\n\n---\n\n## Findings\n\n### Bugs / Defects\n\n1. **No partial-failure recovery in `scripts/run.mjs`** — top-level `catch(err)` aborts the whole run; one failing puller in a daily cadence kills downstream. Needs per-puller try/catch + structured failure log.\n2. **`audit-research-spine.mjs` is read-only** — flags broken links, orphan folders, schema drift, but never auto-fixes or opens issues; findings rot in `99_System/inventory/`.\n3. **Phase 4 Inbox collapse unverified** — `04_Human_Notes/Inbox.md` has a seed task \"confirm Phase 4 collapse worked\"; Dataview queries on Dashboard reference the unified path but no test pass recorded.\n4. **`02_Reports` orphan folders** — audit shows `Daily/`, `Weekly/`, `Monthly/` at the `02_Reports/` root with 0 files; not written by current `research-spine-flow.mjs`. Either delete or wire up.\n5. **`migrate-content-candidates.mjs` placeholder** — sets `published_at: null` with a TODO that future publishers should populate from upstream feed metadata. Currently silent gap — content candidates have no real publish dates.\n6. **Stale puller references in docs** — `03_References/Automation Guide.md` notes prior PowerShell scripts (`Invoke-ResearchSpineRoutine.ps1`) that don't exist; minor confusion risk.\n7. **No source↔puller↔dashboard coverage validation** — 95 sources defined; ~40 pullers visible; no script verifies every active source has a `linked_puller` and that its output reaches a dashboard.\n8. **Signal retention policy location undocumented** — `f73f7bb` added retention but where the cutoff is enforced is not surfaced in `04_Reference/Vault_Schemas.md` or any README.\n9. **`freshness-source-writer --prune` has no documented error handling** — silent prune failures could leave stale Source notes mixed with current ones.\n\n### Implementation Flow Improvements\n\n1. **Per-puller error envelope** — every `pull(flags)` returns `{ok, errors[], wrote[], skipped[]}`; `run.mjs` aggregates and writes `99_System/run_summaries/YYYY-MM-DD.md` with red/green per puller.\n2. **Cadence orchestrator** — replace ad-hoc `--all` flags with declared cadences (`premarket`, `midday`, `eod`) in a single config (`99_System/config/cadences.json`) consumed by `run.mjs cadence run premarket`.\n3. **Dashboard manifest** — emit `00_Dashboard/.manifest.json` declaring which pull types feed which dashboard; audit can then verify Dataview FROM clauses match.\n4. **Spine consolidation step** — after every cadence, run a \"report rollup\" that aggregates the day's freshness deltas into a single `02_Reports/Briefings/<date>.md` so Reports density catches up to Freshness density.\n5. **Audit-driven issue log** — `audit-research-spine.mjs` should append findings to `04_Human_Notes/Inbox.md` as actionable tasks (severity + file path), not just a static manifest.\n6. **Schema lint as a gate** — `node run.mjs system validate` should block on missing required frontmatter (per `Vault_Schemas.md`) before pull notes are accepted; today drift accumulates silently.\n\n### Features to Fix / Improve\n\n1. **Signal Intelligence surfacing** — `signal-intelligence.mjs` writes a single daily note; add a Spine-side signal board page that filters by `signal_status` (clear/watch/alert/critical) and severity over a rolling window.\n2. **Portfolio Health account aggregation** — Jefferson DC + BrokerageLink need explicit aggregation rules in code, not manual CSV cleanup.\n3. **Content Candidate promotion pipeline** — `03_References/Content_Candidates/` has subfolder stubs (Posts, Books, Papers, Videos, etc.) but no promotion-status tracker; add a stuck-candidate Dataview (>30 days unreviewed) and a `published_at` backfill.\n4. **Market Feedback Loop System** — file is well-structured but referenced \"Knowledge Gap Report\" is missing; either generate it or remove the link.\n5. **KB sync verification** — `12_Knowledge_Bases/raw/` mirrors flow into the sibling `Oy` vault via `KB_VAULT_ROOT`, but no audit confirms parity. Add `system kb-audit`.\n\n### Roadmap (sequenced)\n\n**Phase A — Stabilize (1–2 days)**\n- Fix top-level error handling in `run.mjs` (per-puller envelopes + run summary).\n- Verify Phase 4 Inbox collapse; close the seed task.\n- Delete or wire up the orphan `02_Reports/{Daily,Weekly,Monthly}` folders.\n- Strip stale PowerShell references from `Automation Guide.md`.\n\n**Phase B — Validate (2–3 days)**\n- Add `system coverage-audit` (sources↔pullers↔dashboards triple-link).\n- Promote `audit-research-spine.mjs` findings into `Inbox.md` as tasks (severity-scored).\n- Add `system kb-audit` (raw mirrors ↔ canonical KB).\n- Document signal retention policy in `Vault_Schemas.md`.\n\n**Phase C — Consolidate (3–5 days)**\n- Cadence orchestrator (`cadences.json` + `run.mjs cadence run <name>`).\n- Spine rollup step that turns daily freshness deltas into one `02_Reports/Briefings/<date>.md`, fixing the asymmetric-density problem.\n- Dashboard manifest + Dataview FROM-clause validator.\n\n**Phase D — Feature (5–7 days)**\n- Signal Intelligence Spine board (rolling window filter view).\n- Content Candidate promotion tracker + `published_at` backfill.\n- Portfolio Health account aggregation rules.\n- Resolve Market Feedback Loop System gap report.\n\n---\n\n## Critical Files\n\n**My_Data**\n- `scripts/run.mjs` — CLI dispatch + error handling (Phase A bug 1).\n- `scripts/system/audit-research-spine.mjs` — promote to issue-emitter (Phase B).\n- `scripts/system/migrate-content-candidates.mjs` — `published_at` backfill (Phase D).\n- `scripts/system/freshness-source-writer.mjs` — prune error handling (Phase A).\n- `scripts/pullers/research-spine-flow.mjs` — add rollup mode (Phase C).\n- `scripts/pullers/signal-intelligence.mjs` — Spine-side board (Phase D).\n- `scripts/pullers/portfolio-health.mjs` — account aggregation (Phase D).\n- `04_Reference/Vault_Schemas.md` — document retention policy (Phase B).\n- `99_System/config/cadences.json` (NEW) — Phase C.\n\n**The Research Spine**\n- `00_Home/Research Spine Dashboard.md`, `Today.md` — Dataview validation after manifest (Phase C).\n- `02_Reports/{Daily,Weekly,Monthly}/` — delete or populate (Phase A).\n- `03_References/Automation Guide.md` — strip PS references (Phase A).\n- `03_References/Market_Feedback_Loop_System/Market Feedback Loop System.md` — resolve broken link (Phase D).\n- `04_Human_Notes/Inbox.md` — confirm Phase 4 collapse (Phase A); audit findings sink (Phase B).\n\n---\n\n## Verification\n\nAfter each phase:\n1. `node run.mjs system validate` — schema gate must pass.\n2. `node run.mjs system audit` (or `audit-research-spine.mjs`) — diff against prior manifest in `99_System/inventory/`.\n3. `node run.mjs cadence run premarket` (Phase C) — observe new run summary file lists every puller as ok/error.\n4. Open Spine `00_Home/Research Spine Dashboard.md` in Obsidian; Dataview queries must render with no \"no results\" surprises that aren't intentional.\n5. `02_Reports/Briefings/<today>.md` should exist after a cadence run (Phase C onward) — proves asymmetric-density fix.\n\n**Reuse:** existing patterns in `audit-research-spine.mjs` (manifest writer), `freshness-source-writer.mjs` (group-by-frontmatter), and `run.mjs` deprecation aliases — extend, don't reinvent.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:53:23.758Z"
+    },
+    {
+      "id": "bd32d456-1cc9-4a65-965d-fef6ef59bc08",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Fj6sHpJC4U34WobKo26Xj8",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:ExitPlanMode",
+            "max_results": 1
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:54:22.586Z"
+    },
+    {
+      "id": "a43218b5-d46b-4f17-b889-97e0d3b56c07",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017hLPhresphQTfPuU87Zk38",
+          "title": "Exited Plan Mode",
+          "status": "completed",
+          "kind": "switch_mode",
+          "content": [],
+          "rawInput": {
+            "plan": "# Vault Audit & Roadmap — My_Data + The Research Spine\n\n**Date:** 2026-05-07\n**Scope:** Audit both vaults starting from CLAUDE.md/AGENTS.md, review the pull system, surface bugs/improvements/roadmap.\n\n---\n\n## Context\n\nTwo-vault architecture:\n\n- **`My_Data`** — engine vault. ~40 pullers under `scripts/pullers/`, 95 defined data sources, 4,831 timestamped raw pull notes in `05_Data_Pulls/`, KB mirrors in `12_Knowledge_Bases/raw/`. CLI is `node run.mjs <group> <subcmd>`. `AGENTS.md` is canonical; `CLAUDE.md` is a shim.\n- **`The Research Spine`** — link-only human review layer. 498 notes, 0 executable scripts (verified). Sections `00_Home`, `01_Freshness`, `02_Reports`, `03_References`, `04_Human_Notes`, `99_System`. `AGENTS.md` is canonical and aligned with `My_Data` boundaries.\n\nRecent feature velocity (last 2 weeks, commits `f73f7bb`→`716399c`) added signal lifecycle, convergence scan, retention policy, dashboard freshness filters, and three new pullers: `signal-intelligence.mjs`, `research-spine-flow.mjs`, `portfolio-health.mjs`. The Spine vault was refactored on 2026-05-07 (Phase 4 collapse: 3 human-note folders → single `Inbox.md`).\n\nThe user reports the Spine is \"losing organization shape.\" The latest audit (`99_System/inventory/research-spine-audit-20260507.md`) confirms **asymmetric density**: `03_References` has 390 files, `01_Freshness` 68, but `02_Reports` only 10 — auto-generated freshness without commensurate report consolidation creates a raw pile despite link-first policy.\n\nGoal: punch list of bugs to fix, flow improvements, feature work, and a sequenced roadmap.\n\n---\n\n## Findings\n\n### Bugs / Defects\n\n1. **No partial-failure recovery in `scripts/run.mjs`** — top-level `catch(err)` aborts the whole run; one failing puller in a daily cadence kills downstream. Needs per-puller try/catch + structured failure log.\n2. **`audit-research-spine.mjs` is read-only** — flags broken links, orphan folders, schema drift, but never auto-fixes or opens issues; findings rot in `99_System/inventory/`.\n3. **Phase 4 Inbox collapse unverified** — `04_Human_Notes/Inbox.md` has a seed task \"confirm Phase 4 collapse worked\"; Dataview queries on Dashboard reference the unified path but no test pass recorded.\n4. **`02_Reports` orphan folders** — audit shows `Daily/`, `Weekly/`, `Monthly/` at the `02_Reports/` root with 0 files; not written by current `research-spine-flow.mjs`. Either delete or wire up.\n5. **`migrate-content-candidates.mjs` placeholder** — sets `published_at: null` with a TODO that future publishers should populate from upstream feed metadata. Currently silent gap — content candidates have no real publish dates.\n6. **Stale puller references in docs** — `03_References/Automation Guide.md` notes prior PowerShell scripts (`Invoke-ResearchSpineRoutine.ps1`) that don't exist; minor confusion risk.\n7. **No source↔puller↔dashboard coverage validation** — 95 sources defined; ~40 pullers visible; no script verifies every active source has a `linked_puller` and that its output reaches a dashboard.\n8. **Signal retention policy location undocumented** — `f73f7bb` added retention but where the cutoff is enforced is not surfaced in `04_Reference/Vault_Schemas.md` or any README.\n9. **`freshness-source-writer --prune` has no documented error handling** — silent prune failures could leave stale Source notes mixed with current ones.\n\n### Implementation Flow Improvements\n\n1. **Per-puller error envelope** — every `pull(flags)` returns `{ok, errors[], wrote[], skipped[]}`; `run.mjs` aggregates and writes `99_System/run_summaries/YYYY-MM-DD.md` with red/green per puller.\n2. **Cadence orchestrator** — replace ad-hoc `--all` flags with declared cadences (`premarket`, `midday`, `eod`) in a single config (`99_System/config/cadences.json`) consumed by `run.mjs cadence run premarket`.\n3. **Dashboard manifest** — emit `00_Dashboard/.manifest.json` declaring which pull types feed which dashboard; audit can then verify Dataview FROM clauses match.\n4. **Spine consolidation step** — after every cadence, run a \"report rollup\" that aggregates the day's freshness deltas into a single `02_Reports/Briefings/<date>.md` so Reports density catches up to Freshness density.\n5. **Audit-driven issue log** — `audit-research-spine.mjs` should append findings to `04_Human_Notes/Inbox.md` as actionable tasks (severity + file path), not just a static manifest.\n6. **Schema lint as a gate** — `node run.mjs system validate` should block on missing required frontmatter (per `Vault_Schemas.md`) before pull notes are accepted; today drift accumulates silently.\n\n### Features to Fix / Improve\n\n1. **Signal Intelligence surfacing** — `signal-intelligence.mjs` writes a single daily note; add a Spine-side signal board page that filters by `signal_status` (clear/watch/alert/critical) and severity over a rolling window.\n2. **Portfolio Health account aggregation** — Jefferson DC + BrokerageLink need explicit aggregation rules in code, not manual CSV cleanup.\n3. **Content Candidate promotion pipeline** — `03_References/Content_Candidates/` has subfolder stubs (Posts, Books, Papers, Videos, etc.) but no promotion-status tracker; add a stuck-candidate Dataview (>30 days unreviewed) and a `published_at` backfill.\n4. **Market Feedback Loop System** — file is well-structured but referenced \"Knowledge Gap Report\" is missing; either generate it or remove the link.\n5. **KB sync verification** — `12_Knowledge_Bases/raw/` mirrors flow into the sibling `Oy` vault via `KB_VAULT_ROOT`, but no audit confirms parity. Add `system kb-audit`.\n\n### Roadmap (sequenced)\n\n**Phase A — Stabilize (1–2 days)**\n- Fix top-level error handling in `run.mjs` (per-puller envelopes + run summary).\n- Verify Phase 4 Inbox collapse; close the seed task.\n- Delete or wire up the orphan `02_Reports/{Daily,Weekly,Monthly}` folders.\n- Strip stale PowerShell references from `Automation Guide.md`.\n\n**Phase B — Validate (2–3 days)**\n- Add `system coverage-audit` (sources↔pullers↔dashboards triple-link).\n- Promote `audit-research-spine.mjs` findings into `Inbox.md` as tasks (severity-scored).\n- Add `system kb-audit` (raw mirrors ↔ canonical KB).\n- Document signal retention policy in `Vault_Schemas.md`.\n\n**Phase C — Consolidate (3–5 days)**\n- Cadence orchestrator (`cadences.json` + `run.mjs cadence run <name>`).\n- Spine rollup step that turns daily freshness deltas into one `02_Reports/Briefings/<date>.md`, fixing the asymmetric-density problem.\n- Dashboard manifest + Dataview FROM-clause validator.\n\n**Phase D — Feature (5–7 days)**\n- Signal Intelligence Spine board (rolling window filter view).\n- Content Candidate promotion tracker + `published_at` backfill.\n- Portfolio Health account aggregation rules.\n- Resolve Market Feedback Loop System gap report.\n\n---\n\n## Critical Files\n\n**My_Data**\n- `scripts/run.mjs` — CLI dispatch + error handling (Phase A bug 1).\n- `scripts/system/audit-research-spine.mjs` — promote to issue-emitter (Phase B).\n- `scripts/system/migrate-content-candidates.mjs` — `published_at` backfill (Phase D).\n- `scripts/system/freshness-source-writer.mjs` — prune error handling (Phase A).\n- `scripts/pullers/research-spine-flow.mjs` — add rollup mode (Phase C).\n- `scripts/pullers/signal-intelligence.mjs` — Spine-side board (Phase D).\n- `scripts/pullers/portfolio-health.mjs` — account aggregation (Phase D).\n- `04_Reference/Vault_Schemas.md` — document retention policy (Phase B).\n- `99_System/config/cadences.json` (NEW) — Phase C.\n\n**The Research Spine**\n- `00_Home/Research Spine Dashboard.md`, `Today.md` — Dataview validation after manifest (Phase C).\n- `02_Reports/{Daily,Weekly,Monthly}/` — delete or populate (Phase A).\n- `03_References/Automation Guide.md` — strip PS references (Phase A).\n- `03_References/Market_Feedback_Loop_System/Market Feedback Loop System.md` — resolve broken link (Phase D).\n- `04_Human_Notes/Inbox.md` — confirm Phase 4 collapse (Phase A); audit findings sink (Phase B).\n\n---\n\n## Verification\n\nAfter each phase:\n1. `node run.mjs system validate` — schema gate must pass.\n2. `node run.mjs system audit` (or `audit-research-spine.mjs`) — diff against prior manifest in `99_System/inventory/`.\n3. `node run.mjs cadence run premarket` (Phase C) — observe new run summary file lists every puller as ok/error.\n4. Open Spine `00_Home/Research Spine Dashboard.md` in Obsidian; Dataview queries must render with no \"no results\" surprises that aren't intentional.\n5. `02_Reports/Briefings/<today>.md` should exist after a cadence run (Phase C onward) — proves asymmetric-density fix.\n\n**Reuse:** existing patterns in `audit-research-spine.mjs` (manifest writer), `freshness-source-writer.mjs` (group-by-frontmatter), and `run.mjs` deprecation aliases — extend, don't reinvent.\n",
+            "planFilePath": "C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Plan approved. Ready to start on Phase A whenever you give the go — typical entry would be:\n\n1. `scripts/run.mjs` per-puller error envelope + run-summary writer.\n2. Verify Phase 4 Inbox collapse and close the seed task.\n3. Decide: delete vs. wire up orphan `02_Reports/{Daily,Weekly,Monthly}/`.\n4. Strip stale PowerShell references from `03_References/Automation Guide.md`.\n\nWant me to kick off Phase A in order, or start with a specific item?"
+        }
+      ],
+      "timestamp": "2026-05-07T19:54:28.316Z"
+    },
+    {
+      "id": "783d802a-fcc1-4b82-94d4-5df084cb6fca",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Use subagents with Sonnet to complete the plan",
+          "autoMentionContext": {
+            "noteName": "CLAUDE",
+            "notePath": "CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:56:42.080Z"
+    },
+    {
+      "id": "4dba299a-5368-4686-8487-d4033689a4a1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Launching Phase A in parallel — 4 Sonnet subagents on independent tasks."
+        }
+      ],
+      "timestamp": "2026-05-07T19:56:44.253Z"
+    },
+    {
+      "id": "2f7f9641-0d39-4a80-bdaf-355e39bc060e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VqWzvd8jNPcxR5PJzMZG5a",
+          "title": "Phase A1: per-puller error envelope in run.mjs",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase A1: per-puller error envelope in run.mjs",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase A1 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first for full context).\n\n**Task:** Add per-puller error envelope + structured run-summary to `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\run.mjs`.\n\n**Goal:** Today, one failing puller in a daily cadence kills the whole run because of a top-level catch in run.mjs. Fix this so each puller's failure is captured but downstream pullers still execute.\n\n**Steps:**\n1. Read `scripts/run.mjs`, `scripts/lib/` helpers, and 2-3 representative pullers (e.g., `scripts/pullers/signal-intelligence.mjs`, `scripts/pullers/research-spine-flow.mjs`, `scripts/pullers/freshness-source-writer.mjs` — actually that one is in scripts/system) to understand the current return shape from `pull(flags)`.\n2. Define a normalized envelope `{ok: boolean, name: string, wrote: string[], skipped: string[], errors: Array<{message, stack?}>, durationMs: number}`. Pullers that already return data can be wrapped — don't force-rewrite every puller. The wrapper in `run.mjs` should normalize whatever they return and catch thrown errors into `errors[]`.\n3. When run.mjs is invoked with a multi-puller mode (e.g., `--all`, or a list), run each puller in sequence inside an individual try/catch. Aggregate envelopes.\n4. Write a run summary to `99_System/run_summaries/YYYY-MM-DD_HH-MM.md` with frontmatter `type: run_summary`, a markdown table of (puller, ok, wrote count, errors, duration), and a section listing each error with stack trace.\n5. Process exit code: 0 if all ok, 1 if any error (so cron / CI still notices), but only AFTER all pullers have run.\n6. Preserve existing single-puller behavior (no summary file overhead for single runs unless `--summary` flag passed).\n7. Do not break existing CLI signatures. The `system validate`, `system status`, deprecation aliases must still work.\n\n**Constraints:**\n- Immutable patterns: don't mutate the envelope after creation; use `{...env, errors: [...env.errors, e]}` style.\n- Match existing code style (look at `scripts/lib/` for conventions).\n- Keep changes surgical. No refactor of unrelated code.\n- Read `My_Data/AGENTS.md` for any project conventions before writing.\n\n**Verify:**\n- Run `node run.mjs system validate` from `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data` — must still pass.\n- If feasible, dry-run a multi-puller invocation and confirm the summary file appears.\n- Use Bash for git status to confirm only intended files changed.\n\nReport back: files changed (with line counts), summary of envelope shape, any decisions made.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:56:56.925Z"
+    },
+    {
+      "id": "b9f27ef3-576f-4270-a574-a28d53c8e5b6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_014eqgtRZmgewx91DGCVNJfT",
+          "title": "Phase A2: verify Phase 4 Inbox collapse",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase A2: verify Phase 4 Inbox collapse",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase A2 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Verify the Phase 4 Inbox collapse in The Research Spine and close the seed task.\n\n**Background:** On 2026-05-07 the vault `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\` was collapsed from three subfolders (Decisions, Inbox, Questions) into a single `Inbox.md`. Dashboards and Dataview queries should now reference the unified file. There is a seed task in Inbox.md \"confirm Phase 4 collapse worked\" that needs verification.\n\n**Steps:**\n1. List `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\` and confirm only `Inbox.md` (and possibly README) exists. If any of the old Decisions/Questions folders linger empty, note them.\n2. Read `04_Human_Notes\\Inbox.md` to find the seed confirmation task.\n3. Grep across the Spine vault for any references to the old paths: `04_Human_Notes/Decisions`, `04_Human_Notes/Questions`, `04_Human_Notes/Inbox/` (with trailing slash, suggesting folder). Use Grep tool.\n4. Read `00_Home/Research Spine Dashboard.md` and `00_Home/Today.md` — verify their Dataview queries point to the unified Inbox.md, not old folders.\n5. Read `03_References/Automation Guide.md` for any stale references.\n6. If everything checks out: edit `Inbox.md` to mark the seed task complete (Obsidian task syntax: `- [x] confirm Phase 4 collapse worked` instead of `- [ ]`). Add a one-line dated note confirming the verification (e.g., `Phase 4 verified 2026-05-07 — Dashboard + Today queries point to unified Inbox.md, no orphan references found.`).\n7. If you find broken references, fix them in-place (replace old paths with `04_Human_Notes/Inbox.md`).\n\n**Constraints:**\n- Read-only or minimal-edit only. Do not move/delete files.\n- Use Edit tool, not Write, for modifying existing notes.\n- Preserve frontmatter exactly.\n\n**Verify:**\n- After your edits, re-grep to confirm zero references to old subfolder paths.\n- Report each file you touched with the specific change.\n\nReport back: verification results, any broken references found, files edited.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:57:13.753Z"
+    },
+    {
+      "id": "df5a8644-ae8b-4d50-aa01-f3e01a991ec7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017bSyqwLNrio97qA2ZwYxin",
+          "title": "Phase A3: orphan 02_Reports folders",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase A3: orphan 02_Reports folders",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase A3 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Resolve orphan folders at `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\02_Reports\\` — specifically `Daily/`, `Weekly/`, `Monthly/`. The latest audit (`99_System/inventory/research-spine-audit-20260507.md`) shows these have 0 files and are not written by current `research-spine-flow.mjs` (which writes to `Briefings/Daily`, `Briefings/EndOfDay`, and `Monitoring/*`).\n\n**Decision:** Delete the empty orphan folders. They predate the current report tree and create operator confusion. The active report tree is `Briefings/{Daily,EndOfDay}` and `Monitoring/{Premarket,Daily,Midday,Preclose,EndOfDay}`.\n\n**Steps:**\n1. Verify each orphan folder is truly empty: list `02_Reports\\Daily\\`, `02_Reports\\Weekly\\`, `02_Reports\\Monthly\\`. If ANY of them contain notes (even README), STOP and report — do not delete. Auto mode does not authorize destruction of content.\n2. If all three are empty (0 files including no README, no .canvas, no .base):\n   - Use PowerShell `Remove-Item -Path \"...\" -Force` (no `-Recurse` needed if truly empty; use `-Recurse` only if directory has empty subdirs).\n   - Path each one absolutely: `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\02_Reports\\Daily`, etc.\n3. Search for any references to these orphan paths in the vault: Grep for `02_Reports/Daily`, `02_Reports/Weekly`, `02_Reports/Monthly` (excluding the live `Briefings/Daily` path) across `.md` files in both vaults. Fix or remove stale references.\n4. Check `scripts/pullers/research-spine-flow.mjs` for any code that targets these orphan paths — there should be none, but verify.\n\n**Constraints:**\n- If a folder has even one file, do NOT delete. Report and stop.\n- Do not delete any other folders.\n- Preserve `02_Reports\\Briefings\\` and `02_Reports\\Monitoring\\` entirely.\n\n**Verify:**\n- After deletion, re-list `02_Reports\\` to confirm only `Briefings\\` and `Monitoring\\` remain (plus any README at the level).\n- Re-grep for orphan path references.\n\nReport back: which folders deleted (or skipped), any references fixed, final state of `02_Reports\\`.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:57:26.500Z"
+    },
+    {
+      "id": "aa34009f-17ca-4cc2-8850-bfa7453497ba",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Rnc7reqvEcyYkh66vyHk7S",
+          "title": "Phase A4: strip stale PS references",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase A4: strip stale PS references",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase A4 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Strip stale PowerShell script references from documentation in The Research Spine. The vault was refactored from PowerShell to Node.mjs, and lingering doc references (e.g., `Invoke-ResearchSpineRoutine.ps1`) confuse operators.\n\n**Steps:**\n1. Read `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\03_References\\Automation Guide.md`. Identify any historical PS notes (\"Earlier drafts referenced PowerShell scripts...\").\n2. Grep both vaults for stale PS references in `.md` files:\n   - `Invoke-ResearchSpineRoutine`\n   - `.ps1`\n   - `PowerShell` (case insensitive)\n   - `pwsh` (avoid false positives — only flag in automation/operator context)\n3. For each stale reference:\n   - If it's a \"this script doesn't exist anymore\" warning that has served its purpose (refactor done weeks ago), remove the historical paragraph cleanly.\n   - If it's an actual usage instruction pointing to a non-existent .ps1, replace with the current `node run.mjs ...` equivalent (consult `Automation Guide.md` for the canonical CLI mapping).\n   - If the reference is in archived inventory or run_summaries (under `99_System/`), leave it — those are historical records, not operator docs.\n4. Preserve the structure and frontmatter of each file. Use Edit tool with surgical replacements.\n\n**Constraints:**\n- Don't touch `99_System/inventory/`, `99_System/archive/`, or `99_System/run_summaries/` files (historical).\n- Don't touch `My_Data` scripts unless a doc IN `The Research Spine` points to a stale script there.\n- Don't introduce broken anchors — if you delete a section, also delete any TOC entries pointing to it.\n\n**Verify:**\n- Re-grep after edits — no stale references should remain in operator-facing docs.\n- Re-read the modified `Automation Guide.md` to confirm flow still makes sense.\n\nReport back: files edited with line-level summary of changes, list of historical references intentionally preserved.",
+            "run_in_background": true
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-05-07T19:57:39.459Z"
+    },
+    {
+      "id": "ad6b83ba-ac03-4b31-bf23-d15dfa192a9f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VgvcEnEqbGXj9vw7hv9H1y",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:TodoWrite",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Phase A1: per-puller error envelope in run.mjs",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase A2: verify Phase 4 Inbox collapse",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase A3: resolve orphan 02_Reports folders",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase A4: strip stale PowerShell references",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B1: source↔puller↔dashboard coverage-audit",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase B2: promote audit findings into Inbox.md",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase B3: kb-audit (raw mirrors ↔ canonical KB)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase B4: document signal retention policy in Vault_Schemas.md",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase C1: cadence orchestrator (cadences.json + run.mjs cadence run)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase C2: Spine rollup step (daily Briefings consolidation)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase C3: dashboard manifest + Dataview FROM-clause validator",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D1: Signal Intelligence Spine board",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D2: Content Candidate promotion tracker + published_at backfill",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D3: Portfolio Health account aggregation rules",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D4: resolve Market Feedback Loop System gap report link",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Phase A is running in parallel across 4 background subagents. I'll launch Phase B in parallel now since B's tasks (coverage-audit, kb-audit, retention docs, audit-to-inbox) are independent of A's error envelope work."
+        }
+      ],
+      "timestamp": "2026-05-07T19:57:56.025Z"
+    },
+    {
+      "id": "51785026-4cf6-4122-bfd0-f274c5566410",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019hEnwZMKTkTnsnRFHjdyQr",
+          "title": "Phase B1: source-puller-dashboard coverage audit",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase B1: source-puller-dashboard coverage audit",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase B1 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first for full context).\n\n**Task:** Add a new system command `coverage-audit` that verifies the triple-link integrity: every defined data source has a registered puller, every puller has an active source note, and every output type reaches at least one dashboard.\n\n**Background:**\n- 95 data sources are defined under `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\01_Data_Sources/` (frontmatter `name`, `category`, `linked_puller`, `status`).\n- ~40 puller modules under `scripts/pullers/` export `pull(flags)`.\n- Dashboards under `00_Dashboard/*.md` use Dataview queries pulling from `05_Data_Pulls/` via FROM clauses or tag filters.\n- Schema spec lives in `04_Reference/Vault_Schemas.md`.\n\n**Steps:**\n1. Read `My_Data/AGENTS.md`, `scripts/run.mjs`, and `scripts/system/audit-research-spine.mjs` to follow conventions for creating a new system command (CLI registration, output location).\n2. Create `scripts/system/coverage-audit.mjs` that:\n   - Walks `01_Data_Sources/**/*.md`, parses frontmatter, collects `{name, category, linked_puller, status}`.\n   - Walks `scripts/pullers/*.mjs`, extracts puller name (filename without `.mjs`).\n   - Walks `00_Dashboard/*.md` and `00_Dashboard/**/*.canvas` (canvas refs in plain text), greps for FROM clauses, tags, and pull-type references.\n   - Computes three sets:\n     - **Source→Puller gap**: active sources (status != deprecated) with no `linked_puller` or whose `linked_puller` does not match an existing .mjs.\n     - **Puller→Source gap**: pullers with no source note linking them.\n     - **Output→Dashboard gap**: pullers whose output (typically writes to `05_Data_Pulls/<category>/...`) has no dashboard referencing that category or pull type.\n   - Writes `99_System/inventory/coverage-audit-YYYYMMDD.md` with frontmatter `type: coverage_audit`, three sections (one per gap), markdown tables listing the offenders, and a summary count line.\n3. Register the command. If `run.mjs` already has a `system` group dispatching to `scripts/system/<name>.mjs`, follow that pattern. CLI form: `node run.mjs system coverage-audit`.\n4. Add a one-line entry to `My_Data/AGENTS.md` under whatever section documents system commands (probably an operations/commands section). Use Edit tool.\n\n**Constraints:**\n- Read-only scan; do not modify source notes, pullers, or dashboards.\n- Match the style and helper patterns of existing system scripts (look at `audit-research-spine.mjs` for manifest-writer conventions).\n- Use only Node built-ins (fs, path) — do not add dependencies.\n- Be defensive: malformed frontmatter should be reported, not crash.\n\n**Verify:**\n- Run `node run.mjs system coverage-audit` from `My_Data/`. The output file should appear under `99_System/inventory/`. Read it.\n- Run `node run.mjs system validate` to confirm you didn't break the schema gate.\n- Report counts of the three gap sets.\n\nReport back: files created/modified, command registration approach, gap counts found.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:58:13.868Z"
+    },
+    {
+      "id": "6b39c86a-2150-4a6c-9508-6a263ab1dd84",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BqgGt994TsZeLzNaux5apV",
+          "title": "Phase B2: audit findings to Inbox",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase B2: audit findings to Inbox",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase B2 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Promote `audit-research-spine.mjs` from a static manifest writer into an issue-emitter that appends actionable tasks to `04_Human_Notes/Inbox.md` in The Research Spine.\n\n**Background:** Today `scripts/system/audit-research-spine.mjs` writes `99_System/inventory/research-spine-audit-YYYYMMDD.md` with broken-link counts, orphan folders, schema drift, plugin checks. The findings rot — operators don't see them. The Inbox.md is where actionable tasks live.\n\n**Steps:**\n1. Read `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\system\\audit-research-spine.mjs` carefully to understand the existing finding structure.\n2. Read the most recent audit output at `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\99_System\\inventory\\research-spine-audit-20260507.md` to see the current finding shape.\n3. Read `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\The Research Spine\\04_Human_Notes\\Inbox.md` to understand its current format (Obsidian Tasks `- [ ]` syntax).\n4. Modify `audit-research-spine.mjs` so that, in addition to writing the manifest:\n   - It computes a list of \"actionable findings\": broken wiki-links (each one), orphan folders, hostile filenames, cache-leakage notes, frontmatter coverage gaps, source notes missing required fields. Each finding gets a severity (`critical`, `high`, `medium`, `low`).\n   - It appends these to `Inbox.md` under a heading `## Audit Findings — YYYY-MM-DD` using Obsidian Tasks syntax: `- [ ] [audit/<severity>] <finding> ([[link to file]])`.\n   - It is **idempotent** — if a heading for today's date already exists, replace that section rather than appending duplicates. If a finding from a previous date is now resolved, leave the prior heading alone (history record).\n   - Add a CLI flag `--no-inbox` to suppress the Inbox write (useful for CI dry-runs). Default: write enabled.\n5. The manifest file write stays as-is. This is purely additive.\n\n**Constraints:**\n- Use the audit's existing finding-collection logic. Do not duplicate scanning.\n- Inbox.md must keep its existing frontmatter and prior content untouched.\n- Section heading scheme must be deterministic so re-runs don't append duplicates.\n- Don't crash if Inbox.md is missing — log a warning and skip.\n\n**Verify:**\n- Run `node run.mjs system audit-research-spine` (or whatever the current invocation is — read `run.mjs` to find it). Confirm Inbox.md gets a fresh `## Audit Findings — 2026-05-07` section.\n- Run again — confirm the section is replaced, not duplicated.\n- Run with `--no-inbox` — confirm Inbox.md is untouched.\n\nReport back: files modified, severity classification used, finding count appended.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:58:33.325Z"
+    },
+    {
+      "id": "22850afc-4d01-4e80-8dc3-f057b49ae4e0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WUtGVozVPwNKGMVLkue1v4",
+          "title": "Phase B3: kb-audit raw vs canonical",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase B3: kb-audit raw vs canonical",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase B3 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add `system kb-audit` — verifies parity between My_Data's `12_Knowledge_Bases/raw/` mirrors and the canonical KB in the sibling `Oy` vault routed via `KB_VAULT_ROOT` env var.\n\n**Background:**\n- Pullers write KB articles to `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\12_Knowledge_Bases\\raw\\<category>\\YYYY-MM-DD_<name>.md`.\n- A separate process syncs to a canonical KB vault. Path is configurable via `KB_VAULT_ROOT` env var; check `My_Data/AGENTS.md` and grep the `scripts/` tree for `KB_VAULT_ROOT` usage.\n- No audit currently confirms parity — orphans accumulate silently.\n\n**Steps:**\n1. Grep `My_Data/scripts/` for `KB_VAULT_ROOT` and any existing KB sync code to understand the canonical location and routing rules. Read `AGENTS.md` for any KB notes.\n2. If `KB_VAULT_ROOT` is unset at runtime, default to checking only the local mirror's internal consistency (no orphan/duplicate detection within `raw/<category>/`).\n3. Create `scripts/system/kb-audit.mjs` that:\n   - Walks `12_Knowledge_Bases/raw/**/*.md`, collects (relative path, content hash via simple SHA-256 of body, frontmatter `title` + `date_pulled`).\n   - If `KB_VAULT_ROOT` is set and the path exists, walks the canonical KB tree. Computes the same map.\n   - Reports:\n     - **Raw → Canonical missing**: files in `raw/` not present in canonical (need sync).\n     - **Canonical → Raw orphan**: files in canonical with no matching raw mirror (stale, orphaned).\n     - **Hash mismatch**: same path, different content (drift).\n     - **Internal duplicates within raw/**: same `(category, name)` pair appearing under multiple dates beyond expected timestamping.\n   - Writes `99_System/inventory/kb-audit-YYYYMMDD.md` with the four sections.\n4. Register as `node run.mjs system kb-audit`. Follow the same registration pattern used for `audit-research-spine`.\n5. Document the command + the `KB_VAULT_ROOT` env var dependency in a one-paragraph note in `My_Data/AGENTS.md`.\n\n**Constraints:**\n- Read-only — do not move, copy, or sync files. This is verification, not repair.\n- Use only Node built-ins (fs, crypto, path).\n- Hash only the body (after the closing frontmatter `---`), not frontmatter, so timestamp-only differences don't trigger false-positive drift.\n- Be cross-platform safe with paths (use `path.posix.normalize` for comparison keys).\n\n**Verify:**\n- Run `node run.mjs system kb-audit` from `My_Data/`. Read the output file.\n- Run with `KB_VAULT_ROOT` unset — confirm graceful degradation (only internal report, no crash).\n- Run `node run.mjs system validate` to confirm no schema regression.\n\nReport back: files created, what `KB_VAULT_ROOT` resolves to in the local env (or unset), raw-mirror count, parity counts if canonical was reachable.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:58:49.509Z"
+    },
+    {
+      "id": "2139af9b-7c1f-4545-8d00-d1c43bdf850c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HSGAg1oYzorCK1xTAhRDJo",
+          "title": "Phase B4: document signal retention policy",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase B4: document signal retention policy",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase B4 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Find and document the Signal Intelligence retention policy in `04_Reference/Vault_Schemas.md` so operators understand the lifecycle.\n\n**Background:** Commit `f73f7bb` added \"signal lifecycle, convergence scan, scoring config, retention policy, dashboard freshness filters\" but the retention rule (how long signals live, what triggers archival) is not surfaced in any operator-facing doc. Today, where the cutoff is enforced is unknown.\n\n**Steps:**\n1. In `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data`, locate retention enforcement:\n   - Grep `scripts/` for `retention`, `archive`, `staleAfter`, `expireAfter`, `maxAge`, `daysOld`, `prune` (case insensitive).\n   - Inspect `99_System/config/*.json` for retention configs (e.g., `signal-lifecycle.config.json`, `signal-scoring.config.json`, similar).\n   - Read `scripts/pullers/signal-intelligence.mjs` and any `scripts/lib/signal-*.mjs` files.\n2. Capture in plain English:\n   - Where retention is configured (file path).\n   - The actual cutoff values (days, count, status-based).\n   - Which script enforces it (puller? system command? cron?).\n   - What \"expired\" means in practice — moved to archive folder, frontmatter mutated to `signal_status: archived`, or just hidden by Dataview filter?\n3. Read `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\04_Reference\\Vault_Schemas.md` to see its style and where to slot a new section.\n4. Add a section titled `## Signal Retention Policy` (or insert under the existing signal-related section if one exists). Include:\n   - Configuration file path.\n   - Default values.\n   - Enforcement mechanism (script + invocation).\n   - How to override / tune.\n   - A one-line note about what \"archived\" means.\n5. If nothing concrete exists in code (retention was added as scaffold only and isn't actually enforced), say so explicitly — write a section that documents the intended policy from `f73f7bb` plus a clear `Status: not yet enforced` note. Do NOT invent values.\n\n**Constraints:**\n- Use Edit tool on the existing schemas file. Do not rewrite untouched sections.\n- Preserve existing frontmatter and heading hierarchy.\n- Match the document's voice (declarative, schema-spec style, no marketing).\n\n**Verify:**\n- Re-read the modified section to confirm clarity.\n- Run `node run.mjs system validate` from `My_Data/` — schema doc edits shouldn't affect validation, but confirm.\n\nReport back: location of retention enforcement (file paths), the documented policy text added, and whether enforcement is real or aspirational.",
+            "run_in_background": true
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Phase A1: per-puller error envelope in run.mjs",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase A2: verify Phase 4 Inbox collapse",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase A3: resolve orphan 02_Reports folders",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase A4: strip stale PowerShell references",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase B1: source↔puller↔dashboard coverage-audit",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B2: promote audit findings into Inbox.md",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B3: kb-audit (raw mirrors ↔ canonical KB)",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B4: document signal retention policy in Vault_Schemas.md",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase C1: cadence orchestrator (cadences.json + run.mjs cadence run)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase C2: Spine rollup step (daily Briefings consolidation)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase C3: dashboard manifest + Dataview FROM-clause validator",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D1: Signal Intelligence Spine board",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D2: Content Candidate promotion tracker + published_at backfill",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D3: Portfolio Health account aggregation rules",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D4: resolve Market Feedback Loop System gap report link",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Phase A: 3/4 done. A1 (run.mjs error envelope) still running. All 4 Phase B agents running in parallel.\n\n`★ Insight ─────────────────────────────────────`\n- A2 caught two stale .ps1 scripts in `99_System/scripts/` that A4 missed (A4 only scanned .md files). These got fixed in-place by A2 even though they're partially frozen — net win for vault hygiene.\n- A3 was a no-op: orphan folders had already been cleaned in a prior session. The audit document was reading a stale snapshot. Worth tightening the audit timestamping.\n`─────────────────────────────────────────────────`\n\nI'll launch Phase C now since C1 (cadence orchestrator) builds on A1's error envelope but can be developed independently — the cadence runner just composes pullers and consumes whatever envelope shape A1 lands on. C2 (Spine rollup) and C3 (dashboard manifest) are independent."
+        }
+      ],
+      "timestamp": "2026-05-07T19:59:07.061Z"
+    },
+    {
+      "id": "042d0d80-200d-446c-b755-7bfa3542ca08",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0167Q4Y3kCPqQ4j2m9mokTwE",
+          "title": "Phase C1: cadence orchestrator",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase C1: cadence orchestrator",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase C1 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add a cadence orchestrator. Replace ad-hoc `--all` flags with declared cadences (`premarket`, `midday`, `eod`, `daily`) in a config consumed by `node run.mjs cadence run <name>`.\n\n**Background:**\n- Today operators invoke pullers ad-hoc or with `--all`-style flags. There's no declared \"what runs at premarket\" specification.\n- Pullers live at `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\*.mjs`. Some that map naturally to time-of-day cadences: `signal-intelligence.mjs`, `research-spine-flow.mjs`, `freshness-source-writer.mjs`, `market-cycle-monitor.mjs`, `portfolio-health.mjs`, `streamline-report.mjs`, plus all the data-source pullers (fmp, fred, etc.).\n- Phase A1 (running in parallel) is adding a per-puller error envelope to `run.mjs`. Your cadence runner should consume that envelope shape — coordinate by reading whatever `run.mjs` looks like when you start, or if A1 isn't merged yet, define the envelope yourself per the plan: `{ok, name, wrote, skipped, errors, durationMs}`.\n\n**Steps:**\n1. Read `My_Data/AGENTS.md`, `scripts/run.mjs`, the existing `99_System/config/*.json` files, and `scripts/pullers/research-spine-flow.mjs` (which has its own multi-mode dispatch — useful inspiration).\n2. Create `99_System/config/cadences.json` with this shape:\n```json\n{\n  \"cadences\": {\n    \"premarket\": {\n      \"description\": \"Pre-open market state and overnight news\",\n      \"pullers\": [\n        { \"name\": \"fmp\", \"args\": [\"--mode=premarket\"] },\n        { \"name\": \"research-spine-flow\", \"args\": [\"--mode=premarket-monitoring\"] }\n      ]\n    },\n    \"midday\": { ... },\n    \"preclose\": { ... },\n    \"eod\": { ... },\n    \"daily\": { ... }\n  }\n}\n```\n   Populate cadences using your judgment and what `research-spine-flow.mjs` already supports for monitoring modes (premarket-monitoring, daily-monitoring, midday-monitoring, preclose-monitoring, eod-monitoring, daily-briefing, eod-briefing). Include the freshness writer in `daily` and the signal-intelligence puller in every cadence.\n3. Create `scripts/system/cadence.mjs` (or whatever fits the directory convention) exporting commands `list`, `show <name>`, `run <name>`. The `run` subcommand:\n   - Loads `cadences.json`.\n   - For each entry in the cadence's puller list, dynamic-imports `scripts/pullers/<name>.mjs` and calls `pull(args)`.\n   - Wraps each call in try/catch — collects an envelope per puller.\n   - On completion, writes the run summary (reuse Phase A1's writer if it landed, otherwise inline a minimal version writing to `99_System/run_summaries/`).\n   - Exit code 0 if all ok, 1 if any error.\n4. Register in `run.mjs`: `node run.mjs cadence list`, `node run.mjs cadence show premarket`, `node run.mjs cadence run premarket`. Match the existing system-command registration pattern.\n5. Add a section to `My_Data/AGENTS.md` documenting cadences and where to edit them.\n\n**Constraints:**\n- The cadence config is the source of truth for \"what runs when.\" Do not hardcode puller lists in the runner.\n- Idempotent: running the same cadence twice should be safe (pullers handle their own dedup via timestamped output paths).\n- Don't fail-fast: one puller's error must not stop the others.\n- Cross-platform: do not use shell forks; dynamic-import the .mjs modules directly.\n\n**Verify:**\n- `node run.mjs cadence list` — should print all cadences.\n- `node run.mjs cadence show daily` — print the cadence's puller list.\n- `node run.mjs cadence run daily` (only if safe; if this would generate real network calls, run a `--dry-run` flag if you can add one cheaply, otherwise just verify the config loads and the runner reaches the puller dispatch step).\n- `node run.mjs system validate` must still pass.\n\nReport back: files created/modified, cadence definitions chosen, any conflict with A1's error envelope shape (note that A1 is still running in parallel).",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T19:59:47.625Z"
+    },
+    {
+      "id": "d65010c5-d702-4314-a017-44183d3a2cd9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Va1JuLWqsJ3Zeru5k6CYbr",
+          "title": "Phase C2: Spine briefings rollup",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase C2: Spine briefings rollup",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase C2 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add a Spine rollup step that aggregates the day's freshness deltas into a single `02_Reports/Briefings/<date>.md` so reports density catches up with freshness density.\n\n**Background:**\n- The Spine has 60+ freshness Source notes auto-generated under `01_Freshness/Sources/` but only 3 briefings under `02_Reports/Briefings/Daily/` and `EndOfDay/`. The audit calls this \"asymmetric density\" — the raw pile feel despite link-only policy.\n- The rollup should NOT duplicate raw data. It should summarize **what changed** in freshness today (new sources, updated `signal_status`, increased `date_pulled`) and link back to source notes plus the underlying `05_Data_Pulls/` evidence in My_Data.\n- Today's writer is `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\scripts\\pullers\\research-spine-flow.mjs` (18.3 KB) — it already has multiple modes (daily-briefing, eod-briefing, premarket-monitoring, etc.).\n\n**Steps:**\n1. Read `My_Data/scripts/pullers/research-spine-flow.mjs` carefully. Understand its existing modes, frontmatter conventions, and link-back patterns.\n2. Read `My_Data/scripts/pullers/freshness-source-writer.mjs` — that's where Source notes get written. The rollup should consume the same source data.\n3. Read 2-3 existing files under `The Research Spine/02_Reports/Briefings/Daily/` and `EndOfDay/` to match style and frontmatter.\n4. Add a `rollup` mode (or a new sibling script `scripts/system/spine-rollup.mjs` — your judgment based on cohesion). It should:\n   - Load all `01_Freshness/Sources/*.md` (or recompute what `freshness-source-writer.mjs` produces).\n   - Load yesterday's rollup (if exists) for diff comparison.\n   - Compute deltas: new sources, sources whose `signal_status` changed, sources with stale `date_pulled` (older than `frequency` would suggest).\n   - Group by domain (`market`, `macro`, `government`, `biotech`, `energy`, etc.).\n   - Write `02_Reports/Briefings/<YYYY-MM-DD>.md` (or `Daily/<YYYY-MM-DD>.md` — match whichever convention the existing flow uses) with frontmatter `type: briefing_rollup`, sections:\n     - Summary (one sentence per domain).\n     - Status Changes (alerts/critical first).\n     - New Sources Added Today.\n     - Stale Sources (overdue).\n     - Links section pointing back to source notes and underlying My_Data evidence.\n5. The rollup must be idempotent: running twice in a day should overwrite, not duplicate.\n6. Register the invocation: either as a new mode of `research-spine-flow` (`--mode=rollup`) or as `node run.mjs system spine-rollup`. Pick whichever fits cleaner.\n7. Update `The Research Spine/03_References/Automation Guide.md` with a one-paragraph entry describing the new rollup.\n\n**Constraints:**\n- Link-only policy: do not embed raw API payloads or duplicate freshness content. Use `[[wiki-links]]` and `obsidian://` URIs.\n- Don't write to `99_System/` from this rollup (that's audit territory).\n- Frontmatter must follow the schema convention in `My_Data/04_Reference/Vault_Schemas.md` — read it first.\n- Be defensive about missing yesterday's rollup (first run should produce a baseline without diff).\n\n**Verify:**\n- Run the rollup. Confirm the briefing file appears with the expected sections.\n- Run twice — confirm overwrite (not duplicate).\n- Check that wiki-links resolve — at least eyeball a few paths.\n- Run `node run.mjs system validate` — must pass.\n- Run the existing `audit-research-spine` afterward to confirm the new file is recognized as \"live tree\" and not an orphan.\n\nReport back: files created/modified, mode/registration choice, sample of deltas detected.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T20:00:12.159Z"
+    },
+    {
+      "id": "88bada6e-476c-4879-ba1e-dc3d3eb196ac",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TNDvi6jpagg5LWm9zkyAEv",
+          "title": "Phase C3: dashboard manifest",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase C3: dashboard manifest",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase C3 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Create a dashboard manifest declaring which pull types feed which dashboard, plus a Dataview FROM-clause validator.\n\n**Background:**\n- `C:\\Users\\CaveUser\\Documents\\Obsidian Vault\\My_Data\\00_Dashboard\\` contains markdown dashboards with Dataview queries pulling from `05_Data_Pulls/` and tag-based filters. When pull schemas drift, dashboards silently break (\"no results\" surprises).\n- A manifest at `00_Dashboard/.manifest.json` declaring \"Dashboard X consumes pull types {Y, Z}\" lets a validator check that (a) the FROM clause matches the manifest, (b) at least one note matching that FROM exists, (c) referenced frontmatter fields are populated.\n\n**Steps:**\n1. Walk `My_Data/00_Dashboard/*.md` (and any nested `.md`). For each dashboard, read it and extract:\n   - All Dataview code blocks (```dataview ... ```).\n   - FROM clauses (regex: `FROM\\s+(\"[^\"]+\"|#\\w+|\\[\\[[^\\]]+\\]\\])`).\n   - WHERE clauses referencing frontmatter fields.\n2. Build `00_Dashboard/.manifest.json` with shape:\n```json\n{\n  \"generated_at\": \"2026-05-07T...\",\n  \"dashboards\": {\n    \"Capital Allocation Board.md\": {\n      \"from\": [\"\\\"05_Data_Pulls/Portfolio\\\"\", \"#portfolio\"],\n      \"fields_referenced\": [\"signal_status\", \"date_pulled\", \"domain\"]\n    },\n    ...\n  }\n}\n```\n3. Create `scripts/system/dashboard-validate.mjs` that:\n   - Loads the manifest.\n   - For each dashboard's FROM, walks the matching path/tag in `05_Data_Pulls/` and counts matching notes.\n   - For each `field_referenced`, verifies at least one matching note has the field populated.\n   - Reports broken bindings (manifest says FROM X, but X has 0 notes; or fields referenced but never populated).\n   - Writes `99_System/inventory/dashboard-validate-YYYYMMDD.md` with a table of (dashboard, FROM, match-count, status).\n4. The manifest file should be **generated**, not hand-edited. Add a `generate` subcommand: `node run.mjs system dashboard-manifest generate`. The validator: `node run.mjs system dashboard-validate`. Both should be safe to run repeatedly.\n5. The manifest should NOT live in version-control noise — it's a regenerable artifact. If `My_Data/.gitignore` exists, append `00_Dashboard/.manifest.json` to it. If not, skip and note it.\n6. Add a one-paragraph entry in `My_Data/AGENTS.md` for both commands.\n\n**Constraints:**\n- Do not modify dashboard markdown — read-only.\n- Use only Node built-ins (fs, path).\n- Be tolerant of weird Dataview syntax: nested quotes, multi-line FROMs, AND/OR combinators. Capture conservatively; over-matching is fine, false-negatives are not.\n- If a dashboard has no Dataview blocks at all, include it in the manifest with empty `from` and `fields_referenced`.\n\n**Verify:**\n- Run `node run.mjs system dashboard-manifest generate` — manifest appears.\n- Run `node run.mjs system dashboard-validate` — output appears in `99_System/inventory/`. Read it. Note any broken bindings.\n- Run `node run.mjs system validate` — schema gate must still pass.\n\nReport back: dashboards detected, FROM clauses extracted (count), broken bindings found.",
+            "run_in_background": true
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Phase A1: per-puller error envelope in run.mjs",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase A2: verify Phase 4 Inbox collapse",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase A3: resolve orphan 02_Reports folders",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase A4: strip stale PowerShell references",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase B1: source↔puller↔dashboard coverage-audit",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B2: promote audit findings into Inbox.md",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B3: kb-audit (raw mirrors ↔ canonical KB)",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase B4: document signal retention policy in Vault_Schemas.md",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase C1: cadence orchestrator (cadences.json + run.mjs cadence run)",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase C2: Spine rollup step (daily Briefings consolidation)",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase C3: dashboard manifest + Dataview FROM-clause validator",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase D1: Signal Intelligence Spine board",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D2: Content Candidate promotion tracker + published_at backfill",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D3: Portfolio Health account aggregation rules",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase D4: resolve Market Feedback Loop System gap report link",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Phase A complete. Phase B (3 still running) + Phase C (3 running) in flight. Launching Phase D — all 4 are independent of B/C."
+        }
+      ],
+      "timestamp": "2026-05-07T20:00:33.577Z"
+    },
+    {
+      "id": "7ac3533d-68e3-4279-9f1d-7ade4b0e1c46",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FRzDtsRJC6Akj95AX26KgH",
+          "title": "Phase D1: Signal Intelligence Spine board",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase D1: Signal Intelligence Spine board",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase D1 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add a Spine-side Signal Intelligence board with rolling-window filters by `signal_status`.\n\n**Background:**\n- `My_Data/scripts/pullers/signal-intelligence.mjs` already writes daily signal notes to `My_Data/05_Data_Pulls/Signals/YYYY-MM-DD_Signal_Intelligence.md` and links into Spine monitoring/briefings.\n- Signals carry `signal_status` ∈ {clear, watch, alert, critical} per `My_Data/04_Reference/Vault_Schemas.md`.\n- The Spine has `00_Home/Monitoring Board.md` and `00_Home/Today.md` but no dedicated signal board with rolling window + severity filters.\n\n**Steps:**\n1. Read `My_Data/scripts/pullers/signal-intelligence.mjs` to understand the output frontmatter and where signal records live.\n2. Read `The Research Spine/00_Home/Monitoring Board.md`, `Today.md`, and `Research Spine Dashboard.md` for style/Dataview patterns.\n3. Read `04_Reference/Vault_Schemas.md` retention policy section (just added in Phase B4) to align board windows with retention values.\n4. Create `The Research Spine/00_Home/Signal Intelligence Board.md` (new). Include:\n   - Frontmatter `type: dashboard`, `tags: [dashboard, signals]`.\n   - Section: **Critical (active)** — Dataview query filtering `signal_status = \"critical\"`, all-time (critical signals retained forever per policy).\n   - Section: **Alert (last 30d)** — Dataview filtering `signal_status = \"alert\"` AND `date_pulled >= dateadd(date(today), -30, \"days\")`.\n   - Section: **Watch (last 14d)** — same pattern, watch + 14d window.\n   - Section: **Clear (last 7d)** — clear + 7d.\n   - Section: **Convergence Scan Results** — link to today's signal-intelligence pull and any scan output.\n   - Section: **Quick Filters** — call-out box with shortcut links to each severity, plus a link back to `Research Spine Dashboard`.\n5. Each query: order by `date_pulled DESC`, project `file.link`, `signal_status`, `domain`, `source`, `date_pulled`.\n6. The board must NOT duplicate raw signal payloads. It's a Dataview-driven view — link-only.\n7. Add the board to `Research Spine Dashboard.md` navigation (under whatever section lists boards).\n8. Update `The Research Spine/03_References/Automation Guide.md` with a one-line entry noting the board is hand-maintained Dataview (not script-written), so its source notes come from `signal-intelligence.mjs` writes.\n\n**Constraints:**\n- Read-only against My_Data — no script changes here. This is purely a Spine view.\n- Use Obsidian Dataview DQL (not DataviewJS) for portability.\n- Default sort: most recent first.\n- Frontmatter must validate against schema if any signal-board schema exists (check `Vault_Schemas.md`).\n\n**Verify:**\n- Open the new file path in Obsidian (or just confirm file content). Eyeball each Dataview block for syntax errors.\n- Run `node run.mjs system validate` from My_Data — must pass.\n- Run `node run.mjs system audit-research-spine` (whatever the actual invocation is — check `run.mjs`) and confirm the new file is recognized in `00_Home`.\n\nReport back: file path, sections added, any retention values cross-referenced.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T20:01:06.959Z"
+    },
+    {
+      "id": "2cd89022-eb0a-4a79-ae16-562e620d5072",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011m7aqVLTixDvueVLGCRTtU",
+          "title": "Phase D2: content candidate tracker",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase D2: content candidate tracker",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase D2 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add a Content Candidate promotion pipeline: stuck-candidate Dataview tracker + `published_at` backfill for entries that currently have `published_at: null`.\n\n**Background:**\n- `The Research Spine/03_References/Content_Candidates/` has subfolder structure (Posts, Books, Papers, Videos, Reports, Cases, Official, Other).\n- `My_Data/scripts/system/migrate-content-candidates.mjs` sets `published_at: null` as a placeholder. The plan says: future publishers should populate it from upstream feed metadata. Today this is a silent gap.\n- No tracker exists for \"stuck candidates\" — items sitting >30 days with no review/promotion.\n\n**Steps:**\n\n**Part A — Backfill script:**\n1. Read `My_Data/scripts/system/migrate-content-candidates.mjs` to understand candidate frontmatter.\n2. Walk all candidate notes (`The Research Spine/03_References/Content_Candidates/**/*.md`). For each with `published_at: null`:\n   - Try to recover a real publish date from upstream metadata stored in adjacent fields. Look for: `pub_date`, `published`, `pubDate`, `created_at`, `feed_published`, `original_date`, `source_date`. If any exists and parses as a date, use it.\n   - If no upstream date exists, fall back to `date_pulled` minus a fudge (don't invent a date — only use real fields). If even that's missing, leave `published_at: null` and emit it to a backfill log.\n3. Create `scripts/system/content-candidate-backfill.mjs` that performs the above. Add `--dry-run` and `--commit` flags. Default to dry-run.\n4. Output a backfill report at `99_System/inventory/content-backfill-YYYYMMDD.md` listing files updated, fields used, files left unfilled.\n\n**Part B — Stuck-candidate tracker:**\n5. Create `The Research Spine/03_References/Content_Candidates/_Stuck Candidates.md` with frontmatter `type: dashboard`, Dataview query:\n   - `FROM \"03_References/Content_Candidates\" WHERE date_pulled < dateadd(date(today), -30, \"days\") AND (status = \"candidate\" OR status = null) AND promotion_status != \"promoted\"`.\n   - Sort oldest first.\n   - Project: file.link, content_type, domain, source, date_pulled, days stuck (computed).\n6. Add a second Dataview block: **By Content Type** — group counts by `content_type` over the same WHERE clause.\n7. Add a callout linking to operator instructions (a one-paragraph note at the top: \"These candidates have been in the queue >30 days with no promotion. Review, promote, or archive.\").\n8. Link to `_Stuck Candidates.md` from `Research Spine Dashboard.md` and `04_Human_Notes/Inbox.md`.\n\n**Constraints:**\n- Backfill must be idempotent and safe: never overwrite a non-null `published_at`. Use Edit tool semantics on frontmatter, preserve YAML quoting.\n- Don't invent dates. Only copy from existing fields.\n- The tracker is Dataview-only; no scripts write to it.\n\n**Verify:**\n- Run backfill in dry-run, then commit. Read the backfill report.\n- Run `node run.mjs system validate` — schema gate must pass after the frontmatter changes.\n- Open `_Stuck Candidates.md` content (eyeball Dataview syntax).\n\nReport back: candidates scanned, backfilled count, left-null count, stuck count detected.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T20:01:27.843Z"
+    },
+    {
+      "id": "074f736b-1ee7-457e-906b-14f6f4a536dd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QgvmELfU5kKfwhkoztWP7m",
+          "title": "Phase D3: Portfolio Health aggregation",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase D3: Portfolio Health aggregation",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase D3 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Add explicit account aggregation rules to `My_Data/scripts/pullers/portfolio-health.mjs` so the Jefferson Defined Contribution Plan + BrokerageLink combo is handled in code, not via manual CSV cleanup.\n\n**Background:**\n- `portfolio-health.mjs` (3.75 KB) scans positions CSVs across accounts: Jefferson Plan, BrokerageLink, Rollover IRA, Individual.\n- Documented special case: Jefferson DC + BrokerageLink should aggregate as a single household account because BrokerageLink is a window inside the DC plan.\n- Currently: depends on manual CSV pre-cleanup or downstream logic to skip duplicates.\n\n**Steps:**\n1. Read `My_Data/scripts/pullers/portfolio-health.mjs` carefully. Understand:\n   - How it discovers account CSVs (file naming, folder layout).\n   - The output frontmatter and per-account structure.\n   - Risk-ladder taxonomy.\n2. Add an aggregation config inline (or extracted to `99_System/config/portfolio-accounts.json` if cleaner). Shape:\n```json\n{\n  \"aggregations\": [\n    {\n      \"name\": \"Jefferson DC (combined)\",\n      \"members\": [\"Jefferson Plan\", \"BrokerageLink\"],\n      \"rule\": \"merge\",\n      \"comment\": \"BrokerageLink is a window inside the Jefferson DC plan; combine to avoid double-counting.\"\n    }\n  ]\n}\n```\n3. In the puller logic, after loading each account's positions:\n   - Group by aggregation rules: members get merged into one virtual account record. Position rows are concatenated (no de-duplication unless an explicit rule says so).\n   - Original member-level rollups are preserved as a `members:` field for traceability.\n4. Update the output frontmatter and report sections to show the aggregated account first, with a sub-section listing the member contributions.\n5. Add a CLI flag `--no-aggregate` to disable aggregation (for debugging or if the user wants raw account-by-account view).\n6. Document the change in `My_Data/AGENTS.md` under the portfolio section (or create one if missing).\n\n**Constraints:**\n- Don't change CSV input format expectations. Accept the same files as today.\n- Aggregation is opt-out (default on), to match the documented intent.\n- Be defensive: if a member account is missing CSV data, still aggregate the present members and note the missing one.\n- Preserve existing puller behavior for non-aggregated accounts (Rollover IRA, Individual).\n\n**Verify:**\n- If sample CSVs exist or can be located, run the puller on them. If not, do a dry-run / unit-style sanity check by reading the code path.\n- Run `node run.mjs system validate` — must pass.\n- Read the puller output to confirm the aggregated section appears with member breakdown.\n\nReport back: files modified, aggregation config location/format, decisions on merge rule, known edge cases.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T20:01:46.060Z"
+    },
+    {
+      "id": "3189712b-390e-4b74-8c09-97bbc03eb8aa",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_014QR9ChW1ZKDReKQkbazFAL",
+          "title": "Phase D4: MFLS gap report link",
+          "status": "completed",
+          "kind": "think",
+          "content": [],
+          "rawInput": {
+            "description": "Phase D4: MFLS gap report link",
+            "subagent_type": "general-purpose",
+            "model": "sonnet",
+            "prompt": "You are implementing Phase D4 of an approved plan at C:\\Users\\CaveUser\\.claude\\plans\\claude-using-skills-available-zazzy-robin.md (read it first).\n\n**Task:** Resolve the broken \"Knowledge Gap Report\" link referenced in `The Research Spine/03_References/Market_Feedback_Loop_System/Market Feedback Loop System.md`. The footer references a 2026-05-05 Knowledge Gap Report that does not exist in the directory.\n\n**Decision needed:** Either (a) generate the missing report from existing scaffolding, or (b) remove the broken link cleanly. Pick the lower-risk option that preserves operator clarity.\n\n**Steps:**\n1. Read `The Research Spine/03_References/Market_Feedback_Loop_System/Market Feedback Loop System.md` — find the broken link, understand what the Gap Report is supposed to contain.\n2. List the `Market_Feedback_Loop_System/` directory. Verify the report is truly missing (not just a different filename).\n3. Search both vaults for \"knowledge gap\" / \"knowledge-gap\" / \"gap report\" — see if a related artifact exists elsewhere that could be cross-linked.\n4. Check `My_Data/scripts/` for any historical generator that produced a Knowledge Gap Report (the agents found one earlier: `New-ResearchKnowledgeGapReport.ps1` exists in `99_System/scripts/`). Read that script to understand what the report was supposed to contain.\n5. Decide:\n   - **Option A (regenerate):** Port the PS1 generator concept into a tiny `.mjs` writer if the report is genuinely useful (a snapshot of source-coverage gaps + thesis-evidence gaps). Output: `Market_Feedback_Loop_System/<date>_Knowledge_Gap_Report.md`. Update the footer link to point at the new file.\n   - **Option B (remove link):** Strip the broken link from the MFLS doc footer. Replace with a brief note: \"Knowledge gap tracking is now consolidated in [[Source Gap Register]] and the audit findings in [[Inbox]].\" Then verify the linked notes actually exist and serve the role.\n6. Choose Option B unless the existing PS1 has substantive logic that justifies a port. Default bias: ship a working pointer over a broken link.\n\n**Constraints:**\n- If you choose Option A, do not depend on PowerShell. Port to Node `.mjs` only.\n- Whatever option chosen, the MFLS doc must end up with no broken links.\n- Use Edit (not Write) on the existing MFLS doc.\n- If you redirect to other notes, verify those notes exist before linking.\n\n**Verify:**\n- Re-read MFLS doc — no broken links remaining.\n- Run `node run.mjs system audit-research-spine` (or the `audit-research-spine.mjs` invocation) — confirm broken-wiki-link count for MFLS folder is 0.\n- If you generated a new file, run `system validate` to confirm schema compliance.\n\nReport back: option chosen with rationale, files modified, any new file created.",
+            "run_in_background": true
+          }
+        }
+      ],
+      "timestamp": "2026-05-07T20:02:02.889Z"
+    }
+  ],
+  "savedAt": "2026-05-07T20:02:20.153Z"
+}

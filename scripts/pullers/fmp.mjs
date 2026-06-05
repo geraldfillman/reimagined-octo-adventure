@@ -14,9 +14,10 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
-import { getApiKey, getBaseUrl, getPullsDir, getSignalsDir, getVaultRoot } from '../lib/config.mjs';
+import { getApiKey, getBaseUrl, getEngineCacheDir, getPullsDir, getSignalsDir } from '../lib/config.mjs';
 import { fetchWithRetry, getJson } from '../lib/fetcher.mjs';
 import { loadCachedFmpFundamentalsMap } from '../lib/fmp-fundamentals-context.mjs';
+import { keepEnglishContent } from '../lib/language-filter.mjs';
 import {
   buildNote, buildTable, writeNote, formatNumber,
   today, dateStampedFilename,
@@ -133,12 +134,12 @@ const NASDAQ_TAXONOMY_HINTS = Object.freeze({
 
 let secLastRequestAt = 0;
 
-const FMP_PROFILE_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'fmp-profile');
-const FMP_RATIOS_TTM_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'fmp-ratios-ttm');
-const FMP_KEY_METRICS_TTM_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'fmp-key-metrics-ttm');
-const FMP_PRICE_TARGET_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'fmp-price-target-summary');
-const SEC_COMPANY_FACTS_CACHE_DIR = join(getVaultRoot(), 'scripts', '.cache', 'sec-companyfacts');
-const SEC_TICKER_MAP_CACHE_PATH = join(getVaultRoot(), 'scripts', '.cache', 'sec-company-tickers.json');
+const FMP_PROFILE_CACHE_DIR = getEngineCacheDir('fmp-profile');
+const FMP_RATIOS_TTM_CACHE_DIR = getEngineCacheDir('fmp-ratios-ttm');
+const FMP_KEY_METRICS_TTM_CACHE_DIR = getEngineCacheDir('fmp-key-metrics-ttm');
+const FMP_PRICE_TARGET_CACHE_DIR = getEngineCacheDir('fmp-price-target-summary');
+const SEC_COMPANY_FACTS_CACHE_DIR = getEngineCacheDir('sec-companyfacts');
+const SEC_TICKER_MAP_CACHE_PATH = getEngineCacheDir('sec-company-tickers.json');
 const SEC_CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const SEC_MIN_INTERVAL_MS = 150;
 
@@ -178,6 +179,10 @@ export async function pull(flags = {}) {
     return pullAnalystRatings(flags.ratings, apiKey, baseUrl);
   } else if (flags.news) {
     return pullCompanyNews(flags.news, apiKey, baseUrl);
+  } else if (flags['general-news']) {
+    return pullGeneralNews(flags, apiKey, baseUrl);
+  } else if (flags['market-performance'] || flags['biggest-gainers'] || flags['biggest-losers'] || flags['most-actives']) {
+    return pullMarketPerformance(flags, apiKey, baseUrl);
   } else if (flags['macro-calendar']) {
     return pullMacroCalendar(flags, apiKey, baseUrl);
   } else if (flags['watchlist-deep-scan']) {
@@ -188,8 +193,9 @@ export async function pull(flags = {}) {
     throw new Error(
       'Specify a flag: --quote --profile --income --technical --earnings-calendar ' +
       '--thesis-watchlists --options --micro-small --insider --balance-sheet ' +
-      '--cash-flow --estimates --short-interest --ratings --news --macro-calendar ' +
-      '--watchlist-deep-scan --rel-vol-screen'
+      '--cash-flow --estimates --short-interest --ratings --news --general-news ' +
+      '--market-performance --biggest-gainers --biggest-losers --most-actives ' +
+      '--macro-calendar --watchlist-deep-scan --rel-vol-screen'
     );
   }
 }
@@ -547,6 +553,7 @@ async function pullThesisWatchlists(flags, apiKey, baseUrl) {
   const concurrency = parseIntegerFlag(flags.concurrency, 3, '--concurrency');
   const fundamentalsConcurrency = parseIntegerFlag(flags['fundamentals-concurrency'], Math.min(concurrency, 2), '--fundamentals-concurrency');
   const warmFundamentals = !flags['skip-fundamentals'];
+  const skipTechnical = Boolean(flags['skip-technical']);
   const shouldSync = !flags['skip-sync'];
   const stableBaseUrl = getStableBaseUrl(baseUrl);
   const watchlists = await loadThesisWatchlists({
@@ -602,35 +609,43 @@ async function pullThesisWatchlists(flags, apiKey, baseUrl) {
     `   Fundamentals coverage: ${warmedFundamentalsCount}/${uniqueSymbols.length} cached, ` +
     `${warmedCompleteFundamentalsCount} complete.`
   );
-  const technicalResults = await mapWithConcurrency(uniqueSymbols, concurrency, async symbol => {
-    try {
-      return await pullTechnical({ technical: symbol, interval }, apiKey, baseUrl);
-    } catch (error) {
-      return {
-        symbol,
-        error: error instanceof Error ? error.message : String(error),
-        signals: [],
-      };
-    }
-  });
   const technicalDataBySymbol = new Map();
   const technicalNoteLinkBySymbol = new Map();
   const technicalSignalsBySymbol = new Map();
   const technicalFailures = [];
 
-  for (let index = 0; index < uniqueSymbols.length; index += 1) {
-    const symbol = uniqueSymbols[index];
-    const result = technicalResults[index];
-    if (result?.error) {
-      technicalFailures.push({ symbol, error: result.error });
-      console.warn(`Warning: technical snapshot failed for ${symbol}: ${result.error}`);
+  if (skipTechnical) {
+    console.log('📉 FMP: Skipping per-symbol technical snapshots (--skip-technical).');
+    for (const symbol of uniqueSymbols) {
+      technicalSignalsBySymbol.set(symbol, []);
     }
-    const note = result?.filePath ? await readNote(result.filePath) : null;
-    if (note?.data) {
-      technicalDataBySymbol.set(symbol, note.data);
-      technicalNoteLinkBySymbol.set(symbol, filePathToWikiLink(result.filePath));
+  } else {
+    const technicalResults = await mapWithConcurrency(uniqueSymbols, concurrency, async symbol => {
+      try {
+        return await pullTechnical({ technical: symbol, interval }, apiKey, baseUrl);
+      } catch (error) {
+        return {
+          symbol,
+          error: error instanceof Error ? error.message : String(error),
+          signals: [],
+        };
+      }
+    });
+
+    for (let index = 0; index < uniqueSymbols.length; index += 1) {
+      const symbol = uniqueSymbols[index];
+      const result = technicalResults[index];
+      if (result?.error) {
+        technicalFailures.push({ symbol, error: result.error });
+        console.warn(`Warning: technical snapshot failed for ${symbol}: ${result.error}`);
+      }
+      const note = result?.filePath ? await readNote(result.filePath) : null;
+      if (note?.data) {
+        technicalDataBySymbol.set(symbol, note.data);
+        technicalNoteLinkBySymbol.set(symbol, filePathToWikiLink(result.filePath));
+      }
+      technicalSignalsBySymbol.set(symbol, Array.isArray(result?.signals) ? result.signals : []);
     }
-    technicalSignalsBySymbol.set(symbol, Array.isArray(result?.signals) ? result.signals : []);
   }
 
   const earningsResult = await pullEarningsCalendar({
@@ -2592,6 +2607,19 @@ function formatMetricNumber(value, decimals = 2) {
   return Number.isFinite(Number(value)) ? Number(value).toFixed(decimals) : 'N/A';
 }
 
+function truncateText(value, maxLength = 80) {
+  const text = String(value || '');
+  return text.length > maxLength ? `${text.slice(0, Math.max(0, maxLength - 3))}...` : text;
+}
+
+function titleCase(value) {
+  return String(value || '').replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function redactApiKey(url) {
+  return String(url).replace(/apikey=[^&]+/i, 'apikey=REDACTED');
+}
+
 function formatCompactCurrency(value) {
   return Number.isFinite(Number(value))
     ? formatNumber(Number(value), { style: 'currency' })
@@ -4199,7 +4227,9 @@ async function pullCompanyNews(symbol, apiKey, baseUrl) {
   console.log(`📰 FMP: Fetching company news for ${sym}...`);
 
   const data = await getJson(`${stableBaseUrl}/stock-news?tickers=${sym}&limit=${limit}&apikey=${apiKey}`);
-  const articles = Array.isArray(data) ? data : [];
+  const rawArticles = Array.isArray(data) ? data : [];
+  const articles = filterEnglishFmpNewsArticles(rawArticles);
+  const filteredLanguageCount = rawArticles.length - articles.length;
 
   if (articles.length === 0) {
     console.log(`  No news articles found for ${sym}`);
@@ -4224,6 +4254,8 @@ async function pullCompanyNews(symbol, apiKey, baseUrl) {
       signal_status: 'clear',
       signals: [],
       article_count: articles.length,
+      language_filter: 'english',
+      language_filtered_count: filteredLanguageCount,
       tags: ['equities', 'news', sym.toLowerCase(), 'fmp'],
     },
     sections: [
@@ -4235,7 +4267,7 @@ async function pullCompanyNews(symbol, apiKey, baseUrl) {
       },
       {
         heading: 'Source',
-        content: `- **API**: Financial Modeling Prep (stock-news)\n- **Symbol**: ${sym}\n- **Auto-pulled**: ${today()}`,
+        content: `- **API**: Financial Modeling Prep (stock-news)\n- **Symbol**: ${sym}\n- **Filtered non-English**: ${filteredLanguageCount}\n- **Language filter**: English-only title post-filter\n- **Auto-pulled**: ${today()}`,
       },
     ],
   });
@@ -4244,6 +4276,201 @@ async function pullCompanyNews(symbol, apiKey, baseUrl) {
   writeNote(filePath, note);
   console.log(`📝 Wrote: ${filePath}`);
   return { filePath, signals: [] };
+}
+
+export function buildFmpStableEndpointUrl(stableBaseUrl, endpoint, params = {}, apiKey = '') {
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value === undefined || value === null || value === false || value === '') continue;
+    search.set(key, String(value));
+  }
+  if (apiKey) search.set('apikey', apiKey);
+  return `${stableBaseUrl}/${endpoint.replace(/^\/+/, '')}?${search.toString()}`;
+}
+
+export function normalizeFmpNewsArticle(article = {}) {
+  return Object.freeze({
+    date: article.publishedDate?.slice(0, 10) || article.date?.slice(0, 10) || '',
+    source: article.site || article.publisher || article.source || '',
+    title: article.title || '',
+    url: article.url || article.link || '',
+    symbol: article.symbol || '',
+    sentiment: article.sentiment || '',
+  });
+}
+
+export function filterEnglishFmpNewsArticles(articles = []) {
+  return articles.filter(article => keepEnglishContent(article, {
+    textFields: ['title'],
+  }));
+}
+
+export function normalizeFmpMarketMover(row = {}) {
+  return Object.freeze({
+    symbol: row.symbol || row.ticker || '',
+    name: row.name || row.companyName || '',
+    price: parseMetricNumber(row.price),
+    change: parseMetricNumber(row.change),
+    changesPercentage: normalizeRatioPercent(row.changesPercentage ?? row.changePercentage),
+    volume: parseMetricNumber(row.volume),
+    marketCap: parseMetricNumber(row.marketCap),
+  });
+}
+
+async function pullGeneralNews(flags, apiKey, baseUrl) {
+  const stableBaseUrl = getStableBaseUrl(baseUrl);
+  const limit = parseIntegerFlag(flags.limit, 25, '--limit');
+  const page = Number.parseInt(flags.page ?? '0', 10);
+  const endpoint = 'news/general-latest';
+  const url = buildFmpStableEndpointUrl(stableBaseUrl, endpoint, {
+    page: Number.isFinite(page) && page >= 0 ? page : 0,
+    limit,
+  }, apiKey);
+
+  console.log(`FMP: Fetching general news (limit ${limit})...`);
+  if (flags['dry-run']) {
+    console.log(`  Dry run: would request ${redactApiKey(url)}`);
+    return { source: 'fmp', endpoint, dryRun: true };
+  }
+
+  const data = await getJson(url);
+  const rawArticles = Array.isArray(data) ? data.map(normalizeFmpNewsArticle) : [];
+  const articles = filterEnglishFmpNewsArticles(rawArticles);
+  const filteredLanguageCount = rawArticles.length - articles.length;
+  const rows = articles.map(article => [
+    article.date || 'N/A',
+    article.source || 'N/A',
+    article.title ? truncateText(article.title, 90) : 'N/A',
+    article.url ? `[link](${article.url})` : '',
+  ]);
+
+  const note = buildNote({
+    frontmatter: {
+      title: 'General Market News - FMP',
+      source: 'Financial Modeling Prep',
+      date_pulled: today(),
+      domain: 'news',
+      data_type: 'general_market_news',
+      frequency: 'intraday',
+      signal_status: 'clear',
+      signals: [],
+      article_count: articles.length,
+      language_filter: 'english',
+      language_filtered_count: filteredLanguageCount,
+      provider_role: 'primary_financial_news',
+      tags: ['news', 'market-news', 'fmp', 'briefing-input'],
+    },
+    sections: [
+      {
+        heading: 'General Market News',
+        content: rows.length > 0
+          ? buildTable(['Date', 'Source', 'Headline', 'Link'], rows)
+          : '- No general news articles returned.',
+      },
+      {
+        heading: 'Operating Use',
+        content: [
+          '- Feeds My_Data daily, midday, and end-of-day report briefings.',
+          '- Use as the primary financial-news fallback when GDELT is degraded.',
+        ].join('\n'),
+      },
+      {
+        heading: 'Source',
+        content: `- **API**: Financial Modeling Prep (${endpoint})\n- **Filtered non-English**: ${filteredLanguageCount}\n- **Language filter**: English-only title post-filter\n- **Auto-pulled**: ${today()}`,
+      },
+    ],
+  });
+
+  const filePath = join(getPullsDir(), 'News', dateStampedFilename('FMP_General_News'));
+  writeNote(filePath, note);
+  console.log(`Wrote: ${filePath}`);
+  return { filePath, signals: [] };
+}
+
+async function pullMarketPerformance(flags, apiKey, baseUrl) {
+  const stableBaseUrl = getStableBaseUrl(baseUrl);
+  const limit = parseIntegerFlag(flags.limit, 25, '--limit');
+  const requested = [];
+  if (flags['biggest-gainers'] || flags['market-performance']) requested.push(['biggest_gainers', 'biggest-gainers']);
+  if (flags['biggest-losers'] || flags['market-performance']) requested.push(['biggest_losers', 'biggest-losers']);
+  if (flags['most-actives'] || flags['market-performance']) requested.push(['most_actives', 'most-actives']);
+  const endpoints = requested.length > 0 ? requested : [['biggest_gainers', 'biggest-gainers'], ['biggest_losers', 'biggest-losers'], ['most_actives', 'most-actives']];
+
+  console.log(`FMP: Fetching market performance (${endpoints.map(([, endpoint]) => endpoint).join(', ')})...`);
+  if (flags['dry-run']) {
+    for (const [, endpoint] of endpoints) {
+      console.log(`  Dry run: would request ${redactApiKey(buildFmpStableEndpointUrl(stableBaseUrl, endpoint, {}, apiKey))}`);
+    }
+    return { source: 'fmp', endpoint: 'market-performance', dryRun: true };
+  }
+
+  const payloads = [];
+  for (const [label, endpoint] of endpoints) {
+    const data = await getJson(buildFmpStableEndpointUrl(stableBaseUrl, endpoint, {}, apiKey));
+    payloads.push({
+      label,
+      endpoint,
+      rows: Array.isArray(data) ? data.map(normalizeFmpMarketMover).slice(0, limit) : [],
+    });
+  }
+
+  const sections = payloads.map(group => ({
+    heading: titleCase(group.label.replace(/_/g, ' ')),
+    content: group.rows.length > 0
+      ? buildTable(
+          ['Symbol', 'Name', 'Price', 'Change %', 'Volume', 'Market Cap'],
+          group.rows.map(row => [
+            row.symbol || 'N/A',
+            truncateText(row.name || '', 42) || 'N/A',
+            formatDollar(row.price),
+            formatPercent(row.changesPercentage),
+            row.volume ? formatNumber(row.volume, { style: 'compact', decimals: 1 }) : 'N/A',
+            row.marketCap ? formatNumber(row.marketCap, { style: 'currency' }) : 'N/A',
+          ])
+        )
+      : '- No rows returned.',
+  }));
+
+  sections.push({
+    heading: 'Operating Use',
+    content: [
+      '- Feeds midday and end-of-day monitoring snapshots.',
+      '- Use as a breadth and anomaly screen before opening individual thesis notes.',
+    ].join('\n'),
+  });
+  sections.push({
+    heading: 'Source',
+    content: `- **API**: Financial Modeling Prep (${endpoints.map(([, endpoint]) => endpoint).join(', ')})\n- **Auto-pulled**: ${today()}`,
+  });
+
+  const totalRows = payloads.reduce((sum, group) => sum + group.rows.length, 0);
+  const signalStatus = payloads.some(group =>
+    group.rows.some(row => Math.abs(row.changesPercentage ?? 0) >= 50)
+  ) ? 'watch' : 'clear';
+  const signals = signalStatus === 'watch'
+    ? ['At least one market mover exceeded a 50% absolute move']
+    : [];
+
+  const note = buildNote({
+    frontmatter: {
+      title: 'Market Performance - FMP',
+      source: 'Financial Modeling Prep',
+      date_pulled: today(),
+      domain: 'market',
+      data_type: 'market_performance',
+      frequency: 'intraday',
+      signal_status: signalStatus,
+      signals,
+      row_count: totalRows,
+      tags: ['market', 'market-performance', 'gainers-losers', 'most-actives', 'fmp', 'briefing-input'],
+    },
+    sections,
+  });
+
+  const filePath = join(getPullsDir(), 'Market', dateStampedFilename('FMP_Market_Performance'));
+  writeNote(filePath, note);
+  console.log(`Wrote: ${filePath}`);
+  return { filePath, signals };
 }
 
 async function pullMacroCalendar(flags, apiKey, baseUrl) {

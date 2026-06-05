@@ -1,0 +1,46 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260605070001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\harness\run-scheduled.ps1 -CommandType cadence -Name premarket -TaskLabel My_Data - Premarket Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 32512
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled-harness] My_Data - Premarket Cadence
+[started] 2026-06-05T07:00:01.8413270-04:00
+[VAULT_ROOT] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data
+[command] C:\Program Files\nodejs\node.exe C:\Users\CaveUser\harness\engine\run.mjs cadence run premarket
+
+
+[cadence] premarket — 3 puller(s)
+
+[readiness]
+BLOCKED data readiness for premarket
+READY Signal Intelligence: 2026-06-04
+READY General Market News: 2026-06-04
+BLOCKED FMP Macro Calendar: stale (48.0h old)
+  refresh: node run.mjs pull fmp --macro-calendar
+READY Treasury Rates: 2026-06-03
+BLOCKED CBOE Volatility Indexes: stale (48.0h old)
+  refresh: node run.mjs pull cboe --vix
+
+[cadence] blocked by readiness. Refresh the listed inputs or rerun with --allow-stale if the stale-data run is explicitl
+y approved.
+
+[done] Done in 1.8s
+
+[finished] 2026-06-05T07:00:03.7172001-04:00 exit=1
+**********************
+Windows PowerShell transcript end
+End time: 20260605070003
+**********************

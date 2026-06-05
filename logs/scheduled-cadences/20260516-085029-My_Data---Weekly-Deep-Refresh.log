@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260516085030
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType routine -Name weekly -TaskLabel My_Data - Weekly Deep Refresh -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 13288
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Weekly Deep Refresh
+[started] 2026-05-16T08:50:30.4742819-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs routine weekly
+
+  -> node run.mjs pull signal-intelligence
+  �� KB raw copy → 12_Knowledge_Bases/raw/signals/2026-05-16_Signal_Intelligence.md
+Wrote signal intelligence: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Signals\2026-05-16_Signal_In
+telligence.md
+Wrote signal intelligence sidecar: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\.cache\signal-intelligence
+\2026-05-16.json
+
+[done] Done in 8.0s
+  -> node run.mjs pull streamline-report --window 30 --limit 24
+Streamline Report: reading local vault notes since 2026-04-16 [cadence=daily, focus=all]...
+  �� KB raw copy → 12_Knowledge_Bases/raw/orchestrator/2026-05-16_Streamline_Report.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Orchestrator\2026-05-16_Streamline_Report.md
+
+[done] Done in 0.9s
+  -> node run.mjs pull confluence-scan
+  �� KB raw copy → 12_Knowledge_Bases/raw/orchestrator/2026-05-16_Confluence_Scan.md
+
+[done] Done in 0.5s
+  -> node run.mjs system validate
+Vault validation passed: no schema issues found.
+
+Routine summary: weekly | ok=26 dry-run=0 skipped=0 failed=0 | 678.0s
+
+[done] Done in 678.1s
+
+[finished] 2026-05-16T09:01:48.8875417-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260516090148
+**********************

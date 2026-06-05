@@ -1,7 +1,7 @@
 /**
  * pead-watch.mjs — Post-earnings anomaly drift watch list.
  *
- * Runs the PEAD agent for review-queue tickers (from the latest Streamline
+ * Runs the PEAD agent for chat-review tickers (from the latest Streamline
  * Report sidecar) plus a set of default watchlist symbols. Skips results
  * with pead_label === 'insufficient_data'. Surfaces anchored-VWAP drift,
  * EPS surprise, and drift classification for manual review.

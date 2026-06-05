@@ -27,13 +27,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Nothing",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "doNothing"
       }
     },
     {
@@ -63,13 +65,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     },
     {
@@ -99,13 +103,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     },
     {
@@ -135,13 +141,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     },
     {
@@ -171,13 +179,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     },
     {
@@ -207,13 +217,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     },
     {
@@ -243,13 +255,15 @@
       },
       "openFile": true,
       "openFileInMode": "default",
-      "setFileExistsBehavior": true,
-      "fileExistsMode": "Increment the file name",
       "fileOpening": {
         "location": "tab",
         "direction": "vertical",
         "focus": true,
         "mode": "default"
+      },
+      "fileExistsBehavior": {
+        "kind": "apply",
+        "mode": "increment"
       }
     }
   ],
@@ -259,7 +273,7 @@
   "devMode": false,
   "templateFolderPath": "11_Learning/06_Templates",
   "announceUpdates": "major",
-  "version": "2.12.0",
+  "version": "2.12.2",
   "globalVariables": {},
   "onePageInputEnabled": false,
   "disableOnlineFeatures": true,
@@ -363,6 +377,8 @@
     "migrateFileOpeningSettings": true,
     "backfillFileOpeningDefaults": true,
     "setProviderModelDiscoveryMode": true,
-    "migrateProviderApiKeysToSecretStorage": true
-  }
+    "migrateProviderApiKeysToSecretStorage": true,
+    "consolidateFileExistsBehavior": true
+  },
+  "macros": []
 }

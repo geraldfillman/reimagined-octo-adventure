@@ -15,12 +15,9 @@
 
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join, basename, extname } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { getThesesDir } from '../lib/config.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const THESES_DIR = join(VAULT_ROOT, '10_Theses');
+const THESES_DIR = getThesesDir();
 const OUTPUT = join(THESES_DIR, 'Thesis Map.canvas');
 
 // Node dimensions and grid layout

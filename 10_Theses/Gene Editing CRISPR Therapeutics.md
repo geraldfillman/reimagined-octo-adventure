@@ -30,38 +30,36 @@ fmp_watchlist_symbols: ["NTLA", "BEAM", "EDIT", "CRSP"]
 fmp_watchlist_symbol_count: 4
 fmp_primary_symbol: "NTLA"
 fmp_technical_symbol_count: 4
-fmp_technical_nonclear_count: 2
+fmp_technical_nonclear_count: 1
 fmp_technical_bearish_count: 2
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "alert"
-fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 40.75
-fmp_primary_price_vs_sma200_pct: -5.27
+fmp_primary_technical_status: "clear"
+fmp_primary_technical_bias: "mixed"
+fmp_primary_momentum_state: "neutral"
+fmp_primary_rsi14: 47
+fmp_primary_price_vs_sma200_pct: 1.31
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 1470171980
-fmp_primary_trailing_pe: -3.27
-fmp_primary_price_to_sales: 21.73
-fmp_primary_price_to_book: 2.01
-fmp_primary_ev_to_sales: 20.81
-fmp_primary_ev_to_ebitda: -3.37
-fmp_primary_roe_pct: -56.63
-fmp_primary_roic_pct: -57.67
-fmp_primary_operating_margin_pct: -651.67
-fmp_primary_net_margin_pct: -609.85
-fmp_primary_current_ratio: 5.08
-fmp_primary_debt_to_equity: 0.14
-fmp_primary_price_target: 20.29
-fmp_primary_analyst_count: 21
-fmp_primary_target_upside_pct: 63.04
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 4
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-05-05"
-fmp_next_earnings_symbols: ["BEAM"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 1413852628
+fmp_primary_trailing_pe: -3.78
+fmp_primary_price_to_sales: 21.39
+fmp_primary_price_to_book: 2.4
+fmp_primary_ev_to_sales: 20.57
+fmp_primary_ev_to_ebitda: -3.42
+fmp_primary_roe_pct: -57.27
+fmp_primary_roic_pct: -59.98
+fmp_primary_operating_margin_pct: -636.56
+fmp_primary_net_margin_pct: -597.04
+fmp_primary_current_ratio: 6.1
+fmp_primary_debt_to_equity: 0.13
+fmp_primary_price_target: 21.39
+fmp_primary_analyst_count: 23
+fmp_primary_target_upside_pct: 69.76
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 3
+fmp_calendar_pull_date: "2026-05-11"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "biotech", "gene-editing", "crispr", "rare-disease", "genomics"]
 ---
 
@@ -166,6 +164,7 @@ WHERE contains(string(tags), "geneediting") OR contains(string(tags), "CRSP") OR
 SORT date DESC
 LIMIT 5
 ```
+
 
 
 

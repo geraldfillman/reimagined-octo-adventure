@@ -68,7 +68,7 @@ function buildOutcomeNote({ items, checkDays }) {
     {
       heading: 'Purpose',
       content: [
-        `Surfaces ${totalItems} review queue item(s) from ${checkDays.join('/')} days ago.`,
+        `Surfaces ${totalItems} chat-review item(s) from ${checkDays.join('/')} days ago.`,
         'For each item, record disposition: **Reviewed**, **Journaled**, **Ignored**, or **Pending**.',
         'Completed rows feed the Phase 5 signal quality scorecard and false-positive tracking.',
       ].join(' '),

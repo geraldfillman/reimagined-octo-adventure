@@ -1,0 +1,630 @@
+{
+  "$schema_version": "1.0",
+  "generated_for": "Market Feedback Loop System",
+  "last_updated": "2026-05-07",
+  "mechanisms": [
+    {
+      "id": "vol_control_deleveraging",
+      "name": "Vol-Control Deleveraging",
+      "category": "positioning",
+      "regime": ["risk-off", "vol-spike", "deleveraging"],
+      "summary": "Vol-control and risk-parity funds size positions inversely to realized volatility. When realized vol jumps, their target leverage falls and they sell mechanically into weakness. The supply is price-insensitive and tends to cluster, which is why drawdowns can accelerate even when fundamentals have not changed.",
+      "trigger_conditions": ["VIX > 25 with 20d realized vol > 20", "5d realized vol > 30d realized by 1.5x", "MOVE > 130"],
+      "signals_to_watch": [
+        {"signal": "VIX level and 1d change", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "VVIX (vol-of-vol)", "data_source": "yfinance-vol", "field": "indices.vvix.close"},
+        {"signal": "MOVE index (rate vol)", "data_source": "yfinance-vol", "field": "indices.move.close"},
+        {"signal": "Realized vs implied spread", "data_source": "manual", "field": "compute 20d realized from FMP SPY quote returns vs VIX"},
+        {"signal": "NFCI financial conditions", "data_source": "fred", "field": "NFCI"}
+      ],
+      "feedback_loop": "Higher realized vol forces vol-targeting funds to cut exposure, which adds selling pressure, which raises realized vol further. The loop only breaks when vol stops expanding and the trailing window starts to roll off elevated prints.",
+      "fades_when": ["20d realized vol mean-reverts below 15", "VIX term structure re-steepens (contango)", "MOVE normalizes below 110"],
+      "related_strategies": ["low_vol_defensive", "tail_hedge", "vol_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "vol", "systematic", "deleveraging"]
+    },
+    {
+      "id": "cta_trend_reversal",
+      "name": "CTA Trend Reversal",
+      "category": "positioning",
+      "regime": ["trending", "mean-reverting", "vol-spike"],
+      "summary": "Managed-futures CTAs run momentum signals across equities, rates, FX, and commodities. When a trend reverses through their lookback window, they flip from long to short (or vice-versa) and the flip itself is large and fast. This is why sharp counter-trend moves often extend further than warranted.",
+      "trigger_conditions": ["S&P below its 50d and 100d MAs simultaneously", "Sustained move >2 ATR against the prevailing 3m trend", "Bond-equity correlation flips sign"],
+      "signals_to_watch": [
+        {"signal": "SPY vs 50/100/200d MA", "data_source": "fmp", "field": "quote SPY + technicalIndicators sma"},
+        {"signal": "TLT vs 50/100d MA", "data_source": "fmp", "field": "quote TLT + technicalIndicators sma"},
+        {"signal": "DXY trend break", "data_source": "fmp", "field": "quote UUP/DXY"},
+        {"signal": "WTI/Gold trend status", "data_source": "fmp", "field": "quote USO, GLD"},
+        {"signal": "COT managed-money net positioning", "data_source": "cftc-cot", "field": "managed_money.net"}
+      ],
+      "feedback_loop": "Once a trend signal flips, CTAs cover and reverse in size. The covering pushes price further through the breakeven, triggering more signals on shorter lookbacks, which compounds the move until positioning is flat or opposite.",
+      "fades_when": ["Price re-takes the broken trend line and holds for 5+ sessions", "Realized vol compresses and trend re-establishes"],
+      "related_strategies": ["trend_following_macro", "relative_value_pairs", "tail_hedge"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "trend", "systematic", "cta"]
+    },
+    {
+      "id": "risk_parity_unwind",
+      "name": "Risk-Parity Unwind",
+      "category": "positioning",
+      "regime": ["risk-off", "inflationary", "deleveraging"],
+      "summary": "Risk-parity funds lever bonds to match equity risk and depend on negative stock-bond correlation for diversification. When stocks and bonds sell off together (typical in inflation shocks), the strategy bleeds on both legs and is forced to cut leverage across the whole book. This is mechanically different from vol-control because the trigger is correlation, not just vol.",
+      "trigger_conditions": ["60d stock-bond correlation > 0", "Joint drawdown in SPY and TLT over 1m", "T10Y2Y rapidly steepening on inflation prints"],
+      "signals_to_watch": [
+        {"signal": "SPY-TLT 60d correlation", "data_source": "manual", "field": "compute from FMP SPY and TLT daily returns"},
+        {"signal": "10Y yield level/change", "data_source": "fred", "field": "DGS10"},
+        {"signal": "5y breakeven inflation", "data_source": "fred", "field": "T5YIE"},
+        {"signal": "MOVE index", "data_source": "yfinance-vol", "field": "indices.move.close"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"}
+      ],
+      "feedback_loop": "Joint stock/bond losses raise the strategy's portfolio vol and break the diversification assumption. Funds cut leverage on both legs simultaneously, which deepens the joint sell-off, which keeps correlation positive and forces more cuts.",
+      "fades_when": ["Stock-bond correlation re-turns negative", "Inflation surprise index rolls over", "MOVE index normalizes"],
+      "related_strategies": ["hard_asset_carry", "tail_hedge", "trend_following_macro"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "correlation", "systematic", "risk-parity"]
+    },
+    {
+      "id": "gamma_squeeze",
+      "name": "Gamma Squeeze",
+      "category": "positioning",
+      "regime": ["risk-on", "vol-spike", "trending"],
+      "summary": "When dealers are short calls (customers heavily long calls), they must buy the underlying as it rises to stay delta-hedged. That hedging buys into strength and accelerates the move higher. The squeeze ends when calls expire, are sold, or the rally exhausts and dealers re-flatten.",
+      "trigger_conditions": ["Heavy single-name call buying with rising open interest", "Dealer gamma exposure deeply negative", "Spot pinning above key strikes near OPEX"],
+      "signals_to_watch": [
+        {"signal": "SPY/QQQ option P/C ratio", "data_source": "yfinance-vol", "field": "options.spy.pc_ratio"},
+        {"signal": "ATM IV by expiry", "data_source": "yfinance-vol", "field": "options.spy.atm_iv"},
+        {"signal": "VIX while spot rallies (divergence)", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "Single-name short interest and call OI", "data_source": "manual", "field": "FMP shares-float + option chain scrape"},
+        {"signal": "0DTE/weekly volume spike", "data_source": "manual", "field": "options chain volume by expiry"}
+      ],
+      "feedback_loop": "Customers buy calls, dealers hedge by buying spot, spot rises, dealer short-call delta grows, dealers buy more spot. The reflexive bid persists until call demand fades or expiration unwinds the position.",
+      "fades_when": ["Call open interest declines after OPEX", "IV crush after the move", "Heavy put buying restores positive dealer gamma"],
+      "related_strategies": ["short_squeeze_setup", "momentum_breadth", "options_skew_arb"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "options", "gamma", "dealer-flows"]
+    },
+    {
+      "id": "long_gamma_damping",
+      "name": "Long-Gamma Stabilization",
+      "category": "positioning",
+      "regime": ["vol-compression", "mean-reverting", "risk-on"],
+      "summary": "When dealers are net long gamma (customers short options), dealers sell into rallies and buy into dips to stay flat. That hedging supplies liquidity and compresses intraday range. Markets feel sticky and grinding because dealer flow is mean-reverting price.",
+      "trigger_conditions": ["Heavy index put-selling and overwriting flows", "Realized vol << implied for 10+ sessions", "Spot pinning to large open-interest strikes"],
+      "signals_to_watch": [
+        {"signal": "Realized vs implied spread", "data_source": "manual", "field": "compute 20d realized SPY vs VIX"},
+        {"signal": "VIX at low absolute levels", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "SPY ATM IV by 30d expiry", "data_source": "yfinance-vol", "field": "options.spy.atm_iv.30d"},
+        {"signal": "VIX term structure (VIX/VIX3M)", "data_source": "yfinance-vol", "field": "indices.vix.close, indices.vix3m.close"}
+      ],
+      "feedback_loop": "Dealer long gamma forces them to fade moves, which compresses realized vol, which encourages more vol-selling by customers, which deepens dealer long gamma. Range stays narrow until a shock breaks the strikes the position is built around.",
+      "fades_when": ["Spot breaks decisively through dealer long-gamma strike cluster", "Sharp put buying flips dealer gamma negative", "VIX term structure inverts"],
+      "related_strategies": ["vol_carry", "dispersion_trade", "low_vol_defensive"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "options", "gamma", "vol-compression"]
+    },
+    {
+      "id": "dealer_short_gamma_chase",
+      "name": "Dealer Short-Gamma Chase",
+      "category": "positioning",
+      "regime": ["vol-spike", "trending", "risk-off"],
+      "summary": "When dealers are short gamma (customers long puts in a sell-off, or long calls in a rally), dealer hedging chases price in the direction of the move. This amplifies trends intraday and is a major source of fast tail moves into the close.",
+      "trigger_conditions": ["Heavy hedger put buying after a drawdown", "Spot near a dense short-gamma strike cluster", "Late-day directional acceleration"],
+      "signals_to_watch": [
+        {"signal": "Put/call ratio elevated", "data_source": "yfinance-vol", "field": "options.spy.pc_ratio"},
+        {"signal": "VIX rising with spot", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "SKEW index", "data_source": "yfinance-vol", "field": "indices.skew.close"},
+        {"signal": "1d realized vol spike vs 20d", "data_source": "manual", "field": "compute SPY 1d vs 20d realized"}
+      ],
+      "feedback_loop": "Dealer short gamma means hedges sell into weakness and buy into strength. The hedge flow amplifies the move, drawing more option demand, which deepens the dealer short and forces more chasing.",
+      "fades_when": ["OPEX rolls off the short-gamma exposure", "Customers sell their puts/calls back to dealers", "Spot moves clearly past the strike cluster"],
+      "related_strategies": ["tail_hedge", "options_skew_arb", "vol_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["positioning", "options", "gamma", "dealer-flows"]
+    },
+    {
+      "id": "repo_stress",
+      "name": "Repo Funding Stress",
+      "category": "liquidity",
+      "regime": ["risk-off", "deleveraging"],
+      "summary": "Repo is the overnight plumbing where banks and hedge funds finance Treasury holdings. When SOFR jumps above the IORB or the Fed's RRP rate without a clear calendar reason, it signals collateral scarcity or balance-sheet strain at dealers. Stress here typically precedes risk-asset weakness because leveraged trades lose their funding leg.",
+      "trigger_conditions": ["SOFR > IORB by >5 bps for multiple days", "SOFR-OIS spread widening", "Quarter/year-end balance-sheet windows"],
+      "signals_to_watch": [
+        {"signal": "SOFR rate", "data_source": "fred", "field": "SOFR"},
+        {"signal": "IORB rate", "data_source": "fred", "field": "IORB"},
+        {"signal": "RRP take-up", "data_source": "fred", "field": "RRPONTSYD"},
+        {"signal": "Fed balance sheet", "data_source": "fred", "field": "WALCL"},
+        {"signal": "NFCI/ANFCI", "data_source": "fred", "field": "NFCI"}
+      ],
+      "feedback_loop": "Higher repo rates raise the funding cost of leveraged trades, forcing some unwinds. Unwinds release collateral but also push spot prices around, which raises haircuts and hedging costs, tightening funding further until the Fed or dealers add reserves.",
+      "fades_when": ["SOFR-IORB spread normalizes", "Fed adds liquidity (standing repo, RRP drain)", "Quarter-end pressure passes"],
+      "related_strategies": ["credit_stress_value", "tail_hedge", "relative_value_pairs"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["liquidity", "funding", "repo", "plumbing"]
+    },
+    {
+      "id": "tga_drain_refill",
+      "name": "TGA Drain/Refill Effect",
+      "category": "liquidity",
+      "regime": ["risk-on", "risk-off", "leveraging", "deleveraging"],
+      "summary": "The Treasury General Account holds Treasury cash at the Fed. When the TGA falls, that cash flows into the banking system as reserves and tends to support risk assets. When it rises (post debt-ceiling refills, heavy issuance), reserves drain and conditions tighten. The effect is mechanical and on a fairly predictable issuance calendar.",
+      "trigger_conditions": ["Large TGA refill schedule announced", "Debt-ceiling resolution triggering bill issuance", "TGA crossing major thresholds (~500B, ~750B)"],
+      "signals_to_watch": [
+        {"signal": "TGA balance", "data_source": "fred", "field": "WTREGEN"},
+        {"signal": "Fed balance sheet", "data_source": "fred", "field": "WALCL"},
+        {"signal": "RRP balance", "data_source": "fred", "field": "RRPONTSYD"},
+        {"signal": "Bank reserves", "data_source": "manual", "field": "WALCL minus RRP minus TGA proxy"}
+      ],
+      "feedback_loop": "TGA drains add reserves to the system, easing conditions and supporting risk assets. TGA refills drain reserves into Treasury, tightening conditions; if RRP is already low, the drain comes from bank reserves directly and the impact is sharper.",
+      "fades_when": ["TGA stabilizes at target", "Issuance calendar quiets", "Fed adjusts RRP rate or balance-sheet runoff pace"],
+      "related_strategies": ["hard_asset_carry", "credit_stress_value", "trend_following_macro"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["liquidity", "treasury", "reserves", "macro"]
+    },
+    {
+      "id": "rrp_unwind",
+      "name": "RRP Unwind",
+      "category": "liquidity",
+      "regime": ["risk-on", "leveraging"],
+      "summary": "The Fed's reverse-repo facility absorbs excess money-market cash. When RRP balances fall, that cash typically rotates into T-bills and bank deposits, expanding usable liquidity in the system. A draining RRP buffers TGA refills and QT, but once RRP is empty, the same drains hit bank reserves directly.",
+      "trigger_conditions": ["RRP balance below $500B and falling", "Bill issuance outpacing coupon issuance", "Money-market funds rotating from RRP into bills"],
+      "signals_to_watch": [
+        {"signal": "RRP take-up", "data_source": "fred", "field": "RRPONTSYD"},
+        {"signal": "T-bill rates vs RRP rate", "data_source": "fred", "field": "DGS3MO"},
+        {"signal": "Fed balance sheet", "data_source": "fred", "field": "WALCL"},
+        {"signal": "TGA balance", "data_source": "fred", "field": "WTREGEN"}
+      ],
+      "feedback_loop": "Falling RRP releases cash into bills, which keeps short rates anchored and reserves stable, which supports risk-on conditions. The buffering effect ends abruptly when RRP nears zero and tightening pressure starts hitting reserves directly.",
+      "fades_when": ["RRP near zero", "Bill yields rise sharply above the RRP rate", "Fed pauses QT"],
+      "related_strategies": ["credit_stress_value", "hard_asset_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["liquidity", "reserves", "money-market", "macro"]
+    },
+    {
+      "id": "dollar_funding_stress",
+      "name": "Dollar Funding Stress",
+      "category": "liquidity",
+      "regime": ["risk-off", "deleveraging"],
+      "summary": "Foreign banks and corporates borrow dollars synthetically via FX swaps. When the cross-currency basis widens (dollars expensive in swaps), it signals a global scramble for dollar funding. This typically coincides with risk-off, dollar strength, and stress in EM and credit.",
+      "trigger_conditions": ["Cross-currency basis widening sharply", "DXY breakout to new highs", "Sharp EM FX weakness"],
+      "signals_to_watch": [
+        {"signal": "DXY level/change", "data_source": "fmp", "field": "quote UUP/DXY"},
+        {"signal": "EM FX (EEM, EMB)", "data_source": "fmp", "field": "quote EEM, EMB"},
+        {"signal": "MOVE index", "data_source": "yfinance-vol", "field": "indices.move.close"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"},
+        {"signal": "HY OAS", "data_source": "fred", "field": "BAMLH0A0HYM2"}
+      ],
+      "feedback_loop": "Dollar shortage pushes the dollar higher, which raises foreign borrowers' funding costs in local currency, which forces unwinds of dollar-denominated assets, which adds to the dollar bid. The loop breaks when central banks open swap lines or risk-off reverses.",
+      "fades_when": ["Fed opens or expands FX swap lines", "DXY rolls over", "Cross-currency basis normalizes"],
+      "related_strategies": ["tail_hedge", "credit_stress_value", "trend_following_macro"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["liquidity", "fx", "funding", "global"]
+    },
+    {
+      "id": "treasury_basis_unwind",
+      "name": "Treasury Basis Trade Unwind",
+      "category": "liquidity",
+      "regime": ["risk-off", "vol-spike", "deleveraging"],
+      "summary": "Hedge funds run a massive levered trade short Treasury futures and long cash Treasuries to capture the basis. The trade depends on cheap repo funding. When repo tightens or rate vol spikes, the basis blows out, margin calls hit, and forced unwinds dump cash Treasuries — paradoxically pushing yields higher in a risk-off episode.",
+      "trigger_conditions": ["MOVE index > 130 with rising 10Y yield", "Cash-futures basis widening", "Repo rates spiking and CFTC leveraged short futures positioning extreme"],
+      "signals_to_watch": [
+        {"signal": "MOVE index", "data_source": "yfinance-vol", "field": "indices.move.close"},
+        {"signal": "10Y yield", "data_source": "fred", "field": "DGS10"},
+        {"signal": "SOFR-IORB spread", "data_source": "fred", "field": "SOFR, IORB"},
+        {"signal": "COT leveraged-fund Treasury futures positioning", "data_source": "cftc-cot", "field": "leveraged_funds.treasuries"},
+        {"signal": "Treasury full curve", "data_source": "treasury", "field": "yields"}
+      ],
+      "feedback_loop": "Basis blowout generates margin calls on the futures short. Funds raise cash by selling cash Treasuries, which pushes yields higher, which raises rate vol, which widens the basis further. The loop only breaks when the Fed adds liquidity or vol crushes.",
+      "fades_when": ["MOVE index normalizes below 110", "SOFR re-anchors below IORB", "Fed standing repo facility usage spikes (relief)"],
+      "related_strategies": ["tail_hedge", "credit_stress_value", "relative_value_pairs"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["liquidity", "treasuries", "basis", "funding"]
+    },
+    {
+      "id": "hy_spread_cascade",
+      "name": "HY Spread Widening Cascade",
+      "category": "credit",
+      "regime": ["risk-off", "deleveraging"],
+      "summary": "High-yield credit is the canary for risk appetite. When HY OAS widens 50+ bps in a few weeks, equity drawdowns usually follow. The cascade comes from ETF redemptions forcing dealers to mark down inventory, which widens spreads further and prompts more redemptions.",
+      "trigger_conditions": ["HY OAS widens >75 bps in 4 weeks", "HYG/JNK trading at persistent NAV discount", "Energy or specific-sector blowouts dragging the index"],
+      "signals_to_watch": [
+        {"signal": "HY OAS", "data_source": "fred", "field": "BAMLH0A0HYM2"},
+        {"signal": "IG OAS", "data_source": "fred", "field": "BAMLC0A0CM"},
+        {"signal": "HYG/JNK premium-discount", "data_source": "fmp", "field": "quote HYG, JNK"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"},
+        {"signal": "VIX", "data_source": "yfinance-vol", "field": "indices.vix.close"}
+      ],
+      "feedback_loop": "Spread widening triggers HY ETF redemptions, dealers mark down bonds, NAVs fall, more redemptions follow. Funding costs rise for low-quality issuers, which raises default risk, which widens spreads further.",
+      "fades_when": ["HY OAS rolls over for 5+ sessions", "NFCI normalizes", "Central bank credit backstop announced"],
+      "related_strategies": ["credit_stress_value", "defensive_rotation", "tail_hedge"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["credit", "spreads", "hy", "etf-flows"]
+    },
+    {
+      "id": "ig_spread_leadership",
+      "name": "IG Spread Leadership",
+      "category": "credit",
+      "regime": ["risk-off", "risk-on"],
+      "summary": "Investment-grade spreads tend to lead equity drawdowns by 1-3 weeks because IG holders are more rate-sensitive and react earlier to financial-conditions shifts. When IG OAS widens while HY is still tight, it often signals top-down de-risking by real-money allocators before retail-driven HY moves.",
+      "trigger_conditions": ["IG OAS widens >15 bps in 2 weeks", "IG widening with HY stable (divergence)", "Rising NFCI"],
+      "signals_to_watch": [
+        {"signal": "IG OAS", "data_source": "fred", "field": "BAMLC0A0CM"},
+        {"signal": "HY OAS", "data_source": "fred", "field": "BAMLH0A0HYM2"},
+        {"signal": "IG-HY ratio", "data_source": "manual", "field": "compute BAMLC0A0CM / BAMLH0A0HYM2"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"},
+        {"signal": "LQD vs HYG", "data_source": "fmp", "field": "quote LQD, HYG"}
+      ],
+      "feedback_loop": "Real-money credit funds reduce IG exposure ahead of stress. Spreads widen, primary issuance slows, corporate buyback funding becomes more expensive, which weakens the equity bid and confirms the de-risking signal.",
+      "fades_when": ["IG OAS reconverges with HY", "NFCI rolls over", "Issuance windows reopen"],
+      "related_strategies": ["defensive_rotation", "credit_stress_value", "low_vol_defensive"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["credit", "spreads", "ig", "leading-indicator"]
+    },
+    {
+      "id": "credit_equity_divergence",
+      "name": "Credit-Equity Divergence",
+      "category": "credit",
+      "regime": ["risk-off", "mean-reverting"],
+      "summary": "When equities make new highs but credit spreads are widening (or vice-versa), one market is usually wrong and resolves toward the other. Credit tends to lead because credit investors focus on fundamentals and balance sheets while equity is more flow-driven near tops.",
+      "trigger_conditions": ["S&P new 6m high while HY OAS up >25 bps from 3m low", "Equity rally with NFCI tightening", "HYG underperforming SPY by >3% over 1m"],
+      "signals_to_watch": [
+        {"signal": "SPY level vs trailing high", "data_source": "fmp", "field": "quote SPY"},
+        {"signal": "HY OAS vs trailing low", "data_source": "fred", "field": "BAMLH0A0HYM2"},
+        {"signal": "HYG vs SPY relative", "data_source": "fmp", "field": "quote HYG, SPY"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"}
+      ],
+      "feedback_loop": "Credit weakness raises the cost of capital and signals stress that equity has not priced. As credit deteriorates further, equity buybacks slow and de-risking accelerates, eventually pulling equity down to confirm the credit signal.",
+      "fades_when": ["HY OAS makes a new low", "HYG outperforms SPY for 2+ weeks", "NFCI eases"],
+      "related_strategies": ["defensive_rotation", "low_vol_defensive", "credit_stress_value"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["credit", "equity", "divergence", "leading-indicator"]
+    },
+    {
+      "id": "passive_flow_dominance",
+      "name": "Passive Flow Dominance",
+      "category": "flows",
+      "regime": ["risk-on", "trending"],
+      "summary": "Passive funds buy index constituents on a market-cap basis regardless of valuation. As passive share grows, the largest names get the biggest inflows, breadth narrows, and price moves get less informative about fundamentals. The flip side is that any redemption hits the same names hardest.",
+      "trigger_conditions": ["Top 5 names > 25% of S&P weight", "Equal-weight underperforming cap-weight by >5% over 6m", "Persistent 401k/retirement inflows"],
+      "signals_to_watch": [
+        {"signal": "RSP vs SPY", "data_source": "fmp", "field": "quote RSP, SPY"},
+        {"signal": "Top names weight in SPY", "data_source": "manual", "field": "FMP holdings or index methodology"},
+        {"signal": "Breadth (advance-decline)", "data_source": "fmp", "field": "marketPerformance breadth"},
+        {"signal": "AAII bullish %", "data_source": "manual", "field": "scrape AAII or alternate sentiment"}
+      ],
+      "feedback_loop": "Passive inflows lift mega-caps, mega-cap outperformance attracts more passive (and momentum) flows, breadth narrows further, performance-chasing intensifies. The cycle inverts when redemptions hit and the same names lead the drawdown.",
+      "fades_when": ["Equal-weight starts outperforming", "Mega-cap earnings disappoint", "Breadth thrust resets the leadership"],
+      "related_strategies": ["momentum_breadth", "breadth_thrust_momentum", "sector_rotation"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["flows", "passive", "breadth", "concentration"]
+    },
+    {
+      "id": "systematic_vs_discretionary",
+      "name": "Systematic vs Discretionary Regime",
+      "category": "flows",
+      "regime": ["trending", "mean-reverting"],
+      "summary": "When systematic strategies (vol-targeting, CTAs, risk-parity) dominate marginal flow, markets trend smoothly and react mechanically to vol and price signals. When discretionary money is back in charge, narratives, earnings, and macro surprises matter more and intraday moves get noisier. Knowing which regime is active changes how to read the tape.",
+      "trigger_conditions": ["Low cross-asset correlation = discretionary", "Tight intraday ranges with strong trends = systematic", "VIX low with rising realized = mixed"],
+      "signals_to_watch": [
+        {"signal": "VIX vs realized SPY vol", "data_source": "manual", "field": "compute realized from FMP returns"},
+        {"signal": "Cross-asset correlation (SPY/TLT/UUP/Gold)", "data_source": "manual", "field": "compute pairwise from FMP quotes"},
+        {"signal": "Intraday range / ATR", "data_source": "fmp", "field": "technicalIndicators atr"},
+        {"signal": "VIX term structure", "data_source": "yfinance-vol", "field": "indices.vix.close, indices.vix3m.close"}
+      ],
+      "feedback_loop": "Systematic dominance compresses vol and steepens trends, which reinforces systematic flows. Eventually a discretionary catalyst (Fed, earnings, geopolitics) breaks the trend, vol spikes, systematic players cut, and discretionary money sets prices until the next compression.",
+      "fades_when": ["Major catalyst forces re-pricing", "VIX term structure inverts", "Cross-asset correlations spike"],
+      "related_strategies": ["trend_following_macro", "vol_carry", "sector_rotation"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["flows", "systematic", "discretionary", "regime"]
+    },
+    {
+      "id": "foreign_flow_rotation",
+      "name": "Foreign Flow Rotation",
+      "category": "flows",
+      "regime": ["risk-on", "risk-off", "inflationary"],
+      "summary": "Foreign investors hold roughly a third of US Treasuries and a meaningful slice of US equities. When the dollar weakens or US real yields fall versus foreign alternatives, foreign flow can rotate out, pressuring USD assets. Conversely, dollar strength and yield premium attracts foreign capital and supports US risk assets.",
+      "trigger_conditions": ["DXY breaking 6m trend", "US-Bund 10y spread compressing", "TIC data showing net foreign selling"],
+      "signals_to_watch": [
+        {"signal": "DXY", "data_source": "fmp", "field": "quote UUP/DXY"},
+        {"signal": "US 10y yield", "data_source": "fred", "field": "DGS10"},
+        {"signal": "US 10y real yield (T5YIFR proxy)", "data_source": "fred", "field": "T5YIFR"},
+        {"signal": "EM equity (EEM) and EM debt (EMB)", "data_source": "fmp", "field": "quote EEM, EMB"},
+        {"signal": "Gold and Bitcoin (alternatives to USD)", "data_source": "fmp", "field": "quote GLD, IBIT"}
+      ],
+      "feedback_loop": "Strong dollar plus high real yields attracts foreign flow into US assets, supporting equities and Treasuries and reinforcing dollar strength. When real yields compress or DXY rolls, the rotation reverses and US assets lose a structural bid.",
+      "fades_when": ["DXY breaks below 200d MA", "US-foreign yield spread compresses", "Gold and EM start outperforming"],
+      "related_strategies": ["hard_asset_carry", "sector_rotation", "trend_following_macro"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["flows", "fx", "foreign", "macro"]
+    },
+    {
+      "id": "etf_creation_redemption_arb",
+      "name": "ETF Creation/Redemption Arb",
+      "category": "flows",
+      "regime": ["vol-spike", "deleveraging"],
+      "summary": "Authorized participants arbitrage ETF prices against underlying baskets via creations and redemptions. In stress, the arb breaks down when underlying liquidity dries up (HY bonds, EM equities), and ETFs trade at large discounts to NAV. The discount itself can become a forced-sell signal that pressures the underlying further.",
+      "trigger_conditions": ["HYG/EMB premium-discount > 1%", "Heavy outflows from sector ETFs", "Underlying liquidity dries up (corporate bonds)"],
+      "signals_to_watch": [
+        {"signal": "HYG NAV vs price", "data_source": "manual", "field": "FMP quote HYG vs reported NAV"},
+        {"signal": "EMB NAV vs price", "data_source": "manual", "field": "FMP quote EMB vs reported NAV"},
+        {"signal": "HY OAS spike", "data_source": "fred", "field": "BAMLH0A0HYM2"},
+        {"signal": "ETF flows / volume", "data_source": "fmp", "field": "quote volume HYG, JNK, EMB"}
+      ],
+      "feedback_loop": "Stress redemptions force APs to sell underlying bonds. Bond prices fall faster than ETF NAVs can update, ETFs trade at discount, more holders sell perceiving NAV deterioration, redemptions accelerate, more underlying selling.",
+      "fades_when": ["HYG/EMB premium normalizes", "Underlying credit liquidity returns", "Inflows resume"],
+      "related_strategies": ["credit_stress_value", "tail_hedge", "relative_value_pairs"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["flows", "etf", "arbitrage", "credit"]
+    },
+    {
+      "id": "cot_extreme_positioning",
+      "name": "COT Extreme Positioning",
+      "category": "sentiment",
+      "regime": ["mean-reverting"],
+      "summary": "When commercial hedgers are at multi-year extremes (e.g. heavily long after a sell-off, heavily short after a rally), it often marks a turning point because commercials trade on physical/fundamental knowledge. The flip side: leveraged-fund speculators at extremes are often wrong at turns and provide the fuel for reversals.",
+      "trigger_conditions": ["Commercial net position at 3y extreme", "Leveraged-fund position at 3y opposite extreme", "Open interest growing into the extreme"],
+      "signals_to_watch": [
+        {"signal": "COT commercial net by asset", "data_source": "cftc-cot", "field": "commercials.net"},
+        {"signal": "COT leveraged-fund / managed-money net", "data_source": "cftc-cot", "field": "managed_money.net"},
+        {"signal": "COT z-score vs 3y range", "data_source": "manual", "field": "compute from cftc-cot cache"},
+        {"signal": "Spot price near range extremes", "data_source": "fmp", "field": "quote relevant futures proxy ETF"}
+      ],
+      "feedback_loop": "Specs pile in chasing the trend; commercials hedge against them. As price approaches an extreme, specs are most exposed, commercials are most hedged. Any catalyst forces specs to cover, the cover becomes the next trend, and commercials gradually unwind their hedge.",
+      "fades_when": ["COT positioning normalizes back to z-score < 1", "Open interest declines on the reversal"],
+      "related_strategies": ["trend_following_macro", "relative_value_pairs", "hard_asset_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["sentiment", "cot", "positioning", "futures"]
+    },
+    {
+      "id": "put_call_flip",
+      "name": "Put/Call Ratio Flips",
+      "category": "sentiment",
+      "regime": ["mean-reverting", "vol-spike"],
+      "summary": "Equity put/call ratio extremes often precede short-term reversals. Extremely high P/C (panic put-buying) tends to mark capitulation lows; extremely low P/C (complacent call-buying) tends to mark distribution tops. The signal is sharpest when paired with VIX moves and breadth.",
+      "trigger_conditions": ["SPY P/C > 1.3 with VIX > 25", "SPY P/C < 0.5 with VIX < 14", "5d MA of P/C at 1y extreme"],
+      "signals_to_watch": [
+        {"signal": "SPY put/call ratio", "data_source": "yfinance-vol", "field": "options.spy.pc_ratio"},
+        {"signal": "QQQ put/call ratio", "data_source": "yfinance-vol", "field": "options.qqq.pc_ratio"},
+        {"signal": "VIX level/change", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "Breadth (% above 50d MA)", "data_source": "fmp", "field": "marketPerformance breadth"}
+      ],
+      "feedback_loop": "Extreme put-buying pushes dealer gamma negative, increasing downside acceleration; once selling exhausts, the dealer hedge unwind becomes a buy and a sharp reversal follows. Mirror logic on extreme call-buying after rallies.",
+      "fades_when": ["P/C reverts toward 1.0", "VIX normalizes", "Breadth confirms in the new direction"],
+      "related_strategies": ["options_skew_arb", "tail_hedge", "vol_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["sentiment", "options", "put-call", "contrarian"]
+    },
+    {
+      "id": "aaii_sentiment_extreme",
+      "name": "AAII Sentiment Extremes",
+      "category": "sentiment",
+      "regime": ["mean-reverting"],
+      "summary": "Retail sentiment surveys (AAII bull-bear, II) are slow but reliable contrarian indicators at multi-month extremes. When bears outnumber bulls by 20+ points after a drawdown, forward 3-6m returns skew positive. The reverse holds at frothy bullish extremes.",
+      "trigger_conditions": ["AAII bull-bear < -20 (very bearish)", "AAII bull-bear > +30 (very bullish)", "Persistent extreme reading for 3+ weeks"],
+      "signals_to_watch": [
+        {"signal": "AAII bull-bear spread", "data_source": "manual", "field": "scrape AAII weekly survey"},
+        {"signal": "Investor's Intelligence bull-bear", "data_source": "manual", "field": "scrape II weekly survey"},
+        {"signal": "Put/call confirmation", "data_source": "yfinance-vol", "field": "options.spy.pc_ratio"},
+        {"signal": "VIX absolute level", "data_source": "yfinance-vol", "field": "indices.vix.close"}
+      ],
+      "feedback_loop": "Retail sells into drawdowns and buys into rallies, exhausting their own marginal buying or selling power. When the survey hits an extreme, the marginal flow has already happened and the next move tends to surprise the consensus position.",
+      "fades_when": ["Bull-bear normalizes within +/- 10", "Position surveys (NAAIM) confirm reversal", "Breadth thrust or capitulation completes"],
+      "related_strategies": ["sector_rotation", "deep_value_rerating", "breadth_thrust_momentum"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["sentiment", "retail", "contrarian", "survey"]
+    },
+    {
+      "id": "fed_pivot_expectations",
+      "name": "Fed Pivot Expectations",
+      "category": "macro",
+      "regime": ["risk-on", "risk-off", "leveraging"],
+      "summary": "Markets price expected Fed policy via the SOFR/Fed Funds curve. Sharp moves in pricing for cuts or hikes drive cross-asset flows: dovish repricing supports equities and gold and weakens the dollar; hawkish repricing does the reverse. The signal is most powerful when the market and the dot plot disagree.",
+      "trigger_conditions": ["Fed funds futures repricing >50 bps in a month", "T10Y2Y curve steepening sharply", "Powell speech or FOMC minutes catalysts"],
+      "signals_to_watch": [
+        {"signal": "T10Y2Y curve", "data_source": "fred", "field": "T10Y2Y"},
+        {"signal": "2y yield", "data_source": "fred", "field": "DGS2"},
+        {"signal": "T10Y3M curve", "data_source": "fred", "field": "T10Y3M"},
+        {"signal": "5y forward inflation", "data_source": "fred", "field": "T5YIFR"},
+        {"signal": "DXY", "data_source": "fmp", "field": "quote UUP/DXY"}
+      ],
+      "feedback_loop": "Dovish repricing eases financial conditions (NFCI down, dollar down, equities up), which loosens conditions further and risks reigniting inflation, which can force a hawkish about-face. Each cycle whipsaws positioning.",
+      "fades_when": ["FOMC delivers and pricing converges to dots", "NFCI stabilizes", "Inflation prints settle expectations"],
+      "related_strategies": ["post_fomc_drift", "trend_following_macro", "sector_rotation"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["macro", "fed", "rates", "pivot"]
+    },
+    {
+      "id": "real_yield_regime_shift",
+      "name": "Real-Yield Regime Shift",
+      "category": "macro",
+      "regime": ["deflationary", "inflationary", "risk-off"],
+      "summary": "Real yields are the discount rate for long-duration assets. When real yields rise sharply, growth stocks, gold, and crypto compress; when they fall, the same assets re-rate higher. Most equity factor rotations and the gold trade can be explained mostly by real-yield direction.",
+      "trigger_conditions": ["10y real yield (T5YIFR proxy or TIPS) moves >50 bps in 1m", "T5YIE (breakevens) decoupling from nominal yields", "Gold/Nasdaq breaking trend on real-yield move"],
+      "signals_to_watch": [
+        {"signal": "5y forward inflation", "data_source": "fred", "field": "T5YIFR"},
+        {"signal": "5y breakeven", "data_source": "fred", "field": "T5YIE"},
+        {"signal": "10y nominal", "data_source": "fred", "field": "DGS10"},
+        {"signal": "Gold (GLD) and Nasdaq (QQQ)", "data_source": "fmp", "field": "quote GLD, QQQ"},
+        {"signal": "TIP ETF as real-yield proxy", "data_source": "fmp", "field": "quote TIP"}
+      ],
+      "feedback_loop": "Falling real yields lift duration-sensitive assets (tech, gold, crypto), supporting risk-on; rising real yields compress them and rotate flow into value/cyclicals. Each regime self-reinforces via factor flows until the rate environment changes.",
+      "fades_when": ["Real-yield trend exhausts", "Inflation expectations re-anchor", "Fed policy regime resets"],
+      "related_strategies": ["quality_compounders", "deep_value_rerating", "hard_asset_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["macro", "real-yields", "duration", "factor-rotation"]
+    },
+    {
+      "id": "dollar_wrecking_ball",
+      "name": "Dollar Wrecking Ball",
+      "category": "macro",
+      "regime": ["risk-off", "deflationary"],
+      "summary": "When the dollar rallies sharply, it tightens global financial conditions: commodities priced in USD fall, EM borrowers struggle to service dollar debt, and US multinational earnings translate worse. A sustained DXY breakout reliably precedes risk-off in EM and commodities and weighs on US large-cap earnings.",
+      "trigger_conditions": ["DXY breaking above 200d MA with momentum", "EM FX selloff", "Commodities (CRB) rolling over"],
+      "signals_to_watch": [
+        {"signal": "DXY", "data_source": "fmp", "field": "quote UUP/DXY"},
+        {"signal": "EEM and EMB", "data_source": "fmp", "field": "quote EEM, EMB"},
+        {"signal": "Copper and oil", "data_source": "fmp", "field": "quote HG, USO"},
+        {"signal": "US-foreign rate differential", "data_source": "fred", "field": "DGS10"},
+        {"signal": "NFCI", "data_source": "fred", "field": "NFCI"}
+      ],
+      "feedback_loop": "Stronger dollar tightens global conditions, EM and commodities sell off, capital flows to US, dollar strengthens further. The loop only breaks when the Fed pivots or foreign central banks intervene meaningfully.",
+      "fades_when": ["DXY breaks below 50d/200d MA", "EM stabilizes", "Fed dovish pivot"],
+      "related_strategies": ["defensive_rotation", "tail_hedge", "trend_following_macro"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["macro", "fx", "dollar", "global"]
+    },
+    {
+      "id": "inflation_expectations_rerate",
+      "name": "Inflation Expectations Re-Rate",
+      "category": "macro",
+      "regime": ["inflationary", "deflationary"],
+      "summary": "When breakevens and the 5y5y forward jump after CPI/PCE prints or supply shocks, the entire long end of the Treasury curve repriers. This re-rates discount rates across equities and triggers factor rotations from growth to value. Sustained de-anchoring forces a Fed reaction and amplifies the move.",
+      "trigger_conditions": ["T5YIE > 2.7% and rising", "Hot CPI/PCE surprise > 0.2 vs consensus", "Oil breakout coinciding"],
+      "signals_to_watch": [
+        {"signal": "5y breakeven", "data_source": "fred", "field": "T5YIE"},
+        {"signal": "5y5y forward inflation", "data_source": "fred", "field": "T5YIFR"},
+        {"signal": "Core PCE YoY", "data_source": "fred", "field": "PCEPILFE"},
+        {"signal": "Headline CPI YoY", "data_source": "fred", "field": "CPIAUCSL"},
+        {"signal": "Oil (USO)", "data_source": "fmp", "field": "quote USO"}
+      ],
+      "feedback_loop": "Higher breakevens raise nominal yields, which strengthens the dollar, which lowers commodity prices in USD, which can eventually anchor breakevens again. If breakevens de-anchor before that, the Fed must reset hawkish and the cycle resets harder.",
+      "fades_when": ["Breakevens stabilize within 50 bps band", "CPI prints in line for 2-3 months", "Oil rolls over"],
+      "related_strategies": ["hard_asset_carry", "deep_value_rerating", "sector_rotation"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["macro", "inflation", "breakevens", "rates"]
+    },
+    {
+      "id": "liquidity_holes",
+      "name": "Microstructure Liquidity Holes",
+      "category": "microstructure",
+      "regime": ["vol-spike", "risk-off"],
+      "summary": "Top-of-book depth in S&P futures and major ETFs collapses during stress, sometimes by 80%+. With less liquidity, the same order size moves price more, which creates discontinuous gaps and amplifies the apparent severity of a sell-off. Holiday weeks and overnight sessions are especially vulnerable.",
+      "trigger_conditions": ["VIX spike on low-volume day", "Pre-holiday/overnight sessions", "ES top-of-book depth <50% of 30d average"],
+      "signals_to_watch": [
+        {"signal": "SPY volume vs 30d average", "data_source": "fmp", "field": "quote SPY volume"},
+        {"signal": "VIX intraday spike", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "Bid-ask spreads (ATR proxy)", "data_source": "fmp", "field": "technicalIndicators atr"},
+        {"signal": "Calendar (holidays, half-days)", "data_source": "manual", "field": "exchange calendar"}
+      ],
+      "feedback_loop": "Thin liquidity means the same flow moves price further. Larger price moves trigger stop-losses and systematic vol responses, adding flow into a market that cannot absorb it. The hole gets deeper until liquidity providers return at lower prices.",
+      "fades_when": ["Volume returns to normal", "VIX rolls over", "Major liquidity providers re-engage post-holiday"],
+      "related_strategies": ["tail_hedge", "vol_carry", "options_skew_arb"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["microstructure", "liquidity", "depth", "calendar"]
+    },
+    {
+      "id": "zero_dte_flow",
+      "name": "0DTE Option Flow",
+      "category": "microstructure",
+      "regime": ["vol-spike", "vol-compression"],
+      "summary": "Zero-day-to-expiration options now drive a large share of intraday SPX flow. Because they have huge gamma near the strike, dealer hedging on 0DTE creates outsized intraday moves and pinning behavior. They can also magnify late-day reversals when the gamma profile flips.",
+      "trigger_conditions": ["Heavy 0DTE call/put volume vs longer-dated", "Spot near a dense 0DTE strike", "Late-day directional acceleration"],
+      "signals_to_watch": [
+        {"signal": "SPY 0DTE option volume", "data_source": "manual", "field": "options chain volume by expiry day"},
+        {"signal": "SPY ATM IV by 0d expiry", "data_source": "yfinance-vol", "field": "options.spy.atm_iv.0d"},
+        {"signal": "Intraday VIX vs realized", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "Spot pinning to large OI strikes", "data_source": "manual", "field": "options chain OI map"}
+      ],
+      "feedback_loop": "Dealer hedging on 0DTE positions buys/sells aggressively as spot crosses strikes. The hedging itself moves spot toward or through strikes, triggering more hedging. Effects flip at the close when the options expire and gamma resets.",
+      "fades_when": ["Cash close (gamma resets)", "Open interest concentrates further out the curve", "Realized vol drops"],
+      "related_strategies": ["vol_carry", "options_skew_arb", "dispersion_trade"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["microstructure", "options", "0dte", "gamma"]
+    },
+    {
+      "id": "month_end_rebalancing",
+      "name": "End-of-Month Rebalancing",
+      "category": "microstructure",
+      "regime": ["mean-reverting"],
+      "summary": "Pension and balanced funds rebalance monthly/quarterly back to target weights. When equities have rallied vs bonds, they sell stocks and buy bonds in the last 3 sessions of the month; the reverse in drawdowns. The flow is mechanical, sized in the tens of billions, and produces predictable end-of-month reversals.",
+      "trigger_conditions": ["S&P up >3% over month with bonds flat/down", "Quarter/year-end with large cross-asset divergence", "Pension rebalancing estimates published by sell-side"],
+      "signals_to_watch": [
+        {"signal": "MTD SPY return", "data_source": "fmp", "field": "quote SPY history"},
+        {"signal": "MTD TLT return", "data_source": "fmp", "field": "quote TLT history"},
+        {"signal": "Calendar (last 3 sessions of month)", "data_source": "manual", "field": "exchange calendar"},
+        {"signal": "VIX behavior into month-end", "data_source": "yfinance-vol", "field": "indices.vix.close"}
+      ],
+      "feedback_loop": "Cross-asset divergence triggers rebalance flow that fades the divergence. The flow itself is somewhat anticipated by traders who front-run it, which compresses the predictable portion but still leaves residual mean-reversion into the close.",
+      "fades_when": ["First 1-2 sessions of new month", "Cross-asset divergence resets", "Major macro catalyst overrides flow"],
+      "related_strategies": ["relative_value_pairs", "sector_rotation", "vol_carry"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["microstructure", "rebalancing", "calendar", "pensions"]
+    },
+    {
+      "id": "post_earnings_drift",
+      "name": "Post-Earnings Drift",
+      "category": "earnings",
+      "regime": ["trending"],
+      "summary": "Stocks tend to drift in the direction of an earnings surprise for 30-60 days afterward. Analysts revise estimates slowly, passive flows follow index rebalancing, and momentum traders extend the move. The effect is strongest when surprise + guidance are aligned and weakest when they diverge.",
+      "trigger_conditions": ["EPS beat >5% with raised guidance", "Day-after gap holding for 5+ sessions", "Sell-side estimate revisions trending up"],
+      "signals_to_watch": [
+        {"signal": "Earnings calendar / surprise", "data_source": "fmp", "field": "calendar earnings"},
+        {"signal": "Day-after gap and follow-through", "data_source": "fmp", "field": "quote daily history"},
+        {"signal": "Estimate revisions", "data_source": "fmp", "field": "analyst estimates"},
+        {"signal": "Sector ETF performance post-print", "data_source": "fmp", "field": "marketPerformance sectors"}
+      ],
+      "feedback_loop": "Beat + raise prints attract momentum buyers, sell-side raises estimates, passive index flows follow on rebalances, and short-sellers cover. Each step extends the drift until the next print or a regime change.",
+      "fades_when": ["Next earnings print resets baseline", "Estimate revisions plateau", "Stock breaks 50d MA against the drift"],
+      "related_strategies": ["pead_revisions", "momentum_breadth", "garp_revisions"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["earnings", "drift", "revisions", "momentum"]
+    },
+    {
+      "id": "guidance_compression_cycle",
+      "name": "Guidance Compression Cycle",
+      "category": "earnings",
+      "regime": ["risk-off", "deflationary", "trending"],
+      "summary": "When companies start cutting forward guidance, sell-side estimates follow with a lag, and stocks repeatedly miss the lowered bar before estimates fully reset. The cycle from peak guidance to estimate trough typically runs 2-4 quarters and is the single biggest driver of multi-quarter drawdowns in cyclicals.",
+      "trigger_conditions": ["Bellwether companies cutting guidance 2+ quarters", "Sector NTM EPS revisions negative for 3+ months", "Margin trends rolling over in macro data"],
+      "signals_to_watch": [
+        {"signal": "Forward EPS revisions by sector", "data_source": "fmp", "field": "analyst estimates by sector"},
+        {"signal": "Earnings calendar surprise rate", "data_source": "fmp", "field": "calendar earnings"},
+        {"signal": "ISM/PMI macro data", "data_source": "manual", "field": "ISM survey via macro-calendar"},
+        {"signal": "HY OAS (sector-implied)", "data_source": "fred", "field": "BAMLH0A0HYM2"}
+      ],
+      "feedback_loop": "Initial guidance cuts pressure stocks, which raises cost of capital, which forces more conservative guidance next quarter. Estimates lag the cuts, so prints keep missing, sell-side downgrades cascade, and the multiple compresses on top of the EPS cut.",
+      "fades_when": ["Estimate revisions stabilize for 2+ months", "Cyclicals show first beats vs lowered bar", "ISM/PMI inflects"],
+      "related_strategies": ["defensive_rotation", "deep_value_rerating", "credit_stress_value"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["earnings", "guidance", "revisions", "cycle"]
+    },
+    {
+      "id": "margin_reset_cycle",
+      "name": "Margin Reset Cycle",
+      "category": "earnings",
+      "regime": ["inflationary", "deflationary"],
+      "summary": "When input costs rise faster than companies can pass through (or vice-versa), gross margins compress (or expand) for several quarters before restabilizing. The reset is sticky because pricing power, contract structures, and labor agreements move slowly. Identifying which sectors are early/late in the cycle is a major source of relative-value alpha.",
+      "trigger_conditions": ["Sector gross margin trend changing direction for 2+ quarters", "Wage growth or commodity costs decoupling from price index", "Capex cycle inflecting"],
+      "signals_to_watch": [
+        {"signal": "Sector gross/operating margin", "data_source": "fmp", "field": "statements by sector"},
+        {"signal": "PPI vs CPI spread", "data_source": "fred", "field": "CPIAUCSL"},
+        {"signal": "Wage growth (PAYEMS-derived)", "data_source": "fred", "field": "PAYEMS"},
+        {"signal": "Commodity ETFs (DBC/HG/USO)", "data_source": "fmp", "field": "quote DBC, HG, USO"}
+      ],
+      "feedback_loop": "Cost pressure compresses margins, which forces price hikes, which dampens demand, which pressures volumes. Companies cut capex, supply shrinks, eventually pricing power returns and the margin cycle re-inflates. The full cycle typically runs 18-36 months.",
+      "fades_when": ["Margin trend stabilizes", "PPI-CPI spread normalizes", "Capex cycle troughs"],
+      "related_strategies": ["quality_compounders", "deep_value_rerating", "garp_revisions"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["earnings", "margins", "cycle", "fundamentals"]
+    },
+    {
+      "id": "carry_trade_unwind",
+      "name": "Carry Trade Unwind",
+      "category": "carry",
+      "regime": ["vol-spike", "deleveraging", "risk-off"],
+      "summary": "Carry trades borrow in low-yield currencies (JPY, CHF) to fund higher-yielding assets (EM, credit, equities). They make small steady profits and then occasionally crash when funding currencies rally hard. The unwind is fast because the trade is heavily levered and the JPY/CHF moves trigger stops across the entire complex.",
+      "trigger_conditions": ["JPY rallying >2% in 3 sessions vs USD", "VIX spiking with EM weakness", "Sharp drop in carry indices (e.g. EM FX vs USD)"],
+      "signals_to_watch": [
+        {"signal": "USD/JPY", "data_source": "fmp", "field": "quote USDJPY"},
+        {"signal": "EM FX (EEM, EMB)", "data_source": "fmp", "field": "quote EEM, EMB"},
+        {"signal": "VIX spike", "data_source": "yfinance-vol", "field": "indices.vix.close"},
+        {"signal": "MOVE index", "data_source": "yfinance-vol", "field": "indices.move.close"},
+        {"signal": "COT JPY positioning", "data_source": "cftc-cot", "field": "managed_money.jpy"}
+      ],
+      "feedback_loop": "Funding currency rally triggers stops on carry trades, forced unwinds buy back the funding currency, which strengthens it further, triggering more stops. The unwind cascades through EM, HY credit, and equity vol until positioning is flat or central banks intervene.",
+      "fades_when": ["JPY/CHF stabilizes for 5+ sessions", "VIX rolls over", "Carry indices reset"],
+      "related_strategies": ["tail_hedge", "trend_following_macro", "credit_stress_value"],
+      "references": ["Market Feedback Loop System"],
+      "tags": ["carry", "fx", "unwind", "deleveraging"]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260605090002
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\harness\run-world-packet.ps1 -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 47460
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[harness-world-packet] My_Data - World Packet Writer
+[started] 2026-06-05T09:00:02.1276224-04:00
+[VAULT_ROOT] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data
+[command] C:\Program Files\nodejs\node.exe C:\Users\CaveUser\harness\engine\run.mjs pull world-machine-flow --approved-only
+
+Wrote World_Machine bridge manifest: C:\Users\CaveUser\harness\_cache\world-machine-bridge\2026-06-05.json
+World Machine flow (2026-06-05)
+  Manifest: C:\Users\CaveUser\harness\_cache\world-machine-bridge\2026-06-05.json
+  World root: C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine
+  Decision inbox: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\40_Decisions\Inbox
+  Packets: 0
+  Approved packets: 0
+  Approved-only mode: write 0 decision inbox candidate(s).
+
+[done] Done in 0.5s
+
+[finished] 2026-06-05T09:00:02.7314562-04:00 exit=0
+**********************
+Windows PowerShell transcript end
+End time: 20260605090002
+**********************

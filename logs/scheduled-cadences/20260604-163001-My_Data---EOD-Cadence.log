@@ -1,0 +1,53 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260604163001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\harness\run-scheduled.ps1 -CommandType cadence -Name eod -TaskLabel My_Data - EOD Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 30524
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled-harness] My_Data - EOD Cadence
+[started] 2026-06-04T16:30:01.2034165-04:00
+[VAULT_ROOT] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data
+[command] C:\Program Files\nodejs\node.exe C:\Users\CaveUser\harness\engine\run.mjs cadence run eod
+
+Wrote cycle status: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\Freshness\Market_Cycles\historical-case-s
+tudies.md
+  [ok] wrote=0 skipped=0 (0.6s)
+
+[run] freshness-source-writer
+Wrote 82 freshness source note(s) to C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\Freshness\Sources
+  [ok] wrote=0 skipped=0 (0.3s)
+
+[run] my-data-report-flow  --documents=eod-monitoring,eod-briefing
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\EOD\Monitoring\2026-06-04 End Of Day Monitoring Snapsh
+ot.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\EOD\Briefings\2026-06-04 End Of Day Briefing.md
+  [ok] wrote=0 skipped=0 (1.4s)
+
+[run] cockpit-refresh
+[cockpit-refresh] wrote 3 calibration notes, pruned 0 → C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\00_Dashboard\
+_data
+  [ok] wrote=0 skipped=0 (0.0s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\Reports\System\run_summaries\2026-06-04_16-30.md
+
+[done] 5/5 ok in 7.4s
+
+[done] Done in 8.8s
+
+[finished] 2026-06-04T16:30:10.0369851-04:00 exit=0
+**********************
+Windows PowerShell transcript end
+End time: 20260604163010
+**********************

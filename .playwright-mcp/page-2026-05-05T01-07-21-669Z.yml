@@ -1,0 +1,279 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: R
+      - generic [ref=e6]: Research Console
+    - navigation "Console sections" [ref=e7]:
+      - button "Projects" [ref=e8] [cursor=pointer]
+      - button "Inbox" [ref=e9] [cursor=pointer]
+      - button "Checkpoints" [ref=e10] [cursor=pointer]
+      - button "Agents" [ref=e11] [cursor=pointer]
+      - button "Grading" [ref=e12] [cursor=pointer]
+      - button "Artifacts" [ref=e13] [cursor=pointer]
+      - button "Sources" [ref=e14] [cursor=pointer]
+      - button "Dashboard" [ref=e15] [cursor=pointer]
+    - generic [ref=e16]: Obsidian stays the source of truth. This console only writes Markdown after preview confirmation.
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - heading "Market Feedback Loop System Design" [level=1] [ref=e20]
+        - generic [ref=e21]: RSRCH-2026-001 · strategy-review · 10_Research_Projects/RSRCH-2026-001 - Market Feedback Loop System Design
+      - generic [ref=e22]:
+        - button "Refresh" [ref=e23] [cursor=pointer]
+        - button "Vault Health" [ref=e24] [cursor=pointer]
+        - button "Spawn Follow-up" [ref=e25] [cursor=pointer]
+        - button "Open in Obsidian" [ref=e26] [cursor=pointer]
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e29]: Thesis
+        - generic [ref=e30]: ready
+      - generic [ref=e31]:
+        - generic [ref=e32]: Strategy
+        - generic [ref=e33]: strategy-review
+      - generic [ref=e34]:
+        - generic [ref=e35]: Metadata
+        - generic [ref=e36]: waiting
+      - generic [ref=e37]:
+        - generic [ref=e38]: Subagents
+        - generic [ref=e39]: waiting
+      - generic [ref=e40]:
+        - generic [ref=e41]: Source Map
+        - generic [ref=e42]: waiting
+      - generic [ref=e43]:
+        - generic [ref=e44]: Research Run
+        - generic [ref=e45]: waiting
+      - generic [ref=e46]:
+        - generic [ref=e47]: Checkpoint
+        - generic [ref=e48]: waiting
+      - generic [ref=e49]:
+        - generic [ref=e50]: Synthesis
+        - generic [ref=e51]: waiting
+      - generic [ref=e52]:
+        - generic [ref=e53]: Closure
+        - generic [ref=e54]: waiting
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: Needs Human Decision
+          - generic [ref=e59]: 3 open
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - strong [ref=e62]: Approve strategy
+            - generic [ref=e63]: Unlock subagent research lanes after reviewing strategy.
+            - generic [ref=e64]:
+              - button "Approve" [ref=e65] [cursor=pointer]
+              - button "Request Revision" [ref=e66] [cursor=pointer]
+          - generic [ref=e67]:
+            - strong [ref=e68]: Confirm subagent lanes
+            - generic [ref=e69]: Review roster scope, deliverables, and exit conditions.
+            - button "Open Roster" [ref=e71] [cursor=pointer]
+          - generic [ref=e72]:
+            - strong [ref=e73]: Grade human submission
+            - generic [ref=e74]: Score the latest human submission before it advances the workflow.
+            - button "Open Grading" [ref=e76] [cursor=pointer]
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - generic [ref=e79]: Current Project State
+          - generic [ref=e80]: strategy-review
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]: 24/24
+              - generic [ref=e85]: Artifacts · required files present
+            - generic [ref=e86]:
+              - generic [ref=e87]: "0"
+              - generic [ref=e88]: Cycle · max 3
+            - generic [ref=e89]:
+              - generic [ref=e90]: Pending
+              - generic [ref=e91]: Strategy · strategy approval
+            - generic [ref=e92]:
+              - generic [ref=e93]: not-graded
+              - generic [ref=e94]: Grading · attempt 0
+          - generic [ref=e95]:
+            - strong [ref=e96]: Gate blockers
+            - text: Strategy has not been approved by the human owner.
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]: Subagent Lanes
+          - generic [ref=e100]: 9 lanes
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - strong [ref=e103]: Literature
+            - generic [ref=e104]: literature_map.md
+            - generic [ref=e105]: blocked
+            - button "Open" [ref=e107] [cursor=pointer]
+          - generic [ref=e108]:
+            - strong [ref=e109]: Data
+            - generic [ref=e110]: data_source_map.md
+            - generic [ref=e111]: blocked
+            - button "Open" [ref=e113] [cursor=pointer]
+          - generic [ref=e114]:
+            - strong [ref=e115]: Historical Case
+            - generic [ref=e116]: case_study_pack.md
+            - generic [ref=e117]: blocked
+            - button "Open" [ref=e119] [cursor=pointer]
+          - generic [ref=e120]:
+            - strong [ref=e121]: Mechanism
+            - generic [ref=e122]: mechanism_library.md
+            - generic [ref=e123]: blocked
+            - button "Open" [ref=e125] [cursor=pointer]
+          - generic [ref=e126]:
+            - strong [ref=e127]: Red Team
+            - generic [ref=e128]: red_team_memo.md
+            - generic [ref=e129]: blocked
+            - button "Open" [ref=e131] [cursor=pointer]
+          - generic [ref=e132]:
+            - strong [ref=e133]: Dashboard
+            - generic [ref=e134]: dashboard_spec.md
+            - generic [ref=e135]: blocked
+            - button "Open" [ref=e137] [cursor=pointer]
+          - generic [ref=e138]:
+            - strong [ref=e139]: Playbook
+            - generic [ref=e140]: investment_playbook.md
+            - generic [ref=e141]: blocked
+            - button "Open" [ref=e143] [cursor=pointer]
+          - generic [ref=e144]:
+            - strong [ref=e145]: Curriculum
+            - generic [ref=e146]: curriculum.md
+            - generic [ref=e147]: blocked
+            - button "Open" [ref=e149] [cursor=pointer]
+          - generic [ref=e150]:
+            - strong [ref=e151]: Grading Expert
+            - generic [ref=e152]: grading_rubric.md
+            - generic [ref=e153]: blocked
+            - button "Open" [ref=e155] [cursor=pointer]
+    - generic [ref=e156]:
+      - generic [ref=e157]:
+        - generic [ref=e158]: Human Submission Grading
+        - generic [ref=e159]: not-graded
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - text: Submission title
+            - textbox "Submission title" [ref=e163]: Human checkpoint submission
+          - generic [ref=e164]:
+            - text: Artifact path
+            - textbox "Artifact path" [ref=e165]: 07_human_notes.md
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - text: Thesis clarity
+            - spinbutton "Thesis clarity" [ref=e168]: "3"
+          - generic [ref=e169]:
+            - text: Evidence grounding
+            - spinbutton "Evidence grounding" [ref=e170]: "3"
+          - generic [ref=e171]:
+            - text: Mechanism reasoning
+            - spinbutton "Mechanism reasoning" [ref=e172]: "3"
+          - generic [ref=e173]:
+            - text: Decision relevance
+            - spinbutton "Decision relevance" [ref=e174]: "3"
+          - generic [ref=e175]:
+            - text: Uncertainty handling
+            - spinbutton "Uncertainty handling" [ref=e176]: "3"
+        - textbox "Grading notes and resubmission guidance." [ref=e177]
+        - generic [ref=e178]:
+          - button "Preview Grade" [ref=e179] [cursor=pointer]
+          - button "Confirm Grade" [disabled] [ref=e180]
+          - button "Open Rubric" [ref=e181] [cursor=pointer]
+          - button "Open Grade Log" [ref=e182] [cursor=pointer]
+        - generic [ref=e183]:
+          - strong [ref=e184]: Latest result
+          - text: Attempt 0 · none · n/a/20
+    - generic [ref=e185]:
+      - generic [ref=e186]:
+        - generic [ref=e187]: Artifact Preview / Edit
+        - generic [ref=e188]:
+          - button "Preview Write" [disabled] [ref=e189]
+          - button "Confirm Write" [disabled] [ref=e190]
+      - generic [ref=e191]:
+        - generic [ref=e192]:
+          - generic [ref=e193] [cursor=pointer]:
+            - strong [ref=e194]: 00_project_metadata.md
+            - generic [ref=e195]: RSRCH-2026-001
+          - generic [ref=e196] [cursor=pointer]:
+            - strong [ref=e197]: 01_research_thesis.md
+            - generic [ref=e198]: RSRCH-2026-001
+          - generic [ref=e199] [cursor=pointer]:
+            - strong [ref=e200]: 02_research_strategy.md
+            - generic [ref=e201]: RSRCH-2026-001
+          - generic [ref=e202] [cursor=pointer]:
+            - strong [ref=e203]: 03_subagent_roster.md
+            - generic [ref=e204]: RSRCH-2026-001
+          - generic [ref=e205] [cursor=pointer]:
+            - strong [ref=e206]: 04_source_map.md
+            - generic [ref=e207]: RSRCH-2026-001
+          - generic [ref=e208] [cursor=pointer]:
+            - strong [ref=e209]: 05_curriculum_or_review_timeline.md
+            - generic [ref=e210]: RSRCH-2026-001
+          - generic [ref=e211] [cursor=pointer]:
+            - strong [ref=e212]: 06_checkpoint_plan.md
+            - generic [ref=e213]: RSRCH-2026-001
+          - generic [ref=e214] [cursor=pointer]:
+            - strong [ref=e215]: 07_human_notes.md
+            - generic [ref=e216]: RSRCH-2026-001
+          - generic [ref=e217] [cursor=pointer]:
+            - strong [ref=e218]: 08_agent_work/breaking_point_playbook.md
+            - generic [ref=e219]: RSRCH-2026-001
+          - generic [ref=e220] [cursor=pointer]:
+            - strong [ref=e221]: 08_agent_work/case_study_pack.md
+            - generic [ref=e222]: RSRCH-2026-001
+          - generic [ref=e223] [cursor=pointer]:
+            - strong [ref=e224]: 08_agent_work/curriculum.md
+            - generic [ref=e225]: RSRCH-2026-001
+          - generic [ref=e226] [cursor=pointer]:
+            - strong [ref=e227]: 08_agent_work/dashboard_spec.md
+            - generic [ref=e228]: RSRCH-2026-001
+          - generic [ref=e229] [cursor=pointer]:
+            - strong [ref=e230]: 08_agent_work/data_source_map.md
+            - generic [ref=e231]: RSRCH-2026-001
+          - generic [ref=e232] [cursor=pointer]:
+            - strong [ref=e233]: 08_agent_work/grading_rubric.md
+            - generic [ref=e234]: RSRCH-2026-001
+          - generic [ref=e235] [cursor=pointer]:
+            - strong [ref=e236]: 08_agent_work/human_submission_grades.md
+            - generic [ref=e237]: RSRCH-2026-001
+          - generic [ref=e238] [cursor=pointer]:
+            - strong [ref=e239]: 08_agent_work/investment_playbook.md
+            - generic [ref=e240]: RSRCH-2026-001
+          - generic [ref=e241] [cursor=pointer]:
+            - strong [ref=e242]: 08_agent_work/literature_map.md
+            - generic [ref=e243]: RSRCH-2026-001
+          - generic [ref=e244] [cursor=pointer]:
+            - strong [ref=e245]: 08_agent_work/main_agent_synthesis.md
+            - generic [ref=e246]: RSRCH-2026-001
+          - generic [ref=e247] [cursor=pointer]:
+            - strong [ref=e248]: 08_agent_work/mechanism_library.md
+            - generic [ref=e249]: RSRCH-2026-001
+          - generic [ref=e250] [cursor=pointer]:
+            - strong [ref=e251]: 08_agent_work/red_team_memo.md
+            - generic [ref=e252]: RSRCH-2026-001
+          - generic [ref=e253] [cursor=pointer]:
+            - strong [ref=e254]: 09_comparison_and_questions.md
+            - generic [ref=e255]: RSRCH-2026-001
+          - generic [ref=e256] [cursor=pointer]:
+            - strong [ref=e257]: 10_final_report.md
+            - generic [ref=e258]: RSRCH-2026-001
+          - generic [ref=e259] [cursor=pointer]:
+            - strong [ref=e260]: 11_decision_memo.md
+            - generic [ref=e261]: RSRCH-2026-001
+          - generic [ref=e262] [cursor=pointer]:
+            - strong [ref=e263]: 12_next_projects.md
+            - generic [ref=e264]: RSRCH-2026-001
+        - generic [ref=e265]:
+          - generic [ref=e266]: Select an artifact
+          - textbox "Select a Markdown artifact to preview or edit." [ref=e267]
+    - generic [ref=e268]:
+      - generic [ref=e269]:
+        - generic [ref=e270]: My_Data Dependencies
+        - generic [ref=e271]: linked
+      - generic [ref=e273]:
+        - strong [ref=e274]: Reference notes
+        - generic [ref=e275]: scripts/run.mjs
+        - generic [ref=e276]: 01_Data_Sources/Market_Data/CBOE_Options.md
+        - generic [ref=e277]: 01_Data_Sources/Macro/FRED API.md
+        - generic [ref=e278]: 01_Data_Sources/Macro/Treasury Direct API.md
+        - strong [ref=e279]: Copyable commands
+        - button "node scripts/run.mjs pull fmp --quote SPY" [ref=e280] [cursor=pointer]
+        - button "node scripts/run.mjs pull fred --group rates" [ref=e281] [cursor=pointer]
+        - button "node scripts/run.mjs pull cboe --skew" [ref=e282] [cursor=pointer]
+        - button "node scripts/run.mjs thesis full-picture" [ref=e283] [cursor=pointer]

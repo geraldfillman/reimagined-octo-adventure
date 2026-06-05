@@ -1,0 +1,55 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260518094502
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name daily -TaskLabel My_Data - Daily Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 74432
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Daily Cadence
+[started] 2026-05-18T09:45:02.7146279-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run daily
+
+  [error] BLOCKED data readiness for daily
+READY Signal Intelligence: 2026-05-18
+BLOCKED FMP Market Performance: stale (48.0h old)
+  refresh: node run.mjs pull fmp --market-performance
+BLOCKED FMP Macro Calendar: stale (48.0h old)
+  refresh: node run.mjs pull fmp --macro-calendar
+READY FRED Macro Time Series: 2026-05-16
+READY Treasury Rates: 2026-05-16
+BLOCKED CBOE Volatility Indexes: stale (72.0h old)
+  refresh: node run.mjs pull cboe --vix
+WARN General Market News: stale (48.0h old)
+  refresh: node run.mjs pull fmp --general-news --limit=25
+Use the listed refresh command(s), rerun readiness, then generate the report.
+
+[run] knowledge-gap-tasks
+knowledge-gap-tasks: cycle=9 freshness=17 candidates=0 total=26
+knowledge-gap-tasks: wrote 26 task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review Queue.md
+  [ok] wrote=0 skipped=0 (0.0s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\System\run_summaries\2026-05-18_09-45.md
+
+[done] 5/6 ok in 15.5s
+
+[done] Done in 15.5s
+
+[finished] 2026-05-18T09:45:18.3602711-04:00
+[exit-code] 1
+PS>TerminatingError(invoke-scheduled-cadence.ps1): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: Scheduled command failed with exit code 1"
+**********************
+Windows PowerShell transcript end
+End time: 20260518094518
+**********************

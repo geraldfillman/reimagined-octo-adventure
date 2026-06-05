@@ -10,15 +10,14 @@
  */
 
 import { execSync } from 'child_process';
-import { relative } from 'path';
-import { getVaultRoot } from './config.mjs';
+import { toResearchRelative } from './config.mjs';
 
 /**
  * Resolve a vault-relative path from an absolute path.
  * obsidian CLI `path=` parameter expects a path relative to vault root.
  */
 function vaultRelative(absPath) {
-  return relative(getVaultRoot(), absPath).replace(/\\/g, '/');
+  return toResearchRelative(absPath);
 }
 
 /**

@@ -21,6 +21,7 @@ import { mkdirSync } from 'fs';
 import { join } from 'path';
 import { getPullsDir } from '../lib/config.mjs';
 import { fetchWithRetry } from '../lib/fetcher.mjs';
+import { keepEnglishContent } from '../lib/language-filter.mjs';
 import { buildNote, buildTable, writeNote, today, dateStampedFilename } from '../lib/markdown.mjs';
 
 const BASE_URL = 'https://export.arxiv.org/api/query';
@@ -150,10 +151,10 @@ async function pullTopic(topic, outDir) {
   }
 
   const xml = typeof result.data === 'string' ? result.data : JSON.stringify(result.data);
-  const entries = parseAtomEntries(xml);
+  const entries = filterEnglishArxivEntries(parseAtomEntries(xml));
   const totalResults = extractTotal(xml);
 
-  console.log(`  ${totalResults.toLocaleString()} total results, showing ${entries.length} most recent`);
+  console.log(`  ${totalResults.toLocaleString()} total results, showing ${entries.length} English most recent`);
   entries.slice(0, 3).forEach(e => console.log(`  - [${e.published}] ${e.title.slice(0, 70)}`));
 
   if (entries.length === 0) {
@@ -181,11 +182,12 @@ async function pullTopic(topic, outDir) {
       frequency:     'daily',
       signal_status: 'clear',
       signals:       [],
+      language_filter: 'english',
       tags:          topic.tags,
     },
     sections: [
       {
-        heading: `Most Recent Preprints (${entries.length} shown / ${totalResults.toLocaleString()} total)`,
+        heading: `Most Recent English Preprints (${entries.length} shown / ${totalResults.toLocaleString()} total)`,
         content: buildTable(
           ['Published', 'Title', 'Authors', 'Category', 'Link'],
           rows
@@ -235,6 +237,12 @@ function parseAtomEntries(xml) {
     }));
   }
   return entries;
+}
+
+export function filterEnglishArxivEntries(entries = []) {
+  return entries.filter(entry => keepEnglishContent(entry, {
+    textFields: ['title', 'summary'],
+  }));
 }
 
 function extractTag(xml, tag) {

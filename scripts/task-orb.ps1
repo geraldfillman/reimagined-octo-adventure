@@ -3,12 +3,15 @@
 # Runs daily at 09:35 AM ET (Mon-Fri) via Task Scheduler
 # Reads today's rel-vol screen, refreshes entropy, then writes the ORB+Entropy trade sheet.
 
+. (Join-Path $PSScriptRoot 'lib\paths.ps1')
+
+$myDataRoot = Get-MyDataRoot
 Set-Location $PSScriptRoot
 $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 Write-Host "[$ts] ORB Entropy Trade Sheet starting..."
 
 # --- Step 1: resolve symbol list from latest FMP_RelVol_Screen ---------------
-$marketDir  = Join-Path $PSScriptRoot '..\05_Data_Pulls\Market'
+$marketDir  = Join-Path $myDataRoot '05_Data_Pulls\Market'
 $screenFile = Get-ChildItem $marketDir -Filter '*FMP_RelVol_Screen*.md' -ErrorAction SilentlyContinue |
               Sort-Object Name -Descending |
               Select-Object -First 1
@@ -39,7 +42,7 @@ Write-Host "[$ts] Symbols ($($symbols.Count)): $symbolList"
 
 # --- Step 2: refresh entropy for today's candidates -------------------------
 Write-Host "[$ts] Running entropy-monitor..."
-node run.mjs entropy-monitor --symbols $symbolList
+node run.mjs pull entropy-monitor --symbols $symbolList
 if ($LASTEXITCODE -ne 0) {
     Write-Host "[$ts] WARNING: entropy-monitor exited with code $LASTEXITCODE -- continuing to ORB screen"
 }

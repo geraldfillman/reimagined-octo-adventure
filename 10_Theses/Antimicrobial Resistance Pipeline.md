@@ -15,11 +15,16 @@ expected_downside: "Binary clinical and reimbursement risk can impair the whole 
 position_sizing: "Satellite 0.5-2% basket diversified across pipelines rather than concentrated in one name."
 required_sources: ["[[FDA open data Drugs@FDA]]", "[[ClinicalTrials API]]", "[[PubMed API]]", "[[NewsAPI]]"]
 required_pull_families: ["fda --recent-approvals", "clinicaltrials --amr", "pubmed --amr", "arxiv --amr"]
-monitor_status: "on-track"
+monitor_status: "strengthening"
 monitor_last_review: "2026-03-27"
-monitor_change: "Initial monitor baseline established."
+monitor_change: "Machine update: rolling conviction +16 across 4 signal(s); Suggest high conviction and high priority. Source [[2026-05-07_Conviction_Delta]]."
 break_risk_status: "not-seen"
-monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
+monitor_action: "Review on catalyst changes and promote only when evidence chains strengthen."
+suggested_allocation_priority: "high"
+suggested_conviction: "high"
+conviction_last_signal_date: "2026-05-02"
+conviction_signal_count_7d: 4
+conviction_rolling_score_7d: 16
 core_entities: ["[[INVA]]", "[[SPRO]]", "[[PFE]]", "[[MRK]]", "[[JNJ]]", "[[RPRX]]", "[[BIIB]]", "[[Healthcare]]", "[[USA]]", "[[BARDA]]", "[[WHO]]"]
 supporting_regimes: ["[[Rate Cut Cycle]]", "[[Risk-On]]", "[[Biosecurity Spending]]"]
 key_indicators: ["[[BARDA Contract Awards]]", "[[FDA QIDP Designations]]", "[[ClinicalTrials AMR Pipeline]]", "[[WHO Priority Pathogen List]]"]
@@ -31,37 +36,35 @@ fmp_watchlist_symbol_count: 7
 fmp_primary_symbol: "INVA"
 fmp_technical_symbol_count: 7
 fmp_technical_nonclear_count: 0
-fmp_technical_bearish_count: 3
+fmp_technical_bearish_count: 2
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
 fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "mixed"
-fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 46.38
-fmp_primary_price_vs_sma200_pct: 12.14
+fmp_primary_technical_bias: "bearish"
+fmp_primary_momentum_state: "soft"
+fmp_primary_rsi14: 43.33
+fmp_primary_price_vs_sma200_pct: 8.62
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 1482929103
-fmp_primary_trailing_pe: 6.36
-fmp_primary_price_to_sales: 3.58
-fmp_primary_price_to_book: 1.47
-fmp_primary_ev_to_sales: 2.9
-fmp_primary_ev_to_ebitda: 3.22
-fmp_primary_roe_pct: 30.6
-fmp_primary_roic_pct: -0.87
-fmp_primary_operating_margin_pct: -4.01
-fmp_primary_net_margin_pct: 65.38
-fmp_primary_current_ratio: 14.64
-fmp_primary_debt_to_equity: 0.23
-fmp_primary_price_target: 33
-fmp_primary_analyst_count: 5
-fmp_primary_target_upside_pct: 43.17
-fmp_primary_fundamentals_cached_at: "2026-04-30"
-fmp_primary_snapshot_date: "2026-04-30"
-fmp_calendar_symbol_count: 7
-fmp_calendar_pull_date: "2026-04-30"
-fmp_next_earnings_date: "2026-04-30"
-fmp_next_earnings_symbols: ["MRK"]
-fmp_last_sync: "2026-04-30"
+fmp_primary_market_cap: 1657744503
+fmp_primary_trailing_pe: 3.3
+fmp_primary_price_to_sales: 3.91
+fmp_primary_price_to_book: 1.24
+fmp_primary_ev_to_sales: 3.27
+fmp_primary_ev_to_ebitda: 3.09
+fmp_primary_roe_pct: 47.59
+fmp_primary_roic_pct: 2.93
+fmp_primary_operating_margin_pct: 14.85
+fmp_primary_net_margin_pct: 118.91
+fmp_primary_current_ratio: 21.13
+fmp_primary_debt_to_equity: 0.25
+fmp_primary_price_target: 34.5
+fmp_primary_analyst_count: 6
+fmp_primary_target_upside_pct: 53.61
+fmp_primary_fundamentals_cached_at: "2026-05-25"
+fmp_primary_snapshot_date: "2026-05-15"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-05-13"
+fmp_last_sync: "2026-05-26"
 tags: ["thesis", "biotech", "amr", "antibiotics", "barda", "government"]
 ---
 
@@ -192,6 +195,8 @@ WHERE contains(string(tags), "amr") OR contains(string(tags), "barda") OR contai
 SORT date DESC
 LIMIT 5
 ```
+
+
 
 
 

@@ -2,13 +2,12 @@
  * thesis-watchlists.mjs - Shared helpers for thesis and basket watchlist symbol resolution.
  */
 
-import { join, relative, sep } from 'path';
-import { getVaultRoot } from './config.mjs';
+import { relative, sep } from 'path';
+import { getEntitiesDir, getThesesDir } from './config.mjs';
 import { readFolder } from './frontmatter.mjs';
 
-const VAULT_ROOT = getVaultRoot();
-const THESES_DIR = join(VAULT_ROOT, '10_Theses');
-const STOCKS_DIR = join(VAULT_ROOT, '08_Entities', 'Stocks');
+const THESES_DIR = getThesesDir();
+const STOCKS_DIR = getEntitiesDir('Stocks');
 
 const NON_SYMBOL_LINKS = new Set([
   'AI',

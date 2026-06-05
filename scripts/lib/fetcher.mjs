@@ -56,6 +56,11 @@ function isFmpUrl(url) {
   try { return new URL(url).hostname.includes(FMP_HOST); } catch { return false; }
 }
 
+/** Redact common API key query parameters before including a URL in log output. */
+function redactKey(url) {
+  return String(url).replace(/([?&])(apikey|api_key|apiKey|key|token|access_token)=[^&]*/gi, '$1$2=REDACTED');
+}
+
 /**
  * Fetch a URL with retry and timeout.
  * @param {string} url
@@ -148,7 +153,7 @@ export async function fetchWithRetry(url, options = {}) {
     } catch (err) {
       lastError = err;
       if (err.name === 'AbortError') {
-        lastError = new Error(`Request timed out after ${timeout}ms: ${url}`);
+        lastError = new Error(`Request timed out after ${timeout}ms: ${redactKey(url)}`);
       }
       if (attempt < retries - 1) {
         const waitMs = BASE_DELAY_MS * Math.pow(2, attempt);

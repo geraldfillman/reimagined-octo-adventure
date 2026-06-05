@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260525094502
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name daily -TaskLabel My_Data - Daily Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 57544
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - Daily Cadence
+[started] 2026-05-25T09:45:02.2225856-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run daily
+
+Streamline Report: reading local vault notes since 2026-05-11 [cadence=daily, focus=all]...
+  �� KB raw copy → 12_Knowledge_Bases/raw/orchestrator/2026-05-25_Streamline_Report.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\05_Data_Pulls\Orchestrator\2026-05-25_Streamline_Report.md
+  [ok] wrote=1 skipped=0 (1.1s)
+
+[run] research-spine-flow  --documents=daily-monitoring,daily-briefing
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\Daily\Monitoring\2026-05-25 Daily Monitoring Sna
+pshot.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\Daily\Briefings\2026-05-25 Daily Briefing.md
+Inbox: wrote 2 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review Queue.md
+Inbox: wrote 0 World Machine promotion task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review
+ Queue.md
+  [ok] wrote=0 skipped=0 (2.0s)
+
+[run] knowledge-gap-tasks
+knowledge-gap-tasks: cycle=9 freshness=20 candidates=0 total=29
+knowledge-gap-tasks: wrote 29 task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\_Inbox\Review Queue.md
+  [ok] wrote=0 skipped=0 (0.0s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\World_Machine\Reports\System\run_summaries\2026-05-25_09-45.md
+
+[done] 6/6 ok in 9.3s
+
+[done] Done in 9.3s
+
+[finished] 2026-05-25T09:45:11.5770970-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260525094511
+**********************

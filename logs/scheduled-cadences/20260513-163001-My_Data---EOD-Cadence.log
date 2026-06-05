@@ -1,0 +1,54 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260513163001
+Username: Cave-Gaming\CaveUser
+RunAs User: Cave-Gaming\CaveUser
+Configuration Name: 
+Machine: CAVE-GAMING (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts\invoke-scheduled-cadence.ps1 -CommandType cadence -Name eod -TaskLabel My_Data - EOD Cadence -NodePath C:\Program Files\nodejs\node.exe
+Process ID: 47628
+PSVersion: 5.1.26100.8457
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8457
+BuildVersion: 10.0.26100.8457
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[scheduled] My_Data - EOD Cadence
+[started] 2026-05-13T16:30:01.2345252-04:00
+[cwd] C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts
+[command] "C:\Program Files\nodejs\node.exe" run.mjs cadence run eod
+
+Wrote cycle status: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\01_Freshness\Market_Cycles\historical-
+case-studies.md
+  [ok] wrote=0 skipped=0 (0.5s)
+
+[run] freshness-source-writer
+Wrote 65 freshness source note(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\01_Freshness\Sources
+  [ok] wrote=0 skipped=0 (0.2s)
+
+[run] research-spine-flow  --documents=eod-monitoring,eod-briefing
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\02_Reports\Monitoring\EndOfDay\2026-05-13 End Of Da
+y Monitoring Snapshot.md
+Wrote: C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\02_Reports\Briefings\EndOfDay\2026-05-13 End Of Day
+ Briefing.md
+Inbox: wrote 2 report review task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\04_Human_Notes\Inb
+ox.md
+Inbox: wrote 23 World Machine promotion task(s) to C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\04_Huma
+n_Notes\Inbox.md
+  [ok] wrote=0 skipped=0 (1.8s)
+
+[run-summary] C:\Users\CaveUser\Documents\Obsidian Vault\The Research Spine\99_System\run_summaries\2026-05-13_16-30.md
+
+[done] 9/9 ok in 9.6s
+
+[done] Done in 9.6s
+
+[finished] 2026-05-13T16:30:10.9250310-04:00
+[exit-code] 0
+**********************
+Windows PowerShell transcript end
+End time: 20260513163010
+**********************

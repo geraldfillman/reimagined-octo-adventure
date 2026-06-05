@@ -31,6 +31,13 @@ export async function fetchBalanceSheetQuarterly(ticker, { limit = 4 } = {}) {
   return Array.isArray(data) ? data : [];
 }
 
+/** Annual balance sheets, newest-first. */
+export async function fetchBalanceSheetAnnual(ticker, { limit = 5 } = {}) {
+  const url = `${stable()}/balance-sheet-statement?symbol=${encodeURIComponent(ticker)}&period=annual&limit=${limit}&apikey=${key()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
 /** Most recent N quarterly cash-flow statements, newest-first. */
 export async function fetchCashFlowQuarterly(ticker, { limit = 4 } = {}) {
   const url = `${stable()}/cash-flow-statement?symbol=${encodeURIComponent(ticker)}&period=quarter&limit=${limit}&apikey=${key()}`;
@@ -43,6 +50,21 @@ export async function fetchIncomeAnnual(ticker, { limit = 5 } = {}) {
   const url = `${stable()}/income-statement?symbol=${encodeURIComponent(ticker)}&period=annual&limit=${limit}&apikey=${key()}`;
   const data = await getJson(url);
   return Array.isArray(data) ? data : [];
+}
+
+/** Most recent N quarterly income statements, newest-first. */
+export async function fetchIncomeQuarterly(ticker, { limit = 8 } = {}) {
+  const url = `${stable()}/income-statement?symbol=${encodeURIComponent(ticker)}&period=quarter&limit=${limit}&apikey=${key()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
+/** FMP TTM key metrics, including netDebtToEBITDATTM when available. */
+export async function fetchKeyMetricsTtm(ticker) {
+  const url = `${stable()}/key-metrics-ttm?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;
+  const data = await getJson(url);
+  if (Array.isArray(data) && data.length > 0) return data[0];
+  return data && typeof data === 'object' ? data : null;
 }
 
 // ─── Market / float ──────────────────────────────────────────────────────────
@@ -104,7 +126,14 @@ export async function fetchIntradayPrices(ticker, { interval = '1min', from, to 
 
 /** Most recent insider transactions (Form 4 summary). */
 export async function fetchInsiderTrades(ticker, { limit = 20 } = {}) {
-  const url = `${stable()}/insider-trading?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;
+  const url = `${stable()}/insider-trading/search?symbol=${encodeURIComponent(ticker)}&limit=${limit}&apikey=${key()}`;
+  const data = await getJson(url);
+  return Array.isArray(data) ? data : [];
+}
+
+/** Quarterly insider acquisition/disposition statistics. */
+export async function fetchInsiderTradingStats(ticker) {
+  const url = `${stable()}/insider-trading/statistics?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;
   const data = await getJson(url);
   return Array.isArray(data) ? data : [];
 }

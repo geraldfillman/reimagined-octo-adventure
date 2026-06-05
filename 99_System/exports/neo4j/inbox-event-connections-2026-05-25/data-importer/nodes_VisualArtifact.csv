@@ -1,0 +1,2 @@
+id,label,name,date,kind,status,score,route,source_count,evidence_count,summary,vault,relative_path,obsidian_url,command,tags
+artifact:2026-05-25:plotly,VisualArtifact,2026-05-25 Inbox Event Connections Plotly,2026-05-25,plotly-html,,,,,,Interactive review artifact generated from World_Machine inbox event connection candidates.,World_Machine,Reports/System/event_connections/2026-05-25_Inbox_Event_Connections.html,obsidian://open?vault=World_Machine&file=Reports%2FSystem%2Fevent_connections%2F2026-05-25_Inbox_Event_Connections.html,,plotly;network;review-artifact

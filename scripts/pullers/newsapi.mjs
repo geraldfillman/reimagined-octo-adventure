@@ -10,7 +10,14 @@
 import { join } from 'path';
 import { getApiKey, getPullsDir } from '../lib/config.mjs';
 import { getJson } from '../lib/fetcher.mjs';
+import { keepEnglishContent } from '../lib/language-filter.mjs';
 import { buildNote, buildTable, writeNote, today, dateStampedFilename } from '../lib/markdown.mjs';
+
+export function filterEnglishNewsArticles(articles = []) {
+  return articles.filter(article => keepEnglishContent(article, {
+    textFields: ['title', 'description', 'content'],
+  }));
+}
 
 export async function pull(flags = {}) {
   const apiKey = getApiKey('newsapi');
@@ -39,8 +46,10 @@ export async function pull(flags = {}) {
     throw new Error(`NewsAPI error: ${data.message || JSON.stringify(data).slice(0, 200)}`);
   }
 
-  const articles = data.articles || [];
-  console.log(`  ${articles.length} articles found`);
+  const rawArticles = Array.isArray(data.articles) ? data.articles : [];
+  const articles = filterEnglishNewsArticles(rawArticles);
+  const filteredCount = rawArticles.length - articles.length;
+  console.log(`  ${articles.length} English article(s) found${filteredCount ? ` (${filteredCount} filtered by language)` : ''}`);
 
   // Determine domain from topic
   const topicLower = topic.toLowerCase();
@@ -73,6 +82,7 @@ export async function pull(flags = {}) {
       domain_hint: domain,
       data_type: 'event_list',
       frequency: 'on-demand',
+      language_filter: 'english',
       signal_status: articles.length > 0 ? 'watch' : 'clear',
       signals: articles.length > 0 ? [{ id: 'NEWS_HEADLINES', severity: 'watch', value: articles.length, message: `${articles.length} headlines found for "${topic}"` }] : [],
       tags: ['news', 'sentiment', topicSlug.toLowerCase(), 'newsapi', domain],
@@ -84,7 +94,7 @@ export async function pull(flags = {}) {
       },
       {
         heading: 'Source',
-        content: `- **API**: NewsAPI (top-headlines endpoint)\n- **Topic**: "${topic}"\n- **Articles**: ${articles.length}\n- **Country**: us\n- **Auto-pulled**: ${today()}`,
+        content: `- **API**: NewsAPI (top-headlines endpoint)\n- **Topic**: "${topic}"\n- **Articles**: ${articles.length}\n- **Filtered non-English**: ${filteredCount}\n- **Country**: us\n- **Language filter**: English-only post-filter\n- **Auto-pulled**: ${today()}`,
       },
     ],
   });

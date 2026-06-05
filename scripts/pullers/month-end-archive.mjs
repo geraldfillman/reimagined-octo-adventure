@@ -7,8 +7,8 @@
  */
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'fs';
-import { basename, dirname, join, relative, resolve } from 'path';
-import { getKBRoot, getPullsDir, getVaultRoot } from '../lib/config.mjs';
+import { basename, dirname, join, relative, resolve, isAbsolute } from 'path';
+import { getEngineRoot, getKBRoot, getPullsDir, resolveEnginePath, toEngineRelative } from '../lib/config.mjs';
 import { buildNote, buildTable, today, writeNote } from '../lib/markdown.mjs';
 import { parseFrontmatter } from '../lib/frontmatter.mjs';
 
@@ -23,12 +23,12 @@ export async function pull(flags = {}) {
   const records = files.map(filePath => readMonthlyRecord(filePath)).filter(Boolean);
   const summary = summarizeRecords(records, month, scopeRoots);
   const archiveRoot = join(getKBRoot(), 'raw', ARCHIVE_KIND, month);
-  const reportPath = join(getPullsDir(), 'Monthly', `${month}_Month_End_Summary.md`);
+  const reportPath = join(getPullsDir(), 'Monthly', monthEndSummaryFilename(month));
   const report = buildMonthlyReport({ month, records, summary, archiveRoot, reportPath, dryRun: Boolean(flags['dry-run']) });
 
   if (flags['dry-run']) {
     console.log(`[dry-run] Month: ${month}`);
-    console.log(`[dry-run] Scope roots: ${scopeRoots.map(path => relative(getVaultRoot(), path)).join(', ')}`);
+    console.log(`[dry-run] Scope roots: ${scopeRoots.map(path => toEngineRelative(path)).join(', ')}`);
     console.log(`[dry-run] Files matched: ${records.length}`);
     console.log(`[dry-run] Would archive to: ${archiveRoot}`);
     console.log(`[dry-run] Would write report: ${reportPath}`);
@@ -60,9 +60,9 @@ export async function pull(flags = {}) {
 function resolveScopeRoots(flags) {
   const raw = flags.scope || flags.scopes || DEFAULT_SCOPE;
   const roots = String(raw).split(',').map(item => item.trim()).filter(Boolean)
-    .map(item => resolve(getVaultRoot(), item));
+    .map(item => isAbsolute(item) ? resolve(item) : resolveEnginePath(item));
   for (const root of roots) {
-    if (!root.startsWith(getVaultRoot())) {
+    if (!root.startsWith(getEngineRoot())) {
       throw new Error(`Scope must stay inside vault: ${root}`);
     }
     if (!existsSync(root)) throw new Error(`Scope not found: ${root}`);
@@ -103,14 +103,14 @@ function isMonthlySummaryPath(filePath) {
 }
 
 function isArchivedPullPath(filePath) {
-  const parts = relative(getVaultRoot(), filePath).split(/[\\/]/);
+  const parts = toEngineRelative(filePath).split(/[\\/]/);
   return parts.includes('_archive');
 }
 
 function readMonthlyRecord(filePath) {
   const raw = readFileSync(filePath, 'utf8');
   const { data, content } = parseFrontmatter(raw);
-  const rel = relative(getVaultRoot(), filePath);
+  const rel = toEngineRelative(filePath);
   const domain = domainFromPath(rel);
   return {
     path: filePath,
@@ -134,7 +134,7 @@ function summarizeRecords(records, month, scopeRoots) {
   return {
     month,
     generatedAt: today(),
-    scopeRoots: scopeRoots.map(path => relative(getVaultRoot(), path)),
+    scopeRoots: scopeRoots.map(path => toEngineRelative(path)),
     fileCount: records.length,
     domainCounts: countBy(records, row => row.domain || 'unknown'),
     dataTypeCounts: countBy(records, row => row.dataType || 'unknown'),
@@ -218,7 +218,7 @@ function buildMonthlyReport({ month, records, summary, archiveRoot, reportPath, 
           `Month: ${month}`,
           `Generated: ${today()}`,
           `Source files matched: ${summary.fileCount}`,
-          `Report path: ${relative(getVaultRoot(), reportPath)}`,
+          `Report path: ${toEngineRelative(reportPath)}`,
           `Archive target: ${relative(getKBRoot(), archiveRoot)}`,
           archiveManifest ? `Manifest: ${relative(getKBRoot(), archiveManifest.manifestPath)}` : `Manifest: ${dryRun ? 'dry-run only' : 'pending'}`,
           '',
@@ -337,4 +337,12 @@ function validateMonth(value) {
 
 function currentMonth() {
   return today().slice(0, 7);
+}
+
+export function monthEndSummaryFilename(month) {
+  const parsed = new Date(`${validateMonth(month)}-01T00:00:00Z`);
+  const lastDay = new Date(Date.UTC(parsed.getUTCFullYear(), parsed.getUTCMonth() + 1, 0))
+    .toISOString()
+    .slice(0, 10);
+  return `${lastDay}_Month_End_Summary.md`;
 }

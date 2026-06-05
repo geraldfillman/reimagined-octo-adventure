@@ -1,0 +1,10 @@
+id:ID,name,source,updatedAt,:LABEL
+metric:pe_ratio,pe_ratio,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:market_cap,market_cap,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:premarket_volume,premarket_volume,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:volume,volume,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:price_close,price_close,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:day_change_pct,day_change_pct,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:eps,eps,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:price_premarket,price_premarket,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition
+metric:premarket_change_pct,premarket_change_pct,financial_modeling_prep,2026-06-01T21:51:10.621000000Z,MetricDefinition

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { basename, extname, relative, resolve } from 'path';
 
-import { getVaultRoot } from './lib/config.mjs';
+import { getResearchVaultRoot, toResearchRelative } from './lib/config.mjs';
 import { buildFrontmatter, buildTable, dateStampedFilename, today, writeNote } from './lib/markdown.mjs';
 
 const GRAPH_ENDPOINT = 'api/v1/graphAndStatements?doNotSave=true&addStats=true&dotGraph=true&optimize=develop';
@@ -106,7 +106,7 @@ const NOISE_TOKENS = new Set([
 const CLUSTER_TERM_BLACKLIST = new Set(['|', '#', '_', '---']);
 
 export async function run(flags = {}) {
-  const vaultRoot = getVaultRoot();
+  const vaultRoot = getResearchVaultRoot();
   const scopePath = flags.path || '10_Theses';
   const absoluteScopePath = resolve(vaultRoot, scopePath);
 
@@ -150,7 +150,7 @@ export async function run(flags = {}) {
 
   writeNote(outputPath, note);
 
-  console.log(`InfraNodus session written: ${relative(vaultRoot, outputPath).replace(/\\/g, '/')}`);
+  console.log(`InfraNodus session written: ${toResearchRelative(outputPath)}`);
 }
 
 function loadPluginSettings(vaultRoot) {

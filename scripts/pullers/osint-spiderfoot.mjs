@@ -1,5 +1,5 @@
-/**
- * osint-spiderfoot.mjs — Passive SpiderFoot OSINT scan for covered entities
+﻿/**
+ * osint-spiderfoot.mjs â€” Passive SpiderFoot OSINT scan for covered entities
  *
  * Usage:
  *   node run.mjs scan osint-spiderfoot --domain example.com
@@ -14,15 +14,14 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
-// Passive-only SpiderFoot modules — no active scanning, no brute force
+// Passive-only SpiderFoot modules â€” no active scanning, no brute force
 const PASSIVE_MODULES = [
   'sfp_dnsresolve',
   'sfp_haveibeenpwned',
@@ -52,7 +51,7 @@ export async function pull(flags = {}) {
   const outputFile = join(OUTPUT_DIR, `spiderfoot-${domain}-${today}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🔍 SpiderFoot passive scan: ${domain}`);
+  console.log(`\nðŸ” SpiderFoot passive scan: ${domain}`);
   console.log(`   Modules: ${PASSIVE_MODULES.split(',').length} passive modules`);
   console.log(`   Output:  ${outputFile}`);
 
@@ -69,12 +68,12 @@ export async function pull(flags = {}) {
   // Check if SpiderFoot CLI is available
   const checkResult = spawnSync('spiderfoot', ['--help'], { encoding: 'utf8' });
   if (checkResult.error) {
-    console.error('❌ SpiderFoot CLI not found. Install with: pip install spiderfoot');
+    console.error('âŒ SpiderFoot CLI not found. Install with: pip install spiderfoot');
     console.error('   Or start the REST server: python sf.py -l 127.0.0.1:5001');
     process.exit(1);
   }
 
-  console.log('\n⏳ Running scan (passive modules only, this may take 2–5 minutes)...');
+  console.log('\nâ³ Running scan (passive modules only, this may take 2â€“5 minutes)...');
 
   const result = spawnSync(
     'spiderfoot',
@@ -83,7 +82,7 @@ export async function pull(flags = {}) {
   );
 
   if (result.error) {
-    console.error(`❌ SpiderFoot error: ${result.error.message}`);
+    console.error(`âŒ SpiderFoot error: ${result.error.message}`);
     process.exit(1);
   }
 
@@ -94,7 +93,7 @@ export async function pull(flags = {}) {
     // SpiderFoot sometimes outputs non-JSON lines first; extract JSON portion
     const jsonStart = result.stdout.indexOf('[');
     if (jsonStart === -1) {
-      console.error('❌ No JSON output from SpiderFoot. Raw output:');
+      console.error('âŒ No JSON output from SpiderFoot. Raw output:');
       console.error(result.stdout.slice(0, 500));
       process.exit(1);
     }
@@ -113,7 +112,7 @@ export async function pull(flags = {}) {
 
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'spiderfoot', target: domain, targetType: 'domain', resultCount: findings.length, alertCount: highSeverity.length, outputFile, today, tags: ['passive', 'breach', 'credential'] });
-  console.log(`\n✅ Scan complete: ${findings.length} findings`);
+  console.log(`\nâœ… Scan complete: ${findings.length} findings`);
   console.log(`   Saved: ${outputFile}`);
 
   // Check for high-severity findings that warrant a Signal note
@@ -121,13 +120,14 @@ export async function pull(flags = {}) {
   const highSeverity = findings.filter(f => breachTypes.includes(f[4]));
 
   if (highSeverity.length > 0) {
-    console.log(`\n⚠️  ${highSeverity.length} high-severity finding(s) detected:`);
+    console.log(`\nâš ï¸  ${highSeverity.length} high-severity finding(s) detected:`);
     highSeverity.slice(0, 5).forEach(f => console.log(`   [${f[4]}] ${f[1]}`));
-    console.log('\n   → Consider creating a P1/P2 Signal note in 06_Signals/');
-    console.log(`   → Reference: ${outputFile}`);
+    console.log('\n   â†’ Consider creating a P1/P2 Signal note in 06_Signals/');
+    console.log(`   â†’ Reference: ${outputFile}`);
   } else {
     console.log('\n   No breach/leak indicators detected in this scan.');
   }
 
   return output;
 }
+

@@ -1,0 +1,10 @@
+:START_ID,:END_ID,:TYPE
+dashboard-panel:neo4j-metrics:eod,metric:price_close,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:bod,metric:price_premarket,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:eod,metric:volume,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:bod,metric:premarket_volume,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:eod,metric:market_cap,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:bod,metric:premarket_change_pct,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:eod,metric:pe_ratio,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:eod,metric:eps,EXPECTS_METRIC
+dashboard-panel:neo4j-metrics:eod,metric:day_change_pct,EXPECTS_METRIC

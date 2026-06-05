@@ -1,0 +1,53 @@
+﻿{
+    "bill":  {
+                 "actions":  {
+                                 "count":  2,
+                                 "url":  "https://api.congress.gov/v3/bill/119/s/4424/actions?format=json"
+                             },
+                 "committees":  {
+                                    "count":  1,
+                                    "url":  "https://api.congress.gov/v3/bill/119/s/4424/committees?format=json"
+                                },
+                 "congress":  119,
+                 "introducedDate":  "2026-04-28",
+                 "latestAction":  {
+                                      "actionDate":  "2026-04-28",
+                                      "text":  "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+                                  },
+                 "legislationUrl":  "https://www.congress.gov/bill/119th-congress/senate-bill/4424",
+                 "number":  "4424",
+                 "originChamber":  "Senate",
+                 "originChamberCode":  "S",
+                 "sponsors":  [
+                                  {
+                                      "bioguideId":  "S001217",
+                                      "firstName":  "Rick",
+                                      "fullName":  "Sen. Scott, Rick [R-FL]",
+                                      "isByRequest":  "N",
+                                      "lastName":  "Scott",
+                                      "party":  "R",
+                                      "state":  "FL",
+                                      "url":  "https://api.congress.gov/v3/member/S001217?format=json"
+                                  }
+                              ],
+                 "textVersions":  {
+                                      "count":  1,
+                                      "url":  "https://api.congress.gov/v3/bill/119/s/4424/text?format=json"
+                                  },
+                 "title":  "A bill to amend the National Defense Authorization Act for Fiscal Year 2021 to prohibit certain institutions of higher education from receiving research and development awards, and for other purposes.",
+                 "titles":  {
+                                "count":  2,
+                                "url":  "https://api.congress.gov/v3/bill/119/s/4424/titles?format=json"
+                            },
+                 "type":  "S",
+                 "updateDate":  "2026-05-09T05:18:36Z",
+                 "updateDateIncludingText":  "2026-05-09T05:18:36Z"
+             },
+    "request":  {
+                    "billNumber":  "4424",
+                    "billType":  "s",
+                    "congress":  "119",
+                    "contentType":  "application/json",
+                    "format":  "json"
+                }
+}

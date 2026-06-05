@@ -5,7 +5,7 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { getVaultRoot } from './config.mjs';
+import { getThesesDir } from './config.mjs';
 import { parseFrontmatter } from './history.mjs';
 import { buildNote, today } from './markdown.mjs';
 
@@ -252,7 +252,7 @@ function loadActiveTheses(thesesDir) {
 }
 
 export function buildRoutingTable() {
-  const thesesDir = join(getVaultRoot(), '10_Theses');
+  const thesesDir = getThesesDir();
   const table = new Map();
 
   for (const note of loadActiveTheses(thesesDir)) {

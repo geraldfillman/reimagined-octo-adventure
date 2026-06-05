@@ -14,8 +14,8 @@
  */
 
 import { existsSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
-import { getPullsDir, getSignalsDir, getVaultRoot } from '../lib/config.mjs';
+import { join } from 'node:path';
+import { getPullsDir, getSignalsDir, toResearchRelative } from '../lib/config.mjs';
 import { readFolder } from '../lib/frontmatter.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
 import { setProperties } from '../lib/obsidian-cli.mjs';
@@ -935,8 +935,7 @@ function noteDate(note) {
 }
 
 function filePathToWikiLink(filePath) {
-  const vaultRoot = getVaultRoot();
-  const rel = relative(vaultRoot, filePath).split(sep).join('/');
+  const rel = toResearchRelative(filePath);
   const base = rel.split('/').pop()?.replace(/\.md$/i, '') || rel;
   return `[[${base}]]`;
 }

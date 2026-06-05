@@ -4,5 +4,33 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "promptDelete": false,
+  "userIgnoreFilters": [
+    "00_Dashboard/",
+    "01_Data_Sources/",
+    "02_Strategy_Development/",
+    "03_Research_Areas/",
+    "03_Templates/",
+    "04_News/",
+    "04_Reference/",
+    "05_Data_Pulls/",
+    "06_Signals/",
+    "12_Knowledge_Bases/",
+    "14_Review_and_Research/",
+    "16_Agents/",
+    "500-archive/",
+    "90_System/",
+    "99_System/",
+    "Reports/",
+    "docs/",
+    "logs/",
+    "scripts/",
+    "_cache/",
+    "_state/",
+    "_state.bak-*/",
+    ".env",
+    ".gitignore",
+    ".codex-mcp-shape-test/"
+  ]
 }

@@ -3,9 +3,9 @@
  * validate-vault.mjs - Validate frontmatter and file layout for My_Data.
  */
 
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
 import { join, relative, sep } from 'path';
-import { getVaultRoot } from './lib/config.mjs';
+import { getDataSourcesDir, getPullsDir, getThesesDir } from './lib/config.mjs';
 import {
   REQUIRED_PULL_FIELDS,
   REQUIRED_SOURCE_FIELDS,
@@ -23,7 +23,6 @@ import {
   sourceCategoryFromPath,
 } from './lib/schema.mjs';
 
-const VAULT_ROOT = getVaultRoot();
 const IGNORED_PATH_PARTS = new Set(['.obsidian', 'node_modules', '_archive']);
 
 export function isIgnoredPathPart(part) {
@@ -65,7 +64,7 @@ export async function run() {
 }
 
 function validateSources(errors, warnings) {
-  const root = join(VAULT_ROOT, '01_Data_Sources');
+  const root = getDataSourcesDir();
   for (const filePath of walkMarkdown(root)) {
     const rel = relative(root, filePath);
     const parsed = readFrontmatter(filePath);
@@ -106,7 +105,7 @@ function validateSources(errors, warnings) {
 }
 
 function validatePulls(errors, warnings) {
-  const root = join(VAULT_ROOT, '05_Data_Pulls');
+  const root = getPullsDir();
   for (const filePath of walkMarkdown(root)) {
     const rel = relative(root, filePath);
     const parsed = readFrontmatter(filePath);
@@ -139,7 +138,7 @@ function validatePulls(errors, warnings) {
 }
 
 function validateTheses(errors, warnings) {
-  const root = join(VAULT_ROOT, '10_Theses');
+  const root = getThesesDir();
   for (const filePath of walkMarkdown(root)) {
     const rel = relative(root, filePath);
     const parsed = readFrontmatter(filePath);
@@ -234,6 +233,7 @@ export function validateThesisFrontmatter(parsed, rel, errors) {
 
 function walkMarkdown(root) {
   const files = [];
+  if (!existsSync(root)) return files;
   for (const entry of readdirSync(root)) {
     if (isIgnoredPathPart(entry)) continue;
     const fullPath = join(root, entry);

@@ -1,5 +1,5 @@
 /**
- * osint-telegram.mjs — Telegram public channel monitor (Telethon/MTProto)
+ * osint-telegram.mjs - Telegram public channel monitor (Telethon/MTProto)
  *
  * Usage:
  *   node run.mjs scan osint-telegram --channel durov
@@ -10,36 +10,33 @@
  * Requires:
  *   pip install telethon
  *   TELEGRAM_API_ID and TELEGRAM_API_HASH set in .env
- *   One-time phone verification on first run (creates telegram.session file)
+ *   One-time phone verification on first run creates telegram.session
  *
  * Output: 05_Data_Pulls/osint/telegram-<channel>-<date>.json + .md pull note
  *
- * Note: Reads any PUBLIC channel without joining it.
- * The session file stores your auth credentials — keep it in .gitignore.
+ * Note: Reads any public channel without joining it.
+ * The session file stores your auth credentials; keep it in .gitignore.
  */
 
 import { spawnSync } from 'child_process';
-import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { writeFileSync, mkdirSync, existsSync, readFileSync, unlinkSync } from 'fs';
+import { join } from 'path';
 import { tmpdir } from 'os';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
-const SCRIPTS_DIR = join(__dirname, '..');
+import { getPullsDir, resolveEnginePath } from '../lib/config.mjs';
+
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
+const SCRIPTS_DIR = resolveEnginePath('scripts');
 const SESSION_FILE = join(SCRIPTS_DIR, 'telegram.session');
 
-// Inline Python script for Telethon channel fetch
 function buildPythonScript(channel, limit, query, outputPath, apiId, apiHash) {
   return `
-import asyncio, json, sys, os
+import asyncio, json
 from telethon.sync import TelegramClient
-from telethon.tl.functions.messages import GetHistoryRequest
 
-API_ID   = ${apiId}
+API_ID = ${apiId}
 API_HASH = "${apiHash}"
-SESSION  = r"${SESSION_FILE.replace(/\\/g, '\\\\')}"
+SESSION = r"${SESSION_FILE.replace(/\\/g, '\\\\')}"
 
 async def main():
     client = TelegramClient(SESSION, API_ID, API_HASH)
@@ -93,20 +90,10 @@ export async function pull(flags = {}) {
 
   const limit = parseInt(flags.limit ?? '100', 10);
   const query = flags.query ?? null;
-  const dryRun = flags['dry-run'] ?? false;
-  const today = new Date().toISOString().slice(0, 10);
-  const outputJson = join(OUTPUT_DIR, `telegram-${channel}-${today}.json`);
-  const outputMd   = join(OUTPUT_DIR, `${today}_telegram-${channel}.md`);
-
-  const apiId   = process.env.TELEGRAM_API_ID?.trim();
-  const apiHash = process.env.TELEGRAM_API_HASH?.trim();
-
-  if (!apiId || !apiHash) {
-    console.error('❌ TELEGRAM_API_ID and TELEGRAM_API_HASH are required.');
-    console.error('   Register at https://my.telegram.org/apps to get them.');
-    console.error('   Then add to .env:\n     TELEGRAM_API_ID=<id>\n     TELEGRAM_API_HASH=<hash>');
-    process.exit(1);
-  }
+  const dryRun = Boolean(flags['dry-run']);
+  const pulledDate = new Date().toISOString().slice(0, 10);
+  const outputJson = join(OUTPUT_DIR, `telegram-${channel}-${pulledDate}.json`);
+  const outputMd = join(OUTPUT_DIR, `${pulledDate}_telegram-${channel}.md`);
 
   if (dryRun) {
     console.log('\n[dry-run] Would fetch:');
@@ -114,15 +101,23 @@ export async function pull(flags = {}) {
     console.log(`  Limit:   ${limit} messages`);
     if (query) console.log(`  Filter:  "${query}"`);
     console.log(`  Output:  ${outputJson}`);
-    return;
+    return { filePath: null, signals: [] };
+  }
+
+  const apiId = process.env.TELEGRAM_API_ID?.trim();
+  const apiHash = process.env.TELEGRAM_API_HASH?.trim();
+
+  if (!apiId || !apiHash) {
+    console.error('Error: TELEGRAM_API_ID and TELEGRAM_API_HASH are required.');
+    console.error('Register at https://my.telegram.org/apps and add both values to .env.');
+    process.exit(1);
   }
 
   if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  // Check Telethon is installed
   const checkResult = spawnSync('python', ['-c', 'import telethon'], { encoding: 'utf8' });
   if (checkResult.status !== 0) {
-    console.error('❌ Telethon not installed. Run: pip install telethon');
+    console.error('Error: Telethon not installed. Run: pip install telethon');
     process.exit(1);
   }
 
@@ -130,11 +125,11 @@ export async function pull(flags = {}) {
   const scriptFile = join(tmpdir(), `telegram-fetch-${Date.now()}.py`);
   writeFileSync(scriptFile, pythonScript, 'utf8');
 
-  console.log(`\n📡 Fetching Telegram channel: @${channel}`);
+  console.log(`\nFetching Telegram channel: @${channel}`);
   if (!existsSync(SESSION_FILE)) {
-    console.log('\n⚠️  First run: Telegram will prompt for your phone number.');
-    console.log('   Enter it in international format (e.g. +15551234567).');
-    console.log('   A session file will be saved for future runs.\n');
+    console.log('\nFirst run: Telegram will prompt for your phone number.');
+    console.log('Enter it in international format, for example +15551234567.');
+    console.log('A session file will be saved for future runs.\n');
   }
 
   const result = spawnSync('python', [scriptFile], {
@@ -143,36 +138,35 @@ export async function pull(flags = {}) {
     timeout: 3 * 60 * 1000,
   });
 
-  // Clean up temp script
-  try { import('fs').then(f => f.unlinkSync(scriptFile)); } catch {}
+  try {
+    unlinkSync(scriptFile);
+  } catch {}
 
   if (result.error || result.status !== 0) {
-    console.error('❌ Telegram fetch failed. Check credentials and channel name.');
+    console.error('Error: Telegram fetch failed. Check credentials and channel name.');
     process.exit(1);
   }
 
   if (!existsSync(outputJson)) {
-    console.error('❌ No output file produced.');
+    console.error('Error: no output file produced.');
     process.exit(1);
   }
 
   const data = JSON.parse(readFileSync(outputJson, 'utf8'));
   if (data.error) {
-    console.error(`❌ Channel error: ${data.error}`);
+    console.error(`Error: channel fetch failed: ${data.error}`);
     process.exit(1);
   }
 
   const { channel: meta, messages } = data;
-
-  // Write vault pull note
   const topMessages = messages.slice(0, 8).map(m =>
-    `- **${m.date?.slice(0, 10) ?? '?'}** — ${m.text?.slice(0, 120).replace(/\n/g, ' ')}… _(👁 ${m.views ?? '?'})_`
+    `- **${m.date?.slice(0, 10) ?? '?'}** - ${m.text?.slice(0, 120).replace(/\n/g, ' ')}... (views: ${m.views ?? '?'})`
   ).join('\n');
 
   const pullNote = `---
-title: "Telegram — @${channel}"
+title: "Telegram - @${channel}"
 source: "Telegram Channel Monitor"
-date_pulled: "${today}"
+date_pulled: "${pulledDate}"
 domain: "social_sentiment"
 data_type: "channel_messages"
 frequency: "weekly"
@@ -185,9 +179,9 @@ tags:
   - ${channel.toLowerCase()}
 ---
 
-## @${channel}${meta?.title ? ` — ${meta.title}` : ''}
+## @${channel}${meta?.title ? ` - ${meta.title}` : ''}
 
-**Pulled:** ${today}
+**Pulled:** ${pulledDate}
 **Messages fetched:** ${messages.length}${query ? `\n**Filter:** "${query}"` : ''}
 **Subscribers:** ${meta?.participants_count ?? 'unknown'}
 
@@ -197,11 +191,11 @@ ${topMessages || '_No messages found._'}
 
 ## Raw Data
 
-Saved to: \`05_Data_Pulls/osint/telegram-${channel}-${today}.json\`
+Saved to: \`05_Data_Pulls/osint/telegram-${channel}-${pulledDate}.json\`
 `;
 
   writeFileSync(outputMd, pullNote, 'utf8');
-  console.log(`\n✅ Saved ${messages.length} messages → ${outputMd}`);
+  console.log(`\nSaved ${messages.length} messages to ${outputMd}`);
 
   return data;
 }

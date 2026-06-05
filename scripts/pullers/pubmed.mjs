@@ -23,6 +23,7 @@ import { mkdirSync } from 'fs';
 import { join } from 'path';
 import { getPullsDir } from '../lib/config.mjs';
 import { getJson } from '../lib/fetcher.mjs';
+import { keepEnglishContent } from '../lib/language-filter.mjs';
 import { buildNote, buildTable, writeNote, today, dateStampedFilename } from '../lib/markdown.mjs';
 
 const BASE_URL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
@@ -129,7 +130,7 @@ async function pullTopic(topic) {
   const summaryData = await getJson(summaryUrl);
   const resultMap = summaryData?.result ?? {};
 
-  const articles = pmids
+  const articles = filterEnglishPubMedArticles(pmids
     .map(pmid => {
       const r = resultMap[pmid];
       if (!r) return null;
@@ -144,7 +145,7 @@ async function pullTopic(topic) {
         pmcid:   r.pmcid ?? '',
       });
     })
-    .filter(Boolean);
+    .filter(Boolean));
 
   articles.slice(0, 3).forEach(a =>
     console.log(`  - [${a.pubdate}] ${a.title.slice(0, 65)}`)
@@ -171,11 +172,12 @@ async function pullTopic(topic) {
       frequency:     'daily',
       signal_status: 'clear',
       signals:       [],
+      language_filter: 'english',
       tags:          topic.tags,
     },
     sections: [
       {
-        heading: `Most Recent Publications (${articles.length} shown / ${totalCount.toLocaleString()} total, last 90 days)`,
+        heading: `Most Recent English Publications (${articles.length} shown / ${totalCount.toLocaleString()} total, last 90 days)`,
         content: buildTable(
           ['Published', 'Title', 'Authors', 'Journal', 'Link'],
           rows
@@ -205,4 +207,11 @@ async function pullTopic(topic) {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function filterEnglishPubMedArticles(articles = []) {
+  return articles.filter(article => keepEnglishContent(article, {
+    languageFields: ['lang', 'language'],
+    textFields: ['title', 'journal', 'type'],
+  }));
 }

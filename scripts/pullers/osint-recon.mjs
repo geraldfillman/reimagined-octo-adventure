@@ -1,5 +1,5 @@
-/**
- * osint-recon.mjs — Recon-ng passive corporate intelligence scan
+﻿/**
+ * osint-recon.mjs â€” Recon-ng passive corporate intelligence scan
  *
  * Usage:
  *   node run.mjs scan osint-recon --domain example.com
@@ -17,14 +17,13 @@
 
 import { spawnSync, execSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync, readFileSync, rmSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { tmpdir } from 'os';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 // Passive-only modules for corporate intelligence
 const PASSIVE_MODULES = [
@@ -47,7 +46,7 @@ export async function pull(flags = {}) {
   const workspaceName = `vault-osint-${domain.replace(/\./g, '-')}-${Date.now()}`;
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🕵️  Recon-ng passive scan: ${domain}`);
+  console.log(`\nðŸ•µï¸  Recon-ng passive scan: ${domain}`);
   console.log(`   Modules: ${PASSIVE_MODULES.length} passive modules`);
   console.log(`   Output:  ${outputFile}`);
 
@@ -64,7 +63,7 @@ export async function pull(flags = {}) {
   // Check recon-ng is available
   const checkResult = spawnSync('recon-ng', ['--version'], { encoding: 'utf8' });
   if (checkResult.error) {
-    console.error('❌ recon-ng not found. Install with: pip install recon-ng');
+    console.error('âŒ recon-ng not found. Install with: pip install recon-ng');
     process.exit(1);
   }
 
@@ -87,7 +86,7 @@ export async function pull(flags = {}) {
   const resourceFile = join(tmpdir(), `recon-resource-${Date.now()}.rc`);
   writeFileSync(resourceFile, resourceCommands, 'utf8');
 
-  console.log('\n⏳ Running recon-ng (passive modules, ~2–4 minutes)...');
+  console.log('\nâ³ Running recon-ng (passive modules, ~2â€“4 minutes)...');
 
   const result = spawnSync(
     'recon-ng',
@@ -99,7 +98,7 @@ export async function pull(flags = {}) {
   try { rmSync(resourceFile); } catch {}
 
   if (result.error) {
-    console.error(`❌ recon-ng error: ${result.error.message}`);
+    console.error(`âŒ recon-ng error: ${result.error.message}`);
     process.exit(1);
   }
 
@@ -110,7 +109,7 @@ export async function pull(flags = {}) {
       reportData = JSON.parse(readFileSync(reportPath, 'utf8'));
       rmSync(reportPath);
     } catch {
-      console.warn('⚠️  Could not parse recon-ng JSON report; saving raw stdout.');
+      console.warn('âš ï¸  Could not parse recon-ng JSON report; saving raw stdout.');
     }
   }
 
@@ -128,10 +127,11 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'recon-ng', target: domain, targetType: 'domain', resultCount: output.contacts.length + output.hosts.length + output.domains.length, alertCount: output.contacts.length > 0 ? 1 : 0, outputFile, today, tags: ['corporate-intel', 'passive', 'contacts'] });
 
-  console.log(`\n✅ Scan complete:`);
+  console.log(`\nâœ… Scan complete:`);
   console.log(`   Contacts found: ${output.contacts.length}`);
   console.log(`   Hosts found:    ${output.hosts.length}`);
   console.log(`   Saved: ${outputFile}`);
 
   return output;
 }
+

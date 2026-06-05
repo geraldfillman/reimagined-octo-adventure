@@ -9,6 +9,12 @@ import { loadCachedFmpFundamentalsMap } from './lib/fmp-fundamentals-context.mjs
 import { loadLatestFmpMarketContext } from './lib/fmp-market-context.mjs';
 import { buildNote, buildTable, dateStampedFilename, formatNumber, today, writeNote } from './lib/markdown.mjs';
 import { loadMacroContext, extractSeriesIdFromLinkValue, resolveMacroIndicator, stripWikiLink } from './lib/macro-context.mjs';
+import {
+  findCardForName,
+  loadLatestSignalIntelligence,
+  renderCanonicalDeepDiveBlock,
+  renderCanonicalSignalBlock,
+} from './lib/signal-intelligence.mjs';
 import { loadThesisWatchlists, normalizeSymbol } from './lib/thesis-watchlists.mjs';
 
 const SIGNAL_ORDER = Object.freeze({
@@ -50,6 +56,7 @@ export async function run(flags = {}) {
     loadCachedFmpFundamentalsMap(allSymbols),
     loadMacroContext(),
   ]);
+  const signalIntelligence = await loadLatestSignalIntelligence().catch(() => null);
 
   const catalystBySymbol = buildLatestCatalystMap(marketContext.marketNotes);
   const contexts = thesisWatchlists.map(thesis => buildReportContext(thesis, {
@@ -57,6 +64,7 @@ export async function run(flags = {}) {
     fundamentalsBySymbol,
     macroContext,
     catalystBySymbol,
+    signalIntelligence,
   }));
 
   if (dryRun) {
@@ -95,6 +103,7 @@ function buildReportContext(thesis, deps) {
   const catalystRows = buildCatalystRows(thesis.symbols, deps);
   const keyIndicatorRows = buildIndicatorRows(noteData.key_indicators, deps.macroContext);
   const regimeRows = buildRegimeRows(noteData.supporting_regimes, deps.macroContext);
+  const canonicalSignalCard = findCardForName(deps.signalIntelligence, 'thesis', thesis.name);
 
   const technicalSignalStatus = normalizeSignalStatus(primaryTechnical?.data?.signal_status) || 'clear';
   const macroSignalStatus = resolveMaxSignalStatus(keyIndicatorRows.map(row => row.signalStatus));
@@ -167,6 +176,8 @@ function buildReportContext(thesis, deps) {
       fundamentalsStatus,
       coverageGapCount: coverageGaps.length,
     }),
+    canonicalSignalPayload: deps.signalIntelligence,
+    canonicalSignalCard,
   };
 }
 
@@ -213,6 +224,18 @@ function buildFullPictureNote(context) {
     {
       heading: 'Snapshot',
       content: buildSnapshotContent(context),
+    },
+    {
+      heading: 'Canonical Thesis Signal',
+      content: context.canonicalSignalCard
+        ? renderCanonicalSignalBlock({ cards: [context.canonicalSignalCard] }, { limit: 1 })
+        : 'No canonical thesis signal found for this thesis. Run `node run.mjs pull signal-intelligence`.',
+    },
+    {
+      heading: 'Thesis Deeper Dive Queue',
+      content: context.canonicalSignalCard
+        ? renderCanonicalDeepDiveBlock({ deep_dive_queue: context.canonicalSignalCard.deep_dive_queue }, { limit: 3 })
+        : 'No canonical deeper-dive queue found for this thesis.',
     },
     {
       heading: 'Structural Thesis',

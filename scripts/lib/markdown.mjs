@@ -6,8 +6,9 @@
  */
 
 import { writeFileSync, mkdirSync } from 'fs';
-import { dirname } from 'path';
+import { dirname, relative, sep } from 'path';
 import { writeRaw } from './kb-bridge.mjs';
+import { pullDomainFromPath, getEngineRoot } from './config.mjs';
 
 /**
  * Build YAML frontmatter string from a fields object.
@@ -77,12 +78,23 @@ export function writeNote(filePath, content) {
   mkdirSync(dirname(filePath), { recursive: true });
   writeFileSync(filePath, content, 'utf-8');
 
-  // Mirror into KB raw if this is a 05_Data_Pulls note.
-  // Domain is inferred from the folder segment: 05_Data_Pulls/{Domain}/...
-  const domainMatch = filePath.match(/05_Data_Pulls[/\\]([^/\\]+)[/\\]/i);
-  if (domainMatch) {
-    writeRaw(filePath, domainMatch[1].toLowerCase());
+  // Mirror routed research pull notes into KB raw.
+  const pullDomain = pullDomainFromPath(filePath);
+  if (pullDomain) {
+    writeRaw(filePath, pullDomain);
   }
+
+  emitOutput(filePath);
+}
+
+/**
+ * Emit OUTPUT: <relative-path> for routine-runner.mjs to hash and track.
+ * Use this directly in pullers that write files without going through writeNote().
+ * Convention defined in My_Data/AGENT_RUNBOOK.md.
+ */
+export function emitOutput(filePath) {
+  const rel = relative(getEngineRoot(), filePath).split(sep).join('/');
+  console.log(`OUTPUT: ${rel}`);
 }
 
 /**
@@ -198,4 +210,13 @@ function sanitizeFilenameSegment(value) {
     .replace(/\s+/g, '_')
     .replace(/_+/g, '_')
     .replace(/^_+|_+$/g, '');
+}
+
+/**
+ * Generate a short random ID using the first `len` characters of a UUID.
+ * @param {number} [len=8]
+ * @returns {string}
+ */
+export function randomId(len = 8) {
+  return crypto.randomUUID().replace(/-/g, '').slice(0, len);
 }

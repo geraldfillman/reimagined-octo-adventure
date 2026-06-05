@@ -1,5 +1,5 @@
-/**
- * osint-amass.mjs — Amass passive DNS intel scan
+﻿/**
+ * osint-amass.mjs â€” Amass passive DNS intel scan
  *
  * Usage:
  *   node run.mjs scan osint-amass --domain example.com
@@ -14,14 +14,13 @@
 
 import { spawnSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync, readFileSync, unlinkSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
+import { getEngineRoot, getPullsDir } from '../lib/config.mjs';
 import { tmpdir } from 'os';
 import { writeOsintNote } from '../lib/osint-notes.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const VAULT_ROOT = join(__dirname, '..', '..');
-const OUTPUT_DIR = join(VAULT_ROOT, '05_Data_Pulls', 'osint');
+const VAULT_ROOT = getEngineRoot();
+const OUTPUT_DIR = join(getPullsDir(), 'osint');
 
 export async function pull(flags = {}) {
   const domain = flags.domain;
@@ -36,7 +35,7 @@ export async function pull(flags = {}) {
   const tmpOutput = join(tmpdir(), `amass-${domain}-${Date.now()}.json`);
   const dryRun = flags['dry-run'] ?? false;
 
-  console.log(`\n🔭 Amass passive intel scan: ${domain}`);
+  console.log(`\nðŸ”­ Amass passive intel scan: ${domain}`);
   console.log(`   Mode: passive (certificate transparency + DNS)`);
   console.log(`   Output: ${outputFile}`);
 
@@ -53,13 +52,13 @@ export async function pull(flags = {}) {
   // Check Amass is installed
   const checkResult = spawnSync('amass', ['version'], { encoding: 'utf8' });
   if (checkResult.error) {
-    console.error('❌ Amass binary not found.');
+    console.error('âŒ Amass binary not found.');
     console.error('   Install: go install github.com/owasp-amass/amass/v4/...@master');
     console.error('   Or download: https://github.com/owasp-amass/amass/releases');
     process.exit(1);
   }
 
-  console.log('\n⏳ Running passive intel (cert transparency + DNS, ~1–3 minutes)...');
+  console.log('\nâ³ Running passive intel (cert transparency + DNS, ~1â€“3 minutes)...');
 
   const result = spawnSync(
     'amass',
@@ -68,7 +67,7 @@ export async function pull(flags = {}) {
   );
 
   if (result.error) {
-    console.error(`❌ Amass error: ${result.error.message}`);
+    console.error(`âŒ Amass error: ${result.error.message}`);
     process.exit(1);
   }
 
@@ -104,11 +103,11 @@ export async function pull(flags = {}) {
   writeFileSync(outputFile, JSON.stringify(output, null, 2), 'utf8');
   writeOsintNote({ tool: 'amass', target: domain, targetType: 'domain', resultCount: subdomains.length, alertCount: uniquePrefixes.size > 20 ? 1 : 0, outputFile, today, tags: ['dns', 'subdomain', 'cert-transparency'] });
 
-  console.log(`\n✅ Scan complete: ${subdomains.length} subdomains discovered`);
+  console.log(`\nâœ… Scan complete: ${subdomains.length} subdomains discovered`);
   console.log(`   Saved: ${outputFile}`);
 
   if (subdomains.length > 0) {
-    console.log('\n🌐 Sample subdomains:');
+    console.log('\nðŸŒ Sample subdomains:');
     subdomains.slice(0, 8).forEach(s => console.log(`   ${s.name ?? s}`));
   }
 
@@ -117,9 +116,10 @@ export async function pull(flags = {}) {
     subdomains.map(s => (s.name ?? s).split('.')[0])
   );
   if (uniquePrefixes.size > 20) {
-    console.log(`\n📡 Large infrastructure footprint detected (${uniquePrefixes.size} unique prefixes).`);
-    console.log('   → Consider reviewing for M&A or product launch signals.');
+    console.log(`\nðŸ“¡ Large infrastructure footprint detected (${uniquePrefixes.size} unique prefixes).`);
+    console.log('   â†’ Consider reviewing for M&A or product launch signals.');
   }
 
   return output;
 }
+

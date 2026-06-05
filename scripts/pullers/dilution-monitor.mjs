@@ -22,7 +22,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { getVaultRoot, getPullsDir, getSignalsDir } from '../lib/config.mjs';
+import { getEntitiesDir, getPullsDir, getSignalsDir } from '../lib/config.mjs';
 import { buildNote, buildTable, writeNote, today, dateStampedFilename, formatNumber } from '../lib/markdown.mjs';
 import { parseFrontmatter } from '../lib/frontmatter.mjs';
 import { setProperties } from '../lib/obsidian-cli.mjs';
@@ -101,10 +101,10 @@ export async function pull(flags = {}) {
     }
   }
 
-  const batchPath = writeBatchNote(rows);
+  const batchPath = writeBatchNote(rows, { dryRun: Boolean(flags['dry-run']) });
   if (!flags['dry-run']) saveState(newState);
 
-  console.log(`📝 Wrote batch: ${batchPath}`);
+  console.log(flags['dry-run'] ? `📝 [dry-run] Would write batch: ${batchPath}` : `📝 Wrote batch: ${batchPath}`);
   for (const p of signalNotes) console.log(`🚨 Signal:   ${p}`);
   return { filePath: batchPath, signals: signalNotes };
 }
@@ -189,7 +189,7 @@ async function scoreTicker(ticker, cutoffStr) {
 
 // ─── Note writers ────────────────────────────────────────────────────────────
 
-function writeBatchNote(rows) {
+function writeBatchNote(rows, { dryRun = false } = {}) {
   const outDir = join(getPullsDir(), 'Fundamentals');
   const filePath = join(outDir, dateStampedFilename('Dilution_Monitor'));
 
@@ -247,8 +247,10 @@ function writeBatchNote(rows) {
     ],
   });
 
-  writeNote(filePath, content);
-  setProperties(filePath, { signal_status: batchSev, date_pulled: today() });
+  if (!dryRun) {
+    writeNote(filePath, content);
+    setProperties(filePath, { signal_status: batchSev, date_pulled: today() });
+  }
   return filePath;
 }
 
@@ -329,7 +331,7 @@ function resolveWatchlist(flags) {
     if (tickers.length > 0) return tickers;
   }
 
-  const stocksDir = join(getVaultRoot(), '08_Entities', 'Stocks');
+  const stocksDir = getEntitiesDir('Stocks');
   try {
     const files = readdirSync(stocksDir).filter(f => f.endsWith('.md'));
     const active = [];

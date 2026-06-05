@@ -1,0 +1,538 @@
+{
+  "$schema_version": "1.0",
+  "last_updated": "2026-05-25",
+  "scenarios": [
+    {
+      "id": "fertilizer-shortage",
+      "name": "Fertilizer Shortage",
+      "core_trigger": "Global fertilizer shortage causes severe crop yield reductions in fertilizer-import-dependent countries.",
+      "trigger_causes": [
+        "natural gas shortages",
+        "sanctions",
+        "export bans",
+        "war",
+        "shipping disruption",
+        "phosphate or potash mine shutdowns",
+        "cyberattacks",
+        "environmental restrictions"
+      ],
+      "layers": [
+        {
+          "name": "Direct Fertilizer Inputs",
+          "mechanism": "Potash, phosphate, ammonia, urea, and natural gas input stress raises fertilizer prices and pushes farmers to reduce application rates.",
+          "watch_terms": ["fertilizer", "potash", "phosphate", "ammonia", "urea", "natural gas", "crop input costs"],
+          "beneficiaries": ["fertilizer producers", "domestic agriculture suppliers", "precision agriculture firms"],
+          "losers": ["food importers", "indebted farmers", "low-margin food processors"],
+          "sources_to_check": ["FMP thesis watchlists", "EIA natural gas", "NewsAPI agriculture", "GDELT agriculture"],
+          "related_theses": ["[[Bioengineered Food Systems]]", "[[Energy Sector Basket]]", "[[Materials Sector Basket]]"],
+          "related_indicators": ["[[Natural Gas]]", "[[Food Inflation]]", "[[Crop Input Costs]]"]
+        },
+        {
+          "name": "Agricultural Cascade",
+          "mechanism": "Lower crop output reduces harvest quality, export capacity, and livestock feed availability while raising food inflation pressure.",
+          "watch_terms": ["crop yield", "harvest quality", "food inflation", "grain exports", "livestock feed", "wheat", "corn", "soybean", "rice"],
+          "beneficiaries": ["grain storage", "rail logistics", "domestic agriculture suppliers"],
+          "losers": ["restaurants", "grocery chains", "beverage companies", "livestock operations"],
+          "sources_to_check": ["USDA reports", "NewsAPI agriculture", "GDELT food security", "FMP consumer staples"],
+          "related_theses": ["[[Bioengineered Food Systems]]", "[[Consumer Staples Sector Basket]]", "[[Industrials Sector Basket]]"],
+          "related_indicators": ["[[Food Inflation]]", "[[CPI]]", "[[Retail Sales]]"]
+        },
+        {
+          "name": "Energy Connection",
+          "mechanism": "Natural gas is a critical ammonia feedstock, so gas spikes transmit into fertilizer shortages and food inflation.",
+          "watch_terms": ["natural gas", "LNG", "ammonia production", "gas spike", "energy importer", "pipeline", "utilities"],
+          "beneficiaries": ["LNG exporters", "pipeline operators", "utilities", "nuclear power"],
+          "losers": ["energy importers", "unstable renewable projects", "gas-intensive fertilizer producers"],
+          "sources_to_check": ["EIA", "FRED energy inflation", "FMP energy", "CBOE volatility"],
+          "related_theses": ["[[Energy Sector Basket]]", "[[Nuclear Renaissance SMRs]]", "[[Grid Equipment Bottleneck]]"],
+          "related_indicators": ["[[Natural Gas]]", "[[CPI]]", "[[Power PPA Prices]]"]
+        },
+        {
+          "name": "Geopolitical Effects",
+          "mechanism": "Food inflation and scarcity can trigger protests, migration, nationalism, export bans, subsidies, reserves, and currency stress.",
+          "watch_terms": ["protests", "migration", "nationalism", "export ban", "sanctions", "fertilizer subsidies", "food reserves", "currency stress"],
+          "beneficiaries": ["domestic producers", "strategic reserve suppliers", "policy-backed infrastructure"],
+          "losers": ["food importers", "emerging markets", "sovereign debt issuers"],
+          "sources_to_check": ["Federal Register", "GDELT", "NewsAPI geopolitics", "FRED FX and rates"],
+          "related_theses": ["[[Fiscal Scarcity Rearmament]]", "[[Dollar Debasement Hard Money]]"],
+          "related_indicators": ["[[DXY]]", "[[CPI]]", "[[Yield Curve]]"]
+        },
+        {
+          "name": "Shipping And Logistics",
+          "mechanism": "Rerouted grain and fertilizer flows raise freight costs, port congestion, and insurance stress.",
+          "watch_terms": ["shipping disruption", "freight rates", "port congestion", "grain flows", "insurance spikes", "railroads", "grain storage"],
+          "beneficiaries": ["railroads", "grain storage", "port operators", "fertilizer logistics"],
+          "losers": ["import-dependent food processors", "low-margin distributors"],
+          "sources_to_check": ["GDELT trade", "NewsAPI shipping", "source-watch logistics"],
+          "related_theses": ["[[Industrials Sector Basket]]", "[[Materials Sector Basket]]"],
+          "related_indicators": ["[[ISM Manufacturing]]", "[[CPI]]"]
+        },
+        {
+          "name": "Financial System Impact",
+          "mechanism": "Food inflation can lift CPI, complicate monetary policy, pressure emerging-market currencies, and stress banks, insurers, and sovereign debt.",
+          "watch_terms": ["food inflation", "CPI spike", "higher rates", "emerging market weakness", "sovereign spreads", "currency stress", "bank stress"],
+          "beneficiaries": ["cash", "treasuries after growth shock", "defensive utilities"],
+          "losers": ["emerging-market banks", "sovereign debt", "rate-sensitive equities"],
+          "sources_to_check": ["FRED inflation", "Treasury yields", "CBOE volatility", "FMP financials"],
+          "related_theses": ["[[Dollar Debasement Hard Money]]", "[[Financials Sector Basket]]", "[[Utilities Sector Basket]]"],
+          "related_indicators": ["[[CPI]]", "[[10Y Treasury]]", "[[DXY]]", "[[VIX]]"]
+        },
+        {
+          "name": "Adaptation Moats",
+          "mechanism": "The durable opportunity may shift from panic beneficiaries to adaptation winners in precision agriculture, synthetic biology, domestic production, water infrastructure, and resilient supply chains.",
+          "watch_terms": ["precision agriculture", "AI spraying", "drones", "satellite analytics", "autonomous tractors", "nitrogen-fixing microbes", "engineered crops", "water infrastructure", "domestic fertilizer"],
+          "beneficiaries": ["precision agriculture firms", "synthetic biology platforms", "water infrastructure", "domestic fertilizer plants", "automation suppliers"],
+          "losers": ["undifferentiated input suppliers", "import-dependent supply chains"],
+          "sources_to_check": ["Semantic Scholar", "arXiv", "PubMed", "FMP ag-tech", "USASpending"],
+          "related_theses": ["[[Bioengineered Food Systems]]", "[[Drone Autonomous Systems Revolution]]", "[[Humanoid Robotics]]"],
+          "related_indicators": ["[[Bioengineered Food Research Velocity]]", "[[Precision Fermentation Scale-Up]]", "[[Grid Investment $/yr]]"]
+        }
+      ],
+      "timing_phases": [
+        {
+          "phase": "Shock",
+          "watch_terms": ["fertilizer spike", "grain spike", "energy spike", "export ban"],
+          "winners": ["fertilizer", "grain", "energy"],
+          "losers": ["restaurants", "emerging markets"]
+        },
+        {
+          "phase": "Panic",
+          "watch_terms": ["government intervention", "subsidies", "food reserves", "export restrictions", "currency stress"],
+          "winners": ["infrastructure", "domestic producers", "reserve suppliers"],
+          "losers": ["food importers", "sovereign debt", "low-margin processors"]
+        },
+        {
+          "phase": "Adaptation",
+          "watch_terms": ["precision agriculture", "domestic production", "water infrastructure", "automation", "synthetic biology"],
+          "winners": ["ag-tech", "water infrastructure", "resilient supply chains"],
+          "losers": ["legacy import-dependent models"]
+        }
+      ],
+      "opportunity_factors": [
+        { "factor": "Duration", "question": "Temporary spike or multi-year?" },
+        { "factor": "Moat", "question": "Durable advantage?" },
+        { "factor": "Political Risk", "question": "Export bans, windfall taxes, or subsidies?" },
+        { "factor": "Capital Intensity", "question": "Easy to scale or bottlenecked by permitting and capex?" },
+        { "factor": "Correlation", "question": "Diversifier or crowded inflation trade?" },
+        { "factor": "Substitution Risk", "question": "Can alternatives emerge before pricing power compounds?" },
+        { "factor": "Sensitivity", "question": "Exposure to gas, rates, weather, and policy?" },
+        { "factor": "Narrative Risk", "question": "Already consensus or still under-mapped?" }
+      ]
+    },
+    {
+      "id": "ai-data-center-power-bottleneck",
+      "name": "AI Data Center Power Bottleneck",
+      "core_trigger": "AI compute demand outpaces available power, grid interconnection capacity, and critical electrical equipment supply.",
+      "trigger_causes": [
+        "hyperscaler capex acceleration",
+        "GPU cluster buildout",
+        "data center interconnection delays",
+        "transformer shortages",
+        "utility reserve-margin pressure",
+        "power purchase agreement price spikes",
+        "permitting delays"
+      ],
+      "layers": [
+        {
+          "name": "AI Compute Load Surge",
+          "mechanism": "AI model training and inference growth drives larger data center loads and higher baseload electricity demand.",
+          "watch_terms": ["AI demand", "data center", "compute load", "hyperscaler capex", "GPU cluster", "power demand"],
+          "beneficiaries": ["data center operators", "GPU suppliers", "power developers"],
+          "losers": ["power-constrained campuses", "unhedged cloud buyers"],
+          "sources_to_check": ["FMP hyperscaler watchlists", "EIA electricity demand", "FMP data center REITs"],
+          "related_theses": ["[[AI Power Infrastructure]]", "[[AI Power Defense Stack]]", "[[Semiconductor Sovereignty CHIPS Act]]"],
+          "related_indicators": ["[[Data Center Power Demand GW]]", "[[Hyperscaler Capex]]", "[[Power PPA Prices]]"]
+        },
+        {
+          "name": "Grid Interconnection Constraint",
+          "mechanism": "Utilities and grid operators cannot connect load fast enough, shifting value toward scarce grid capacity and behind-the-meter supply.",
+          "watch_terms": ["interconnection queue", "grid constraint", "reserve margin", "utility load growth", "behind the meter", "PPA"],
+          "beneficiaries": ["regulated utilities", "independent power producers", "grid engineering firms"],
+          "losers": ["delayed data centers", "merchant loads without firm power"],
+          "sources_to_check": ["EIA", "FERC", "utility filings", "FMP utilities"],
+          "related_theses": ["[[Grid Equipment Bottleneck]]", "[[Utilities Sector Basket]]", "[[Nuclear Renaissance SMRs]]"],
+          "related_indicators": ["[[Grid Investment $/yr]]", "[[Power PPA Prices]]", "[[Nuclear Capacity Factor]]"]
+        },
+        {
+          "name": "Electrical Equipment Bottleneck",
+          "mechanism": "Transformer, switchgear, turbine, and high-voltage equipment lead times delay grid upgrades and data center energization.",
+          "watch_terms": ["transformer lead times", "switchgear", "high voltage", "substation", "turbine backlog", "grid equipment"],
+          "beneficiaries": ["electrical equipment manufacturers", "engineering and construction firms", "copper suppliers"],
+          "losers": ["utilities with aging infrastructure", "developers without secured equipment"],
+          "sources_to_check": ["FMP industrials", "SEC filings", "NewsAPI grid equipment", "source-watch infrastructure"],
+          "related_theses": ["[[Grid Equipment Bottleneck]]", "[[Industrials Sector Basket]]", "[[Materials Sector Basket]]"],
+          "related_indicators": ["[[Transformer Lead Times]]", "[[Grid Investment $/yr]]", "[[ISM Manufacturing]]"]
+        },
+        {
+          "name": "Energy Mix Repricing",
+          "mechanism": "Power scarcity reprices natural gas, nuclear, renewables, storage, and transmission as AI loads compete for firm supply.",
+          "watch_terms": ["natural gas generation", "nuclear restart", "battery storage", "renewables curtailment", "firm power", "capacity market"],
+          "beneficiaries": ["nuclear operators", "gas generation", "battery storage", "transmission developers"],
+          "losers": ["intermittent-only projects", "high-cost power buyers"],
+          "sources_to_check": ["EIA", "FMP energy", "CBOE volatility", "FRED energy inflation"],
+          "related_theses": ["[[Nuclear Renaissance SMRs]]", "[[Grid-Scale Battery Storage]]", "[[Energy Sector Basket]]"],
+          "related_indicators": ["[[Nuclear Capacity Factor]]", "[[Power PPA Prices]]", "[[CPI]]"]
+        },
+        {
+          "name": "Capital Market Feedback",
+          "mechanism": "Power access becomes a gating variable for AI capex returns, data center valuations, utility capex plans, and semiconductor demand durability.",
+          "watch_terms": ["AI capex", "data center valuation", "utility capex", "semiconductor demand", "financing cost", "backlog"],
+          "beneficiaries": ["utilities with load growth", "equipment backlog winners", "semiconductor leaders with durable demand"],
+          "losers": ["overbuilt data centers", "rate-sensitive infrastructure", "weak-balance-sheet developers"],
+          "sources_to_check": ["FMP watchlists", "SEC filings", "opportunity-viewpoints", "signal-intelligence"],
+          "related_theses": ["[[AI Power Infrastructure]]", "[[Semiconductor Sovereignty CHIPS Act]]", "[[Financials Sector Basket]]"],
+          "related_indicators": ["[[10Y Treasury]]", "[[VIX]]", "[[Hyperscaler Capex]]"]
+        }
+      ],
+      "timing_phases": [
+        {
+          "phase": "Shock",
+          "watch_terms": ["reserve margin alert", "PPA price spike", "interconnection delay"],
+          "winners": ["utilities", "grid equipment", "firm power"],
+          "losers": ["delayed data centers", "power-short campuses"]
+        },
+        {
+          "phase": "Repricing",
+          "watch_terms": ["utility capex revision", "transformer backlog", "capacity market spike"],
+          "winners": ["electrical equipment", "nuclear", "gas generation"],
+          "losers": ["unsecured load growth", "rate-sensitive projects"]
+        },
+        {
+          "phase": "Adaptation",
+          "watch_terms": ["behind the meter", "modular nuclear", "storage deployment", "grid automation"],
+          "winners": ["resilient grid suppliers", "storage", "advanced nuclear"],
+          "losers": ["legacy grid bottlenecks"]
+        }
+      ],
+      "opportunity_factors": [
+        { "factor": "Duration", "question": "Temporary capex surge or decade-long power constraint?" },
+        { "factor": "Moat", "question": "Who controls scarce interconnection, equipment, or firm generation?" },
+        { "factor": "Political Risk", "question": "Will regulators cap returns, accelerate approvals, or force cost-sharing?" },
+        { "factor": "Capital Intensity", "question": "Can winners scale without balance-sheet stress?" },
+        { "factor": "Correlation", "question": "Is this independent of the AI semiconductor cycle or just another AI beta trade?" },
+        { "factor": "Substitution Risk", "question": "Can efficiency gains or model optimization reduce load demand?" },
+        { "factor": "Sensitivity", "question": "Exposure to rates, gas prices, permitting, and capex discipline?" },
+        { "factor": "Narrative Risk", "question": "Is the power bottleneck already priced into utility and equipment names?" }
+      ]
+    },
+    {
+      "id": "copper-supply-bottleneck",
+      "name": "Copper Supply Bottleneck",
+      "core_trigger": "Electrification, AI grid demand, and defense/industrial growth collide with slow copper mine supply and permitting delays.",
+      "trigger_causes": [
+        "mine disruptions",
+        "declining ore grades",
+        "permitting delays",
+        "smelter constraints",
+        "resource nationalism",
+        "grid and data center demand",
+        "EV and defense electrification"
+      ],
+      "layers": [
+        {
+          "name": "Demand Acceleration",
+          "mechanism": "Grid upgrades, data centers, EVs, industrial automation, and defense electronics lift copper intensity.",
+          "watch_terms": ["copper demand", "electrification", "grid upgrade", "data center", "EV demand", "defense electronics"],
+          "beneficiaries": ["copper miners", "royalty companies", "recyclers"],
+          "losers": ["high-copper-cost manufacturers", "margin-thin industrials"],
+          "sources_to_check": ["FMP materials", "EIA electricity", "NewsAPI metals"],
+          "related_theses": ["[[Grid Equipment Bottleneck]]", "[[AI Power Infrastructure]]", "[[Defense AI Autonomous Warfare]]"],
+          "related_indicators": ["[[Grid Investment $/yr]]", "[[Data Center Power Demand GW]]", "[[ISM Manufacturing]]"]
+        },
+        {
+          "name": "Mine Supply Constraint",
+          "mechanism": "Long mine development cycles, ore-grade decline, labor issues, and political risk limit new supply response.",
+          "watch_terms": ["copper mine", "ore grade", "permitting", "mine disruption", "smelter", "resource nationalism"],
+          "beneficiaries": ["low-cost copper producers", "existing reserves", "brownfield expansions"],
+          "losers": ["developers with permitting risk", "import-dependent manufacturers"],
+          "sources_to_check": ["FMP miners", "SEC filings", "NewsAPI mining", "GDELT commodities"],
+          "related_theses": ["[[Materials Sector Basket]]", "[[Dollar Debasement Hard Money]]"],
+          "related_indicators": ["[[DXY]]", "[[CPI]]", "[[ISM Manufacturing]]"]
+        },
+        {
+          "name": "Grid Equipment Transmission",
+          "mechanism": "Copper scarcity raises transformer, cable, substation, and electrical equipment costs, delaying power infrastructure.",
+          "watch_terms": ["transformer", "cable", "substation", "switchgear", "electrical equipment", "transmission"],
+          "beneficiaries": ["equipment makers with pricing power", "cable suppliers", "engineering firms"],
+          "losers": ["utilities with fixed budgets", "developers without procurement lock"],
+          "sources_to_check": ["FMP industrials", "SEC filings", "source-watch infrastructure"],
+          "related_theses": ["[[Grid Equipment Bottleneck]]", "[[Industrials Sector Basket]]", "[[Utilities Sector Basket]]"],
+          "related_indicators": ["[[Transformer Lead Times]]", "[[Grid Investment $/yr]]", "[[10Y Treasury]]"]
+        },
+        {
+          "name": "Macro Inflation Link",
+          "mechanism": "Copper spikes can pressure capex budgets, producer prices, and inflation expectations while reinforcing hard-asset narratives.",
+          "watch_terms": ["commodity inflation", "producer prices", "hard assets", "PPI", "inflation expectations", "capex cost"],
+          "beneficiaries": ["hard assets", "quality miners", "inflation hedges"],
+          "losers": ["rate-sensitive growth", "low-margin manufacturers"],
+          "sources_to_check": ["FRED inflation", "Treasury yields", "CBOE volatility"],
+          "related_theses": ["[[Dollar Debasement Hard Money]]", "[[Materials Sector Basket]]", "[[Financials Sector Basket]]"],
+          "related_indicators": ["[[PPI]]", "[[CPI]]", "[[10Y Treasury]]", "[[DXY]]"]
+        },
+        {
+          "name": "Substitution And Recycling",
+          "mechanism": "High copper prices encourage aluminum substitution, efficiency, recycling, and redesign where performance allows.",
+          "watch_terms": ["copper substitution", "aluminum substitution", "recycling", "scrap", "efficiency", "redesign"],
+          "beneficiaries": ["recyclers", "substitution suppliers", "materials science platforms"],
+          "losers": ["high-cost copper demand", "undifferentiated miners after supply response"],
+          "sources_to_check": ["Semantic Scholar", "arXiv", "NewsAPI recycling"],
+          "related_theses": ["[[Materials Sector Basket]]", "[[Bioengineered Food Systems]]"],
+          "related_indicators": ["[[ISM Manufacturing]]", "[[CPI]]"]
+        }
+      ],
+      "timing_phases": [
+        {
+          "phase": "Shock",
+          "watch_terms": ["mine disruption", "copper spike", "smelter outage"],
+          "winners": ["copper miners", "royalties"],
+          "losers": ["industrial manufacturers", "utilities"]
+        },
+        {
+          "phase": "Repricing",
+          "watch_terms": ["capex inflation", "equipment backlog", "producer price"],
+          "winners": ["pricing-power suppliers", "hard assets"],
+          "losers": ["fixed-budget projects", "rate-sensitive growth"]
+        },
+        {
+          "phase": "Adaptation",
+          "watch_terms": ["recycling", "substitution", "new mine approvals", "grid redesign"],
+          "winners": ["recyclers", "efficient equipment", "brownfield supply"],
+          "losers": ["legacy high-intensity designs"]
+        }
+      ],
+      "opportunity_factors": [
+        { "factor": "Duration", "question": "Short squeeze or structural supply deficit?" },
+        { "factor": "Moat", "question": "Who owns low-cost reserves or scarce processing capacity?" },
+        { "factor": "Political Risk", "question": "Which assets face royalties, nationalization, or permit reversals?" },
+        { "factor": "Capital Intensity", "question": "Can new supply arrive without destroying returns?" },
+        { "factor": "Correlation", "question": "Inflation hedge, China beta, or grid/AI infrastructure exposure?" },
+        { "factor": "Substitution Risk", "question": "Where can aluminum, recycling, or redesign cap copper demand?" },
+        { "factor": "Sensitivity", "question": "Exposure to dollar, rates, China demand, and mine disruptions?" },
+        { "factor": "Narrative Risk", "question": "Is the scarcity story already consensus?" }
+      ]
+    },
+    {
+      "id": "hormuz-oil-shock",
+      "name": "Hormuz Oil Shock",
+      "core_trigger": "Conflict or security disruption around the Strait of Hormuz constrains oil and LNG flows, raising energy, freight, inflation, and geopolitical risk.",
+      "trigger_causes": [
+        "regional conflict escalation",
+        "shipping lane closure",
+        "tanker attacks",
+        "naval insurance withdrawal",
+        "sanctions escalation",
+        "pipeline sabotage",
+        "OPEC supply response failure"
+      ],
+      "layers": [
+        {
+          "name": "Oil And LNG Flow Disruption",
+          "mechanism": "A Hormuz disruption restricts seaborne crude, refined products, and LNG flows, forcing energy price repricing.",
+          "watch_terms": ["Hormuz", "oil shock", "LNG spike", "tanker", "Persian Gulf", "shipping lane", "crude"],
+          "beneficiaries": ["oil producers", "LNG exporters", "energy infrastructure"],
+          "losers": ["energy importers", "airlines", "petrochemical margin users"],
+          "sources_to_check": ["EIA", "NewsAPI energy", "GDELT energy", "FMP energy"],
+          "related_theses": ["[[Energy Sector Basket]]", "[[Dollar Debasement Hard Money]]"],
+          "related_indicators": ["[[CPI]]", "[[DXY]]", "[[10Y Treasury]]"]
+        },
+        {
+          "name": "Shipping Insurance And Freight",
+          "mechanism": "War-risk premiums, rerouting, convoy needs, and tanker scarcity raise freight and insurance costs.",
+          "watch_terms": ["war risk insurance", "freight rates", "tanker rates", "rerouting", "shipping disruption", "insurance premium"],
+          "beneficiaries": ["tanker operators", "marine insurers with pricing power", "alternate route logistics"],
+          "losers": ["importers", "low-margin shippers", "just-in-time supply chains"],
+          "sources_to_check": ["GDELT trade", "NewsAPI shipping", "source-watch logistics"],
+          "related_theses": ["[[Industrials Sector Basket]]", "[[Financials Sector Basket]]"],
+          "related_indicators": ["[[ISM Manufacturing]]", "[[VIX]]", "[[CPI]]"]
+        },
+        {
+          "name": "Inflation And Central Bank Pressure",
+          "mechanism": "Energy shock feeds headline inflation, inflation expectations, bond volatility, and monetary-policy constraints.",
+          "watch_terms": ["energy inflation", "CPI spike", "breakeven inflation", "central bank", "rate expectations", "MOVE"],
+          "beneficiaries": ["hard assets", "energy equities", "inflation hedges"],
+          "losers": ["long-duration growth", "rate-sensitive housing", "consumer discretionary"],
+          "sources_to_check": ["FRED inflation", "Treasury yields", "CBOE volatility", "macro-bridges"],
+          "related_theses": ["[[Dollar Debasement Hard Money]]", "[[Housing Supply Correction]]", "[[Consumer Discretionary Sector Basket]]"],
+          "related_indicators": ["[[CPI]]", "[[10Y Treasury]]", "[[VIX]]", "[[DXY]]"]
+        },
+        {
+          "name": "Defense And Security Response",
+          "mechanism": "Escalation raises demand for naval, missile-defense, ISR, drone, and logistics capabilities.",
+          "watch_terms": ["naval escort", "missile defense", "ISR", "drone", "defense budget", "CENTCOM", "shipping security"],
+          "beneficiaries": ["defense primes", "ISR providers", "drone systems", "shipbuilders"],
+          "losers": ["civilian shipping without protection", "underinsured cargo owners"],
+          "sources_to_check": ["USASpending", "SAM.gov", "NewsAPI defense", "SEC defense filings"],
+          "related_theses": ["[[Defense AI Autonomous Warfare]]", "[[Drone Autonomous Systems Revolution]]", "[[Fiscal Scarcity Rearmament]]"],
+          "related_indicators": ["[[Defense Budget]]", "[[DARPA Contract Awards]]", "[[USASpending Defense AI]]"]
+        },
+        {
+          "name": "Demand Destruction And Credit Stress",
+          "mechanism": "Sustained oil shock compresses consumer income, raises input costs, and pressures credit-sensitive sectors.",
+          "watch_terms": ["demand destruction", "consumer stress", "credit spreads", "margin compression", "recession risk", "bank stress"],
+          "beneficiaries": ["cash", "defensive staples", "utilities after growth shock"],
+          "losers": ["airlines", "restaurants", "consumer discretionary", "emerging markets"],
+          "sources_to_check": ["FMP market performance", "FRED credit", "CBOE volatility", "streamline-report"],
+          "related_theses": ["[[Consumer Staples Sector Basket]]", "[[Utilities Sector Basket]]", "[[Financials Sector Basket]]"],
+          "related_indicators": ["[[Retail Sales]]", "[[VIX]]", "[[Yield Curve]]"]
+        },
+        {
+          "name": "Adaptation And Supply Resilience",
+          "mechanism": "Repeated energy route shocks accelerate domestic production, strategic reserves, LNG infrastructure, nuclear, and energy efficiency.",
+          "watch_terms": ["strategic reserves", "LNG infrastructure", "domestic production", "energy security", "nuclear", "efficiency"],
+          "beneficiaries": ["LNG infrastructure", "domestic energy", "nuclear", "energy efficiency"],
+          "losers": ["import-dependent energy systems", "fragile supply chains"],
+          "sources_to_check": ["EIA", "Federal Register", "FMP energy", "Semantic Scholar energy security"],
+          "related_theses": ["[[Nuclear Renaissance SMRs]]", "[[Energy Sector Basket]]", "[[Grid-Scale Battery Storage]]"],
+          "related_indicators": ["[[Nuclear Capacity Factor]]", "[[Grid Investment $/yr]]", "[[CPI]]"]
+        }
+      ],
+      "timing_phases": [
+        {
+          "phase": "Shock",
+          "watch_terms": ["Hormuz", "oil spike", "LNG spike", "tanker attack"],
+          "winners": ["oil", "LNG", "defense"],
+          "losers": ["airlines", "consumer discretionary", "energy importers"]
+        },
+        {
+          "phase": "Panic",
+          "watch_terms": ["insurance withdrawal", "freight spike", "central bank pressure", "currency stress"],
+          "winners": ["tankers", "hard assets", "defense security"],
+          "losers": ["emerging markets", "low-margin importers"]
+        },
+        {
+          "phase": "Adaptation",
+          "watch_terms": ["energy security", "strategic reserves", "LNG buildout", "nuclear restart"],
+          "winners": ["domestic energy", "LNG infrastructure", "nuclear"],
+          "losers": ["import-dependent models"]
+        }
+      ],
+      "opportunity_factors": [
+        { "factor": "Duration", "question": "One-week shock or sustained route-risk regime?" },
+        { "factor": "Moat", "question": "Who owns resilient supply, logistics, or defense capability?" },
+        { "factor": "Political Risk", "question": "Sanctions, export controls, strategic reserves, or windfall taxes?" },
+        { "factor": "Capital Intensity", "question": "Can infrastructure scale before the shock fades?" },
+        { "factor": "Correlation", "question": "True hedge or just high-beta energy exposure?" },
+        { "factor": "Substitution Risk", "question": "Can rerouting, reserves, or demand destruction cap upside?" },
+        { "factor": "Sensitivity", "question": "Exposure to oil, LNG, rates, dollar, and defense budgets?" },
+        { "factor": "Narrative Risk", "question": "Is geopolitical premium already embedded?" }
+      ]
+    },
+    {
+      "id": "glp1-supply-chain-shortage",
+      "name": "GLP-1 Supply Chain Shortage",
+      "core_trigger": "Explosive GLP-1 demand exceeds API, peptide synthesis, fill-finish, injector-device, and distribution capacity, constraining access and reshaping obesity-drug economics.",
+      "trigger_causes": [
+        "tirzepatide or semaglutide shortage",
+        "API peptide synthesis bottleneck",
+        "sterile fill-finish capacity shortage",
+        "injector pen component shortage",
+        "cold-chain distribution constraints",
+        "label expansion demand shock",
+        "payer coverage acceleration",
+        "compounder supply disruption"
+      ],
+      "layers": [
+        {
+          "name": "Demand Surge And Access Constraint",
+          "mechanism": "Obesity, diabetes, cardiovascular, liver, and other label-expansion demand outruns available branded GLP-1 supply.",
+          "watch_terms": ["GLP-1 demand", "Zepbound shortage", "Wegovy shortage", "Mounjaro", "Ozempic", "obesity drug access", "prescription growth"],
+          "beneficiaries": ["incumbent GLP-1 leaders", "differentiated challengers", "telehealth access platforms"],
+          "losers": ["patients without coverage", "providers rationing supply", "small competitors without scale"],
+          "sources_to_check": ["FMP GLP-1 watchlist", "NewsAPI healthcare", "FDA shortage lists", "ClinicalTrials GLP-1"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Healthcare Sector Basket]]"],
+          "related_indicators": ["[[GLP-1 Prescriptions]]", "[[Obesity Drug Revenue]]", "[[FDA NDA Filings]]"]
+        },
+        {
+          "name": "API And Peptide Manufacturing Bottleneck",
+          "mechanism": "Peptide API capacity, synthesis equipment, precursor materials, and quality-controlled manufacturing constrain finished dose supply.",
+          "watch_terms": ["peptide API", "manufacturing shortage", "active pharmaceutical ingredient", "semaglutide shortage", "tirzepatide shortage", "capacity expansion"],
+          "beneficiaries": ["API manufacturers", "CDMOs", "equipment suppliers", "scaled pharma incumbents"],
+          "losers": ["asset-light challengers", "brands without locked capacity", "compounders losing inputs"],
+          "sources_to_check": ["FDA", "SEC filings", "NewsAPI pharma", "FMP fundamentals"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Healthcare Sector Basket]]"],
+          "related_indicators": ["[[Obesity Drug Revenue]]", "[[FDA NDA Filings]]"]
+        },
+        {
+          "name": "Fill-Finish And Device Constraint",
+          "mechanism": "Sterile injectable capacity, injector pens, cartridges, packaging, and cold-chain logistics become the near-term choke points.",
+          "watch_terms": ["fill finish", "sterile injectable", "injector pen", "cartridge", "cold chain", "packaging shortage", "device shortage"],
+          "beneficiaries": ["fill-finish CDMOs", "device component suppliers", "cold-chain logistics", "scaled injectable manufacturers"],
+          "losers": ["weekly injection products without device supply", "low-margin distributors"],
+          "sources_to_check": ["SEC filings", "NewsAPI healthcare logistics", "FMP healthcare suppliers"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Healthcare Sector Basket]]", "[[Industrials Sector Basket]]"],
+          "related_indicators": ["[[FDA NDA Filings]]", "[[ISM Manufacturing]]"]
+        },
+        {
+          "name": "Compounding And Regulatory Response",
+          "mechanism": "FDA shortage status determines whether compounders can legally fill demand gaps, changing pricing, access, and brand economics.",
+          "watch_terms": ["compounding", "FDA shortage", "503B", "semaglutide compounder", "tirzepatide compounder", "FDA enforcement", "shortage designation"],
+          "beneficiaries": ["compounders during shortage windows", "telehealth platforms with legal sourcing", "branded incumbents after shortage resolution"],
+          "losers": ["compounders after shortage delisting", "brands facing temporary price leakage", "patients relying on gray-market access"],
+          "sources_to_check": ["FDA", "Federal Register", "NewsAPI healthcare", "SEC filings"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Healthcare Sector Basket]]"],
+          "related_indicators": ["[[FDA NDA Filings]]", "[[GLP-1 Prescriptions]]"]
+        },
+        {
+          "name": "Payer And Pricing Pressure",
+          "mechanism": "Short supply plus huge demand creates payer gatekeeping, formulary pressure, IRA negotiation risk, and access inequality.",
+          "watch_terms": ["payer coverage", "Medicare coverage", "IRA negotiation", "formulary", "prior authorization", "pricing pressure", "reimbursement"],
+          "beneficiaries": ["best-outcomes incumbents", "PBMs with negotiating leverage", "lower-cost oral alternatives"],
+          "losers": ["high-list-price brands", "cash-pay patients", "weak-evidence challengers"],
+          "sources_to_check": ["NewsAPI healthcare", "Federal Register", "FMP pharma", "CMS policy"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Healthcare Sector Basket]]", "[[Financials Sector Basket]]"],
+          "related_indicators": ["[[Obesity Drug Revenue]]", "[[GLP-1 Prescriptions]]", "[[CPI]]"]
+        },
+        {
+          "name": "Second-Order Consumer And Healthcare Effects",
+          "mechanism": "Constrained GLP-1 access shifts demand across food, apparel, medtech, bariatric care, diabetes devices, telehealth, and adjacent metabolic therapies.",
+          "watch_terms": ["food demand", "diabetes devices", "bariatric surgery", "telehealth", "metabolic therapy", "consumer staples", "weight loss"],
+          "beneficiaries": ["telehealth access platforms", "oral metabolic challengers", "adjacent cardiometabolic therapies"],
+          "losers": ["bariatric procedure volumes", "diabetes device demand", "some snack and beverage categories"],
+          "sources_to_check": ["FMP consumer staples", "FMP healthcare", "NewsAPI business", "opportunity-viewpoints"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Consumer Staples Sector Basket]]", "[[Healthcare Sector Basket]]"],
+          "related_indicators": ["[[Retail Sales]]", "[[Obesity Drug Revenue]]", "[[GLP-1 Prescriptions]]"]
+        },
+        {
+          "name": "Adaptation Moats",
+          "mechanism": "Supply constraints favor oral GLP-1s, longer-acting injectables, alternative mechanisms, manufacturing scale, and differentiated tolerability.",
+          "watch_terms": ["oral GLP-1", "monthly dosing", "MariTide", "VK2735", "label expansion", "manufacturing scale", "tolerability"],
+          "beneficiaries": ["oral GLP-1 challengers", "monthly dosing platforms", "scaled peptide manufacturers", "differentiated metabolic pipelines"],
+          "losers": ["undifferentiated me-too assets", "capacity-poor developers"],
+          "sources_to_check": ["ClinicalTrials GLP-1", "PubMed GLP-1", "FDA approvals", "FMP thesis watchlists"],
+          "related_theses": ["[[GLP-1 Metabolic Disease Revolution]]", "[[Alzheimers Disease Modification]]", "[[Healthcare Sector Basket]]"],
+          "related_indicators": ["[[Phase 3 Trial Readouts]]", "[[FDA NDA Filings]]", "[[Obesity Drug Revenue]]"]
+        }
+      ],
+      "timing_phases": [
+        {
+          "phase": "Shock",
+          "watch_terms": ["shortage", "rationing", "backorder", "prescription growth", "supply constraint"],
+          "winners": ["scaled incumbents", "legal compounders", "CDMOs"],
+          "losers": ["patients without access", "capacity-poor challengers"]
+        },
+        {
+          "phase": "Panic",
+          "watch_terms": ["FDA shortage", "payer restriction", "gray market", "pricing pressure", "compounding enforcement"],
+          "winners": ["telehealth access platforms", "PBMs", "alternative suppliers"],
+          "losers": ["compounders after enforcement", "cash-pay patients", "weak brands"]
+        },
+        {
+          "phase": "Adaptation",
+          "watch_terms": ["oral GLP-1", "monthly dosing", "capacity expansion", "new approval", "supply normalization"],
+          "winners": ["oral challengers", "long-acting platforms", "scaled manufacturers"],
+          "losers": ["undifferentiated injectables", "temporary access arbitrage"]
+        }
+      ],
+      "opportunity_factors": [
+        { "factor": "Duration", "question": "Temporary shortage window or multi-year manufacturing bottleneck?" },
+        { "factor": "Moat", "question": "Who controls API capacity, fill-finish slots, device supply, or best clinical outcomes?" },
+        { "factor": "Political Risk", "question": "FDA shortage designations, compounding enforcement, CMS coverage, or IRA negotiation?" },
+        { "factor": "Capital Intensity", "question": "Can supply be scaled without quality failures or margin compression?" },
+        { "factor": "Correlation", "question": "Is this a defensive healthcare growth theme or crowded mega-cap pharma exposure?" },
+        { "factor": "Substitution Risk", "question": "Do oral drugs, monthly dosing, or non-GLP-1 mechanisms cap incumbent pricing?" },
+        { "factor": "Sensitivity", "question": "Exposure to payer coverage, safety headlines, supply normalization, and catalyst timing?" },
+        { "factor": "Narrative Risk", "question": "Is supply normalization already priced into LLY/NVO and challengers?" }
+      ]
+    }
+  ]
+}

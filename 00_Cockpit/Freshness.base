@@ -1,0 +1,34 @@
+filters:
+  and:
+    - file.inFolder("30_Sources")
+formulas:
+  days_stale: if(last_pulled, (today() - date(last_pulled)).days, 999)
+  freshness: if(last_pulled, if((today() - date(last_pulled)).days <= ttl_days, "Fresh", if((today() - date(last_pulled)).days <= ttl_days * 2, "Aging", "Stale")), "Never")
+properties:
+  formula.freshness:
+    displayName: Freshness
+  criticality:
+    displayName: Tier
+views:
+  - type: table
+    name: Refresh Before Cadence
+    filters:
+      and:
+        - criticality == "critical"
+        - formula.days_stale > ttl_days
+    order:
+      - formula.freshness
+      - file.name
+      - source
+      - last_pulled
+      - formula.days_stale
+  - type: table
+    name: All Sources
+    groupBy:
+      property: criticality
+      direction: ASC
+    order:
+      - formula.freshness
+      - file.name
+      - source
+      - last_pulled
