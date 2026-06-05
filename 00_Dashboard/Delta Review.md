@@ -79,7 +79,7 @@ TABLE
   file.folder AS "Folder",
   length(filter(file.outlinks, (l) => contains(string(l), "10_Theses"))) AS "Thesis Links",
   file.mtime AS "Last Modified"
-FROM ""
+FROM "05_Data_Pulls" OR "06_Signals" OR "08_Entities" OR "09_Macro" OR "10_Theses" OR "12_Company_Risk" OR "04_Reference"
 WHERE length(filter(file.outlinks, (l) => contains(string(l), "10_Theses"))) >= 2
   AND file.mtime >= date(today) - dur(7 days)
   AND !contains(file.folder, "00_Dashboard")
