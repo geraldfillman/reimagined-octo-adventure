@@ -92,6 +92,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '45', '--limit', '28']),
       cmd('Thesis graph session', ['system', 'infranodus', '--path', '10_Theses']),
       cmd('Month-end archive', ['pull', 'month-end-archive', '--month', '$MONTH']),
+      cmd('Retention prune', ['system', 'prune', '--all-domains', '--older-than', '90']),
       cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
     ]),
   ],

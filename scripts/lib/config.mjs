@@ -14,6 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = resolve(__dirname, '..', '..');
 const MY_DATA_ROOT = resolve(VAULT_ROOT, '..', 'My_Data');
 const DEFAULT_RESEARCH_VAULT_ROOT = resolve(VAULT_ROOT, '..', 'The Research Spine');
+const DEFAULT_ARCHIVE_ROOT = resolve(VAULT_ROOT, '..', 'World_Machine', 'My_Data_Archive');
 
 // Load .env from vault root
 config({ path: resolve(MY_DATA_ROOT, '.env') });
@@ -248,6 +249,18 @@ export function getKBVaultRoot() {
 /** Get the KB root path */
 export function getKBRoot() {
   return resolve(getKBVaultRoot(), '12_Knowledge_Bases');
+}
+
+/**
+ * Get the external archive root for retired pull notes.
+ *
+ * Retention relocates aged pull notes OUT of the live vault tree so they no
+ * longer inflate the Obsidian/Dataview index. Defaults to a sibling
+ * `World_Machine/My_Data_Archive` vault; override with ARCHIVE_VAULT_ROOT.
+ */
+export function getArchiveRoot() {
+  const configured = process.env.ARCHIVE_VAULT_ROOT?.trim();
+  return configured ? resolve(configured) : DEFAULT_ARCHIVE_ROOT;
 }
 
 export { SOURCES };

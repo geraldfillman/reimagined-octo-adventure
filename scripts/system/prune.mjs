@@ -1,32 +1,35 @@
 /**
  * prune.mjs — Vault retention policy runner
  *
- * Archives clear-status pull notes older than N days to prevent unbounded
- * accumulation (Market domain alone generates ~2,400+ files).
+ * Relocates clear-status pull notes older than N days OUT of the live vault
+ * tree into the external archive root (World_Machine by default) to prevent
+ * unbounded accumulation (Market domain alone generates ~2,400+ files) and to
+ * keep the Obsidian/Dataview index small.
  *
  * Usage:
- *   node run.mjs system prune --domain Market --older-than 30
- *   node run.mjs system prune --older-than 30 --status clear
+ *   node run.mjs system prune --domain Market --older-than 90
+ *   node run.mjs system prune --older-than 90 --status clear
  *   node run.mjs system prune --dry-run
- *   node run.mjs system prune --all-domains --older-than 60 --dry-run
+ *   node run.mjs system prune --all-domains --older-than 90 --dry-run
  *
  * Safety rules:
  *   - Only archives notes with signal_status matching --status (default: clear)
  *   - Skips notes referenced by 06_Signals/ via source_pull frontmatter
- *   - Always moves to archive subfolder, never deletes
+ *   - Always moves to the external archive root, never deletes
  *   - Respects --dry-run flag (prints candidates without moving)
  */
 
 import { readdirSync, readFileSync, mkdirSync, existsSync, renameSync } from 'fs';
 import { join, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { getArchiveRoot } from '../lib/config.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = resolve(__dirname, '..', '..');
 const PULLS_DIR  = join(VAULT_ROOT, '05_Data_Pulls');
 const SIGNALS_DIR = join(VAULT_ROOT, '06_Signals');
 
-const DEFAULT_OLDER_THAN_DAYS = 30;
+const DEFAULT_OLDER_THAN_DAYS = 90;
 const DEFAULT_STATUSES = ['clear'];
 
 /** Parse YAML frontmatter scalars from a markdown file. */
@@ -67,9 +70,9 @@ function listPullNotes(domainFolder) {
     .map(f => join(domainFolder, f));
 }
 
-/** Move file to archive subfolder, creating it if needed. */
-function archiveFile(filePath, archiveBase, yearMonth) {
-  const archiveDir = join(archiveBase, yearMonth);
+/** Move file to the external archive, preserving YYYY-MM/Domain layout. */
+function archiveFile(filePath, archiveBase, yearMonth, domain) {
+  const archiveDir = join(archiveBase, yearMonth, domain);
   if (!existsSync(archiveDir)) mkdirSync(archiveDir, { recursive: true });
   const dest = join(archiveDir, filePath.split(/[\\/]/).pop());
   renameSync(filePath, dest);
@@ -116,7 +119,8 @@ export async function run(flags = {}) {
   const referenced = buildReferencedSet();
   console.log(`   Protected notes (referenced by signals): ${referenced.size}\n`);
 
-  const archiveBase = join(PULLS_DIR, '_archive');
+  const archiveBase = getArchiveRoot();
+  console.log(`   Archive root   : ${archiveBase} (external — outside the indexed vault)\n`);
 
   let totalScanned = 0;
   let totalArchived = 0;
@@ -158,9 +162,9 @@ export async function run(flags = {}) {
       // Eligible for archival
       const yearMonth = datePulled.slice(0, 7) || 'unknown';
       if (dryRun) {
-        console.log(`   [dry-run] Would archive: ${domain}/${filePath.split(/[\\/]/).pop()} → _archive/${yearMonth}/`);
+        console.log(`   [dry-run] Would relocate: ${domain}/${filePath.split(/[\\/]/).pop()} → ${join(yearMonth, domain)}/ (external archive)`);
       } else {
-        const dest = archiveFile(filePath, archiveBase, yearMonth);
+        const dest = archiveFile(filePath, archiveBase, yearMonth, domain);
         console.log(`   ✓ Archived: ${domain}/${filePath.split(/[\\/]/).pop()} → ${dest.split(/[\\/]/).slice(-3).join('/')}`);
       }
       domainArchived++;
