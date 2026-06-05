@@ -20,6 +20,7 @@ Key notes:
 - [[09_Macro/Regimes/Risk-Off]]
 - [[09_Macro/Indicators/Fed Funds Rate]]
 - [[09_Macro/Indicators/10Y Treasury]]
+- [[04_Reference/Housing Intelligence]]
 
 Decisions:
 - Use regime notes as the main summary layer.

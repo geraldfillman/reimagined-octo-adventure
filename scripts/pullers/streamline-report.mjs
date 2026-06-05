@@ -23,6 +23,11 @@ import { loadLatestAgentThreads } from '../lib/agent-interactions.mjs';
 import { readFolder } from '../lib/frontmatter.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
 import { loadLatestLedger } from '../lib/run-ledger.mjs';
+import {
+  loadLatestSignalIntelligence,
+  renderCanonicalDeepDiveBlock,
+  renderCanonicalSignalBlock,
+} from '../lib/signal-intelligence.mjs';
 import { computeModuleScores, summarizeScores } from '../lib/signal-quality.mjs';
 import { loadLatestPositioningSidecar } from './positioning-report.mjs';
 
@@ -79,6 +84,7 @@ export async function pull(flags = {}) {
 
   console.log(`Streamline Report: reading local vault notes since ${since} [cadence=${cadence}, focus=${focusKey}]...`);
   const positioningSidecar = await loadLatestPositioningSidecar().catch(() => null);
+  const signalIntelligence = await loadLatestSignalIntelligence().catch(() => null);
   const rawData = await loadReportData({ since, limit, positioningSidecar });
   const filteredQueue = applyFocusFilter(rawData.reviewQueue, focusKey);
   const dedupedQueue = deduplicateReviewQueue(filteredQueue);
@@ -135,6 +141,7 @@ export async function pull(flags = {}) {
     includeInteractions,
     newSince: sidecar.new_since_last_report,
     resolvedSince: sidecar.resolved_since_last_report,
+    signalIntelligence,
   });
 
   const filePath = join(getPullsDir(), 'Orchestrator', dateStampedFilename('Streamline_Report'));
@@ -292,7 +299,7 @@ async function loadReportData({ since, limit, positioningSidecar = null }) {
   };
 }
 
-function buildStreamlineNote({ data, since, windowDays, limit, status, signals, cadence = 'daily', focus = 'all', includeInteractions = false, newSince = 0, resolvedSince = 0 }) {
+function buildStreamlineNote({ data, since, windowDays, limit, status, signals, cadence = 'daily', focus = 'all', includeInteractions = false, newSince = 0, resolvedSince = 0, signalIntelligence = null }) {
   const quietDay = data.reviewQueue.length === 0;
   const reviewRows = data.reviewQueue.map(note => {
     const scores = scoreReviewItem(note);
@@ -367,6 +374,14 @@ function buildStreamlineNote({ data, since, windowDays, limit, status, signals, 
     },
     sections: [
       ...cadenceSections,
+      {
+        heading: 'Canonical Signal Intelligence',
+        content: renderCanonicalSignalBlock(signalIntelligence, { limit: 10 }),
+      },
+      {
+        heading: 'Canonical Deeper Dive Queue',
+        content: renderCanonicalDeepDiveBlock(signalIntelligence, { limit: 5 }),
+      },
       {
         heading: 'Executive Brief',
         content: quietDay

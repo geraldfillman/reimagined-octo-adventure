@@ -7,12 +7,14 @@
  */
 
 import { config } from 'dotenv';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, relative, sep } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const VAULT_ROOT = resolve(__dirname, '..', '..');
 const MY_DATA_ROOT = resolve(VAULT_ROOT, '..', 'My_Data');
+const DEFAULT_RESEARCH_VAULT_ROOT = resolve(VAULT_ROOT, '..', 'The Research Spine');
+const DEFAULT_ARCHIVE_ROOT = resolve(VAULT_ROOT, '..', 'World_Machine', 'My_Data_Archive');
 
 // Load .env from vault root
 config({ path: resolve(MY_DATA_ROOT, '.env') });
@@ -183,6 +185,32 @@ export function getVaultRoot() {
   return VAULT_ROOT;
 }
 
+/** Get the engine root path (My_Data). */
+export function getEngineRoot() {
+  return VAULT_ROOT;
+}
+
+/** Resolve a path under the engine root. */
+export function resolveEnginePath(...parts) {
+  return resolve(VAULT_ROOT, ...parts);
+}
+
+/** Get the human-facing research vault root path. */
+export function getResearchVaultRoot() {
+  const configured = process.env.RESEARCH_VAULT_ROOT?.trim();
+  return configured ? resolve(configured) : DEFAULT_RESEARCH_VAULT_ROOT;
+}
+
+/** Convert an absolute path to an engine-relative display path. */
+export function toEngineRelative(absPath) {
+  return relative(VAULT_ROOT, absPath).split(sep).join('/');
+}
+
+/** Get an engine cache path under scripts/.cache. */
+export function getEngineCacheDir(...parts) {
+  return resolveEnginePath('scripts', '.cache', ...parts);
+}
+
 /** Get the data pulls directory */
 export function getPullsDir() {
   return resolve(VAULT_ROOT, '05_Data_Pulls');
@@ -221,6 +249,18 @@ export function getKBVaultRoot() {
 /** Get the KB root path */
 export function getKBRoot() {
   return resolve(getKBVaultRoot(), '12_Knowledge_Bases');
+}
+
+/**
+ * Get the external archive root for retired pull notes.
+ *
+ * Retention relocates aged pull notes OUT of the live vault tree so they no
+ * longer inflate the Obsidian/Dataview index. Defaults to a sibling
+ * `World_Machine/My_Data_Archive` vault; override with ARCHIVE_VAULT_ROOT.
+ */
+export function getArchiveRoot() {
+  const configured = process.env.ARCHIVE_VAULT_ROOT?.trim();
+  return configured ? resolve(configured) : DEFAULT_ARCHIVE_ROOT;
 }
 
 export { SOURCES };

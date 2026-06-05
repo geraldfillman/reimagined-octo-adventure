@@ -4,5 +4,9 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "userIgnoreFilters": [
+    "05_Data_Pulls/_archive/",
+    "500-archive/"
+  ]
 }

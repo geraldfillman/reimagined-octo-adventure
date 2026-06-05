@@ -7,12 +7,12 @@ This vault is an Obsidian-based research engine for housing, biotech, defense, e
 ## Current State
 
 - `8` MOC files provide the top-level navigation layer (7 domain MOCs + `moc-company-risk`).
-- `16` dashboards provide the main operator surfaces, including Company Risk and OSINT panels.
-- `19` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
-- `21` active thesis notes are tracked in `10_Theses/`.
+- `20` dashboards provide the main operator surfaces, including Company Risk and OSINT panels.
+- `21` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
+- `24` active thesis notes plus `19` sector/style baskets are tracked in `10_Theses/`.
 - `35` active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
 - `10` KB scripts live in `scripts/kb/` — the intake-to-wiki pipeline.
-- `88` active source definitions across 17 categories in `01_Data_Sources/`.
+- `91` active source definitions across 16 categories in `01_Data_Sources/`.
 - Daily routine is split into daily and weekly cadences via `daily-routine.ps1`.
 - Validation, cleanup, retention, and scorecard maintenance are all wired into the CLI.
 
@@ -44,16 +44,16 @@ This vault is an Obsidian-based research engine for housing, biotech, defense, e
 
 ```text
 000-moc/              8 Master of Content navigation files — start here
-00_Dashboard/         16 primary Dataview dashboards — main operator surfaces
-01_Data_Sources/      88 active source definitions across 17 categories (including OSINT/)
-03_Templates/         19 canonical note templates
+00_Dashboard/         20 primary Dataview dashboards — main operator surfaces
+01_Data_Sources/      91 active source definitions across 16 categories (including OSINT/)
+03_Templates/         21 canonical note templates
 04_Reference/         Schema docs, pull guides, graph conventions, source overview boards
-05_Data_Pulls/        Timestamped pull notes from API pullers and synthesis workflows
+05_Data_Pulls/        Timestamped pull notes; aged clear notes relocated to World_Machine by `system prune`
 06_Signals/           Discrete signal event notes
 07_Playbooks/         Operating playbooks and Graph Sessions subfolder
-08_Entities/          Stocks, sectors, countries, commodities, ETFs, currencies
+08_Entities/          Stocks (103), sectors, countries, commodities, ETFs
 09_Macro/             Macro indicators (17) and regime notes (9)
-10_Theses/            21 active investment theses and bridge notes
+10_Theses/            24 active investment theses plus 19 sector/style baskets in Baskets/
 11_Learning/          Moved to Dr_Magnifico; scripts still route there through LEARNING_VAULT_ROOT
 12_Company_Risk/      Company Risk Intelligence — Companies, Events, Patterns, Entities, Transactions
 12_Knowledge_Bases/   Moved to Oy; KB scripts still run from this vault through KB_VAULT_ROOT
