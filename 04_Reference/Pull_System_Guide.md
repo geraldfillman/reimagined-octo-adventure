@@ -579,6 +579,8 @@ Recommended workflow:
 ```powershell
 node run.mjs system cleanup --market-history --dry-run
 node run.mjs system cleanup --market-history
+node run.mjs system prune --all-domains --older-than 90 --dry-run
+node run.mjs system prune --all-domains --older-than 90
 node run.mjs system month-end --month 2026-04 --dry-run
 node run.mjs pull month-end-archive --month 2026-04 --dry-run
 node run.mjs pull month-end-archive --month 2026-04
@@ -608,6 +610,25 @@ Defaults: keep 1 daily snapshot and 2 quote snapshots per symbol. Override with:
 ```powershell
 node run.mjs system cleanup --market-history --keep-daily 2 --keep-quotes 3
 ```
+
+### Vault Retention (Prune to Archive)
+
+`system prune` relocates aged **clear**-status pull notes out of the live vault
+into the external archive (`ARCHIVE_VAULT_ROOT`, default
+`World_Machine/My_Data_Archive`), preserving a `YYYY-MM/Domain/` layout. This
+keeps the Obsidian/Dataview index small so dashboards stay fast. It is wired
+into the **monthly** routine and is safe by default:
+
+- Only notes with `signal_status: clear` are eligible (override with `--status`).
+- Notes referenced by a `06_Signals/` note (via `source_pull`) are protected.
+- Notes are **moved, never deleted**, and only when older than `--older-than` days (default 90).
+
+```powershell
+node run.mjs system prune --all-domains --older-than 90 --dry-run
+node run.mjs system prune --domain Market --older-than 90
+```
+
+The legacy in-vault `05_Data_Pulls/_archive/` is git-ignored and Obsidian-excluded; move it into the archive vault to reclaim disk.
 
 ## Core Pullers
 
