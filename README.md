@@ -2,12 +2,25 @@
 
 High-level overview and current status for the My_Data investment research vault.
 
-This vault is an Obsidian-based research engine for housing, biotech, defense, energy, macro, and cross-domain thesis work. It combines structured notes, automated data pulls, signal detection, dashboards, graph analysis, OSINT scanning, company risk monitoring, and thesis tracking into a single operating environment. Learning content lives in the separate `Dr_Magnifico` vault, KB content lives in the separate `Oy` vault, and FMP Premium is the active financial-data backbone.
+This vault is an Obsidian-based research engine for housing, biotech, defense, energy, macro, and cross-domain thesis work. It combines structured notes, automated data pulls, signal detection, dashboards, graph analysis, OSINT scanning, company risk monitoring, and thesis tracking into a single operating environment. Learning content lives in the separate `Dr_Magnifico` vault, KB content lives in the separate `Oy` vault, aged data pulls are archived to the `World_Machine` vault, and FMP Premium is the active financial-data backbone.
+
+## Operating Model
+
+The vault runs as a **pull → signal → thesis → dashboard** loop, on a fixed set of cadences, with an AI/agent synthesis layer on top and automatic retention underneath.
+
+1. **Pull.** Scheduled cadences (`scripts/routines/cadence.mjs`, surfaced via `daily-routine.ps1` and `node run.mjs routine <daily|weekly|monthly|quarterly|yearly>`) call domain pullers in `scripts/pullers/`. Each writes a **timestamped, immutable note** to `05_Data_Pulls/<Domain>/` with schema frontmatter (`date_pulled`, `domain`, `signal_status`, `signals[]`). FMP Premium is the market backbone; FRED/Treasury/BEA/EIA/SEC/news/OSINT cover the rest.
+2. **Signal.** Pull notes carry a `signal_status` (`clear | watch | alert | critical`). Non-clear events are aggregated on the Signal Board, and significant ones become discrete notes in `06_Signals/`.
+3. **Thesis.** 24 active theses (+19 baskets) in `10_Theses/` carry `conviction`, `allocation_rank`, `monitor_status`, and a `monitor_change` history. `sector-scan`, `conviction-delta`, and the scorecard scripts route evidence into theses and update these fields over time. Theses link entities (`08_Entities/`), regimes (`09_Macro/`), and sources via `[[wikilinks]]` to form the graph.
+4. **Synthesize (AI/agent layer).** `signal-intelligence`, `agent-analyst`, `opportunity-viewpoints`, and `streamline-report` generate ranked, scored commentary into `05_Data_Pulls/Orchestrator/` and `Market/`. InfraNodus produces structural graph sessions.
+5. **Read.** 21 Dataview dashboards in `00_Dashboard/` render current state live from frontmatter. The **Macro Lens Board** filters all of the above to the macroinvestment cluster. A local web dashboard (`node run.mjs dashboard`, port 3737) reads the vault directly.
+6. **Retain.** `system cleanup` (daily) trims redundant market/signal history; `system prune` (monthly) relocates aged clear pull notes out of the vault to `World_Machine/My_Data_Archive`, keeping the Obsidian/Dataview index small and dashboards fast.
+
+`AGENTS.md` is the canonical operating guide; this README is the high-level map.
 
 ## Current State
 
 - `8` MOC files provide the top-level navigation layer (7 domain MOCs + `moc-company-risk`).
-- `20` dashboards provide the main operator surfaces, including Company Risk and OSINT panels.
+- `21` dashboards provide the main operator surfaces, including Company Risk, OSINT, and the Macro Lens Board.
 - `21` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
 - `24` active thesis notes plus `19` sector/style baskets are tracked in `10_Theses/`.
 - `35` active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
@@ -44,7 +57,7 @@ This vault is an Obsidian-based research engine for housing, biotech, defense, e
 
 ```text
 000-moc/              8 Master of Content navigation files — start here
-00_Dashboard/         20 primary Dataview dashboards — main operator surfaces
+00_Dashboard/         21 primary Dataview dashboards — main operator surfaces (incl. Macro Lens Board)
 01_Data_Sources/      91 active source definitions across 16 categories (including OSINT/)
 03_Templates/         21 canonical note templates
 04_Reference/         Schema docs, pull guides, graph conventions, source overview boards
@@ -123,6 +136,8 @@ scripts/              CLI pullers, KB scripts, maintenance, validation, and help
   Pull-system command reference and routine workflow details.
 - `04_Reference/Vault_Schemas.md`
   Frontmatter schemas and validation contracts.
+- `04_Reference/Macro Lens.md`
+  The macroinvestment lens: how the macro-core cluster is selected, progress tracking, and AI-opinion surfacing. Paired with `00_Dashboard/Macro Lens Board.md` and `09_Macro/Macro Snapshot Log.md`.
 - `11_Learning/01_Domains/Deep Dive Resources.md`
   Curated domain-balanced tracks (8 domains) for deeper study. Use only when triggered by retrieval failures, recurring nodes, or project depth needs — not as the daily default.
 - `11_Learning/01_Domains/Learning Agent Instructions.md`

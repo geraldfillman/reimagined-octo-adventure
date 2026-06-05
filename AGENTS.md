@@ -21,7 +21,8 @@ Routing env vars (set in `My_Data/.env`):
 ## Current State
 
 - `8` MOC files provide the top-level navigation layer (including `moc-company-risk`).
-- `20` dashboards provide the main operator surfaces (including 2 Company Risk dashboards).
+- `21` dashboards provide the main operator surfaces (including 2 Company Risk dashboards and the Macro Lens Board).
+- The **Macro Lens** ([[00_Dashboard/Macro Lens Board]], [[04_Reference/Macro Lens]]) gives a macroinvestment-only view over the multi-domain vault without removing any content.
 - `21` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
 - `24` active thesis notes plus `19` sector/style baskets are tracked in `10_Theses/`.
 - Active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
@@ -435,6 +436,7 @@ All dashboards use Dataview queries against frontmatter fields. They render auto
 - **InfraNodus Measurements** - Graph session entry point and hub/bridge analysis
 - **Company Risk Board** - Active watchlist sorted by risk score, recent events feed, pattern exposure heatmap
 - **Company Risk Patterns** - Pattern library, entity network, transaction log, risk score distribution
+- **Macro Lens Board** - Macroinvestment-only view: macro-cluster theses by conviction, a monitor trail for progress over time, recent macro signals, and the latest AI/agent synthesis. Membership is derived from existing tags (see [[04_Reference/Macro Lens]]); no content is moved.
 
 ## Dashboard
 

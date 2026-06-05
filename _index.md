@@ -2,6 +2,9 @@
 
 Start here.
 
+Lenses:
+- [[00_Dashboard/Macro Lens Board]] — macroinvestment view over the multi-domain vault ([[04_Reference/Macro Lens]])
+
 Core maps:
 - [[000-moc/moc-dashboard]]
 - [[000-moc/moc-data-sources]]
