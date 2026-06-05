@@ -11,17 +11,19 @@ This system spans three Obsidian vaults. **My_Data is the engine** — all scrip
 | **My_Data** | `...\My_Data` | Pull/Research engine — data sources, pulls, signals, theses, scripts |
 | **Dr_Magnifico** | `...\Dr_Magnifico` | Learning System — `11_Learning/`, daily sessions, nodes, mastery |
 | **Oy** | `...\Oy` | KB System — `12_Knowledge_Bases/`, intake-to-wiki pipeline |
+| **World_Machine** | `...\World_Machine\My_Data_Archive` | Retention archive — aged pull notes relocated out of the live index |
 
 Routing env vars (set in `My_Data/.env`):
 - `LEARNING_VAULT_ROOT` → Dr_Magnifico path (used by `getLearningRoot()` in `config.mjs`)
 - `KB_VAULT_ROOT` → Oy path (used by `getKBRoot()` in `config.mjs`)
+- `ARCHIVE_VAULT_ROOT` → World_Machine archive path (used by `getArchiveRoot()` in `config.mjs`; defaults to a sibling `World_Machine/My_Data_Archive`)
 
 ## Current State
 
-- `7` MOC files provide the top-level navigation layer (plus `moc-company-risk`).
-- `16` dashboards provide the main operator surfaces (including 2 Company Risk dashboards).
-- `19` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
-- `21` active thesis notes are tracked in `10_Theses/`.
+- `8` MOC files provide the top-level navigation layer (including `moc-company-risk`).
+- `20` dashboards provide the main operator surfaces (including 2 Company Risk dashboards).
+- `21` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
+- `24` active thesis notes plus `19` sector/style baskets are tracked in `10_Theses/`.
 - Active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
 - `10` KB scripts live in `scripts/kb/` — the intake-to-wiki pipeline (`kb ingest`, `kb normalize`, `kb classify`, `kb compile`, `kb query`, `kb librarian`, `kb health`, `kb transcribe`, `kb suggest`, `kb dispatch`).
 - `sector-scan`, `conviction-delta`, validation, cleanup, retention, and signal-aware scorecard updates are live.
@@ -63,16 +65,16 @@ Routing env vars (set in `My_Data/.env`):
 | Folder | Purpose |
 |--------|---------|
 | `000-moc/` | 8 Master of Content navigation files - read before exploring raw notes |
-| `00_Dashboard/` | 16 primary Dataview dashboards - start here for current operator state |
-| `01_Data_Sources/` | 88 active source definitions across 17 categories (including OSINT/) |
-| `03_Templates/` | 19 canonical templates for all note types |
+| `00_Dashboard/` | 20 primary Dataview dashboards - start here for current operator state |
+| `01_Data_Sources/` | 91 active source definitions across 16 categories (including OSINT/) |
+| `03_Templates/` | 21 canonical templates for all note types |
 | `04_Reference/` | Schema docs, graph conventions, pull system guide, source overview boards, and graph-analysis surfaces |
-| `05_Data_Pulls/` | Timestamped pull notes from API pullers and synthesis workflows |
+| `05_Data_Pulls/` | Timestamped pull notes from API pullers and synthesis workflows. Aged clear-status notes are relocated out of the vault by `system prune` (see Retention below); the legacy `_archive/` subfolder is git-ignored and Obsidian-excluded. |
 | `06_Signals/` | Discrete signal notes when thresholds fire |
 | `07_Playbooks/` | Execution playbooks + Graph Sessions subfolder |
-| `08_Entities/` | Stocks (46), Sectors (12), Countries (8), Commodities (7), ETFs, Currencies |
+| `08_Entities/` | Stocks (103), Sectors (12), Countries (8), Commodities (7), ETFs (1) |
 | `09_Macro/` | Indicators (17) and Regimes (9) |
-| `10_Theses/` | 21 investment theses with conviction tracking (including 3 cross-domain bridge theses) |
+| `10_Theses/` | 24 investment theses with conviction tracking, plus 19 sector/style baskets in `Baskets/` |
 | `11_Learning/` | **Moved to Dr_Magnifico vault** — open that vault in Obsidian to access learning content |
 | `12_Company_Risk/` | Company Risk Intelligence system — Companies, Events, Patterns, Entities, Transactions subfolders. Pattern recognition for narrative vs. reality misalignment. |
 | `12_Knowledge_Bases/` | **Moved to Oy vault** — open that vault in Obsidian to access KB content. Scripts still run from `scripts/kb/` here. |
@@ -443,7 +445,7 @@ It reads vault files directly (no separate sync) and provides seven panels:
 | Panel | Content |
 |-------|---------|
 | Signal Board | All signal notes grouped by severity (critical/alert/watch/clear) |
-| Thesis Status | 21 theses sorted by allocation rank with conviction and monitor status |
+| Thesis Status | Active theses sorted by allocation rank with conviction and monitor status |
 | Pull Health | Per-source staleness grid (green=today, yellow=1-2d, red=3+d or never) |
 | Technical Risk | Latest FMP technical snapshots with bias, RSI, and moving-average damage |
 | Earnings Calendar | Latest FMP earnings calendar range with upcoming rows and catalyst timing |
@@ -481,6 +483,14 @@ Set `DASHBOARD_PORT` to use a port other than `3737`.
 ## Validation
 
 Run `node run.mjs validate` before committing. The validator checks required frontmatter fields, category alignment, boolean types, valid signal statuses, and thesis FMP summary fields.
+
+## Retention
+
+Pull notes accumulate without bound (the Market domain alone generates thousands of files), which inflates the Obsidian/Dataview index and slows dashboards. Retention keeps the live tree small:
+
+- `system prune --all-domains --older-than 90` relocates aged **clear**-status pull notes (not referenced by any `06_Signals/` note) out of the vault into the external archive (`getArchiveRoot()` → `World_Machine/My_Data_Archive` by default), preserving a `YYYY-MM/Domain/` layout. It is wired into the **monthly** cadence.
+- `system cleanup --market-history --signals` deletes redundant intraday market history and expired low-severity signals (daily cadence).
+- The legacy in-vault `05_Data_Pulls/_archive/` is git-ignored and listed in Obsidian's excluded files (`.obsidian/app.json` → `userIgnoreFilters`), so it no longer counts against the index. To reclaim disk, move it into `World_Machine/My_Data_Archive/` — it is already untracked and de-indexed.
 
 ## Immutability
 
