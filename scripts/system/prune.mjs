@@ -19,7 +19,7 @@
 
 import { readdirSync, readFileSync, mkdirSync, existsSync, renameSync } from 'fs';
 import { join } from 'path';
-import { getPullsDir, getSignalsDir } from '../lib/config.mjs';
+import { getPullsDir, getSignalsDir, resolveWorldMachinePath } from '../lib/config.mjs';
 
 const PULLS_DIR = getPullsDir();
 const SIGNALS_DIR = getSignalsDir();
@@ -114,7 +114,9 @@ export async function run(flags = {}) {
   const referenced = buildReferencedSet();
   console.log(`   Protected notes (referenced by signals): ${referenced.size}\n`);
 
-  const archiveBase = join(PULLS_DIR, '_archive');
+  // Relocate OUT of the indexed vault to the durable World_Machine archive,
+  // so retired pulls stop counting against the Obsidian/Dataview index and disk.
+  const archiveBase = resolveWorldMachinePath('My_Data_Archive');
 
   let totalScanned = 0;
   let totalArchived = 0;
@@ -156,7 +158,7 @@ export async function run(flags = {}) {
       // Eligible for archival
       const yearMonth = datePulled.slice(0, 7) || 'unknown';
       if (dryRun) {
-        console.log(`   [dry-run] Would archive: ${domain}/${filePath.split(/[\\/]/).pop()} → _archive/${yearMonth}/`);
+        console.log(`   [dry-run] Would relocate: ${domain}/${filePath.split(/[\\/]/).pop()} → ${join('My_Data_Archive', yearMonth)}/ (World_Machine)`);
       } else {
         const dest = archiveFile(filePath, archiveBase, yearMonth);
         console.log(`   ✓ Archived: ${domain}/${filePath.split(/[\\/]/).pop()} → ${dest.split(/[\\/]/).slice(-3).join('/')}`);
@@ -174,7 +176,5 @@ export async function run(flags = {}) {
   console.log(`   Scanned  : ${totalScanned} notes`);
   console.log(`   Archived : ${totalArchived} notes${dryRun ? ' (dry-run — no changes made)' : ''}`);
   console.log(`   Skipped  : ${totalScanned - totalArchived} notes`);
-  if (!dryRun && totalArchived > 0) {
-    console.log(`   Archive  : ${archiveBase}`);
-  }
+  console.log(`   Archive  : ${archiveBase}`);
 }
