@@ -14,6 +14,9 @@ Open first when:
 - You need regime context, rate sensitivity, inflation context, or market-risk framing.
 
 Key notes:
+- [[00_Dashboard/Macro Lens Board]] — macroinvestment view (theses, progress, AI opinion)
+- [[04_Reference/Macro Lens]] — what the lens is and how to extend it
+- [[09_Macro/Macro Snapshot Log]] — monthly progress record
 - [[00_Dashboard/Macro Regime]]
 - [[09_Macro/Regimes/Rate Cut Cycle]]
 - [[09_Macro/Regimes/Recession]]
