@@ -74,6 +74,9 @@ const SERIES_GROUPS = {
       { id: 'DGS10', name: '10-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'DGS30', name: '30-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'T10Y2Y', name: '10Y-2Y Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'T10Y3M', name: '10Y-3M Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'BAA10Y', name: 'Baa Corporate vs 10Y Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'DFII10', name: '10Y Real Yield (TIPS)', unit: 'Percent', frequency: 'Daily' },
     ],
   },
   credit: {

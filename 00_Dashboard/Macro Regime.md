@@ -29,6 +29,22 @@ SORT date_pulled DESC
 LIMIT 15
 ```
 
+## Bond Stress Regime
+
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Report",
+  bond_regime AS "Regime",
+  stress_score AS "Score",
+  date_pulled AS "Date",
+  choice(signal_status = "alert", "🟠",
+    choice(signal_status = "watch", "🟡", "⚪")) AS "Signal"
+FROM "05_Data_Pulls/Macro"
+WHERE data_type = "bond_regime"
+SORT date_pulled DESC
+LIMIT 5
+```
+
 ## Rate Environment
 
 ```dataview

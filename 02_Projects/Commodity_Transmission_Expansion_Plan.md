@@ -15,6 +15,8 @@ tags: [project, commodities, bonds, futures, sentiment, transmission]
 > - `node run.mjs pull koyfin-ingest` — ingest CSVs from `00_Inbox/exports/koyfin/`
 > - `node run.mjs pull webhook-listen` — Sitdeck alert receiver on 127.0.0.1:8787 (`WEBHOOK_SECRET` in `.env` to lock down)
 > Map: `scripts/config/transmission-map.json`. Entities: `08_Entities/Commodities/` (merged into existing Oil/Copper/Natural Gas/Wheat notes).
+>
+> **Phase 2 (partial) built 2026-07-31.** `node run.mjs pull bond-stress` — composite curve + credit + real-yield regime (calm/tightening/stress), surfaced on the Macro Regime dashboard (`data_type: bond_regime`). FRED rates group extended with T10Y3M, BAA10Y, DFII10. Remaining Phase 2 item: per-company refinancing exposure (interest coverage + maturity walls from EDGAR/KoyFin), flagged when regime ≠ calm.
 
 Goal: connect commodity prices, the bond market, futures term structure, and market noise to the **companies and theses they actually affect** — so a copper squeeze or fertilizer spike surfaces as a routed signal on the right thesis, not just a data point.
 
