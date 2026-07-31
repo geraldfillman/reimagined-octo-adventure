@@ -1,0 +1,199 @@
+/**
+ * koyfin-ingest.mjs — Ingest KoyFin CSV exports from the drop folder.
+ *
+ * Watches 00_Inbox/exports/koyfin/ for CSV files. Each file is expected in
+ * wide format: first column a date, remaining columns one series each
+ * (KoyFin's default multi-series export layout). Files are normalized into
+ * pull notes and the raw CSV is archived to processed/.
+ *
+ * Usage:
+ *   node run.mjs pull koyfin-ingest              # ingest all pending files
+ *   node run.mjs pull koyfin-ingest --file path  # ingest one specific file
+ *   node run.mjs pull koyfin-ingest --dry-run    # parse + report, no writes
+ *
+ * Output: 05_Data_Pulls/Commodities/YYYY-MM-DD_KoyFin_<name>.md
+ */
+
+import { join, basename, extname } from 'path';
+import { readFileSync, readdirSync, mkdirSync, renameSync, existsSync } from 'fs';
+import { getVaultRoot, getPullsDir } from '../lib/config.mjs';
+import {
+  buildNote, buildTable, writeNote, formatNumber,
+  today, dateStampedFilename,
+} from '../lib/markdown.mjs';
+
+const INBOX_REL = join('00_Inbox', 'exports', 'koyfin');
+const MAX_PREVIEW_ROWS = 12;
+
+export async function pull(flags = {}) {
+  const inboxDir = join(getVaultRoot(), INBOX_REL);
+  const processedDir = join(inboxDir, 'processed');
+  mkdirSync(processedDir, { recursive: true });
+
+  let files;
+  if (flags.file) {
+    files = [flags.file];
+  } else {
+    files = readdirSync(inboxDir)
+      .filter(f => extname(f).toLowerCase() === '.csv')
+      .map(f => join(inboxDir, f));
+  }
+
+  if (files.length === 0) {
+    console.log(`📥 KoyFin ingest: no pending CSV files in ${inboxDir}`);
+    return { filePath: null, ingested: 0, signal_status: 'clear' };
+  }
+
+  console.log(`📥 KoyFin ingest: ${files.length} file(s) pending\n`);
+
+  const results = [];
+  for (const file of files) {
+    try {
+      const result = ingestFile(file, flags);
+      results.push(result);
+      console.log(`  ✅ ${basename(file)} → ${result.notePath ?? '(dry-run)'}`);
+      if (!flags['dry-run'] && !flags.file) {
+        const archived = join(processedDir, `${today()}_${basename(file)}`);
+        renameSync(file, archived);
+      }
+    } catch (err) {
+      console.error(`  ❌ ${basename(file)}: ${err.message}`);
+      results.push({ file, error: err.message });
+    }
+  }
+
+  const ok = results.filter(r => !r.error);
+  const failed = results.filter(r => r.error);
+  console.log(`\n📥 Ingested ${ok.length}/${results.length} file(s)` +
+    (failed.length ? ` — ${failed.length} failed (left in inbox)` : ''));
+
+  return {
+    filePath: ok[0]?.notePath ?? null,
+    ingested: ok.length,
+    failed: failed.length,
+    signal_status: failed.length > 0 ? 'watch' : 'clear',
+  };
+}
+
+// ─── Single-file ingest ─────────────────────────────────────────────────────────
+
+function ingestFile(filePath, flags) {
+  if (!existsSync(filePath)) throw new Error(`file not found: ${filePath}`);
+
+  const rows = parseCsv(readFileSync(filePath, 'utf8'));
+  if (rows.length < 2) throw new Error('CSV has no data rows');
+
+  const headers = rows[0];
+  const dataRows = rows.slice(1).filter(r => r.length === headers.length && r[0]);
+  if (headers.length < 2) throw new Error('expected a date column plus at least one series column');
+  if (dataRows.length === 0) throw new Error('no complete data rows after parsing');
+  if (!looksLikeDate(dataRows[0][0])) {
+    throw new Error(`first column "${headers[0]}" does not look like dates (got "${dataRows[0][0]}") — is this a KoyFin wide export?`);
+  }
+
+  // Newest-first regardless of export order
+  const sorted = [...dataRows].sort((a, b) => new Date(b[0]) - new Date(a[0]));
+  const seriesNames = headers.slice(1);
+
+  // Per-series summary: latest, prior, % change
+  const summary = seriesNames.map((name, idx) => {
+    const col = idx + 1;
+    const values = sorted
+      .map(r => ({ date: r[0], value: parseFloat(String(r[col]).replace(/[$,%\s]/g, '')) }))
+      .filter(v => Number.isFinite(v.value));
+    const latest = values[0] ?? null;
+    const prior = values[1] ?? null;
+    const changePct = latest && prior && prior.value !== 0
+      ? ((latest.value - prior.value) / prior.value) * 100
+      : null;
+    return { name, latest, prior, changePct, count: values.length };
+  });
+
+  const exportName = basename(filePath, extname(filePath)).replace(/[^\w-]+/g, '_');
+  const note = buildNote({
+    frontmatter: {
+      title: `KoyFin Export: ${exportName}`,
+      source: 'KoyFin (manual export)',
+      date_pulled: today(),
+      domain: 'commodities',
+      data_type: 'koyfin_export',
+      export_file: basename(filePath),
+      series: seriesNames,
+      row_count: dataRows.length,
+      signal_status: 'clear',
+      tags: ['koyfin', 'export', 'commodities'],
+      related_pulls: [],
+    },
+    sections: [
+      {
+        heading: 'Series Summary',
+        content: buildTable(
+          ['Series', 'Latest Date', 'Latest', 'Prior', 'Change', 'Rows'],
+          summary.map(s => [
+            s.name,
+            s.latest?.date ?? 'N/A',
+            s.latest ? formatNumber(s.latest.value, { decimals: 2 }) : 'N/A',
+            s.prior ? formatNumber(s.prior.value, { decimals: 2 }) : 'N/A',
+            s.changePct != null ? `${s.changePct.toFixed(1)}%` : 'N/A',
+            String(s.count),
+          ])
+        ),
+      },
+      {
+        heading: `Recent Data (last ${Math.min(MAX_PREVIEW_ROWS, sorted.length)} rows)`,
+        content: buildTable(headers, sorted.slice(0, MAX_PREVIEW_ROWS)),
+      },
+      {
+        heading: 'Source',
+        content: [
+          `- **Export**: ${basename(filePath)} (KoyFin manual export)`,
+          `- **Ingested**: ${today()}`,
+          `- **Rows**: ${dataRows.length}`,
+          `- Raw file archived under \`00_Inbox/exports/koyfin/processed/\``,
+        ].join('\n'),
+      },
+    ],
+  });
+
+  if (flags['dry-run']) return { file: filePath, notePath: null };
+
+  const notePath = join(getPullsDir(), 'Commodities', dateStampedFilename(`KoyFin_${exportName}`));
+  writeNote(notePath, note);
+  return { file: filePath, notePath };
+}
+
+// ─── CSV parsing (quoted fields, commas inside quotes) ──────────────────────────
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (ch === '"') inQuotes = false;
+      else field += ch;
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ',') {
+      row.push(field.trim()); field = '';
+    } else if (ch === '\n' || ch === '\r') {
+      if (ch === '\r' && text[i + 1] === '\n') i++;
+      row.push(field.trim()); field = '';
+      if (row.some(f => f !== '')) rows.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  if (field !== '' || row.length > 0) {
+    row.push(field.trim());
+    if (row.some(f => f !== '')) rows.push(row);
+  }
+  return rows;
+}
+
+function looksLikeDate(value) {
+  return !Number.isNaN(new Date(value).getTime()) && /\d/.test(value);
+}

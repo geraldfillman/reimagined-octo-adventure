@@ -86,6 +86,23 @@ const SERIES_GROUPS = {
       { id: 'TOTCI', name: 'Total Consumer Credit', unit: 'Billions', frequency: 'Monthly' },
     ],
   },
+  commodities: {
+    name: 'Commodities',
+    domain: 'Commodities',
+    question: 'Which input costs are moving, and who inherits them?',
+    series: [
+      { id: 'DCOILWTICO', name: 'WTI Crude Oil', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'DCOILBRENTEU', name: 'Brent Crude Oil', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'DHHNGSP', name: 'Henry Hub Natural Gas', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'PCOPPUSDM', name: 'Copper (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PALUMUSDM', name: 'Aluminum (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PWHEAMTUSDM', name: 'Wheat (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PMAIZMTUSDM', name: 'Corn (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PSOYBUSDM', name: 'Soybeans (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'WPU0652', name: 'Fertilizer Materials (PPI)', unit: 'Index', frequency: 'Monthly' },
+      { id: 'WPU081', name: 'Lumber & Wood Products (PPI)', unit: 'Index', frequency: 'Monthly' },
+    ],
+  },
   liquidity: {
     name: 'Liquidity',
     domain: 'Macro',

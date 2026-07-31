@@ -1,0 +1,539 @@
+{
+  "$comment": "Commodity → company transmission map. Each commodity has FRED series info plus edges. An edge trips when the commodity moves in its `on` direction by at least `threshold_pct` (recent window avg vs prior window avg). Windows: daily series 20d vs 60d; monthly series 3m vs 12m. Effects are + (benefits) or - (hurts). Lags are typical pass-through delay in quarters.",
+  "commodities": {
+    "crude_oil": {
+      "label": "WTI Crude Oil",
+      "fred_series": "DCOILWTICO",
+      "frequency": "daily",
+      "unit": "USD/bbl",
+      "entity_note": "08_Entities/Commodities/Oil",
+      "edges": [
+        {
+          "on": "fall",
+          "threshold_pct": 8,
+          "effect": "+",
+          "mechanism": "Cheaper fuel, asphalt, and petrochemical inputs lower construction and logistics costs",
+          "sectors": [
+            "construction",
+            "homebuilders",
+            "airlines",
+            "logistics"
+          ],
+          "tickers": [
+            "VMC",
+            "MLM",
+            "DHI",
+            "LEN",
+            "DAL",
+            "UPS"
+          ],
+          "theses": [
+            "Housing Supply Correction"
+          ],
+          "lag_quarters": 1
+        },
+        {
+          "on": "fall",
+          "threshold_pct": 8,
+          "effect": "-",
+          "mechanism": "E&P operators cut capex; oilfield services and equipment orders dry up first",
+          "sectors": [
+            "energy_services",
+            "exploration_production"
+          ],
+          "tickers": [
+            "SLB",
+            "HAL",
+            "XOM",
+            "OXY"
+          ],
+          "theses": [],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 8,
+          "effect": "-",
+          "mechanism": "Fuel surcharge inflation squeezes transport margins and consumer discretionary spend",
+          "sectors": [
+            "airlines",
+            "logistics",
+            "consumer_discretionary"
+          ],
+          "tickers": [
+            "DAL",
+            "UAL",
+            "FDX",
+            "TGT"
+          ],
+          "theses": [],
+          "lag_quarters": 1
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 8,
+          "effect": "+",
+          "mechanism": "Producer cash flows and drilling activity expand",
+          "sectors": [
+            "exploration_production",
+            "energy_services"
+          ],
+          "tickers": [
+            "XOM",
+            "OXY",
+            "SLB"
+          ],
+          "theses": [],
+          "lag_quarters": 1
+        }
+      ]
+    },
+    "natural_gas": {
+      "label": "Henry Hub Natural Gas",
+      "fred_series": "DHHNGSP",
+      "frequency": "daily",
+      "unit": "USD/MMBtu",
+      "entity_note": "08_Entities/Commodities/Natural Gas",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 15,
+          "effect": "-",
+          "mechanism": "Nat gas is the feedstock for ammonia; fertilizer costs rise, farm input inflation squeezes food producer and grocer margins",
+          "sectors": [
+            "fertilizer_consumers",
+            "food_producers",
+            "grocers"
+          ],
+          "tickers": [
+            "GIS",
+            "K",
+            "KR",
+            "TSN"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 15,
+          "effect": "+",
+          "mechanism": "Fertilizer producers with fixed-cost gas or ammonia capacity capture the spread; LNG exporters gain",
+          "sectors": [
+            "fertilizer_producers",
+            "lng_exporters"
+          ],
+          "tickers": [
+            "CF",
+            "NTR",
+            "MOS",
+            "LNG"
+          ],
+          "theses": [],
+          "lag_quarters": 1
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 15,
+          "effect": "-",
+          "mechanism": "Gas-fired generation cost rises; utilities with weak fuel pass-through and data-center power buyers face higher power prices",
+          "sectors": [
+            "utilities",
+            "data_centers"
+          ],
+          "tickers": [
+            "AEP",
+            "DUK"
+          ],
+          "theses": [
+            "AI Power Infrastructure",
+            "Nuclear Renaissance SMRs"
+          ],
+          "lag_quarters": 1
+        },
+        {
+          "on": "fall",
+          "threshold_pct": 15,
+          "effect": "+",
+          "mechanism": "Cheap gas lowers fertilizer, chemical, and power input costs across the chain",
+          "sectors": [
+            "chemicals",
+            "food_producers",
+            "utilities"
+          ],
+          "tickers": [
+            "DOW",
+            "LYB",
+            "GIS"
+          ],
+          "theses": [],
+          "lag_quarters": 1
+        }
+      ]
+    },
+    "copper": {
+      "label": "Copper (IMF Global Price)",
+      "fred_series": "PCOPPUSDM",
+      "frequency": "monthly",
+      "unit": "USD/tonne",
+      "entity_note": "08_Entities/Commodities/Copper",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "-",
+          "mechanism": "Copper is the binding input for transformers, switchgear, and cabling; grid equipment costs and lead times worsen — electrical bottleneck tightens",
+          "sectors": [
+            "grid_equipment",
+            "electrical_equipment",
+            "construction_electrical"
+          ],
+          "tickers": [
+            "ETN",
+            "PWR",
+            "HUBB",
+            "WCC"
+          ],
+          "theses": [
+            "Grid Equipment Bottleneck",
+            "AI Power Infrastructure",
+            "Grid-Scale Battery Storage"
+          ],
+          "lag_quarters": 1
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "+",
+          "mechanism": "Miners and copper-heavy producers capture price; scarcity confirms grid-buildout demand thesis",
+          "sectors": [
+            "miners"
+          ],
+          "tickers": [
+            "FCX",
+            "SCCO",
+            "TECK"
+          ],
+          "theses": [
+            "Grid Equipment Bottleneck"
+          ],
+          "lag_quarters": 0
+        },
+        {
+          "on": "fall",
+          "threshold_pct": 10,
+          "effect": "+",
+          "mechanism": "Input cost relief for electrical equipment, EV, and construction wiring",
+          "sectors": [
+            "grid_equipment",
+            "electrical_equipment",
+            "autos_ev"
+          ],
+          "tickers": [
+            "ETN",
+            "HUBB",
+            "TSLA"
+          ],
+          "theses": [
+            "AI Power Infrastructure",
+            "Grid-Scale Battery Storage"
+          ],
+          "lag_quarters": 1
+        }
+      ]
+    },
+    "wheat": {
+      "label": "Wheat (IMF Global Price)",
+      "fred_series": "PWHEAMTUSDM",
+      "frequency": "monthly",
+      "unit": "USD/tonne",
+      "entity_note": "08_Entities/Commodities/Wheat",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "-",
+          "mechanism": "Grain cost inflation squeezes packaged food and baked goods margins; retail food prices rise and volumes dip",
+          "sectors": [
+            "food_producers",
+            "grocers",
+            "restaurants"
+          ],
+          "tickers": [
+            "GIS",
+            "K",
+            "KR",
+            "MCD"
+          ],
+          "theses": [],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "+",
+          "mechanism": "Farm income rises; equipment, seed, and ag-trait spending follows",
+          "sectors": [
+            "farm_equipment",
+            "ag_inputs"
+          ],
+          "tickers": [
+            "DE",
+            "AGCO",
+            "CTVA"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 2
+        }
+      ]
+    },
+    "corn": {
+      "label": "Corn (IMF Global Price)",
+      "fred_series": "PMAIZMTUSDM",
+      "frequency": "monthly",
+      "unit": "USD/tonne",
+      "entity_note": "08_Entities/Commodities/Corn",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "-",
+          "mechanism": "Feed cost inflation hits protein producers (chicken, pork, beef) hardest; ethanol blend margins compress",
+          "sectors": [
+            "protein_producers",
+            "food_producers"
+          ],
+          "tickers": [
+            "TSN",
+            "PPC",
+            "HRL"
+          ],
+          "theses": [],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "+",
+          "mechanism": "Farm income and ag input demand rise",
+          "sectors": [
+            "farm_equipment",
+            "ag_inputs"
+          ],
+          "tickers": [
+            "DE",
+            "CTVA"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 2
+        }
+      ]
+    },
+    "soybeans": {
+      "label": "Soybeans (IMF Global Price)",
+      "fred_series": "PSOYBUSDM",
+      "frequency": "monthly",
+      "unit": "USD/tonne",
+      "entity_note": "08_Entities/Commodities/Soybeans",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "-",
+          "mechanism": "Soy meal/oil inflation raises feed and packaged food costs",
+          "sectors": [
+            "protein_producers",
+            "food_producers"
+          ],
+          "tickers": [
+            "TSN",
+            "BG"
+          ],
+          "theses": [],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "+",
+          "mechanism": "Crush spreads and ag processing volumes improve; trait-seed demand rises with farm income",
+          "sectors": [
+            "ag_processors",
+            "ag_inputs"
+          ],
+          "tickers": [
+            "ADM",
+            "BG",
+            "CTVA"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 1
+        }
+      ]
+    },
+    "fertilizer": {
+      "label": "Fertilizer Materials (PPI)",
+      "fred_series": "WPU0652",
+      "frequency": "monthly",
+      "unit": "Index",
+      "entity_note": "08_Entities/Commodities/Fertilizer",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "-",
+          "mechanism": "Expensive fertilizer raises crop production cost → food prices rise → grocery volumes and food producer margins dip",
+          "sectors": [
+            "food_producers",
+            "grocers"
+          ],
+          "tickers": [
+            "GIS",
+            "KR",
+            "TSN"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 3
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "+",
+          "mechanism": "Fertilizer producers capture pricing; efficiency traits and precision-ag adoption accelerate as farmers economize",
+          "sectors": [
+            "fertilizer_producers",
+            "precision_ag"
+          ],
+          "tickers": [
+            "CF",
+            "NTR",
+            "MOS",
+            "CTVA"
+          ],
+          "theses": [
+            "Bioengineered Food Systems"
+          ],
+          "lag_quarters": 1
+        },
+        {
+          "on": "fall",
+          "threshold_pct": 10,
+          "effect": "+",
+          "mechanism": "Farm input relief supports planting volumes and food margin recovery",
+          "sectors": [
+            "food_producers",
+            "farm_equipment"
+          ],
+          "tickers": [
+            "GIS",
+            "DE"
+          ],
+          "theses": [],
+          "lag_quarters": 2
+        }
+      ]
+    },
+    "lumber": {
+      "label": "Lumber & Wood Products (PPI)",
+      "fred_series": "WPU081",
+      "frequency": "monthly",
+      "unit": "Index",
+      "entity_note": "08_Entities/Commodities/Lumber",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 12,
+          "effect": "-",
+          "mechanism": "Framing cost inflation squeezes homebuilder gross margins and slows starts",
+          "sectors": [
+            "homebuilders",
+            "construction"
+          ],
+          "tickers": [
+            "DHI",
+            "LEN",
+            "PHM",
+            "BLDR"
+          ],
+          "theses": [
+            "Housing Supply Correction"
+          ],
+          "lag_quarters": 1
+        },
+        {
+          "on": "fall",
+          "threshold_pct": 12,
+          "effect": "+",
+          "mechanism": "Cheaper framing improves builder margins and single-family start economics",
+          "sectors": [
+            "homebuilders"
+          ],
+          "tickers": [
+            "DHI",
+            "LEN",
+            "PHM"
+          ],
+          "theses": [
+            "Housing Supply Correction"
+          ],
+          "lag_quarters": 1
+        }
+      ]
+    },
+    "aluminum": {
+      "label": "Aluminum (IMF Global Price)",
+      "fred_series": "PALUMUSDM",
+      "frequency": "monthly",
+      "unit": "USD/tonne",
+      "entity_note": "08_Entities/Commodities/Aluminum",
+      "edges": [
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "-",
+          "mechanism": "Airframe, packaging, and EV body input costs rise; defense procurement unit costs creep",
+          "sectors": [
+            "aerospace",
+            "packaging",
+            "autos_ev"
+          ],
+          "tickers": [
+            "BA",
+            "BLL",
+            "F"
+          ],
+          "theses": [
+            "Fiscal Scarcity Rearmament"
+          ],
+          "lag_quarters": 2
+        },
+        {
+          "on": "rise",
+          "threshold_pct": 10,
+          "effect": "+",
+          "mechanism": "Smelters and recyclers capture price",
+          "sectors": [
+            "miners",
+            "metals_producers"
+          ],
+          "tickers": [
+            "AA",
+            "CENX"
+          ],
+          "theses": [],
+          "lag_quarters": 0
+        }
+      ]
+    }
+  }
+}
