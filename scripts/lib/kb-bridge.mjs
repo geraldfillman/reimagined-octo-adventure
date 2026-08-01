@@ -18,16 +18,20 @@ const KB_RAW = join(getKBRoot(), 'raw');
  * Pullers can pass a domain string and get the right kind automatically.
  */
 export const DOMAIN_TO_KIND = Object.freeze({
-  macro:      'datasets',
-  market:     'datasets',
-  sectors:    'datasets',
-  housing:    'datasets',
-  energy:     'datasets',
-  government: 'articles',
-  news:       'articles',
-  osint:      'articles',
-  social:     'articles',
-  science:    'papers',
+  macro:        'datasets',
+  market:       'datasets',
+  sectors:      'datasets',
+  housing:      'datasets',
+  energy:       'datasets',
+  commodities:  'datasets',
+  company_risk: 'datasets',
+  government:   'articles',
+  news:         'articles',
+  osint:        'articles',
+  social:       'articles',
+  sentiment:    'articles',
+  alerts:       'articles',
+  science:      'papers',
 });
 
 /**

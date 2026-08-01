@@ -14,7 +14,7 @@
  * Output: 05_Data_Pulls/Commodities/YYYY-MM-DD_KoyFin_<name>.md
  */
 
-import { join, basename, extname } from 'path';
+import { join, basename, extname, dirname, resolve } from 'path';
 import { readFileSync, readdirSync, mkdirSync, renameSync, existsSync } from 'fs';
 import { getVaultRoot, getPullsDir } from '../lib/config.mjs';
 import {
@@ -52,7 +52,11 @@ export async function pull(flags = {}) {
       const result = ingestFile(file, flags);
       results.push(result);
       console.log(`  ✅ ${basename(file)} → ${result.notePath ?? '(dry-run)'}`);
-      if (!flags['dry-run'] && !flags.file) {
+      // Archive any successfully ingested file that lives in the inbox drop
+      // folder — including explicit --file ingests — so it is not re-ingested
+      // on the next batch run. Files outside the inbox are left in place.
+      const inInbox = dirname(resolve(file)).toLowerCase() === resolve(inboxDir).toLowerCase();
+      if (!flags['dry-run'] && inInbox) {
         const archived = join(processedDir, `${today()}_${basename(file)}`);
         renameSync(file, archived);
       }
@@ -117,10 +121,12 @@ function ingestFile(filePath, flags) {
       date_pulled: today(),
       domain: 'commodities',
       data_type: 'koyfin_export',
+      frequency: 'weekly',
       export_file: basename(filePath),
       series: seriesNames,
       row_count: dataRows.length,
       signal_status: 'clear',
+      signals: [],
       tags: ['koyfin', 'export', 'commodities'],
       related_pulls: [],
     },
@@ -149,7 +155,7 @@ function ingestFile(filePath, flags) {
           `- **Export**: ${basename(filePath)} (KoyFin manual export)`,
           `- **Ingested**: ${today()}`,
           `- **Rows**: ${dataRows.length}`,
-          `- Raw file archived under \`00_Inbox/exports/koyfin/processed/\``,
+          `- Raw CSVs ingested from the inbox drop folder are archived under \`00_Inbox/exports/koyfin/processed/\`; files ingested from other paths stay in place`,
         ].join('\n'),
       },
     ],

@@ -66,10 +66,12 @@ export async function pull(flags = {}) {
   }
 
   const tripped = scanned.filter(r => r.trippedEdges.length > 0 && !r.error);
+  const errored = scanned.filter(r => r.error);
+  // A run with fetch/coverage errors must never read as all-clear: floor at watch.
   const overallStatus = tripped.some(r => r.severity === 'alert') ? 'alert'
-    : tripped.length > 0 ? 'watch' : 'clear';
+    : (tripped.length > 0 || errored.length > 0) ? 'watch' : 'clear';
 
-  console.log(`\n${tripped.length} commodities tripped edges | status: ${overallStatus}`);
+  console.log(`\n${tripped.length} commodities tripped edges | ${errored.length} scan errors | status: ${overallStatus}`);
 
   const note = buildScanNote({ scanned, tripped, overallStatus });
   const filePath = join(getPullsDir(), 'Commodities', dateStampedFilename('Commodity_Transmission_Scan'));
@@ -236,6 +238,7 @@ function buildScanNote({ scanned, tripped, overallStatus }) {
       frequency: 'daily',
       signal_status: overallStatus,
       signals: tripped.map(r => r.key),
+      scan_errors: scanned.filter(r => r.error).map(r => r.key),
       tripped_commodities: tripped.map(r => r.key),
       moves: Object.fromEntries(scanned.filter(r => !r.error).map(r => [r.key, r.movePct])),
       curves: Object.fromEntries(scanned.filter(r => r.curve).map(r => [r.key, r.curve])),

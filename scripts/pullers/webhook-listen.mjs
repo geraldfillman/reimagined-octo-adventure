@@ -100,8 +100,10 @@ function handleAlert({ path, body }) {
       received_at: new Date().toISOString(),
       domain: 'alerts',
       data_type: 'webhook_alert',
+      frequency: 'event',
       alert_source: source,
       signal_status: 'watch',
+      signals: [`${source}: ${title}`],
       tags: ['alert', 'webhook', source],
     },
     sections: [
