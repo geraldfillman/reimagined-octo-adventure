@@ -43,6 +43,7 @@ export const CADENCE_DEFINITIONS = {
     ]),
     phase('Post-pull', [
       cmd('Narrative heat', ['pull', 'narrative-heat'], { skipFlag: 'skip-narrative-heat' }),
+      cmd('Macro volatility regime', ['pull', 'macro-volatility']),
       cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '14', '--limit', '16']),
       cmd('Thesis canvas', ['thesis', 'canvas']),
@@ -81,11 +82,16 @@ export const CADENCE_DEFINITIONS = {
       cmd('Refinancing exposure', ['pull', 'refinancing-exposure']),
       cmd('Acquisition radar', ['pull', 'acquisition-radar']),
       cmd('KoyFin export ingest', ['pull', 'koyfin-ingest']),
+      cmd('Auction features', ['pull', 'auction-features'], { skipFlag: 'skip-trading-scans' }),
+      cmd('Pair metrics', ['pull', 'pair-metrics'], { skipFlag: 'skip-trading-scans' }),
+      cmd('PEAD watch', ['pull', 'pead-watch'], { skipFlag: 'skip-trading-scans' }),
     ]),
     phase('Post-pull', [
       cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '30', '--limit', '24']),
       cmd('Confluence scan', ['pull', 'confluence-scan']),
+      cmd('Market cycle monitor', ['pull', 'market-cycle-monitor'], { skipFlag: 'skip-research-spine' }),
+      cmd('Research spine flow', ['pull', 'research-spine-flow'], { skipFlag: 'skip-research-spine' }),
       cmd('Validate vault', ['system', 'validate'], { skipFlag: 'skip-validate' }),
     ]),
   ],
@@ -349,6 +355,8 @@ Options:
   --skip-sector-scan    Daily only
   --skip-agent-scan     Daily/weekly
   --skip-narrative-heat Daily only (GDELT rate limit makes it ~2 min)
+  --skip-trading-scans  Weekly: auction features, pair metrics, PEAD watch (FMP-heavy)
+  --skip-research-spine Weekly: market cycle monitor + spine flow (needs Research Spine vault)
   --skip-validate       Skip final vault validation
   --json                Print machine-readable summary
 
