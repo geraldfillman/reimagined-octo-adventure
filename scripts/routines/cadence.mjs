@@ -21,6 +21,9 @@ export const CADENCE_DEFINITIONS = {
       cmd('FRED housing', ['pull', 'fred', '--group', 'housing']),
       cmd('FRED labor', ['pull', 'fred', '--group', 'labor']),
       cmd('FMP SPY quote', ['pull', 'fmp', '--quote', 'SPY']),
+      // Watchlists run early so the highest-value FMP output lands before the
+      // quota-heavy consumers (sector searches, agent scans) on the free tier.
+      cmd('FMP thesis watchlists', ['pull', 'fmp', '--thesis-watchlists', '--concurrency', '2', '--fundamentals-concurrency', '2']),
       cmd('Entropy monitor', ['pull', 'entropy-monitor']),
       cmd('GDELT news monitor', ['pull', 'gdelt', '--all', '--timespan', '15min', '--limit', '75']),
       cmd('Treasury yields', ['pull', 'treasury', '--yields']),
@@ -33,7 +36,6 @@ export const CADENCE_DEFINITIONS = {
       cmd('SEC thesis filings', ['pull', 'sec', '--thesis']),
     ]),
     phase('Thesis Tape', [
-      cmd('FMP thesis watchlists', ['pull', 'fmp', '--thesis-watchlists', '--concurrency', '2', '--fundamentals-concurrency', '2']),
       cmd('Opportunity viewpoints', ['pull', 'opportunity-viewpoints', '--window', '14']),
     ]),
     phase('Scans', [

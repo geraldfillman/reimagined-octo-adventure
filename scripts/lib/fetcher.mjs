@@ -12,24 +12,34 @@
 const DEFAULT_TIMEOUT_MS = 30_000;
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1_000;
+// 429s get a longer ladder than transient errors (5s/10s/20s) — free-tier
+// per-minute limits need more than 1s/2s/4s to clear.
+const RATE_LIMIT_BASE_DELAY_MS = 5_000;
 
 // ── FMP token-bucket rate limiter ─────────────────────────────────────────────
-// Default: 700 calls/min (safe buffer below the 750 FMP Premium limit).
-// Override with FMP_CALLS_PER_MINUTE env var.
+// Default: 30 calls/min — paced for the FMP FREE tier (the binding limit is
+// ~250 calls/day; gentle pacing avoids burst 429s). If the account is ever
+// upgraded, raise via FMP_CALLS_PER_MINUTE env var (capped at 750).
 const FMP_HOST = 'financialmodelingprep.com';
 const FMP_CALLS_PER_MINUTE = Math.min(
   750,
-  parseInt(process.env.FMP_CALLS_PER_MINUTE ?? '700', 10)
+  parseInt(process.env.FMP_CALLS_PER_MINUTE ?? '30', 10)
 );
 // Refill rate in tokens per millisecond
 const FMP_TOKENS_PER_MS = FMP_CALLS_PER_MINUTE / 60_000;
-// Allow a short burst (up to 20 tokens) before throttling kicks in
-const FMP_MAX_TOKENS = 20;
+// Allow a short burst before throttling kicks in
+const FMP_MAX_TOKENS = 5;
 
 const _fmpBucket = {
   tokens: FMP_MAX_TOKENS,
   lastRefill: Date.now(),
 };
+
+// Once an FMP call 429s through a full retry cycle, the daily quota is almost
+// certainly spent — fail the rest of this process's FMP calls immediately
+// instead of burning the full backoff ladder on each one. (Per-process only:
+// each cadence task is its own node process.)
+let _fmpQuotaExhausted = false;
 
 async function acquireFmpToken() {
   while (true) {
@@ -90,7 +100,12 @@ export async function fetchWithRetry(url, options = {}) {
   let lastError = null;
 
   // Proactively throttle FMP requests before the first attempt
-  if (isFmpUrl(url)) await acquireFmpToken();
+  if (isFmpUrl(url)) {
+    if (_fmpQuotaExhausted) {
+      throw new Error(`FMP quota exhausted earlier in this run (persistent 429) — failing fast: ${url}`);
+    }
+    await acquireFmpToken();
+  }
 
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
@@ -108,8 +123,9 @@ export async function fetchWithRetry(url, options = {}) {
 
       // Rate limited — wait and retry
       if (response.status === 429) {
+        lastError = new Error(`Rate limited (429): ${url}`);
         const retryAfter = parseRetryAfter(response.headers.get('Retry-After'));
-        const waitMs = retryAfter || BASE_DELAY_MS * Math.pow(2, attempt);
+        const waitMs = retryAfter || RATE_LIMIT_BASE_DELAY_MS * Math.pow(2, attempt);
         console.warn(`  Rate limited (429). Waiting ${Math.round(waitMs / 1000)}s before retry...`);
         await sleep(waitMs);
         continue;
@@ -158,6 +174,9 @@ export async function fetchWithRetry(url, options = {}) {
     }
   }
 
+  if (isFmpUrl(url) && lastError?.message?.includes('429')) {
+    _fmpQuotaExhausted = true;
+  }
   throw new Error(`Failed after ${retries} attempts: ${lastError?.message || 'Unknown error'}`);
 }
 
