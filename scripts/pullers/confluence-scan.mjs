@@ -52,6 +52,13 @@ export async function pull(flags = {}) {
   const cotNote    = latestByDate(cotNotes);
   const cotSignal  = cotNote?.data.signal_status ?? null;
 
+  // ── 3b. Bond regime (bond-stress puller) ─────────────────────────────────────
+  const bondNotes = existsSync(macroDir)
+    ? await readFolderWhere(macroDir, d => d.data_type === 'bond_regime')
+    : [];
+  const bondNote   = latestByDate(bondNotes);
+  const bondRegime = bondNote?.data.bond_regime ?? null;
+
   // ── 4. Entropy / crowding signal ─────────────────────────────────────────────
   // entropy_level: 'low'/'compressed' → 'alert' (crowded); 'medium' → 'watch'; 'high' → 'clear'
   const entropyPred = d => d.data_type === 'entropy_monitor' || Boolean(d.entropy_level);
@@ -79,7 +86,7 @@ export async function pull(flags = {}) {
   });
 
   // ── 7. Score all review items and sort descending ────────────────────────────
-  const ctx = { regimeLabel: regime.label, stressRegime, stressPct, moduleStatuses, crowdingSignal };
+  const ctx = { regimeLabel: regime.label, stressRegime, stressPct, moduleStatuses, crowdingSignal, bondRegime };
   const scored = sidecar.review_items
     .map(item => scoreSetup(item, ctx))
     .sort((a, b) => b.setup_score - a.setup_score);
@@ -120,6 +127,7 @@ export async function pull(flags = {}) {
         stress_regime:     stressRegime,
         stress_pct:        stressPct,
         cot_signal:        cotSignal,
+        bond_regime:       ctx.bondRegime,
         crowding_signal:   crowdingSignal,
         setup_count:       scored.length,
         approved_count:    approvedCount,
@@ -191,7 +199,7 @@ export function buildConfluenceNote({ date, regime, scored, ctx, cotSignal, appr
         heading: `Regime: ${regime.label} (confidence ${regime.confidence}/3)`,
         content: [
           `*${regime.basis}*`,
-          `> Stress: **${ctx.stressRegime}** (${ctx.stressPct}%) | COT: **${cotSignal ?? 'unavailable'}** | Crowding: **${ctx.crowdingSignal ?? 'unknown'}**`,
+          `> Stress: **${ctx.stressRegime}** (${ctx.stressPct}%) | COT: **${cotSignal ?? 'unavailable'}** | Crowding: **${ctx.crowdingSignal ?? 'unknown'}** | Bonds: **${ctx.bondRegime ?? 'unavailable'}**`,
         ].join('\n'),
       },
       {
@@ -212,7 +220,7 @@ export function buildConfluenceNote({ date, regime, scored, ctx, cotSignal, appr
   const sections = [
     `## Regime: ${regime.label} (confidence ${regime.confidence}/3)`,
     `*${regime.basis}*`,
-    `> Stress: **${ctx.stressRegime}** (${ctx.stressPct}%) · COT: **${cotSignal ?? 'unavailable'}** · Crowding: **${ctx.crowdingSignal ?? 'unknown'}**`,
+    `> Stress: **${ctx.stressRegime}** (${ctx.stressPct}%) · COT: **${cotSignal ?? 'unavailable'}** · Crowding: **${ctx.crowdingSignal ?? 'unknown'}** · Bonds: **${ctx.bondRegime ?? 'unavailable'}**`,
     '',
     `## Summary — ${scored.length} setups · ${approvedCount} approved · ${watchlistCount} watchlist · ${rejectedCount} rejected`,
     summaryTable,

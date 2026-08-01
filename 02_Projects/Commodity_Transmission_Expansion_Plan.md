@@ -28,6 +28,8 @@ tags: [project, commodities, bonds, futures, sentiment, transmission]
 > - `node run.mjs pull narrative-heat` — GDELT article volume (7d vs 7wk baseline) joined against transmission-scan price moves; verdicts: NOISE / QUIET MOVE / CONFIRMED; divergences emit signals. GDELT limit ~1 req/5s — the puller self-paces (~2 min full run); surfaced on OSINT Intelligence dashboard.
 > - AGENTS.md corrected: FMP is free tier.
 > - Note-to-note data passing uses `*_json` frontmatter twins (the vault frontmatter parser returns null for nested YAML maps).
+>
+> **Cadence integration 2026-07-31:** daily routine now runs FRED commodities → futures-curve → commodity-transmission → bond-stress (Macro phase) and narrative-heat (Post-pull, `--skip-narrative-heat` to skip); weekly adds refinancing-exposure, acquisition-radar, koyfin-ingest after cot-report. `agent-run` daily lists updated (macro += bond-stress; energy += futures-curve, commodity-transmission). `confluence-scan` now reads and reports the bond regime alongside stress/COT/crowding.
 
 Goal: connect commodity prices, the bond market, futures term structure, and market noise to the **companies and theses they actually affect** — so a copper squeeze or fertilizer spike surfaces as a routed signal on the right thesis, not just a data point.
 

@@ -24,6 +24,10 @@ export const CADENCE_DEFINITIONS = {
       cmd('Entropy monitor', ['pull', 'entropy-monitor']),
       cmd('GDELT news monitor', ['pull', 'gdelt', '--all', '--timespan', '15min', '--limit', '75']),
       cmd('Treasury yields', ['pull', 'treasury', '--yields']),
+      cmd('FRED commodities', ['pull', 'fred', '--group', 'commodities']),
+      cmd('Futures curve', ['pull', 'futures-curve']),
+      cmd('Commodity transmission', ['pull', 'commodity-transmission']),
+      cmd('Bond stress regime', ['pull', 'bond-stress']),
     ]),
     phase('Government Core', [
       cmd('SEC thesis filings', ['pull', 'sec', '--thesis']),
@@ -38,6 +42,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('Agent thesis scan', ['pull', 'agent-analyst', '--all-thesis', '--limit', '8', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
     ]),
     phase('Post-pull', [
+      cmd('Narrative heat', ['pull', 'narrative-heat'], { skipFlag: 'skip-narrative-heat' }),
       cmd('Signal intelligence', ['pull', 'signal-intelligence']),
       cmd('Streamline report', ['pull', 'streamline-report', '--window', '14', '--limit', '16']),
       cmd('Thesis canvas', ['thesis', 'canvas']),
@@ -73,6 +78,9 @@ export const CADENCE_DEFINITIONS = {
       cmd('Disclosure reality scan', ['pull', 'disclosure-reality', '--all', '--limit', '25']),
       cmd('COT report', ['pull', 'cot-report']),
       cmd('Cash-flow quality', ['pull', 'cash-flow-quality']),
+      cmd('Refinancing exposure', ['pull', 'refinancing-exposure']),
+      cmd('Acquisition radar', ['pull', 'acquisition-radar']),
+      cmd('KoyFin export ingest', ['pull', 'koyfin-ingest']),
     ]),
     phase('Post-pull', [
       cmd('Signal intelligence', ['pull', 'signal-intelligence']),
@@ -272,7 +280,9 @@ function inferAgent(args) {
   if (joined.includes('signal-intelligence')) return 'Research Spine Agent';
   if (joined.includes('streamline-report')) return 'Orchestrator';
   if (joined.includes('disclosure-reality') || joined.includes('dilution-monitor')) return 'VC Agent';
-  if (joined.includes('newsapi') || joined.includes('gdelt')) return 'News Agent';
+  if (joined.includes('newsapi') || joined.includes('gdelt') || joined.includes('narrative-heat')) return 'News Agent';
+  if (joined.includes('commodity-transmission') || joined.includes('futures-curve') || joined.includes('bond-stress') || joined.includes('cot-report')) return 'Macro Agent';
+  if (joined.includes('refinancing-exposure') || joined.includes('acquisition-radar')) return 'Risk Agent';
   if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor')) return 'Market Agent';
   if (joined.includes('fred') || joined.includes('bea') || joined.includes('treasury') || joined.includes('eia')) return 'Macro Agent';
   if (joined.includes('clinicaltrials') || joined.includes('pubmed') || joined.includes('arxiv') || joined.includes('fda')) return 'Research Agent';
@@ -288,6 +298,9 @@ function inferArtifactLinks(args) {
   if (joined.includes('agent-analyst')) return [artifact('Agent pulls', '05_Data_Pulls/Agents/')];
   if (joined.includes('company-risk')) return [artifact('Company risk', '12_Company_Risk/')];
   if (joined.includes('gdelt') || joined.includes('newsapi')) return [artifact('News pulls', '05_Data_Pulls/News/')];
+  if (joined.includes('commodity-transmission') || joined.includes('futures-curve') || joined.includes('koyfin-ingest')) return [artifact('Commodity pulls', '05_Data_Pulls/Commodities/')];
+  if (joined.includes('narrative-heat')) return [artifact('Sentiment pulls', '05_Data_Pulls/Sentiment/')];
+  if (joined.includes('refinancing-exposure') || joined.includes('acquisition-radar')) return [artifact('Company risk pulls', '05_Data_Pulls/Company_Risk/')];
   if (joined.includes('fmp') || joined.includes('cboe') || joined.includes('entropy-monitor')) return [artifact('Market pulls', '05_Data_Pulls/Market/')];
   if (joined.includes('fred') || joined.includes('bea') || joined.includes('treasury') || joined.includes('eia')) return [artifact('Macro pulls', '05_Data_Pulls/Macro/')];
   if (joined.includes('sec') || joined.includes('openfema') || joined.includes('usaspending')) return [artifact('Government pulls', '05_Data_Pulls/Government/')];
@@ -335,6 +348,7 @@ Options:
   --continue-on-error   Keep running after a failed task
   --skip-sector-scan    Daily only
   --skip-agent-scan     Daily/weekly
+  --skip-narrative-heat Daily only (GDELT rate limit makes it ~2 min)
   --skip-validate       Skip final vault validation
   --json                Print machine-readable summary
 
