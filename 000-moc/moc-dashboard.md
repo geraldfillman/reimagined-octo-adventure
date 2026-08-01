@@ -24,7 +24,7 @@ Key notes:
 - [[00_Dashboard/Capital Allocation Board]]
 - [[00_Dashboard/High Priority Thesis Monitor]]
 - [[00_Dashboard/Macro Regime]]
-- [[Mastery_Dashboard]]
+- Mastery Dashboard — lives in the Dr_Magnifico vault (`11_Learning/00_Dashboard/Mastery_Dashboard.md`); open that vault in Obsidian
 
 Decisions:
 - Use dashboards as the default overview layer.

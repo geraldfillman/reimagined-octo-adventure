@@ -25,7 +25,6 @@ KB workspace (Oy vault — open separately in Obsidian):
 Control notes:
 - [[AGENTS]]
 - [[CLAUDE]]
-- [[04_Reference/Qlib Cheat Sheet]]
 
 Default exclusions:
 - Do not scan `500-archive/` unless the task is explicitly about historical or retired material.

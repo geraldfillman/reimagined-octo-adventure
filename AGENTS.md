@@ -66,7 +66,7 @@ Routing env vars (set in `My_Data/.env`):
 |--------|---------|
 | `000-moc/` | 8 Master of Content navigation files - read before exploring raw notes |
 | `00_Dashboard/` | 20 primary Dataview dashboards - start here for current operator state |
-| `01_Data_Sources/` | 91 active source definitions across 16 categories (including OSINT/) |
+| `01_Data_Sources/` | 87 active source definitions across 16 categories (including OSINT/) |
 | `03_Templates/` | 21 canonical templates for all note types |
 | `04_Reference/` | Schema docs, graph conventions, pull system guide, source overview boards, and graph-analysis surfaces |
 | `05_Data_Pulls/` | Timestamped pull notes from API pullers and synthesis workflows. Aged clear-status notes are relocated out of the vault by `system prune` (see Retention below); the legacy `_archive/` subfolder is git-ignored and Obsidian-excluded. |
@@ -124,7 +124,7 @@ node run.mjs <group> <command> [options]
 ```
 
 Run `node run.mjs help` for overview. Run `node run.mjs <group> --help` for group detail.
-Full command inventory: `90_System/CLI Command Audit.md`
+Full command inventory: `node run.mjs help` and `node run.mjs <group> --help`
 
 ```powershell
 # System
@@ -211,8 +211,8 @@ node run.mjs kb transcribe --file raw/transcripts/call.md --speakers "Alice,Bob"
 node run.mjs kb suggest --save
 ```
 
-> Legacy flat commands (`sector-scan`, `thesis-fmp-sync`, etc.) still work
-> but print a deprecation notice pointing to the new grouped form.
+> Legacy flat aliases (`thesis-fmp-sync`, `conviction-delta`, etc.) were retired
+> 2026-08 — the CLI prints the grouped replacement and exits if you use one.
 
 **Optional setup** (install once for enhanced features):
 - `npm install -g defuddle` — enables clean markdown extraction when ingesting URLs via `kb ingest --url`
@@ -232,8 +232,8 @@ powershell scripts/daily-routine.ps1 -DryRun         # preview without API calls
 ### Maintenance Scripts
 
 ```powershell
-node run.mjs cleanup --market-history --dry-run
-node run.mjs cleanup --market-history
+node run.mjs system cleanup --market-history --dry-run
+node run.mjs system cleanup --market-history
 ```
 
 ---
@@ -376,7 +376,7 @@ Additional PowerShell scripts in `scripts/`:
 
 ### API Keys
 
-Required keys are in `.env` (never commit). Run `node run.mjs status` to check. Key pullers and their requirements:
+Required keys are in `.env` (never commit). Run `node run.mjs system status` to check. Key pullers and their requirements:
 
 | Puller | Key Variable | Required? |
 |--------|-------------|-----------|
@@ -406,7 +406,7 @@ Required keys are in `.env` (never commit). Run `node run.mjs status` to check. 
 
 Graph measurement workflow is documented in `04_Reference/InfraNodus Graph Measurements.md`.
 
-- Run `node run.mjs infranodus --path <scope>` to generate a graph session note
+- Run `node run.mjs system infranodus --path <scope>` to generate a graph session note
 - Sessions are saved to `07_Playbooks/Graph_Sessions/`
 - Best scopes: `10_Theses/`, `08_Entities/`, `09_Macro/`, `05_Data_Pulls/<domain>/`
 - Plugin defaults: Wiki Links Prioritized for folders, Wiki Links + Concepts for single notes
@@ -438,7 +438,7 @@ All dashboards use Dataview queries against frontmatter fields. They render auto
 
 ## Dashboard
 
-A local operator dashboard runs at `http://localhost:3737` via `node run.mjs dashboard`.
+A local operator dashboard runs at `http://localhost:3737` via `node run.mjs system dashboard`.
 
 It reads vault files directly (no separate sync) and provides seven panels:
 
@@ -482,7 +482,7 @@ Set `DASHBOARD_PORT` to use a port other than `3737`.
 
 ## Validation
 
-Run `node run.mjs validate` before committing. The validator checks required frontmatter fields, category alignment, boolean types, valid signal statuses, and thesis FMP summary fields.
+Run `node run.mjs system validate` before committing. The validator checks required frontmatter fields, category alignment, boolean types, valid signal statuses, and thesis FMP summary fields.
 
 ## Retention
 
