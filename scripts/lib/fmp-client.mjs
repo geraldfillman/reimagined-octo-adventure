@@ -1,9 +1,15 @@
 /**
- * fmp-client.mjs — thin FMP Premium REST wrapper.
+ * fmp-client.mjs — market-data client (Yahoo-first, FMP fallback).
  *
  * Narrow surface: only the endpoints the dilution / digest / DD / screener
  * tools actually hit. Rate-limiting lives in lib/fetcher.mjs (token bucket),
  * so this file is just URL construction + trivial result shaping.
+ *
+ * 2026-08 data policy (FMP is FREE tier, ~250 calls/day): quotes and OHLCV
+ * history try Yahoo (lib/yahoo-client.mjs, keyless) FIRST and spend FMP
+ * quota only as fallback. Fundamentals, float, insiders, short interest,
+ * news, earnings, and screeners have no Yahoo equivalent — they stay on FMP
+ * and, when quota is exhausted, fields are left blank as declared gaps.
  *
  * Keeping a single place for FMP URLs means that when FMP renames an
  * endpoint (they did in 2024/2025 with the /stable migration), we fix one
@@ -12,6 +18,7 @@
 
 import { getApiKey, getBaseUrl } from './config.mjs';
 import { getJson } from './fetcher.mjs';
+import { fetchYahooQuote, fetchYahooDailyPrices, fetchYahooIntradayPrices } from './yahoo-client.mjs';
 
 /** /stable endpoints now power most Premium calls; /api/v3 still works for a few legacy ones. */
 function stable() {
@@ -56,8 +63,17 @@ export async function fetchSharesFloat(ticker) {
   return null;
 }
 
-/** Lightweight quote for price + market cap. */
+/**
+ * Lightweight quote for price + market cap.
+ * Yahoo first (free, keyless); FMP only as fallback. Yahoo quotes carry
+ * marketCap: null — a declared gap, since the chart endpoint lacks it.
+ */
 export async function fetchQuote(ticker) {
+  try {
+    return await fetchYahooQuote(ticker);
+  } catch {
+    // Yahoo unavailable for this symbol — spend FMP quota.
+  }
   const url = `${stable()}/quote?symbol=${encodeURIComponent(ticker)}&apikey=${key()}`;
   const data = await getJson(url);
   if (Array.isArray(data) && data.length > 0) return data[0];
@@ -74,8 +90,14 @@ export async function fetchProfile(ticker) {
 
 // ─── Historical price for 20-day bid test (Nasdaq compliance) ───────────────
 
-/** Last N trading days of OHLCV. */
+/** Last N trading days of OHLCV. Yahoo first; FMP fallback. */
 export async function fetchDailyPrices(ticker, { from, to } = {}) {
+  try {
+    const rows = await fetchYahooDailyPrices(ticker, { range: '1y' });
+    return filterByDateRange(rows, from, to);
+  } catch {
+    // Fall through to FMP.
+  }
   const qs = new URLSearchParams({ symbol: ticker, apikey: key() });
   if (from) qs.set('from', from);
   if (to)   qs.set('to', to);
@@ -84,12 +106,23 @@ export async function fetchDailyPrices(ticker, { from, to } = {}) {
   return Array.isArray(data?.historical) ? data.historical : (Array.isArray(data) ? data : []);
 }
 
+function filterByDateRange(rows, from, to) {
+  return rows.filter(r => (!from || r.date >= from) && (!to || r.date <= to));
+}
+
 /** Intraday OHLCV bars. Supported by the FMP historical-chart endpoint. */
 export async function fetchIntradayPrices(ticker, { interval = '1min', from, to } = {}) {
   const normalizedInterval = String(interval || '1min').toLowerCase();
   const supportedIntervals = new Set(['1min']);
   if (!supportedIntervals.has(normalizedInterval)) {
     throw new Error(`Unsupported intraday interval "${interval}". Supported values: 1min`);
+  }
+
+  try {
+    const rows = await fetchYahooIntradayPrices(ticker, { range: '5d' });
+    if (rows.length > 0) return rows;
+  } catch {
+    // Fall through to FMP.
   }
 
   const qs = new URLSearchParams({ symbol: ticker, apikey: key() });
@@ -121,8 +154,15 @@ export async function fetchStockNews(ticker, { limit = 10 } = {}) {
   return Array.isArray(data) ? data : [];
 }
 
-/** Full OHLCV history (adjusted) for a symbol, oldest-to-newest after normalization. */
+/** Full OHLCV history (adjusted) for a symbol, oldest-to-newest after normalization. Yahoo first. */
 export async function fetchDailyPricesFull(ticker, { from, to } = {}) {
+  try {
+    const rows = await fetchYahooDailyPrices(ticker, { range: '2y' });
+    const filtered = filterByDateRange(rows, from, to);
+    if (filtered.length > 0) return filtered;
+  } catch {
+    // Fall through to FMP.
+  }
   const qs = new URLSearchParams({ symbol: ticker, apikey: key() });
   if (from) qs.set('from', from);
   if (to)   qs.set('to', to);
@@ -138,9 +178,24 @@ export async function fetchDailyPricesFull(ticker, { from, to } = {}) {
 export async function fetchBatchQuotes(symbols) {
   const unique = [...new Set(symbols.map(s => String(s || '').toUpperCase()).filter(Boolean))];
   const results = [];
-  for (const chunk of chunkArray(unique, 25)) {
-    const data = await getJson(`${stable()}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${key()}`);
-    results.push(...(Array.isArray(data) ? data : []));
+  const missing = [];
+
+  // Yahoo first, per symbol. Only symbols Yahoo cannot serve go to FMP.
+  for (const symbol of unique) {
+    try {
+      results.push(await fetchYahooQuote(symbol));
+    } catch {
+      missing.push(symbol);
+    }
+  }
+
+  for (const chunk of chunkArray(missing, 25)) {
+    try {
+      const data = await getJson(`${stable()}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${key()}`);
+      results.push(...(Array.isArray(data) ? data : []));
+    } catch (err) {
+      console.warn(`  ⚠ Quote gap (${chunk.length} symbols, Yahoo + FMP both failed): ${chunk.join(', ')} — ${err.message}`);
+    }
   }
   return results;
 }
