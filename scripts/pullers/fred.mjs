@@ -74,6 +74,9 @@ const SERIES_GROUPS = {
       { id: 'DGS10', name: '10-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'DGS30', name: '30-Year Treasury Yield', unit: 'Percent', frequency: 'Daily' },
       { id: 'T10Y2Y', name: '10Y-2Y Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'T10Y3M', name: '10Y-3M Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'BAA10Y', name: 'Baa Corporate vs 10Y Spread', unit: 'Percent', frequency: 'Daily' },
+      { id: 'DFII10', name: '10Y Real Yield (TIPS)', unit: 'Percent', frequency: 'Daily' },
     ],
   },
   credit: {
@@ -84,6 +87,23 @@ const SERIES_GROUPS = {
       { id: 'DRTSCILM', name: 'Loan Officer Survey (C&I Tightening)', unit: 'Percent', frequency: 'Quarterly' },
       { id: 'BUSLOANS', name: 'Commercial & Industrial Loans', unit: 'Billions', frequency: 'Weekly' },
       { id: 'TOTCI', name: 'Total Consumer Credit', unit: 'Billions', frequency: 'Monthly' },
+    ],
+  },
+  commodities: {
+    name: 'Commodities',
+    domain: 'Commodities',
+    question: 'Which input costs are moving, and who inherits them?',
+    series: [
+      { id: 'DCOILWTICO', name: 'WTI Crude Oil', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'DCOILBRENTEU', name: 'Brent Crude Oil', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'DHHNGSP', name: 'Henry Hub Natural Gas', unit: 'Dollars', frequency: 'Daily' },
+      { id: 'PCOPPUSDM', name: 'Copper (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PALUMUSDM', name: 'Aluminum (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PWHEAMTUSDM', name: 'Wheat (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PMAIZMTUSDM', name: 'Corn (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'PSOYBUSDM', name: 'Soybeans (Global Price)', unit: 'Dollars', frequency: 'Monthly' },
+      { id: 'WPU0652', name: 'Fertilizer Materials (PPI)', unit: 'Index', frequency: 'Monthly' },
+      { id: 'WPU081', name: 'Lumber & Wood Products (PPI)', unit: 'Index', frequency: 'Monthly' },
     ],
   },
   liquidity: {

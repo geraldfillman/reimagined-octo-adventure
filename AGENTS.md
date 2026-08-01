@@ -1,6 +1,6 @@
 # My_Data Vault
 
-An Obsidian-based investment research system covering housing, biotech, defense, energy, macro, and cross-domain theses. The vault combines structured notes, puller scripts + 10 KB scripts, signal detection, dashboards, graph analysis, OSINT scanning, and thesis monitoring. FMP Premium is the active financial-data backbone. The daily routine is split into daily and weekly cadences with company-risk-scan integrated.
+An Obsidian-based investment research system covering housing, biotech, defense, energy, macro, and cross-domain theses. The vault combines structured notes, puller scripts + 10 KB scripts, signal detection, dashboards, graph analysis, OSINT scanning, and thesis monitoring. FMP (free tier) is the active quote backbone, supplemented by free FRED/EIA/CFTC/SEC feeds and manual platform exports (KoyFin, TastyTrade, Unusual Whales). The daily routine is split into daily and weekly cadences with company-risk-scan integrated.
 
 ## Multi-Vault Architecture
 
@@ -39,7 +39,7 @@ Routing env vars (set in `My_Data/.env`):
 - Added sector-specific SEC snapshot handling so sector evidence remains stable and reviewable.
 - Retired local Qlib/quant workflows; restore or reinstall only if a concrete use case returns.
 - Integrated InfraNodus graph-session generation for structural analysis across notes and folders.
-- Upgraded the active financial-data workflow to FMP Premium.
+- Moved the financial-data workflow to FMP free tier + free government APIs; premium-only endpoints are being audited and rerouted.
 - Added local operator dashboard (`node run.mjs dashboard`) with Signal Board, Thesis Status, Pull Health, Technical Risk, Earnings Calendar, and live Data Collection panels.
 - Added `fmp --quote`, `fmp --technical`, `fmp --earnings-calendar`, and `fmp --thesis-watchlists`.
 - Added thesis-level `node run.mjs thesis-fmp-sync` to project FMP tape and catalyst data into thesis frontmatter.
@@ -57,7 +57,7 @@ Routing env vars (set in `My_Data/.env`):
 - Added OSINT intelligence layer: 10 source definitions in `01_Data_Sources/OSINT/` covering SpiderFoot, theHarvester, Amass, Recon-ng, OpenCorporates, ICIJ Offshore Leaks DB, OTX AlienVault, VesselFinder, Bellingcat ADS-B History, and Bellingcat Auto Archiver. Four passive scan scripts wired into `scan osint-*` CLI group. All output to `05_Data_Pulls/osint/`.
 - Extended OSINT layer (second pass): added 9 source notes (Phantom Tide, Hormuz Tracker, World Monitor, Leaker, Merklemap, Columbus Project, octosuite, SAR Interference Tracker, Umbra Open Data Tracker) plus osm-search and snscrape. Seven new scan scripts wired — total 11 `scan osint-*` commands. Two learning system resources added to `11_Learning/09_Resources/`.
 - Built `12_Knowledge_Bases/` KB subsystem: 19-directory folder tree, 4 wiki templates, Dataview wiki index, and 10 KB pipeline scripts (`kb ingest` → `kb normalize` → `kb classify` → `kb compile` → `kb query`). Health tools: `kb librarian` (lint + auto-fix), `kb health` (integrity checks), `kb suggest` (gap analysis), `kb transcribe` (meeting extraction). Wired into router.mjs as the `kb` CLI group.
-- Wired KB raw mirroring into `writeNote()` via `scripts/lib/kb-bridge.mjs`. Every pull note written to `05_Data_Pulls/` is automatically copied to the matching `12_Knowledge_Bases/raw/{kind}/` subfolder. Domain is inferred from the path segment (Macro→datasets, Government→articles, Science→papers, etc.). `kb compile` deletes the raw copy after the wiki page is written (strict cleanup).
+- Wired KB raw mirroring into `writeNote()` via `scripts/lib/kb-bridge.mjs`. **Retired 2026-08-01** — the automatic mirror duplicated every pull note into KB raw folders that mostly went unprocessed; use manual `kb ingest` to bring specific documents into the KB pipeline instead.
 - Upgraded the learning system to **Adaptive Generalist System V2**: replaced the 11-step session monolith with an 8-step Daily Engine (due-review-queue-first); added retrieval lifecycle fields (`next_review_due`, `retrieval_success_count`, `retrieval_failure_count`, `misconception_log`, etc.) to all 16 mastery notes and templates; rebuilt the Mastery Dashboard with 6 Dataview blocks; added hard 50% domain balance cap; added project promotion gate enforcement and conflict flagging; created `Link_Integrity_Report.md`; added 3 new maintenance scripts (`learning-review.ps1`, `learning-project-audit.ps1`, `learning-link-audit.ps1`) and V2 validation checks to `learning-daily.ps1`.
 
 ## Folder Structure
@@ -66,7 +66,7 @@ Routing env vars (set in `My_Data/.env`):
 |--------|---------|
 | `000-moc/` | 8 Master of Content navigation files - read before exploring raw notes |
 | `00_Dashboard/` | 20 primary Dataview dashboards - start here for current operator state |
-| `01_Data_Sources/` | 91 active source definitions across 16 categories (including OSINT/) |
+| `01_Data_Sources/` | 87 active source definitions across 16 categories (including OSINT/) |
 | `03_Templates/` | 21 canonical templates for all note types |
 | `04_Reference/` | Schema docs, graph conventions, pull system guide, source overview boards, and graph-analysis surfaces |
 | `05_Data_Pulls/` | Timestamped pull notes from API pullers and synthesis workflows. Aged clear-status notes are relocated out of the vault by `system prune` (see Retention below); the legacy `_archive/` subfolder is git-ignored and Obsidian-excluded. |
@@ -77,7 +77,7 @@ Routing env vars (set in `My_Data/.env`):
 | `10_Theses/` | 24 investment theses with conviction tracking, plus 19 sector/style baskets in `Baskets/` |
 | `11_Learning/` | **Moved to Dr_Magnifico vault** — open that vault in Obsidian to access learning content |
 | `12_Company_Risk/` | Company Risk Intelligence system — Companies, Events, Patterns, Entities, Transactions subfolders. Pattern recognition for narrative vs. reality misalignment. |
-| `12_Knowledge_Bases/` | **Moved to Oy vault** — open that vault in Obsidian to access KB content. Scripts still run from `scripts/kb/` here. |
+| `12_Knowledge_Bases/` | **Moved to Oy vault** — open that vault in Obsidian to access KB content. Scripts still run from `scripts/kb/` here (manual `kb ingest` only; the automatic pull-note mirror was retired 2026-08-01 and residual local files archived to `500-archive/12_Knowledge_Bases/`). |
 | `500-archive/` | Retired or deprioritized data sources; do not link from active notes |
 | `scripts/` | Node.js automation (pullers, validator, InfraNodus, cleanup, KB routing) |
 
@@ -124,7 +124,7 @@ node run.mjs <group> <command> [options]
 ```
 
 Run `node run.mjs help` for overview. Run `node run.mjs <group> --help` for group detail.
-Full command inventory: `90_System/CLI Command Audit.md`
+Full command inventory: `node run.mjs help` and `node run.mjs <group> --help`
 
 ```powershell
 # System
@@ -211,8 +211,8 @@ node run.mjs kb transcribe --file raw/transcripts/call.md --speakers "Alice,Bob"
 node run.mjs kb suggest --save
 ```
 
-> Legacy flat commands (`sector-scan`, `thesis-fmp-sync`, etc.) still work
-> but print a deprecation notice pointing to the new grouped form.
+> Legacy flat aliases (`thesis-fmp-sync`, `conviction-delta`, etc.) were retired
+> 2026-08 — the CLI prints the grouped replacement and exits if you use one.
 
 **Optional setup** (install once for enhanced features):
 - `npm install -g defuddle` — enables clean markdown extraction when ingesting URLs via `kb ingest --url`
@@ -232,8 +232,8 @@ powershell scripts/daily-routine.ps1 -DryRun         # preview without API calls
 ### Maintenance Scripts
 
 ```powershell
-node run.mjs cleanup --market-history --dry-run
-node run.mjs cleanup --market-history
+node run.mjs system cleanup --market-history --dry-run
+node run.mjs system cleanup --market-history
 ```
 
 ---
@@ -376,7 +376,7 @@ Additional PowerShell scripts in `scripts/`:
 
 ### API Keys
 
-Required keys are in `.env` (never commit). Run `node run.mjs status` to check. Key pullers and their requirements:
+Required keys are in `.env` (never commit). Run `node run.mjs system status` to check. Key pullers and their requirements:
 
 | Puller | Key Variable | Required? |
 |--------|-------------|-----------|
@@ -406,7 +406,7 @@ Required keys are in `.env` (never commit). Run `node run.mjs status` to check. 
 
 Graph measurement workflow is documented in `04_Reference/InfraNodus Graph Measurements.md`.
 
-- Run `node run.mjs infranodus --path <scope>` to generate a graph session note
+- Run `node run.mjs system infranodus --path <scope>` to generate a graph session note
 - Sessions are saved to `07_Playbooks/Graph_Sessions/`
 - Best scopes: `10_Theses/`, `08_Entities/`, `09_Macro/`, `05_Data_Pulls/<domain>/`
 - Plugin defaults: Wiki Links Prioritized for folders, Wiki Links + Concepts for single notes
@@ -438,7 +438,7 @@ All dashboards use Dataview queries against frontmatter fields. They render auto
 
 ## Dashboard
 
-A local operator dashboard runs at `http://localhost:3737` via `node run.mjs dashboard`.
+A local operator dashboard runs at `http://localhost:3737` via `node run.mjs system dashboard`.
 
 It reads vault files directly (no separate sync) and provides seven panels:
 
@@ -477,12 +477,12 @@ Set `DASHBOARD_PORT` to use a port other than `3737`.
 ### Later / Optional
 
 - Evaluate a structured paid news source to improve company-specific and thesis-specific routing beyond generic headline pulls.
-- If FMP is later upgraded beyond Premium, add transcript workflows, ETF holdings, 13F ownership, and broader global comparison surfaces.
+- If FMP is later upgraded to a paid tier, add transcript workflows, ETF holdings, 13F ownership, and broader global comparison surfaces.
 - Build more formal portfolio-monitoring and capital-allocation automation on top of the conviction and signal layers.
 
 ## Validation
 
-Run `node run.mjs validate` before committing. The validator checks required frontmatter fields, category alignment, boolean types, valid signal statuses, and thesis FMP summary fields.
+Run `node run.mjs system validate` before committing. The validator checks required frontmatter fields, category alignment, boolean types, valid signal statuses, and thesis FMP summary fields.
 
 ## Retention
 

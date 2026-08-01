@@ -282,9 +282,7 @@ const nodes = [
     '`sector-map.mjs`\n' +
     '- Ticker → sector/industry\n\n' +
     '`schema.mjs`\n' +
-    '- Zod schemas for pull frontmatter\n\n' +
-    '`kb-bridge.mjs`\n' +
-    '- Knowledge base integration shim',
+    '- Zod schemas for pull frontmatter',
     '6'),
 
   textNode('lib_mm', 5, 'lib',

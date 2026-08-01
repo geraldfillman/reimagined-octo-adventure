@@ -42,13 +42,13 @@ const MAX_RETRIES  = 1;
 // If an agent has a `daily_pullers` field in the manifest, that takes precedence.
 const DEFAULT_DAILY_PULLERS = {
   market:       ['cboe', 'entropy-monitor', 'dilution-monitor', 'auction-features', 'pead-watch', 'pair-metrics'],
-  macro:        ['fred', 'macro-volatility'],
+  macro:        ['fred', 'macro-volatility', 'bond-stress'],
   thesis:       ['convergence-scan', 'opportunity-viewpoints'],
   fundamentals: [],              // cash-flow-quality is quarterly data — runs in weekly/quarterly cadence
   biotech:      ['clinicaltrials', 'fda'],
   government:   ['openfema', 'federalregister'],
   housing:      ['nahb'],
-  energy:       ['eia'],
+  energy:       ['eia', 'futures-curve', 'commodity-transmission'],
   research:     ['arxiv'],
   sectors:      ['sector-scan'],
   osint:        [],          // manual only — excluded from automated runs

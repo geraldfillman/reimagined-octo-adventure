@@ -18,14 +18,14 @@ Run commands from the `scripts/` directory in PowerShell:
 ```powershell
 Set-Location "C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts"
 node run.mjs help                        # compact overview
-node run.mjs <group> --help              # group detail (scan, thesis, pull, quant, kb, ...)
+node run.mjs <group> --help              # group detail (scan, thesis, pull, kb, ...)
 node run.mjs system status               # API key status
 node run.mjs <group> <command> [flags]   # main grammar
 ```
 
-**Command groups:** `system` · `learn` · `scan` · `thesis` · `pull` · `playbook` · `quant` · `kb`
+**Command groups:** `system` · `learn` · `scan` · `thesis` · `pull` · `playbook` · `routine` · `kb`
 
-Full command inventory with side-effect classification: [[90_System/CLI Command Audit]]
+Full command inventory: `node run.mjs help` and `node run.mjs <group> --help`
 
 The CLI loads `.env` from the vault root:
 
@@ -633,7 +633,7 @@ node run.mjs system cleanup --market-history --keep-daily 2 --keep-quotes 3
 
 ## Related Notes
 
-- [[90_System/CLI Command Audit]] — full command inventory with side-effect classification
+- `node run.mjs help` — full command inventory (grouped grammar)
 - [[07_Playbooks/Daily_Routine]]
 - [[00_Dashboard/Signal Board]]
 - [[00_Dashboard/Catalyst Radar]]

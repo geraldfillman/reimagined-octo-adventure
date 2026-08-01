@@ -21,8 +21,7 @@ Key notes:
 - [[04_Reference/InfraNodus Measurements]]
 - [[04_Reference/Graph Conventions]]
 - [[04_Reference/InfraNodus Graph Measurements]]
-- [[Learning System]]
-- [[Deep Dive Resources]]
+- Learning System + Deep Dive Resources — live in the Dr_Magnifico vault (`11_Learning/`); open that vault in Obsidian
 
 Decisions:
 - Schema rules govern edits.

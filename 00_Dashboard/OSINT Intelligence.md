@@ -114,3 +114,21 @@ Output lands in `05_Data_Pulls/osint/`. SpiderFoot breach findings prompt P1/P2 
 - [[VesselFinder]] — Real-time AIS maritime tracking
 - [[Bellingcat-ADSB-History]] — Corporate jet flight history
 - [[Bellingcat-AutoArchiver]] — Evidence archiving for signals
+
+---
+
+## Narrative Heat
+
+Media attention vs price reality per commodity — NOISE (fade), QUIET MOVE (under-owned), CONFIRMED (crowding).
+
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Scan",
+  length(divergences) AS "Divergences",
+  date_pulled AS "Date",
+  signal_status AS "Status"
+FROM "05_Data_Pulls/Sentiment"
+WHERE data_type = "narrative_heat"
+SORT date_pulled DESC
+LIMIT 5
+```

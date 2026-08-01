@@ -113,7 +113,7 @@ ${domainList.length} independent agent domains have flagged the same ${keyType =
 
 ## Suggested Action
 
-Review the source pull notes listed below and consider escalating conviction or allocation if the evidence is consistent. Run \`node run.mjs pull signal-review\` to check current signal lifecycle state.
+Review the source pull notes listed below and consider escalating conviction or allocation if the evidence is consistent. Run \`node run.mjs pull signal-intelligence\` to check current signal lifecycle state.
 
 ## Source Pulls
 
