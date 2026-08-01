@@ -319,7 +319,7 @@ export async function pull(flags = {}) {
           '- **If top-quintile ≈ all-days**: gap size alone is not the differentiator; quality filters (VWAP, entropy, range) matter more.',
           `- Top-quintile threshold is computed per-symbol from its own historical gap distribution — not a global threshold.`,
           '- EOD proxy — intraday fill quality, exact OR level entries, and stop execution not modeled.',
-          '- Run `node run.mjs pull signal-tracker --log` today, then `signal-tracker` after close to track live results.',
+          '- Run `node run.mjs pull signal-quality-scan` to review live signal quality against these backtest baselines.',
         ].join('\n'),
       },
     ],
