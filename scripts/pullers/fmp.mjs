@@ -16,6 +16,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
 import { getApiKey, getBaseUrl, getPullsDir, getSignalsDir, getVaultRoot } from '../lib/config.mjs';
 import { fetchWithRetry, getJson } from '../lib/fetcher.mjs';
+import { fetchBatchQuotes } from '../lib/fmp-client.mjs';
 import { loadCachedFmpFundamentalsMap } from '../lib/fmp-fundamentals-context.mjs';
 import {
   buildNote, buildTable, writeNote, formatNumber,
@@ -199,7 +200,8 @@ async function pullQuote(symbol, apiKey, baseUrl) {
   const symbols = parseSymbolList(symbol);
   console.log(`📈 FMP: Fetching quote${symbols.length > 1 ? 's' : ''} for ${symbols.join(', ')}...`);
 
-  const data = await getJson(`${stableBaseUrl}/batch-quote-short?symbols=${symbols.join(',')}&apikey=${apiKey}`);
+  // Yahoo-first via fmp-client; FMP quota is only spent on Yahoo misses.
+  const data = await fetchBatchQuotes(symbols);
   const quotes = Array.isArray(data) ? data : [];
 
   if (quotes.length === 0) {
@@ -3269,19 +3271,17 @@ async function fetchBatchQuotesMap(symbols, apiKey, stableBaseUrl) {
   const quoteMap = new Map();
   const aliasMap = buildFmpSymbolAliasMap(symbols);
   const requestSymbols = [...new Set(symbols.flatMap(symbol => getFmpSymbolCandidates(symbol)))];
-  const chunks = chunkArray(requestSymbols, 25);
 
-  for (const chunk of chunks) {
-    const data = await getJson(`${stableBaseUrl}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${apiKey}`);
-    for (const quote of Array.isArray(data) ? data : []) {
-      const canonicalSymbol = resolveRequestedSymbol(quote?.symbol, aliasMap) || normalizeSymbol(quote?.symbol);
-      if (canonicalSymbol) {
-        quoteMap.set(canonicalSymbol, {
-          ...quote,
-          symbol: canonicalSymbol,
-          source_symbol: normalizeSymbol(quote?.symbol),
-        });
-      }
+  // Yahoo-first via fmp-client; FMP quota is only spent on Yahoo misses.
+  const data = await fetchBatchQuotes(requestSymbols);
+  for (const quote of Array.isArray(data) ? data : []) {
+    const canonicalSymbol = resolveRequestedSymbol(quote?.symbol, aliasMap) || normalizeSymbol(quote?.symbol);
+    if (canonicalSymbol) {
+      quoteMap.set(canonicalSymbol, {
+        ...quote,
+        symbol: canonicalSymbol,
+        source_symbol: normalizeSymbol(quote?.symbol),
+      });
     }
   }
 
@@ -4395,11 +4395,9 @@ async function pullRelVolScreen(flags, apiKey, baseUrl) {
   // Phase 2: batch-quote-short — get today's live volume for relVol calculation
   console.log(`FMP RelVol Screen: Phase 2 — batch quotes for ${allSymbols.length} symbol(s)...`);
   const quoteMap = new Map();
-  for (const chunk of chunkArray(allSymbols, 25)) {
-    const data = await getJson(`${stableBaseUrl}/batch-quote-short?symbols=${chunk.join(',')}&apikey=${apiKey}`);
-    for (const q of Array.isArray(data) ? data : []) {
-      if (q?.symbol) quoteMap.set(q.symbol, q);
-    }
+  // Yahoo-first via fmp-client; FMP quota is only spent on Yahoo misses.
+  for (const q of await fetchBatchQuotes(allSymbols)) {
+    if (q?.symbol) quoteMap.set(q.symbol, q);
   }
   // Keep symbols that have a live quote with non-zero volume
   const phase2 = allSymbols.filter(sym => quoteMap.has(sym) && (quoteMap.get(sym).volume ?? 0) > 0);

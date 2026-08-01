@@ -376,6 +376,13 @@ Additional PowerShell scripts in `scripts/`:
 
 ### API Keys
 
+> **2026-08 market-data policy:** FMP is FREE tier (~250 calls/day). Quotes and
+> OHLCV history are served **Yahoo-first** (`scripts/lib/yahoo-client.mjs`,
+> keyless) with FMP as fallback. FMP quota is reserved for what Yahoo cannot
+> provide: statements, float, insiders, short interest, news, earnings,
+> screeners. When neither source can fill a field, leave it blank/null and let
+> the note show the gap explicitly — never fabricate a value.
+
 Required keys are in `.env` (never commit). Run `node run.mjs system status` to check. Key pullers and their requirements:
 
 | Puller | Key Variable | Required? |
