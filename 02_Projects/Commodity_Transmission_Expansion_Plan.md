@@ -16,7 +16,11 @@ tags: [project, commodities, bonds, futures, sentiment, transmission]
 > - `node run.mjs pull webhook-listen` — Sitdeck alert receiver on 127.0.0.1:8787 (`WEBHOOK_SECRET` in `.env` to lock down)
 > Map: `scripts/config/transmission-map.json`. Entities: `08_Entities/Commodities/` (merged into existing Oil/Copper/Natural Gas/Wheat notes).
 >
-> **Phase 2 (partial) built 2026-07-31.** `node run.mjs pull bond-stress` — composite curve + credit + real-yield regime (calm/tightening/stress), surfaced on the Macro Regime dashboard (`data_type: bond_regime`). FRED rates group extended with T10Y3M, BAA10Y, DFII10. Remaining Phase 2 item: per-company refinancing exposure (interest coverage + maturity walls from EDGAR/KoyFin), flagged when regime ≠ calm.
+> **Phase 2 (partial) built 2026-07-31.** `node run.mjs pull bond-stress` — composite curve + credit + real-yield regime (calm/tightening/stress), surfaced on the Macro Regime dashboard (`data_type: bond_regime`). FRED rates group extended with T10Y3M, BAA10Y, DFII10. 
+> **Phase 2 completed 2026-07-31** + acquisition layer added:
+> - `node run.mjs pull refinancing-exposure` — XBRL screens (interest coverage, maturity wall vs cash, leverage) across the 132-ticker thesis universe; escalates to signals only when bond regime ≠ calm (`--thesis`, `--tickers`, `--limit`)
+> - `node run.mjs pull acquisition-radar` — M&A filings (8-K 2.01/1.01, S-4, 425, DEFM14A, SC TO-T) with strategic-intent classification: what each acquisition is trying to accomplish (capacity, vertical integration, tech/talent, market expansion, consolidation, pipeline, diversification). Taxonomy in `INTENT_CATEGORIES`.
+> - Both surfaced on the Company Risk Board dashboard (`data_type: refinancing_exposure` / `acquisition_radar`).
 
 Goal: connect commodity prices, the bond market, futures term structure, and market noise to the **companies and theses they actually affect** — so a copper squeeze or fertilizer spike surfaces as a routed signal on the right thesis, not just a data point.
 

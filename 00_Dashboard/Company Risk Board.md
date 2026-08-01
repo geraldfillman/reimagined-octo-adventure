@@ -85,3 +85,38 @@ FROM "12_Company_Risk/Companies"
 WHERE status = "Archived"
 SORT last_updated DESC
 ```
+
+---
+
+## Refinancing Exposure
+
+Latest per-company refinancing screens (interest coverage, maturity walls vs cash). Escalates to signals only when the bond regime is tightening/stress — see the Macro Regime dashboard.
+
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Scan",
+  bond_regime AS "Bond Regime",
+  length(high_exposure) AS "High",
+  length(medium_exposure) AS "Medium",
+  date_pulled AS "Date"
+FROM "05_Data_Pulls/Company_Risk"
+WHERE data_type = "refinancing_exposure"
+SORT date_pulled DESC
+LIMIT 5
+```
+
+## Acquisition Radar
+
+Recent M&A filings across the thesis universe, classified by what each acquisition is trying to accomplish (capacity, vertical integration, technology/talent, market expansion, consolidation, pipeline, diversification).
+
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Radar",
+  deal_count AS "Deals",
+  acquirers AS "Acquirers",
+  date_pulled AS "Date"
+FROM "05_Data_Pulls/Company_Risk"
+WHERE data_type = "acquisition_radar"
+SORT date_pulled DESC
+LIMIT 5
+```
