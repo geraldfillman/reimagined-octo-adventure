@@ -4,7 +4,7 @@ category: "Macro"
 type: "API"
 provider: "U.S. Census Bureau"
 pricing: "Free"
-status: "Active"
+status: "Retired"
 priority: "Foundation"
 url: "https://www.census.gov/data/developers/data-sets.html"
 provides: ["demographics", "housing-characteristics", "income-by-zip", "population-estimates", "ACS-data"]

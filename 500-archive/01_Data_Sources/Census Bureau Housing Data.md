@@ -4,7 +4,7 @@ category: "Housing_Real_Estate"
 type: "API"
 provider: "U.S. Census Bureau"
 pricing: "Free"
-status: "Active"
+status: "Retired"
 priority: "Foundation"
 url: "https://www.census.gov/construction/nrc/index.html"
 provides:

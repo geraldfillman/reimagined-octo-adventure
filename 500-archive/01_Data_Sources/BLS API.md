@@ -4,7 +4,7 @@ category: "Macro"
 type: "API"
 provider: ""
 pricing: "Free"
-status: "Active"
+status: "Retired"
 priority: "Foundation"
 url: ""
 provides:

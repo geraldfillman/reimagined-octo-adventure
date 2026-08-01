@@ -4,7 +4,7 @@ category: "Climate_Energy"
 type: "Download"
 provider: "NOAA / NCEI"
 pricing: "Free"
-status: "Active"
+status: "Retired"
 priority: "Foundation"
 url: "https://www.ncdc.noaa.gov/stormevents/"
 provides: ["storm-damage", "property-loss", "crop-loss", "fatalities", "county-level-events"]

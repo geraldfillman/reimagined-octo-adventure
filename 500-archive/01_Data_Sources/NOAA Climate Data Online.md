@@ -4,7 +4,7 @@ category: "Climate_Energy"
 type: "API"
 provider: "National Oceanic and Atmospheric Administration"
 pricing: "Free"
-status: "Active"
+status: "Retired"
 priority: "Foundation"
 url: "https://www.ncdc.noaa.gov/cdo-web/"
 provides:
