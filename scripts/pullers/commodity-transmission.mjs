@@ -29,6 +29,7 @@ import {
   buildNote, buildTable, writeNote, formatNumber,
   today, dateStampedFilename,
 } from '../lib/markdown.mjs';
+import { readFolderWhere } from '../lib/frontmatter.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const MAP_PATH = join(__dirname, '..', 'config', 'transmission-map.json');
@@ -55,9 +56,11 @@ export async function pull(flags = {}) {
 
   console.log(`🔗 Commodity Transmission: scanning ${entries.length} commodities...\n`);
 
+  const curves = await latestCurveStates();
   const scanned = [];
   for (const [key, commodity] of entries) {
     const row = await scanCommodity({ key, commodity, apiKey, baseUrl });
+    row.curve = curves[key] ?? null;
     scanned.push(row);
     logRow(row);
   }
@@ -85,6 +88,29 @@ export async function pull(flags = {}) {
   }
 
   return { filePath, tripped: tripped.length, signal_status: overallStatus };
+}
+
+// ─── Futures curve context ──────────────────────────────────────────────────────
+
+/** Latest futures_curve note → {commodity_key: 'backwardation'|'contango'|'flat'}. */
+async function latestCurveStates() {
+  try {
+    const notes = await readFolderWhere(
+      join(getPullsDir(), 'Commodities'),
+      d => d.data_type === 'futures_curve'
+    );
+    if (!notes.length) return {};
+    const latest = notes.reduce((a, b) =>
+      String(a.data.date_pulled) > String(b.data.date_pulled) ? a : b);
+    if (latest.data.curves && typeof latest.data.curves === 'object') return latest.data.curves;
+    if (!latest.data.curves_json) return {};
+    for (const candidate of [latest.data.curves_json, latest.data.curves_json.replace(/\\"/g, '"')]) {
+      try { return JSON.parse(candidate); } catch { /* try next */ }
+    }
+    return {};
+  } catch {
+    return {};
+  }
 }
 
 // ─── Map loading ────────────────────────────────────────────────────────────────
@@ -209,6 +235,11 @@ function buildScanNote({ scanned, tripped, overallStatus }) {
       data_type: 'transmission_scan',
       signal_status: overallStatus,
       tripped_commodities: tripped.map(r => r.key),
+      moves: Object.fromEntries(scanned.filter(r => !r.error).map(r => [r.key, r.movePct])),
+      curves: Object.fromEntries(scanned.filter(r => r.curve).map(r => [r.key, r.curve])),
+      // JSON twins: the vault frontmatter parser returns null for nested maps,
+      // so script consumers read these; Dataview reads the nested forms above.
+      moves_json: JSON.stringify(Object.fromEntries(scanned.filter(r => !r.error).map(r => [r.key, r.movePct]))),
       tags: ['commodities', 'transmission', 'scan'],
       related_pulls: [],
     },
@@ -259,7 +290,10 @@ function writeTransmissionSignal(row) {
         heading: `${row.label} moved ${row.movePct > 0 ? '+' : ''}${row.movePct}%`,
         content: `Recent average ${formatNumber(row.recentAvg, { decimals: 2 })} vs baseline ` +
           `${formatNumber(row.priorAvg, { decimals: 2 })} ${row.unit}. ` +
-          `${row.trippedEdges.length} transmission edge(s) tripped.`,
+          `${row.trippedEdges.length} transmission edge(s) tripped.` +
+          (row.curve
+            ? ` Futures curve: **${row.curve}**${row.curve === 'backwardation' && row.direction === 'rise' ? ' — physical tightness confirms the move; higher confidence.' : '.'}`
+            : ''),
       },
       {
         heading: 'Implications',

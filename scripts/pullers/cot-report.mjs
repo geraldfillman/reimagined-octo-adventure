@@ -19,38 +19,47 @@ import { join } from 'node:path';
 import { getPullsDir } from '../lib/config.mjs';
 import { buildNote, buildTable, dateStampedFilename, today, writeNote } from '../lib/markdown.mjs';
 
-// CFTC public data: CME Group futures-only, legacy format, current year.
-// Covers CME/CBOT/NYMEX/COMEX markets in a single file.
-const COT_URL = 'https://www.cftc.gov/files/dea/newcot/deacmesf.txt';
+// CFTC Public Reporting API (Socrata) — Legacy COT, Futures Only, all exchanges.
+// The old flat-file endpoint (cftc.gov/files/dea/newcot/*.txt) now sits behind a
+// WAF that 403s non-browser clients; the Socrata dataset is the stable surface.
+const COT_API = 'https://publicreporting.cftc.gov/resource/6dca-aqww.json';
 
-// Markets to track. `match` is a partial, case-insensitive name prefix.
+// Markets to track. `matches` are ordered case-insensitive name PREFIXES —
+// first hit wins. Prefix matching avoids grabbing cross-rates ("EURO FX/...")
+// or nano/micro variants. Later entries are legacy-name fallbacks.
 const TRACKED_MARKETS = [
-  { key: 'ES',  match: 'E-MINI S&P 500',        label: 'E-Mini S&P 500',    category: 'equities'    },
-  { key: 'NQ',  match: 'E-MINI NASDAQ-100',      label: 'E-Mini Nasdaq-100', category: 'equities'    },
-  { key: 'ZN',  match: '10-YEAR T-NOTES',        label: '10-Year T-Notes',   category: 'rates'       },
-  { key: 'ZB',  match: 'U.S. TREASURY BONDS',    label: 'T-Bonds',           category: 'rates'       },
-  { key: 'GC',  match: 'GOLD - COMMODITY',       label: 'Gold',              category: 'commodities' },
-  { key: 'CL',  match: 'CRUDE OIL, LIGHT SWEET', label: 'Crude Oil',         category: 'commodities' },
-  { key: '6E',  match: 'EURO FX',                label: 'Euro FX',           category: 'currencies'  },
-  { key: '6J',  match: 'JAPANESE YEN',           label: 'Japanese Yen',      category: 'currencies'  },
-  { key: 'BTC', match: 'BITCOIN',                label: 'Bitcoin',           category: 'crypto'      },
+  { key: 'ES',  matches: ['E-MINI S&P 500 -'],                                          label: 'E-Mini S&P 500',    category: 'equities'    },
+  { key: 'NQ',  matches: ['NASDAQ MINI -', 'E-MINI NASDAQ-100'],                        label: 'E-Mini Nasdaq-100', category: 'equities'    },
+  { key: 'ZN',  matches: ['UST 10Y NOTE', '10-YEAR T-NOTES'],                           label: '10-Year T-Notes',   category: 'rates'       },
+  { key: 'ZB',  matches: ['UST BOND', 'U.S. TREASURY BONDS'],                           label: 'T-Bonds',           category: 'rates'       },
+  { key: 'GC',  matches: ['GOLD - COMMODITY'],                                          label: 'Gold',              category: 'commodities' },
+  { key: 'CL',  matches: ['WTI-PHYSICAL', 'CRUDE OIL, LIGHT SWEET', 'WTI FINANCIAL'],   label: 'Crude Oil (WTI)',   category: 'commodities' },
+  { key: 'NG',  matches: ['NAT GAS NYME', 'NATURAL GAS -', 'HENRY HUB -'],              label: 'Natural Gas',       category: 'commodities' },
+  { key: 'HG',  matches: ['COPPER- #1', 'COPPER -'],                                    label: 'Copper',            category: 'commodities' },
+  { key: 'ZW',  matches: ['WHEAT-SRW'],                                                 label: 'Wheat (SRW)',       category: 'commodities' },
+  { key: 'ZC',  matches: ['CORN -'],                                                    label: 'Corn',              category: 'commodities' },
+  { key: 'ZS',  matches: ['SOYBEANS -'],                                                label: 'Soybeans',          category: 'commodities' },
+  { key: '6E',  matches: ['EURO FX -'],                                                 label: 'Euro FX',           category: 'currencies'  },
+  { key: '6J',  matches: ['JAPANESE YEN -'],                                            label: 'Japanese Yen',      category: 'currencies'  },
+  { key: 'BTC', matches: ['BITCOIN -', 'MICRO BITCOIN -'],                              label: 'Bitcoin',           category: 'crypto'      },
 ];
 
 // Positioning extremes that generate signals.
-// Spec longs > 65% of OI → crowded long (potential reversal risk).
-// Spec longs < 35% of OI → crowded short.
+// NET spec share = (spec long % of OI) − (spec short % of OI). Gross long%
+// alone misreads commodity markets, where commercial hedgers dominate OI and
+// spec longs rarely exceed ~35% even in manias.
+// Net > +30% of OI → crowded long (reversal risk); net < −30% → crowded short.
 // |week-over-week net spec change| > 8% of OI → rapid shift.
-const EXTREME_LONG_PCT  = 65;
-const EXTREME_SHORT_PCT = 35;
-const SHIFT_THRESHOLD   = 8;
+const EXTREME_NET_LONG_PCT  = 30;
+const EXTREME_NET_SHORT_PCT = -30;
+const SHIFT_THRESHOLD       = 8;
 
 export async function pull(flags = {}) {
   console.log('COT Report: fetching CFTC Commitment of Traders data...');
 
   let parsed;
   try {
-    const csv = await fetchCotData();
-    parsed = parseCotCsv(csv);
+    parsed = await fetchCotData();
   } catch (err) {
     console.error(`COT Report: fetch failed — ${err.message}`);
     return writeFallbackNote(err.message, flags);
@@ -82,47 +91,44 @@ export async function pull(flags = {}) {
   };
 }
 
-// ─── Data fetch ───────────────────────────────────────────────────────────────
+// ─── Data fetch (CFTC Socrata API) ────────────────────────────────────────────
 
 async function fetchCotData() {
-  const res = await fetch(COT_URL, {
-    signal:  AbortSignal.timeout(30_000),
-    headers: { 'User-Agent': 'vault-orchestrator-cot/1.0' },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} from CFTC`);
-  return res.text();
-}
+  const headers = { Accept: 'application/json' };
+  const appToken = process.env.SOCRATA_APP_TOKEN?.trim();
+  if (appToken) headers['X-App-Token'] = appToken;
+  const opts = { headers, signal: AbortSignal.timeout(30_000) };
 
-// ─── CSV parser (handles quoted fields containing commas) ─────────────────────
+  const maxRes = await fetch(`${COT_API}?$select=max(report_date_as_yyyy_mm_dd)`, opts);
+  if (!maxRes.ok) throw new Error(`HTTP ${maxRes.status} from CFTC Socrata (max date)`);
+  const reportDate = (await maxRes.json())[0]?.max_report_date_as_yyyy_mm_dd;
+  if (!reportDate) throw new Error('CFTC Socrata returned no report dates');
 
-function parseCotCsv(csv) {
-  const lines = csv.split(/\r?\n/).filter(l => l.trim());
-  if (lines.length < 2) throw new Error('CFTC CSV appears empty');
+  const fields = [
+    'market_and_exchange_names', 'report_date_as_yyyy_mm_dd', 'open_interest_all',
+    'noncomm_positions_long_all', 'noncomm_positions_short_all',
+    'change_in_noncomm_long_all', 'change_in_noncomm_short_all',
+    'pct_of_oi_noncomm_long_all', 'pct_of_oi_noncomm_short_all',
+  ].join(',');
+  const url = `${COT_API}?$select=${fields}&$where=report_date_as_yyyy_mm_dd='${reportDate}'&$limit=5000`;
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(`HTTP ${res.status} from CFTC Socrata (report rows)`);
+  const rows = await res.json();
+  if (!Array.isArray(rows) || rows.length === 0) throw new Error('CFTC Socrata report is empty');
 
-  const header = parseCsvLine(lines[0]).map(h => h.trim());
-  const rows   = [];
-
-  for (let i = 1; i < lines.length; i++) {
-    const vals = parseCsvLine(lines[i]);
-    if (vals.length < Math.floor(header.length / 2)) continue;
-    const row = {};
-    header.forEach((h, idx) => { row[h] = (vals[idx] ?? '').trim(); });
-    rows.push(row);
-  }
-  return rows;
-}
-
-function parseCsvLine(line) {
-  const vals = [];
-  let cur     = '';
-  let inQuote = false;
-  for (const ch of line) {
-    if (ch === '"')               { inQuote = !inQuote; }
-    else if (ch === ',' && !inQuote) { vals.push(cur); cur = ''; }
-    else                             { cur += ch; }
-  }
-  vals.push(cur);
-  return vals;
+  // Adapt Socrata snake_case fields to the legacy column names the rest of
+  // this module was built around.
+  return rows.map(r => ({
+    'Market_and_Exchange_Names':   r.market_and_exchange_names ?? '',
+    'Report_Date_as_MM_DD_YYYY':   r.report_date_as_yyyy_mm_dd ?? '',
+    'Open_Interest_All':           r.open_interest_all,
+    'NonComm_Positions_Long_All':  r.noncomm_positions_long_all,
+    'NonComm_Positions_Short_All': r.noncomm_positions_short_all,
+    'Change_in_NonComm_Long_All':  r.change_in_noncomm_long_all,
+    'Change_in_NonComm_Short_All': r.change_in_noncomm_short_all,
+    'Pct_of_OI_NonComm_Long_All':  r.pct_of_oi_noncomm_long_all,
+    'Pct_of_OI_NonComm_Short_All': r.pct_of_oi_noncomm_short_all,
+  }));
 }
 
 // ─── Market extraction ────────────────────────────────────────────────────────
@@ -130,10 +136,13 @@ function parseCsvLine(line) {
 function extractTrackedMarkets(rows) {
   const results = [];
   for (const tmpl of TRACKED_MARKETS) {
-    const row = rows.find(r => {
-      const name = (r['Market_and_Exchange_Names'] ?? '').toUpperCase();
-      return name.includes(tmpl.match.toUpperCase());
-    });
+    let row = null;
+    for (const candidate of tmpl.matches) {
+      row = rows.find(r =>
+        (r['Market_and_Exchange_Names'] ?? '').toUpperCase().startsWith(candidate.toUpperCase())
+      );
+      if (row) break;
+    }
     if (!row) {
       console.log(`  COT: ${tmpl.label} not found in data`);
       continue;
@@ -175,11 +184,12 @@ function analyzePositioning(markets) {
     const reasons = [];
     let signal = 'clear';
 
-    if (m.pct_long > EXTREME_LONG_PCT) {
-      reasons.push(`spec longs at ${m.pct_long}% of OI — crowded long`);
+    const netPct = Math.round((m.pct_long - m.pct_short) * 10) / 10;
+    if (netPct > EXTREME_NET_LONG_PCT) {
+      reasons.push(`net spec +${netPct}% of OI — crowded long`);
       signal = 'watch';
-    } else if (m.pct_long < EXTREME_SHORT_PCT) {
-      reasons.push(`spec longs at ${m.pct_long}% of OI — crowded short`);
+    } else if (netPct < EXTREME_NET_SHORT_PCT) {
+      reasons.push(`net spec ${netPct}% of OI — crowded short`);
       signal = 'watch';
     }
 
@@ -234,7 +244,7 @@ function buildCotNote({ analyzed, reportDate, overallStatus }) {
         heading: 'Operating Rule',
         content: [
           '> COT data shows net positioning of speculative (non-commercial) and commercial (hedger) traders.',
-          '> Crowded positions (>65% or <35% of OI spec long) flag potential reversal risk, not entry signals.',
+          '> Crowded positions (net spec beyond ±30% of OI) flag potential reversal risk, not entry signals.',
           '> Rapid week-over-week net spec shifts (>8% of OI) signal changing conviction.',
           '> All signals require confirmation from price, macro context, and liquidity checks.',
         ].join('\n'),
@@ -327,6 +337,8 @@ function fmtNet(n) {
 
 function parseCftcDate(raw) {
   if (!raw) return today();
+  // ISO from Socrata: YYYY-MM-DDT00:00:00.000
+  if (/^\d{4}-\d{2}-\d{2}/.test(raw)) return raw.slice(0, 10);
   // MM/DD/YYYY
   const m1 = raw.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (m1) return `${m1[3]}-${m1[1].padStart(2, '0')}-${m1[2].padStart(2, '0')}`;

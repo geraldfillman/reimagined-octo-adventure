@@ -21,6 +21,13 @@ tags: [project, commodities, bonds, futures, sentiment, transmission]
 > - `node run.mjs pull refinancing-exposure` — XBRL screens (interest coverage, maturity wall vs cash, leverage) across the 132-ticker thesis universe; escalates to signals only when bond regime ≠ calm (`--thesis`, `--tickers`, `--limit`)
 > - `node run.mjs pull acquisition-radar` — M&A filings (8-K 2.01/1.01, S-4, 425, DEFM14A, SC TO-T) with strategic-intent classification: what each acquisition is trying to accomplish (capacity, vertical integration, tech/talent, market expansion, consolidation, pipeline, diversification). Taxonomy in `INTENT_CATEGORIES`.
 > - Both surfaced on the Company Risk Board dashboard (`data_type: refinancing_exposure` / `acquisition_radar`).
+>
+> **Phases 3 & 4 built 2026-07-31:**
+> - `cot-report` moved to the CFTC Socrata API (old flat-file endpoint now 403s); universe extended to 14 markets (+copper, nat gas, wheat, corn, soybeans); crowding now uses NET spec % of OI (±30) instead of gross long %.
+> - `node run.mjs pull futures-curve` — front vs ~6-month deferred via Yahoo futures chains; backwardation/contango per commodity; strong non-seasonal backwardation emits a signal. `commodity-transmission` annotates its signals with curve state. (EIA's NYMEX strip was discontinued 2024 — unusable.)
+> - `node run.mjs pull narrative-heat` — GDELT article volume (7d vs 7wk baseline) joined against transmission-scan price moves; verdicts: NOISE / QUIET MOVE / CONFIRMED; divergences emit signals. GDELT limit ~1 req/5s — the puller self-paces (~2 min full run); surfaced on OSINT Intelligence dashboard.
+> - AGENTS.md corrected: FMP is free tier.
+> - Note-to-note data passing uses `*_json` frontmatter twins (the vault frontmatter parser returns null for nested YAML maps).
 
 Goal: connect commodity prices, the bond market, futures term structure, and market noise to the **companies and theses they actually affect** — so a copper squeeze or fertilizer spike surfaces as a routed signal on the right thesis, not just a data point.
 

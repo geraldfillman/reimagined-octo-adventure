@@ -6,6 +6,19 @@ domain: "commodities"
 data_type: "transmission_scan"
 signal_status: "alert"
 tripped_commodities: ["crude_oil", "copper", "wheat", "fertilizer", "aluminum"]
+moves:
+  crude_oil: -16.9
+  natural_gas: -1.1
+  copper: 18.4
+  wheat: 23.8
+  corn: 4.1
+  soybeans: 9.3
+  fertilizer: 19.5
+  lumber: 6.2
+  aluminum: 23.7
+curves:
+
+moves_json: "{\"crude_oil\":-16.9,\"natural_gas\":-1.1,\"copper\":18.4,\"wheat\":23.8,\"corn\":4.1,\"soybeans\":9.3,\"fertilizer\":19.5,\"lumber\":6.2,\"aluminum\":23.7}"
 tags: ["commodities", "transmission", "scan"]
 related_pulls: []
 ---

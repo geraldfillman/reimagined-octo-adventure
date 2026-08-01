@@ -1,6 +1,6 @@
 # My_Data Vault
 
-An Obsidian-based investment research system covering housing, biotech, defense, energy, macro, and cross-domain theses. The vault combines structured notes, puller scripts + 10 KB scripts, signal detection, dashboards, graph analysis, OSINT scanning, and thesis monitoring. FMP Premium is the active financial-data backbone. The daily routine is split into daily and weekly cadences with company-risk-scan integrated.
+An Obsidian-based investment research system covering housing, biotech, defense, energy, macro, and cross-domain theses. The vault combines structured notes, puller scripts + 10 KB scripts, signal detection, dashboards, graph analysis, OSINT scanning, and thesis monitoring. FMP (free tier) is the active quote backbone, supplemented by free FRED/EIA/CFTC/SEC feeds and manual platform exports (KoyFin, TastyTrade, Unusual Whales). The daily routine is split into daily and weekly cadences with company-risk-scan integrated.
 
 ## Multi-Vault Architecture
 
@@ -39,7 +39,7 @@ Routing env vars (set in `My_Data/.env`):
 - Added sector-specific SEC snapshot handling so sector evidence remains stable and reviewable.
 - Retired local Qlib/quant workflows; restore or reinstall only if a concrete use case returns.
 - Integrated InfraNodus graph-session generation for structural analysis across notes and folders.
-- Upgraded the active financial-data workflow to FMP Premium.
+- Moved the financial-data workflow to FMP free tier + free government APIs; premium-only endpoints are being audited and rerouted.
 - Added local operator dashboard (`node run.mjs dashboard`) with Signal Board, Thesis Status, Pull Health, Technical Risk, Earnings Calendar, and live Data Collection panels.
 - Added `fmp --quote`, `fmp --technical`, `fmp --earnings-calendar`, and `fmp --thesis-watchlists`.
 - Added thesis-level `node run.mjs thesis-fmp-sync` to project FMP tape and catalyst data into thesis frontmatter.
@@ -477,7 +477,7 @@ Set `DASHBOARD_PORT` to use a port other than `3737`.
 ### Later / Optional
 
 - Evaluate a structured paid news source to improve company-specific and thesis-specific routing beyond generic headline pulls.
-- If FMP is later upgraded beyond Premium, add transcript workflows, ETF holdings, 13F ownership, and broader global comparison surfaces.
+- If FMP is later upgraded to a paid tier, add transcript workflows, ETF holdings, 13F ownership, and broader global comparison surfaces.
 - Build more formal portfolio-monitoring and capital-allocation automation on top of the conviction and signal layers.
 
 ## Validation
