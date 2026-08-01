@@ -29,23 +29,18 @@ invalidation_triggers: ["US Drone Dominance program defunded or cancelled", "Mul
 fmp_watchlist_symbols: ["KTOS", "ESLT", "RCAT", "AVAV", "LMT", "AIRO", "DRO_AX", "TXT", "TDY", "UMAC", "RTX", "LHX", "ONDS", "DPRO", "EH", "EVTL", "ACHR", "JOBY", "HOVR"]
 fmp_watchlist_symbol_count: 19
 fmp_primary_symbol: "KTOS"
-fmp_technical_symbol_count: 18
-fmp_technical_nonclear_count: 12
-fmp_technical_bearish_count: 14
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "alert"
-fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 32.84
-fmp_primary_price_vs_sma200_pct: -34.73
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 10534872701
-fmp_primary_trailing_pe: 337.84
-fmp_primary_price_to_sales: 7.44
-fmp_primary_price_to_book: 2.91
-fmp_primary_ev_to_sales: 6.54
-fmp_primary_ev_to_ebitda: 91.19
+fmp_primary_market_cap: 9803544764
+fmp_primary_trailing_pe: 302.37
+fmp_primary_price_to_sales: 6.93
+fmp_primary_price_to_book: 2.71
+fmp_primary_ev_to_sales: 6.02
+fmp_primary_ev_to_ebitda: 78.21
 fmp_primary_roe_pct: 1.26
 fmp_primary_roic_pct: 0.6
 fmp_primary_operating_margin_pct: 2.04
@@ -54,14 +49,13 @@ fmp_primary_current_ratio: 5.63
 fmp_primary_debt_to_equity: 0.05
 fmp_primary_price_target: 99.56
 fmp_primary_analyst_count: 27
-fmp_primary_target_upside_pct: 77.22
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 7
-fmp_calendar_pull_date: "2026-05-26"
-fmp_next_earnings_date: "2026-05-26"
-fmp_next_earnings_symbols: ["ESLT"]
-fmp_last_sync: "2026-05-26"
+fmp_primary_target_upside_pct: 90.44
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 2
+fmp_calendar_pull_date: "2026-06-23"
+fmp_next_earnings_date: "2026-06-29"
+fmp_next_earnings_symbols: ["AVAV"]
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "defense", "drones", "evtol", "autonomous"]
 ---
 

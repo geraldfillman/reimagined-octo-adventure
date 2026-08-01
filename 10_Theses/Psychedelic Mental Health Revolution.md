@@ -38,23 +38,19 @@ invalidation_triggers: ["Multiple Phase 3 failures across top holdings (ATAI + D
 fmp_watchlist_symbols: ["PSIL", "ATAI", "DFTX", "CMPS", "ALKS", "GHRS", "HELP", "NBIX", "JNJ", "ABBV"]
 fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "PSIL"
-fmp_technical_symbol_count: 10
-fmp_technical_nonclear_count: 3
-fmp_technical_bearish_count: 2
-fmp_technical_overbought_count: 1
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 55.66
-fmp_primary_price_vs_sma200_pct: 11.02
 fmp_primary_fundamentals_status: "partial"
-fmp_primary_market_cap: 21400337
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 3
-fmp_calendar_pull_date: "2026-05-14"
-fmp_last_sync: "2026-05-26"
+fmp_primary_market_cap: 21942182
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-06-23"
+fmp_next_earnings_date: "2026-06-29"
+fmp_next_earnings_symbols: ["HELP"]
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "biotech", "psychedelics"]
 ---
 

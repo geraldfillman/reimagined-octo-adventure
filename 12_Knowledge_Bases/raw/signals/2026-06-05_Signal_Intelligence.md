@@ -1,0 +1,102 @@
+---
+title: "Signal Intelligence 2026-06-05"
+source: "Canonical Signal Intelligence"
+date_pulled: "2026-06-05"
+domain: "signals"
+data_type: "signal_intelligence"
+frequency: "daily"
+signal_status: "alert"
+signal_card_count: 95
+gap_count: 15
+deep_dive_count: 24
+signals: ["strategy:quality-compounders:watch", "strategy:deep-value-rerating:watch", "strategy:garp-with-estimate-revisions:watch", "strategy:momentum-with-breadth-confirmation:watch", "strategy:hard-asset-carry:watch", "strategy:post-earnings-announcement-drift:watch", "strategy:insider-buying-with-short-interest-squeeze:watch", "strategy:credit-stress-value:watch", "strategy:relative-value-pairs:watch", "strategy:convex-tail-hedge:watch", "strategy:volatility-carry-short-vol:watch", "strategy:cross-asset-trend-following:watch", "strategy:post-fomc-drift:watch", "strategy:short-squeeze-setup:watch", "strategy:sector-rotation-by-cycle:watch", "strategy:defensive-rotation-late-cycle:watch", "strategy:index-dispersion-trade:watch", "thesis:ai-power-defense-stack:watch", "thesis:ai-power-infrastructure:watch", "thesis:alzheimer-s-disease-modification:watch", "thesis:antimicrobial-resistance-pipeline:watch", "thesis:aerospace-and-defense-sector-basket:watch", "thesis:buffett-style-quality-compounders:watch", "thesis:communication-services-sector-basket:watch"]
+tags: ["signal-intelligence", "signals", "strategy", "thesis", "market-cycle"]
+---
+
+## Signal Summary
+
+| Scope | Signal | Status | Direction | Confidence | Summary | Next Action |
+| --- | --- | --- | --- | --- | --- | --- |
+| market-cycle | Dollar Funding Stress | alert | risk | Medium | Dollar Funding Stress has matching evidence but no current cycle-status note. | Run market-cycle-monitor and refresh the missing source pull for this mechanism. |
+| market-cycle | RRP Unwind | alert | risk | Medium | RRP Unwind has matching evidence but no current cycle-status note. | Run market-cycle-monitor and refresh the missing source pull for this mechanism. |
+| market-cycle | TGA Drain/Refill Effect | alert | risk | Medium | TGA Drain/Refill Effect has matching evidence but no current cycle-status note. | Run market-cycle-monitor and refresh the missing source pull for this mechanism. |
+| strategy | Convex Tail Hedge | watch | risk | Low | Data coverage is incomplete for fred.credit. Current cycle context is unfavorable: Guidance Compression Cycle. | Refresh fred.credit coverage before upgrading Convex Tail Hedge. |
+| strategy | Credit-Stress Value | watch | mixed | Medium | Credit-Stress Value has 2 matching evidence item(s). Data coverage is incomplete for fred.credit, fmp.statements. | Refresh fred.credit coverage before upgrading Credit-Stress Value. |
+| strategy | Cross-Asset Trend Following | watch | mixed | Low | Data coverage is incomplete for fmp.commodity, fmp.forex. | Refresh fmp.commodity coverage before upgrading Cross-Asset Trend Following. |
+| strategy | Deep Value Rerating | watch | mixed | Medium | Deep Value Rerating has 2 matching evidence item(s). Data coverage is incomplete for fmp.statements, fmp.insider, fmp.news. | Refresh fmp.statements coverage before upgrading Deep Value Rerating. |
+| strategy | Defensive Rotation Late Cycle | watch | mixed | Low | Data coverage is incomplete for fred.credit. | Refresh fred.credit coverage before upgrading Defensive Rotation Late Cycle. |
+| strategy | GARP with Estimate Revisions | watch | mixed | Low | Data coverage is incomplete for fmp.analyst, fmp.calendars. | Refresh fmp.analyst coverage before upgrading GARP with Estimate Revisions. |
+| strategy | Hard Asset Carry | watch | mixed | Medium | Hard Asset Carry has 4 matching evidence item(s). Data coverage is incomplete for cftc-cot, fmp.commodity. | Refresh cftc-cot coverage before upgrading Hard Asset Carry. |
+| strategy | Index Dispersion Trade | watch | mixed | Low | Data coverage is incomplete for fmp.indexes. | Refresh fmp.indexes coverage before upgrading Index Dispersion Trade. |
+| strategy | Insider Buying with Short Interest Squeeze | watch | mixed | Medium | Insider Buying with Short Interest Squeeze has 1 matching evidence item(s). Data coverage is incomplete for fmp.insider. | Refresh fmp.insider coverage before upgrading Insider Buying with Short Interest Squeeze. |
+| strategy | Momentum with Breadth Confirmation | watch | mixed | Medium | Momentum with Breadth Confirmation has 2 matching evidence item(s). | Review Momentum with Breadth Confirmation evidence gate and confirm a second source before action. |
+| strategy | Post-Earnings Announcement Drift | watch | mixed | Low | Data coverage is incomplete for fmp.calendars, fmp.analyst, fmp.news. | Refresh fmp.calendars coverage before upgrading Post-Earnings Announcement Drift. |
+| strategy | Post-FOMC Drift | watch | mixed | Medium | Post-FOMC Drift has 7 matching evidence item(s). Data coverage is incomplete for fmp.economics, fmp.news. | Refresh fmp.economics coverage before upgrading Post-FOMC Drift. |
+| strategy | Quality Compounders | watch | mixed | Low | Data coverage is incomplete for fmp.statements, fmp.analyst, fmp.rating-history. | Refresh fmp.statements coverage before upgrading Quality Compounders. |
+| strategy | Relative Value Pairs | watch | mixed | Low | Data coverage is incomplete for fmp.news. | Refresh fmp.news coverage before upgrading Relative Value Pairs. |
+| strategy | Sector Rotation by Cycle | watch | mixed | Medium | Sector Rotation by Cycle has 4 matching evidence item(s). Data coverage is incomplete for fmp.analyst. | Refresh fmp.analyst coverage before upgrading Sector Rotation by Cycle. |
+| strategy | Short Squeeze Setup | watch | mixed | Low | Data coverage is incomplete for fmp.insider, fmp.news. | Refresh fmp.insider coverage before upgrading Short Squeeze Setup. |
+| strategy | Volatility Carry (Short Vol) | watch | mixed | Low | Data coverage is incomplete for fred.credit. | Refresh fred.credit coverage before upgrading Volatility Carry (Short Vol). |
+| thesis | Aerospace & Defense Sector Basket | watch | mixed | Medium | Aerospace & Defense Sector Basket has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | AI Power Defense Stack | watch | mixed | Medium | AI Power Defense Stack has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | AI Power Infrastructure | watch | mixed | Medium | AI Power Infrastructure has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Alzheimer's Disease Modification | watch | mixed | Medium | Alzheimer's Disease Modification has 3 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Antimicrobial Resistance Pipeline | watch | mixed | Medium | Antimicrobial Resistance Pipeline has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, macro. | Refresh full-picture evidence before changing conviction. |
+| thesis | Bioengineered Food Systems | watch | mixed | Medium | Bioengineered Food Systems has 9 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Biosecurity Compute Convergence | watch | mixed | Medium | Biosecurity Compute Convergence has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Buffett Style Quality Compounders | watch | mixed | Medium | Buffett Style Quality Compounders has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Capital Raise Survivors / Small-Cap Inflection Basket | watch | mixed | Medium | Capital Raise Survivors / Small-Cap Inflection Basket has 10 matching evidence item(s). Missing inputs: full-picture, catalyst, macro, research/news. | Refresh full-picture evidence before changing conviction. |
+| thesis | Communication Services Sector Basket | watch | mixed | Medium | Communication Services Sector Basket has 10 matching evidence item(s). Missing inputs: full-picture, research/news. | Refresh full-picture evidence before changing conviction. |
+
+## Deeper Dive Queue
+
+| Topic | Source | Why It Matters | Questions | Next Action | Links |
+| --- | --- | --- | --- | --- | --- |
+| Curriculum | reference | Curriculum is a reference point for understanding Quality Compounders. | How does Curriculum explain the current Quality Compounders signal?; What would make this reference less relevant today? | Open Curriculum and compare it with the latest signal evidence. | Curriculum |
+| SEC EDGAR Sector Overview — Consumer | official | Deep Value Rerating depends on understanding SEC EDGAR Sector Overview — Consumer and whether it confirms or challenges the current signal. | What does SEC EDGAR Sector Overview — Consumer change about Deep Value Rerating?; Which evidence would confirm or invalidate this read? | Read SEC EDGAR Sector Overview — Consumer and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_SEC_consumer-discretionary_Overview.md |
+| Consumer Discretionary Sector Basket - 2026-06-05 | official | Deep Value Rerating depends on understanding Consumer Discretionary Sector Basket - 2026-06-05 and whether it confirms or challenges the current signal. | What does Consumer Discretionary Sector Basket - 2026-06-05 change about Deep Value Rerating?; Which evidence would confirm or invalidate this read? | Read Consumer Discretionary Sector Basket - 2026-06-05 and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_Consumer_Discretionary_Sector.md |
+| News: commodities | news | Hard Asset Carry depends on understanding News: commodities and whether it confirms or challenges the current signal. | What does News: commodities change about Hard Asset Carry?; Which evidence would confirm or invalidate this read? | Read News: commodities and capture one takeaway in the relevant review note. | 05_Data_Pulls/News/2026-06-05_News_commodities.md |
+| News: technology | news | Post-FOMC Drift depends on understanding News: technology and whether it confirms or challenges the current signal. | What does News: technology change about Post-FOMC Drift?; Which evidence would confirm or invalidate this read? | Read News: technology and capture one takeaway in the relevant review note. | 05_Data_Pulls/News/2026-06-05_News_technology.md |
+| News: manufacturing | news | Post-FOMC Drift depends on understanding News: manufacturing and whether it confirms or challenges the current signal. | What does News: manufacturing change about Post-FOMC Drift?; Which evidence would confirm or invalidate this read? | Read News: manufacturing and capture one takeaway in the relevant review note. | 05_Data_Pulls/News/2026-06-05_News_manufacturing.md |
+| News: health | news | Post-FOMC Drift depends on understanding News: health and whether it confirms or challenges the current signal. | What does News: health change about Post-FOMC Drift?; Which evidence would confirm or invalidate this read? | Read News: health and capture one takeaway in the relevant review note. | 05_Data_Pulls/News/2026-06-05_News_health.md |
+| SEC EDGAR Sector Overview — Real Estate | official | Sector Rotation by Cycle depends on understanding SEC EDGAR Sector Overview — Real Estate and whether it confirms or challenges the current signal. | What does SEC EDGAR Sector Overview — Real Estate change about Sector Rotation by Cycle?; Which evidence would confirm or invalidate this read? | Read SEC EDGAR Sector Overview — Real Estate and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_SEC_real-estate_Overview.md |
+| Real Estate Sector Basket - 2026-06-05 | official | Sector Rotation by Cycle depends on understanding Real Estate Sector Basket - 2026-06-05 and whether it confirms or challenges the current signal. | What does Real Estate Sector Basket - 2026-06-05 change about Sector Rotation by Cycle?; Which evidence would confirm or invalidate this read? | Read Real Estate Sector Basket - 2026-06-05 and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_Real_Estate_Sector.md |
+| SEC EDGAR Sector Overview — Industrials | official | AI Power Defense Stack depends on understanding SEC EDGAR Sector Overview — Industrials and whether it confirms or challenges the current signal. | What does SEC EDGAR Sector Overview — Industrials change about AI Power Defense Stack?; Which evidence would confirm or invalidate this read? | Read SEC EDGAR Sector Overview — Industrials and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_SEC_aerospace-defense_Overview.md |
+| Aerospace & Defense Sector Basket - 2026-06-05 | official | AI Power Defense Stack depends on understanding Aerospace & Defense Sector Basket - 2026-06-05 and whether it confirms or challenges the current signal. | What does Aerospace & Defense Sector Basket - 2026-06-05 change about AI Power Defense Stack?; Which evidence would confirm or invalidate this read? | Read Aerospace & Defense Sector Basket - 2026-06-05 and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_Aerospace_&_Defense_Sector.md |
+| AI Infrastructure Buildout | reference | AI Infrastructure Buildout is a reference point for understanding AI Power Defense Stack. | How does AI Infrastructure Buildout explain the current AI Power Defense Stack signal?; What would make this reference less relevant today? | Open [[AI Infrastructure Buildout]] and compare it with the latest signal evidence. | [[AI Infrastructure Buildout]] |
+| SEC EDGAR Sector Overview — Clean Energy | official | AI Power Infrastructure depends on understanding SEC EDGAR Sector Overview — Clean Energy and whether it confirms or challenges the current signal. | What does SEC EDGAR Sector Overview — Clean Energy change about AI Power Infrastructure?; Which evidence would confirm or invalidate this read? | Read SEC EDGAR Sector Overview — Clean Energy and capture one takeaway in the relevant review note. | 05_Data_Pulls/Sectors/2026-06-05_SEC_utilities_Overview.md |
+| Energy Security | reference | Energy Security is a reference point for understanding AI Power Infrastructure. | How does Energy Security explain the current AI Power Infrastructure signal?; What would make this reference less relevant today? | Open [[Energy Security]] and compare it with the latest signal evidence. | [[Energy Security]] |
+| Innovation Cycle | reference | Innovation Cycle is a reference point for understanding Alzheimer's Disease Modification. | How does Innovation Cycle explain the current Alzheimer's Disease Modification signal?; What would make this reference less relevant today? | Open [[Innovation Cycle]] and compare it with the latest signal evidence. | [[Innovation Cycle]] |
+| Goldilocks | reference | Goldilocks is a reference point for understanding Alzheimer's Disease Modification. | How does Goldilocks explain the current Alzheimer's Disease Modification signal?; What would make this reference less relevant today? | Open [[Goldilocks]] and compare it with the latest signal evidence. | [[Goldilocks]] |
+| Lecanemab Prescriptions | reference | Lecanemab Prescriptions is a reference point for understanding Alzheimer's Disease Modification. | How does Lecanemab Prescriptions explain the current Alzheimer's Disease Modification signal?; What would make this reference less relevant today? | Open [[Lecanemab Prescriptions]] and compare it with the latest signal evidence. | [[Lecanemab Prescriptions]] |
+| SEC EDGAR 8-K Filings — All Theses | official | Antimicrobial Resistance Pipeline depends on understanding SEC EDGAR 8-K Filings — All Theses and whether it confirms or challenges the current signal. | What does SEC EDGAR 8-K Filings — All Theses change about Antimicrobial Resistance Pipeline?; Which evidence would confirm or invalidate this read? | Read SEC EDGAR 8-K Filings — All Theses and capture one takeaway in the relevant review note. | 05_Data_Pulls/Government/2026-06-05_SEC_8K_Thesis.md |
+
+## Missing Signals And Data Gaps
+
+| Scope | Name | Gap | Severity | Evidence | Next Action |
+| --- | --- | --- | --- | --- | --- |
+| market-cycle | Long-Gamma Stabilization | missing_market_cycle_input | watch | No recent cycle-status note or pull artifact matched Long-Gamma Stabilization. | Add or refresh the source pull that covers this mechanism and rerun market-cycle-monitor. |
+| market-cycle | Dealer Short-Gamma Chase | missing_market_cycle_input | watch | No recent cycle-status note or pull artifact matched Dealer Short-Gamma Chase. | Add or refresh the source pull that covers this mechanism and rerun market-cycle-monitor. |
+| market-cycle | AAII Sentiment Extremes | missing_market_cycle_input | watch | No recent cycle-status note or pull artifact matched AAII Sentiment Extremes. | Add or refresh the source pull that covers this mechanism and rerun market-cycle-monitor. |
+| market-cycle | 0DTE Option Flow | missing_market_cycle_input | watch | No recent cycle-status note or pull artifact matched 0DTE Option Flow. | Add or refresh the source pull that covers this mechanism and rerun market-cycle-monitor. |
+| strategy | Quality Compounders | thin_active_signal_evidence | watch | Quality Compounders is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | GARP with Estimate Revisions | thin_active_signal_evidence | watch | GARP with Estimate Revisions is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Post-Earnings Announcement Drift | thin_active_signal_evidence | watch | Post-Earnings Announcement Drift is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Insider Buying with Short Interest Squeeze | thin_active_signal_evidence | watch | Insider Buying with Short Interest Squeeze is watch with 1 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Relative Value Pairs | thin_active_signal_evidence | watch | Relative Value Pairs is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Convex Tail Hedge | thin_active_signal_evidence | watch | Convex Tail Hedge is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Volatility Carry (Short Vol) | thin_active_signal_evidence | watch | Volatility Carry (Short Vol) is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Cross-Asset Trend Following | thin_active_signal_evidence | watch | Cross-Asset Trend Following is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Short Squeeze Setup | thin_active_signal_evidence | watch | Short Squeeze Setup is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Defensive Rotation Late Cycle | thin_active_signal_evidence | watch | Defensive Rotation Late Cycle is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+| strategy | Index Dispersion Trade | thin_active_signal_evidence | watch | Index Dispersion Trade is watch with 0 evidence link(s). | Find a second independent source before upgrading confidence. |
+
+## Source Coverage
+
+| Input | Count |
+| --- | --- |
+| artifacts | 95 |
+| strategies | 20 |
+| theses | 43 |
+| mechanisms | 32 |
+| cycle_status_notes | 13 |

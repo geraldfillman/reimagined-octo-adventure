@@ -29,37 +29,31 @@ invalidation_triggers: ["Major nuclear accident globally triggers regulatory fre
 fmp_watchlist_symbols: ["CEG", "VST", "CCJ", "NNE", "SMR", "OKLO"]
 fmp_watchlist_symbol_count: 6
 fmp_primary_symbol: "CEG"
-fmp_technical_symbol_count: 6
-fmp_technical_nonclear_count: 5
-fmp_technical_bearish_count: 6
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "alert"
-fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 36.12
-fmp_primary_price_vs_sma200_pct: -17.16
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 106215161826
-fmp_primary_trailing_pe: 27.37
-fmp_primary_price_to_sales: 3.56
-fmp_primary_price_to_book: 3.11
-fmp_primary_ev_to_sales: 4.27
-fmp_primary_ev_to_ebitda: 18.09
+fmp_primary_market_cap: 98374202869
+fmp_primary_trailing_pe: 23.8
+fmp_primary_price_to_sales: 3.29
+fmp_primary_price_to_book: 2.9
+fmp_primary_ev_to_sales: 4.01
+fmp_primary_ev_to_ebitda: 14.51
 fmp_primary_roe_pct: 20.07
 fmp_primary_roic_pct: 3.83
 fmp_primary_operating_margin_pct: 16.58
 fmp_primary_net_margin_pct: 12.74
 fmp_primary_current_ratio: 1.36
 fmp_primary_debt_to_equity: 0.67
-fmp_primary_price_target: 394
-fmp_primary_analyst_count: 16
-fmp_primary_target_upside_pct: 33.98
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 3
-fmp_calendar_pull_date: "2026-05-14"
-fmp_last_sync: "2026-05-26"
+fmp_primary_price_target: 383.61
+fmp_primary_analyst_count: 18
+fmp_primary_target_upside_pct: 40.03
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "energy", "nuclear", "smr", "infrastructure", "uranium", "ai-power"]
 ---
 
@@ -106,14 +100,14 @@ Nuclear power is experiencing its most important policy and commercial renaissan
 - **Energy prices**: Natural gas prices above $4/MMBtu make nuclear economics clearly superior
 
 ## Macro Regime Sensitivity Matrix
-| Regime | Thesis Impact | Action |
-|--------|--------------|--------|
-| [[AI Infrastructure Buildout]] | Strong tailwind | Add CEG, VST |
-| [[Energy Security]] | Strong tailwind | Add CCJ |
-| [[Goldilocks]] | Supportive | Hold |
-| [[Rate Hike Cycle]] | Headwind for SMR developers (OKLO, SMR, NNE) | Rotate to CEG/VST |
-| [[Recession]] | Mixed — power demand may soften | Hold CEG/VST; trim NNE/SMR |
-| [[Risk-Off]] | Pressure on speculative names | Hold CEG, CCJ; trim NNE, OKLO |
+| Regime                         | Thesis Impact                                | Action                        |
+| ------------------------------ | -------------------------------------------- | ----------------------------- |
+| [[AI Infrastructure Buildout]] | Strong tailwind                              | Add CEG, VST                  |
+| [[Energy Security]]            | Strong tailwind                              | Add CCJ                       |
+| [[Goldilocks]]                 | Supportive                                   | Hold                          |
+| [[Rate Hike Cycle]]            | Headwind for SMR developers (OKLO, SMR, NNE) | Rotate to CEG/VST             |
+| [[Recession]]                  | Mixed — power demand may soften              | Hold CEG/VST; trim NNE/SMR    |
+| [[Risk-Off]]                   | Pressure on speculative names                | Hold CEG, CCJ; trim NNE, OKLO |
 
 ## Invalidation Criteria
 - Major global nuclear accident → regulatory paralysis (Fukushima scenario)

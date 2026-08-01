@@ -29,39 +29,31 @@ invalidation_triggers: ["DoD AI budget cut >20% in a single NDAA", "Congress ban
 fmp_watchlist_symbols: ["PLTR", "BBAI", "LDOS", "BAH", "SAIC", "CACI", "MSFT", "AMZN", "LMT", "RTX", "NOC", "GD"]
 fmp_watchlist_symbol_count: 12
 fmp_primary_symbol: "PLTR"
-fmp_technical_symbol_count: 12
-fmp_technical_nonclear_count: 11
-fmp_technical_bearish_count: 11
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
-fmp_technical_oversold_count: 2
-fmp_primary_technical_status: "alert"
-fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 43.28
-fmp_primary_price_vs_sma200_pct: -18.07
+fmp_technical_oversold_count: 0
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 314286061600
-fmp_primary_trailing_pe: 143.62
-fmp_primary_price_to_sales: 60.16
-fmp_primary_price_to_book: 38.78
-fmp_primary_ev_to_sales: 59.76
-fmp_primary_ev_to_ebitda: 155.21
+fmp_primary_market_cap: 273198577771
+fmp_primary_trailing_pe: 123.94
+fmp_primary_price_to_sales: 52.3
+fmp_primary_price_to_book: 33.71
+fmp_primary_ev_to_sales: 51.9
+fmp_primary_ev_to_ebitda: 115.42
 fmp_primary_roe_pct: 32.18
 fmp_primary_roic_pct: 22.28
 fmp_primary_operating_margin_pct: 38.13
 fmp_primary_net_margin_pct: 43.67
 fmp_primary_current_ratio: 6.91
 fmp_primary_debt_to_equity: 0.03
-fmp_primary_price_target: 186.15
+fmp_primary_price_target: 187.47
 fmp_primary_analyst_count: 34
-fmp_primary_target_upside_pct: 36
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 2
-fmp_calendar_pull_date: "2026-05-26"
-fmp_next_earnings_date: "2026-06-01"
-fmp_next_earnings_symbols: ["SAIC"]
-fmp_last_sync: "2026-05-26"
+fmp_primary_target_upside_pct: 57.56
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "defense", "ai", "autonomous-warfare", "c2", "government"]
 ---
 

@@ -29,37 +29,31 @@ invalidation_triggers: ["Precision fermentation remains structurally uneconomic 
 fmp_watchlist_symbols: ["CTVA", "ADM", "BG", "IFF", "FMC", "TSN", "BYND", "DNA", "TWST", "TMO"]
 fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "CTVA"
-fmp_technical_symbol_count: 10
-fmp_technical_nonclear_count: 4
-fmp_technical_bearish_count: 5
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 57.72
-fmp_primary_price_vs_sma200_pct: 15.56
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 53211319200
-fmp_primary_trailing_pe: 46.04
-fmp_primary_price_to_sales: 2.97
+fmp_primary_market_cap: 53333378850
+fmp_primary_trailing_pe: 46.63
+fmp_primary_price_to_sales: 2.98
 fmp_primary_price_to_book: 2.2
-fmp_primary_ev_to_sales: 3.04
-fmp_primary_ev_to_ebitda: 15.95
+fmp_primary_ev_to_sales: 3.05
+fmp_primary_ev_to_ebitda: 17.34
 fmp_primary_roe_pct: 4.67
 fmp_primary_roic_pct: 6.4
 fmp_primary_operating_margin_pct: 16.26
 fmp_primary_net_margin_pct: 6.5
 fmp_primary_current_ratio: 1.47
 fmp_primary_debt_to_equity: 0.14
-fmp_primary_price_target: 83.65
-fmp_primary_analyst_count: 20
-fmp_primary_target_upside_pct: 5.14
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
+fmp_primary_price_target: 84.57
+fmp_primary_analyst_count: 23
+fmp_primary_target_upside_pct: 6.05
+fmp_primary_fundamentals_cached_at: "2026-06-23"
 fmp_calendar_symbol_count: 0
-fmp_calendar_pull_date: "2026-05-26"
-fmp_last_sync: "2026-05-26"
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "biofood", "synthetic-biology", "food-systems", "agtech", "precision-fermentation"]
 ---
 

@@ -34,37 +34,31 @@ invalidation_triggers: ["Tesla Optimus fails to achieve < $30K production cost b
 fmp_watchlist_symbols: ["TSLA", "GOOGL", "NVDA"]
 fmp_watchlist_symbol_count: 3
 fmp_primary_symbol: "TSLA"
-fmp_technical_symbol_count: 3
-fmp_technical_nonclear_count: 1
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
 fmp_technical_bearish_count: 0
-fmp_technical_overbought_count: 1
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 61.04
-fmp_primary_price_vs_sma200_pct: 5.26
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 1599974277200
-fmp_primary_trailing_pe: 355.45
-fmp_primary_price_to_sales: 16.35
-fmp_primary_price_to_book: 16.38
-fmp_primary_ev_to_sales: 16.27
-fmp_primary_ev_to_ebitda: 152.01
+fmp_primary_market_cap: 1448092960400
+fmp_primary_trailing_pe: 320.35
+fmp_primary_price_to_sales: 14.79
+fmp_primary_price_to_book: 14.82
+fmp_primary_ev_to_sales: 14.72
+fmp_primary_ev_to_ebitda: 119.39
 fmp_primary_roe_pct: 4.79
-fmp_primary_roic_pct: 3.21
+fmp_primary_roic_pct: 3.18
 fmp_primary_operating_margin_pct: 5
 fmp_primary_net_margin_pct: 3.96
 fmp_primary_current_ratio: 2.04
 fmp_primary_debt_to_equity: 0.11
-fmp_primary_price_target: 437.79
-fmp_primary_analyst_count: 42
-fmp_primary_target_upside_pct: 2.77
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 1
-fmp_calendar_pull_date: "2026-05-16"
-fmp_last_sync: "2026-05-26"
+fmp_primary_price_target: 436.27
+fmp_primary_analyst_count: 41
+fmp_primary_target_upside_pct: 13.15
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "robotics", "humanoid", "ai", "manufacturing", "automation", "tsla"]
 ---
 

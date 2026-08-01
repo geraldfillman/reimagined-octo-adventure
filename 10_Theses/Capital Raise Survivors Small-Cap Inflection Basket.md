@@ -29,23 +29,18 @@ invalidation_triggers: ["Strict small-cap clean screen remains empty for multipl
 fmp_watchlist_symbols: ["BW", "TNC", "PPIH", "ECPG", "PRKS", "BRBR", "IIPR", "NKTR", "UFPT", "PDFS"]
 fmp_watchlist_symbol_count: 10
 fmp_primary_symbol: "BW"
-fmp_technical_symbol_count: 10
-fmp_technical_nonclear_count: 2
-fmp_technical_bearish_count: 3
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
-fmp_technical_oversold_count: 1
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 61.28
-fmp_primary_price_vs_sma200_pct: 148.25
+fmp_technical_oversold_count: 0
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 2177925262
-fmp_primary_trailing_pe: -19.76
-fmp_primary_price_to_sales: 3.26
-fmp_primary_price_to_book: -14.8
-fmp_primary_ev_to_sales: 3.5
-fmp_primary_ev_to_ebitda: 60.91
+fmp_primary_market_cap: 1873656292
+fmp_primary_trailing_pe: -18.51
+fmp_primary_price_to_sales: 2.8
+fmp_primary_price_to_book: -12.73
+fmp_primary_ev_to_sales: 3.04
+fmp_primary_ev_to_ebitda: -51.08
 fmp_primary_roe_pct: 61.01
 fmp_primary_roic_pct: 8.34
 fmp_primary_operating_margin_pct: 4.22
@@ -54,14 +49,11 @@ fmp_primary_current_ratio: 0.99
 fmp_primary_debt_to_equity: -1.87
 fmp_primary_price_target: 13.6
 fmp_primary_analyst_count: 5
-fmp_primary_target_upside_pct: -28.57
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 4
-fmp_calendar_pull_date: "2026-05-26"
-fmp_next_earnings_date: "2026-06-09"
-fmp_next_earnings_symbols: ["PPIH"]
-fmp_last_sync: "2026-05-26"
+fmp_primary_target_upside_pct: -16.97
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 1
+fmp_calendar_pull_date: "2026-06-05"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "smallcap", "capital-raise", "dilution", "inflection", "special-situations"]
 ---
 

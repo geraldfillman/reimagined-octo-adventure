@@ -1,0 +1,63 @@
+{
+  "ptype_codes": {
+    "o": "Solicitation",
+    "k": "Combined Synopsis/Solicitation",
+    "r": "Sources Sought",
+    "p": "Pre-solicitation",
+    "a": "Award Notice",
+    "s": "Special Notice",
+    "u": "Justification"
+  },
+  "default_ptypes": ["o", "k"],
+  "intel_ptypes": ["r", "p"],
+  "naics_codes": [
+    "541511", "541512", "541519",
+    "541611", "541618",
+    "541430",
+    "518210",
+    "561110", "561410", "561499", "561990",
+    "611430",
+    "519290"
+  ],
+  "keyword_clusters": {
+    "documents_records": [
+      "document conversion", "digitization", "scanning", "indexing",
+      "records management", "file cleanup", "document remediation",
+      "metadata tagging", "archive conversion", "OCR", "searchable PDF",
+      "records inventory"
+    ],
+    "web_content": [
+      "website maintenance", "content migration", "website redesign support",
+      "CMS migration", "accessibility remediation", "broken link audit",
+      "web content cleanup", "digital content services",
+      "plain language rewrite", "PDF to web"
+    ],
+    "training_lms": [
+      "eLearning", "LMS support", "course conversion", "training materials",
+      "instructional design support", "curriculum conversion", "SOP training",
+      "staff training modules", "quiz development", "facilitator guide"
+    ],
+    "data_dashboards": [
+      "data entry", "data cleanup", "spreadsheet modernization",
+      "dashboard development", "Power BI", "reporting automation",
+      "survey analysis", "database cleanup", "inventory database",
+      "data validation", "Excel cleanup"
+    ],
+    "meeting_transcription": [
+      "transcription", "captioning", "meeting minutes", "board minutes",
+      "public meeting support", "hearing transcript", "audio transcription",
+      "video captioning", "minutes preparation", "action item tracking"
+    ],
+    "asset_inventory": [
+      "asset tagging", "barcode inventory", "equipment inventory",
+      "IT asset inventory", "facilities inventory", "room audit",
+      "QR code labeling", "equipment registry", "fixed asset inventory",
+      "AV audit"
+    ],
+    "admin_support": [
+      "compliance tracking", "grant reporting support", "evidence binder",
+      "application processing", "form processing", "vendor file cleanup",
+      "procurement file support", "records support", "program reporting"
+    ]
+  }
+}

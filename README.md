@@ -1,4 +1,4 @@
-﻿# My_Data
+# My_Data
 
 `My_Data` is the execution engine and active report/research vault for an Obsidian-based investment research system. It runs the pullers, signal logic, thesis monitoring, data freshness tracking, dashboards, generated reports, research review surfaces, KB routing, and validation that support the broader research workflow.
 
@@ -25,44 +25,44 @@ Run commands from `scripts/`:
 cd "C:\Users\CaveUser\Documents\Obsidian Vault\My_Data\scripts"
 ```
 
-| Task | Command |
-|---|---|
-| Show CLI help | `node run.mjs help` |
-| Validate vault schemas | `node run.mjs system validate` |
-| Check data readiness preflight | `node run.mjs system readiness --cadence <daily|premarket|midday|preclose|eod>` |
-| Run manual full daily pull cadence | `node run.mjs routine daily` |
-| Dry-run manual full daily pull cadence | `node run.mjs routine daily --dry-run --skip-validate` |
-| List configured cadences | `node run.mjs cadence list` |
-| Dry-run scheduled review/analysis cadence | `node run.mjs cadence run premarket --dry-run` |
-| Dry-run Windows review/analysis tasks | `.\install-data-freshness-tasks.ps1 -DryRun` |
-| Register Windows review/analysis tasks | `.\install-data-freshness-tasks.ps1` |
-| Run canonical signal layer | `node run.mjs pull signal-intelligence --scope all` |
-| Dry-run Neo4j BOD/EOD metric snapshots | `node run.mjs pull neo4j-fmp-metric-snapshots --cadence eod --tickers AAPL,MSFT,NVDA --dry-run --json` |
-| Run portfolio health scan | `node run.mjs pull portfolio-health --file "C:\path\to\positions.csv"` |
-| Run positioning checklist synthesis | `node run.mjs pull positioning-checklist --preset workbook-core --dry-run --json` |
-| Generate My_Data reports | `node run.mjs pull my-data-report-flow --all` |
-| Compatibility report alias | `node run.mjs pull research-spine-flow --all` |
-| Run My_Data report/update bridge | `node run.mjs bridge my-data-report-pull --dry-run` |
-| Consolidate old World_Machine content | `node run.mjs bridge consolidate-world-machine --dry-run` |
-| Audit Research Spine without writes | `node run.mjs system audit-research-spine --dry-run --no-inbox` |
-| Generate dashboard manifest | `node run.mjs system dashboard-manifest generate --dry-run` |
-| Update market-cycle status | `node run.mjs pull market-cycle-monitor` |
-| Run streamline report | `node run.mjs pull streamline-report` |
-| Run FMP thesis watchlists | `node run.mjs pull fmp --thesis-watchlists` |
-| Run manual forensic risk screen | `node run.mjs pull forensic-risk --symbols AAPL,MSFT --dry-run` |
-| Export Neo4j blind-spot graph package | `node run.mjs pull neo4j-blind-spot-graph --dry-run --json` |
-| Run FMP cancellation archive dry-run | `node run.mjs pull fmp-harvest --stage all --scope hybrid --dry-run --json` |
-| Run FMP historical price bulk archive | `node run.mjs pull fmp-harvest --stage prices-bulk --from 2020-06-01 --to 2026-06-01 --resume` |
-| Run api.data.gov agency starter pulls | `node run.mjs pull api-data-gov --agency all --dry-run` |
-| Run event scenario research | `node run.mjs pull event-research --scenario fertilizer-shortage --dry-run --handoff-limit 12` |
-| Dry-run manual World_Machine inbox archive processor | `node run.mjs bridge ingest-world-inbox --dry-run` |
-| Rebuild an inbox batch synthesis from archive | `node run.mjs bridge ingest-world-inbox --from-archive --date YYYY-MM-DD --update-existing` |
-| Import inbox ingestion batch into Neo4j | `node run.mjs pull neo4j-inbox-ingestion --date YYYY-MM-DD --dry-run --json` |
-| Run registry FMP screeners | `node run.mjs pull fmp-screener-batch --preset all --dry-run` |
-| Run Semantic Scholar research pull | `node run.mjs pull semantic-scholar --query "market liquidity funding" --top-cited` |
-| Build thesis full picture | `node run.mjs thesis full-picture` |
-| Run sector scan | `node run.mjs scan sectors` |
-| Run company-risk watchlist | `node run.mjs scan company-risk --watchlist` |
+| Task                                                 | Command                                                                                                |           |        |          |       |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | --------- | ------ | -------- | ----- |
+| Show CLI help                                        | `node run.mjs help`                                                                                    |           |        |          |       |
+| Validate vault schemas                               | `node run.mjs system validate`                                                                         |           |        |          |       |
+| Check data readiness preflight                       | `node run.mjs system readiness --cadence <daily                                                        | premarket | midday | preclose | eod>` |
+| Run manual full daily pull cadence                   | `node run.mjs routine daily`                                                                           |           |        |          |       |
+| Dry-run manual full daily pull cadence               | `node run.mjs routine daily --dry-run --skip-validate`                                                 |           |        |          |       |
+| List configured cadences                             | `node run.mjs cadence list`                                                                            |           |        |          |       |
+| Dry-run scheduled review/analysis cadence            | `node run.mjs cadence run premarket --dry-run`                                                         |           |        |          |       |
+| Dry-run Windows review/analysis tasks                | `.\install-data-freshness-tasks.ps1 -DryRun`                                                           |           |        |          |       |
+| Register Windows review/analysis tasks               | `.\install-data-freshness-tasks.ps1`                                                                   |           |        |          |       |
+| Run canonical signal layer                           | `node run.mjs pull signal-intelligence --scope all`                                                    |           |        |          |       |
+| Dry-run Neo4j BOD/EOD metric snapshots               | `node run.mjs pull neo4j-fmp-metric-snapshots --cadence eod --tickers AAPL,MSFT,NVDA --dry-run --json` |           |        |          |       |
+| Run portfolio health scan                            | `node run.mjs pull portfolio-health --file "C:\path\to\positions.csv"`                                 |           |        |          |       |
+| Run positioning checklist synthesis                  | `node run.mjs pull positioning-checklist --preset workbook-core --dry-run --json`                      |           |        |          |       |
+| Generate My_Data reports                             | `node run.mjs pull my-data-report-flow --all`                                                          |           |        |          |       |
+| Compatibility report alias                           | `node run.mjs pull research-spine-flow --all`                                                          |           |        |          |       |
+| Run My_Data report/update bridge                     | `node run.mjs bridge my-data-report-pull --dry-run`                                                    |           |        |          |       |
+| Consolidate old World_Machine content                | `node run.mjs bridge consolidate-world-machine --dry-run`                                              |           |        |          |       |
+| Audit Research Spine without writes                  | `node run.mjs system audit-research-spine --dry-run --no-inbox`                                        |           |        |          |       |
+| Generate dashboard manifest                          | `node run.mjs system dashboard-manifest generate --dry-run`                                            |           |        |          |       |
+| Update market-cycle status                           | `node run.mjs pull market-cycle-monitor`                                                               |           |        |          |       |
+| Run streamline report                                | `node run.mjs pull streamline-report`                                                                  |           |        |          |       |
+| Run FMP thesis watchlists                            | `node run.mjs pull fmp --thesis-watchlists`                                                            |           |        |          |       |
+| Run manual forensic risk screen                      | `node run.mjs pull forensic-risk --symbols AAPL,MSFT --dry-run`                                        |           |        |          |       |
+| Export Neo4j blind-spot graph package                | `node run.mjs pull neo4j-blind-spot-graph --dry-run --json`                                            |           |        |          |       |
+| Run FMP cancellation archive dry-run                 | `node run.mjs pull fmp-harvest --stage all --scope hybrid --dry-run --json`                            |           |        |          |       |
+| Run FMP historical price bulk archive                | `node run.mjs pull fmp-harvest --stage prices-bulk --from 2020-06-01 --to 2026-06-01 --resume`         |           |        |          |       |
+| Run api.data.gov agency starter pulls                | `node run.mjs pull api-data-gov --agency all --dry-run`                                                |           |        |          |       |
+| Run event scenario research                          | `node run.mjs pull event-research --scenario fertilizer-shortage --dry-run --handoff-limit 12`         |           |        |          |       |
+| Dry-run manual World_Machine inbox archive processor | `node run.mjs bridge ingest-world-inbox --dry-run`                                                     |           |        |          |       |
+| Rebuild an inbox batch synthesis from archive        | `node run.mjs bridge ingest-world-inbox --from-archive --date YYYY-MM-DD --update-existing`            |           |        |          |       |
+| Import inbox ingestion batch into Neo4j              | `node run.mjs pull neo4j-inbox-ingestion --date YYYY-MM-DD --dry-run --json`                           |           |        |          |       |
+| Run registry FMP screeners                           | `node run.mjs pull fmp-screener-batch --preset all --dry-run`                                          |           |        |          |       |
+| Run Semantic Scholar research pull                   | `node run.mjs pull semantic-scholar --query "market liquidity funding" --top-cited`                    |           |        |          |       |
+| Build thesis full picture                            | `node run.mjs thesis full-picture`                                                                     |           |        |          |       |
+| Run sector scan                                      | `node run.mjs scan sectors`                                                                            |           |        |          |       |
+| Run company-risk watchlist                           | `node run.mjs scan company-risk --watchlist`                                                           |           |        |          |       |
 
 ## Data Readiness Preflight
 

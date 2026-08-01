@@ -3,21 +3,21 @@ type: market_cycle_status
 title: "Commodity Delivery And Storage Cycle Status"
 cycle_layer: "Commodity Delivery And Storage"
 cycle_layer_id: "commodity_delivery_storage"
-cycle_state: "watch"
-transition: "coverage_changed_from_partial"
-signal_status: "watch"
-coverage_status: "active"
+cycle_state: "data_gap"
+transition: "unchanged"
+signal_status: "unknown"
+coverage_status: "gap"
 missing_inputs: ""
 missing_input_count: 0
-last_updated: "2026-06-04T20:57:59"
+last_updated: ""
 update_cadence: "weekly"
 stale_after_hours: 240
-age_hours: 0
-source_path: "C:/Users/CaveUser/Documents/Obsidian Vault/My_Data/_cache/pulls/Energy/2026-06-05_EIA_Petroleum_Inventories_Storage_Manual.md"
-source_rel_path: "_cache/pulls/Energy/2026-06-05_EIA_Petroleum_Inventories_Storage_Manual.md"
-obsidian_url: "obsidian://open?vault=My_Data&file=_cache%2Fpulls%2FEnergy%2F2026-06-05_EIA_Petroleum_Inventories_Storage_Manual.md"
+age_hours: 999999
+source_path: ""
+source_rel_path: ""
+obsidian_url: ""
 generated_by: "My_Data Market Cycle Monitor"
-generated_on: "2026-06-04T20:59:09"
+generated_on: "2026-07-31T12:30:01"
 tags:
   - "world-machine-review"
   - "market-cycle-monitor"
@@ -27,21 +27,18 @@ tags:
 
 | Field | Value |
 | --- | --- |
-| Cycle state | watch |
-| Transition | coverage_changed_from_partial |
-| Signal status | watch |
-| Coverage status | active |
-| Last updated | 2026-06-04T20:57:59 |
+| Cycle state | data_gap |
+| Transition | unchanged |
+| Signal status | unknown |
+| Coverage status | gap |
+| Last updated |  |
 | Update cadence | weekly |
 | Stale after hours | 240 |
-| Age hours | 0 |
+| Age hours | 999999 |
 | Missing inputs | None listed |
 
 ## Latest Source
 
-- Title: EIA Petroleum Inventories Storage Snapshot
-- Data type: snapshot
-- My_Data path: `_cache/pulls/Energy/2026-06-05_EIA_Petroleum_Inventories_Storage_Manual.md`
-- Open source: obsidian://open?vault=My_Data&file=_cache%2Fpulls%2FEnergy%2F2026-06-05_EIA_Petroleum_Inventories_Storage_Manual.md
+- No matching source artifact was found in My_Data for this cycle layer.
 
 Link-only policy: this note links to My_Data artifacts and does not copy raw payloads into reports.

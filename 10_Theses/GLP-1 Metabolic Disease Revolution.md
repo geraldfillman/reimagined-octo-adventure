@@ -34,37 +34,31 @@ invalidation_triggers: ["Phase 3 cardiovascular safety failure for a leading age
 fmp_watchlist_symbols: ["LLY", "VKTX", "ALVO", "HIMS", "AMGN"]
 fmp_watchlist_symbol_count: 5
 fmp_primary_symbol: "LLY"
-fmp_technical_symbol_count: 5
-fmp_technical_nonclear_count: 3
-fmp_technical_bearish_count: 4
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 61.57
-fmp_primary_price_vs_sma200_pct: 9.43
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 1002954165000
-fmp_primary_trailing_pe: 37.69
-fmp_primary_price_to_sales: 13.88
-fmp_primary_price_to_book: 30.54
-fmp_primary_ev_to_sales: 14.41
-fmp_primary_ev_to_ebitda: 31.42
+fmp_primary_market_cap: 1041739768085
+fmp_primary_trailing_pe: 39.23
+fmp_primary_price_to_sales: 14.42
+fmp_primary_price_to_book: 31.72
+fmp_primary_ev_to_sales: 14.95
+fmp_primary_ev_to_ebitda: 32.27
 fmp_primary_roe_pct: 101.3
 fmp_primary_roic_pct: 32.06
 fmp_primary_operating_margin_pct: 45.87
 fmp_primary_net_margin_pct: 34.98
 fmp_primary_current_ratio: 1.5
 fmp_primary_debt_to_equity: 1.39
-fmp_primary_price_target: 1169.16
-fmp_primary_analyst_count: 37
-fmp_primary_target_upside_pct: 9.78
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 1
-fmp_calendar_pull_date: "2026-05-08"
-fmp_last_sync: "2026-05-26"
+fmp_primary_price_target: 1173.51
+fmp_primary_analyst_count: 41
+fmp_primary_target_upside_pct: 6.09
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "biotech", "pharma", "glp1", "metabolic", "obesity", "diabetes"]
 ---
 

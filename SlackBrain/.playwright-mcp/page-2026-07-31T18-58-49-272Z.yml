@@ -1,0 +1,132 @@
+- main [ref=f7e2]:
+  - generic [ref=f7e3]:
+    - link "DeepThanker home" [ref=f7e4] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f7e5]: D
+      - generic [ref=f7e6]:
+        - strong [ref=f7e7]: DeepThanker
+        - generic [ref=f7e8]: Company Reality Check
+    - generic [ref=f7e9]:
+      - generic "Reading mode" [ref=f7e10]:
+        - button "kids" [pressed] [ref=f7e11] [cursor=pointer]
+        - button "standard" [ref=f7e12] [cursor=pointer]
+        - button "analyst" [ref=f7e13] [cursor=pointer]
+      - button "Sources 0" [ref=f7e14] [cursor=pointer]:
+        - text: Sources
+        - generic [ref=f7e15]: "0"
+      - button "Audit trail" [ref=f7e16] [cursor=pointer]
+  - generic [ref=f7e17]:
+    - generic [ref=f7e18]:
+      - paragraph [ref=f7e19]: Evidence before conviction
+      - heading "Understand the business. Interrogate the price." [level=1] [ref=f7e20]: Understand the business.Interrogate the price.
+    - generic [ref=f7e21]:
+      - paragraph [ref=f7e22]:
+        - text: A guided investigation that separates an impressive
+        - button "capability" [ref=f7e24]
+        - text: from a proven
+        - button "moat" [ref=f7e26]
+        - text: —and asks what the market has already
+        - button "priced in" [ref=f7e28]
+        - text: .
+      - button "Start a company reality check" [ref=f7e29] [cursor=pointer]
+  - generic [ref=f7e30]:
+    - complementary "Research navigation" [ref=f7e31]:
+      - generic [ref=f7e32]:
+        - generic [ref=f7e33]: Active research
+        - combobox "Active research" [ref=f7e34]:
+          - option "Select a company"
+          - option "MSFT — Microsoft Corporation" [selected]
+      - generic [ref=f7e35]: 0 of 9 modules drafted
+      - navigation [ref=f7e37]:
+        - button "01 Scope Research intake" [ref=f7e38] [cursor=pointer]:
+          - generic [ref=f7e39]: "01"
+          - generic [ref=f7e40]:
+            - generic [ref=f7e41]: Scope
+            - text: Research intake
+        - button "02 Explain Company in plain English" [ref=f7e42] [cursor=pointer]:
+          - generic [ref=f7e43]: "02"
+          - generic [ref=f7e44]:
+            - generic [ref=f7e45]: Explain
+            - text: Company in plain English
+        - button "03 Engine Real economic engine" [ref=f7e46] [cursor=pointer]:
+          - generic [ref=f7e47]: "03"
+          - generic [ref=f7e48]:
+            - generic [ref=f7e49]: Engine
+            - text: Real economic engine
+        - button "04 Price Price expectations" [ref=f7e50] [cursor=pointer]:
+          - generic [ref=f7e51]: "04"
+          - generic [ref=f7e52]:
+            - generic [ref=f7e53]: Price
+            - text: Price expectations
+        - button "05 Moat Capability and moat" [ref=f7e54] [cursor=pointer]:
+          - generic [ref=f7e55]: "05"
+          - generic [ref=f7e56]:
+            - generic [ref=f7e57]: Moat
+            - text: Capability and moat
+        - button "06 Future What is priced in" [ref=f7e58] [cursor=pointer]:
+          - generic [ref=f7e59]: "06"
+          - generic [ref=f7e60]:
+            - generic [ref=f7e61]: Future
+            - text: What is priced in
+        - button "07 Surprises Upside and downside" [ref=f7e62] [cursor=pointer]:
+          - generic [ref=f7e63]: "07"
+          - generic [ref=f7e64]:
+            - generic [ref=f7e65]: Surprises
+            - text: Upside and downside
+        - button "08 Driver Fundamentals or vibes" [ref=f7e66] [cursor=pointer]:
+          - generic [ref=f7e67]: "08"
+          - generic [ref=f7e68]:
+            - generic [ref=f7e69]: Driver
+            - text: Fundamentals or vibes
+        - button "09 Decision Decision card" [ref=f7e70] [cursor=pointer]:
+          - generic [ref=f7e71]: "09"
+          - generic [ref=f7e72]:
+            - generic [ref=f7e73]: Decision
+            - text: Decision card
+      - generic [ref=f7e74]:
+        - strong [ref=f7e75]: Agent drafting is off
+        - paragraph [ref=f7e76]: Facts and calculations may be collected. Interpretations remain yours.
+    - generic [ref=f7e77]:
+      - generic [ref=f7e78]:
+        - generic [ref=f7e119]:
+          - paragraph [ref=f7e120]: NASDAQ · MSFT
+          - heading "Microsoft Corporation" [level=2] [ref=f7e121]
+          - paragraph [ref=f7e122]: Verify the DeepThanker evidence workflow against a liquid public company.
+        - generic [ref=f7e123]:
+          - text: Data partially stale
+          - generic [ref=f7e125]: Updated 7/31/2026
+      - generic [ref=f7e126]:
+        - generic [ref=f7e127]:
+          - paragraph [ref=f7e128]: Module 0
+          - heading "Research intake" [level=3] [ref=f7e129]
+        - generic [ref=f7e130]:
+          - generic [ref=f7e131]: H0
+          - strong [ref=f7e132]: Human review required
+      - generic [ref=f7e133]:
+        - generic [ref=f7e134]:
+          - generic [ref=f7e135]:
+            - generic [ref=f7e136]: Research objective
+            - generic [ref=f7e137]: What decision should this research make easier?
+            - textbox "Research objective What decision should this research make easier?" [ref=f7e138]
+          - generic [ref=f7e139]:
+            - generic [ref=f7e140]: Starting thesis
+            - generic [ref=f7e141]: What do you currently believe, if anything?
+            - textbox "Starting thesis What do you currently believe, if anything?" [ref=f7e142]
+          - generic [ref=f7e143]:
+            - generic [ref=f7e144]: Known thesis-breaker
+            - generic [ref=f7e145]: What evidence would force a complete rethink?
+            - textbox "Known thesis-breaker What evidence would force a complete rethink?" [ref=f7e146]
+          - generic [ref=f7e147]:
+            - button "Working…" [disabled] [ref=f7e159]
+            - button "Approve H0" [disabled] [ref=f7e149]
+        - complementary [ref=f7e150]:
+          - generic [ref=f7e151]:
+            - generic [ref=f7e152]: Evidence desk
+            - button "Open register" [ref=f7e153] [cursor=pointer]
+          - paragraph [ref=f7e155]: No structured metrics yet. Collect FMP data or add evidence manually.
+          - generic [ref=f7e156]:
+            - button "Collect SEC filings" [disabled] [ref=f7e157] [cursor=pointer]
+            - button "Collect FMP snapshot" [disabled] [ref=f7e158] [cursor=pointer]
+  - generic [ref=f7e83]:
+    - generic [ref=f7e84]: DeepThanker · private research workspace
+    - paragraph [ref=f7e85]: Educational research only. No order placement. No autonomous recommendations.

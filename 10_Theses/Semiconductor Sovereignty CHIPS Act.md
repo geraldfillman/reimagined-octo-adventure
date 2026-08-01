@@ -29,37 +29,31 @@ invalidation_triggers: ["CHIPS Act funding clawed back or redirected (political 
 fmp_watchlist_symbols: ["AMAT", "KLAC", "LRCX", "ON", "WOLF", "ONTO"]
 fmp_watchlist_symbol_count: 6
 fmp_primary_symbol: "AMAT"
-fmp_technical_symbol_count: 6
-fmp_technical_nonclear_count: 1
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
 fmp_technical_bearish_count: 0
-fmp_technical_overbought_count: 1
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 59.06
-fmp_primary_price_vs_sma200_pct: 53.1
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 343117321440
-fmp_primary_trailing_pe: 40.33
-fmp_primary_price_to_sales: 11.82
-fmp_primary_price_to_book: 14.35
-fmp_primary_ev_to_sales: 11.83
-fmp_primary_ev_to_ebitda: 32.12
+fmp_primary_market_cap: 468269332220
+fmp_primary_trailing_pe: 55.17
+fmp_primary_price_to_sales: 16.13
+fmp_primary_price_to_book: 19.59
+fmp_primary_ev_to_sales: 16.14
+fmp_primary_ev_to_ebitda: 42.04
 fmp_primary_roe_pct: 39.78
 fmp_primary_roic_pct: 21.6
 fmp_primary_operating_margin_pct: 29.51
 fmp_primary_net_margin_pct: 29.31
 fmp_primary_current_ratio: 2.51
 fmp_primary_debt_to_equity: 0.27
-fmp_primary_price_target: 384.5
-fmp_primary_analyst_count: 74
-fmp_primary_target_upside_pct: -11.03
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 1
-fmp_calendar_pull_date: "2026-05-14"
-fmp_last_sync: "2026-05-26"
+fmp_primary_price_target: 404.23
+fmp_primary_analyst_count: 81
+fmp_primary_target_upside_pct: -31.46
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "semiconductors", "chips", "manufacturing", "supply-chain", "ai-infrastructure"]
 ---
 

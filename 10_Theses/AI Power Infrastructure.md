@@ -29,37 +29,31 @@ invalidation_triggers: ["LLM model efficiency (inference optimization, distillat
 fmp_watchlist_symbols: ["VST", "NRG", "GEV", "ETN", "STRL"]
 fmp_watchlist_symbol_count: 5
 fmp_primary_symbol: "VST"
-fmp_technical_symbol_count: 5
-fmp_technical_nonclear_count: 2
-fmp_technical_bearish_count: 2
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "alert"
-fmp_primary_technical_bias: "bearish"
-fmp_primary_momentum_state: "soft"
-fmp_primary_rsi14: 34.05
-fmp_primary_price_vs_sma200_pct: -21.38
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 52691504274
-fmp_primary_trailing_pe: 23.7
-fmp_primary_price_to_sales: 3.25
-fmp_primary_price_to_book: 9.49
-fmp_primary_ev_to_sales: 4.44
-fmp_primary_ev_to_ebitda: 13
+fmp_primary_market_cap: 55090557534
+fmp_primary_trailing_pe: 26.96
+fmp_primary_price_to_sales: 3.4
+fmp_primary_price_to_book: 9.92
+fmp_primary_ev_to_sales: 4.58
+fmp_primary_ev_to_ebitda: 11.44
 fmp_primary_roe_pct: 43.22
 fmp_primary_roic_pct: 0.8
 fmp_primary_operating_margin_pct: 2.07
 fmp_primary_net_margin_pct: 13.82
 fmp_primary_current_ratio: 0.9
 fmp_primary_debt_to_equity: 3.56
-fmp_primary_price_target: 228.48
-fmp_primary_analyst_count: 27
-fmp_primary_target_upside_pct: 46.21
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
+fmp_primary_price_target: 227.1
+fmp_primary_analyst_count: 29
+fmp_primary_target_upside_pct: 39
+fmp_primary_fundamentals_cached_at: "2026-06-23"
 fmp_calendar_symbol_count: 0
-fmp_calendar_pull_date: "2026-05-26"
-fmp_last_sync: "2026-05-26"
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "energy", "ai-infrastructure", "power", "utilities", "data-centers"]
 ---
 

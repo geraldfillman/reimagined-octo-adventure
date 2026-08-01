@@ -1,0 +1,85 @@
+- main [ref=f9e2]:
+  - generic [ref=f9e3]:
+    - link "DeepThanker home" [ref=f9e4] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f9e5]: D
+      - strong [ref=f9e7]: DeepThanker
+    - generic "Reading mode" [ref=f9e9]:
+      - button "kids" [ref=f9e10] [cursor=pointer]
+      - button "standard" [pressed] [ref=f9e11] [cursor=pointer]
+      - button "analyst" [ref=f9e12] [cursor=pointer]
+  - generic [ref=f9e13]:
+    - generic [ref=f9e14]:
+      - paragraph [ref=f9e15]: Evidence before conviction
+      - heading "Understand the business. Interrogate the price." [level=1] [ref=f9e16]: Understand the business.Interrogate the price.
+    - generic [ref=f9e17]:
+      - paragraph [ref=f9e18]:
+        - text: A guided investigation that separates an impressive
+        - button "capability" [ref=f9e20]
+        - text: from a proven
+        - button "moat" [ref=f9e22]
+        - text: —and asks what the market has already
+        - button "priced in" [ref=f9e24]
+        - text: .
+      - button "Start a company reality check" [ref=f9e25] [cursor=pointer]
+  - generic [ref=f9e26]:
+    - complementary "Research navigation" [ref=f9e27]:
+      - generic [ref=f9e28]:
+        - generic [ref=f9e29]: Active research
+        - combobox "Active research" [ref=f9e30]:
+          - option "Select a company" [selected]
+      - generic [ref=f9e31]: 0 of 9 modules drafted
+      - navigation [ref=f9e33]:
+        - button "01 Scope Research intake" [disabled] [ref=f9e34]:
+          - generic [ref=f9e35]: "01"
+          - generic [ref=f9e36]:
+            - generic [ref=f9e37]: Scope
+            - text: Research intake
+        - button "02 Explain Company in plain English" [disabled] [ref=f9e38]:
+          - generic [ref=f9e39]: "02"
+          - generic [ref=f9e40]:
+            - generic [ref=f9e41]: Explain
+            - text: Company in plain English
+        - button "03 Engine Real economic engine" [disabled] [ref=f9e42]:
+          - generic [ref=f9e43]: "03"
+          - generic [ref=f9e44]:
+            - generic [ref=f9e45]: Engine
+            - text: Real economic engine
+        - button "04 Price Price expectations" [disabled] [ref=f9e46]:
+          - generic [ref=f9e47]: "04"
+          - generic [ref=f9e48]:
+            - generic [ref=f9e49]: Price
+            - text: Price expectations
+        - button "05 Moat Capability and moat" [disabled] [ref=f9e50]:
+          - generic [ref=f9e51]: "05"
+          - generic [ref=f9e52]:
+            - generic [ref=f9e53]: Moat
+            - text: Capability and moat
+        - button "06 Future What is priced in" [disabled] [ref=f9e54]:
+          - generic [ref=f9e55]: "06"
+          - generic [ref=f9e56]:
+            - generic [ref=f9e57]: Future
+            - text: What is priced in
+        - button "07 Surprises Upside and downside" [disabled] [ref=f9e58]:
+          - generic [ref=f9e59]: "07"
+          - generic [ref=f9e60]:
+            - generic [ref=f9e61]: Surprises
+            - text: Upside and downside
+        - button "08 Driver Fundamentals or vibes" [disabled] [ref=f9e62]:
+          - generic [ref=f9e63]: "08"
+          - generic [ref=f9e64]:
+            - generic [ref=f9e65]: Driver
+            - text: Fundamentals or vibes
+        - button "09 Decision Decision card" [disabled] [ref=f9e66]:
+          - generic [ref=f9e67]: "09"
+          - generic [ref=f9e68]:
+            - generic [ref=f9e69]: Decision
+            - text: Decision card
+    - generic [ref=f9e71]:
+      - paragraph [ref=f9e72]: No active brief
+      - heading "Begin with a question, not a ticker." [level=2] [ref=f9e73]
+      - paragraph [ref=f9e74]: State the decision, time horizon, and evidence that would change your mind. The system will preserve the rest as an auditable research record.
+      - button "Create the first brief" [ref=f9e75] [cursor=pointer]
+  - generic [ref=f9e76]:
+    - text: DeepThanker · private research workspace
+    - paragraph [ref=f9e77]: Educational research only. No order placement. No autonomous recommendations.

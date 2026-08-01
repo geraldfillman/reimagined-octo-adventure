@@ -29,23 +29,18 @@ invalidation_triggers: ["IRA Investment Tax Credit repealed or restricted — re
 fmp_watchlist_symbols: ["FLNC", "STEM", "ENVX"]
 fmp_watchlist_symbol_count: 3
 fmp_primary_symbol: "FLNC"
-fmp_technical_symbol_count: 3
-fmp_technical_nonclear_count: 2
-fmp_technical_bearish_count: 2
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "positive"
-fmp_primary_rsi14: 58.56
-fmp_primary_price_vs_sma200_pct: 20.55
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 3965477923
-fmp_primary_trailing_pe: -67.88
-fmp_primary_price_to_sales: 1.53
-fmp_primary_price_to_book: 7.71
-fmp_primary_ev_to_sales: 1.53
-fmp_primary_ev_to_ebitda: -364.34
+fmp_primary_market_cap: 4161076183
+fmp_primary_trailing_pe: -72.23
+fmp_primary_price_to_sales: 1.61
+fmp_primary_price_to_book: 8.09
+fmp_primary_ev_to_sales: 1.61
+fmp_primary_ev_to_ebitda: -382.36
 fmp_primary_roe_pct: -10.5
 fmp_primary_roic_pct: -5.43
 fmp_primary_operating_margin_pct: -1.9
@@ -54,12 +49,11 @@ fmp_primary_current_ratio: 1.43
 fmp_primary_debt_to_equity: 1.09
 fmp_primary_price_target: 17.7
 fmp_primary_analyst_count: 37
-fmp_primary_target_upside_pct: -17.64
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 1
-fmp_calendar_pull_date: "2026-05-13"
-fmp_last_sync: "2026-05-26"
+fmp_primary_target_upside_pct: -21.51
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "energy", "storage", "battery", "grid", "clean-energy", "ira"]
 ---
 

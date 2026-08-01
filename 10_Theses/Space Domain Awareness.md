@@ -29,39 +29,31 @@ invalidation_triggers: ["SpaceX Starshield fully monopolizes government satellit
 fmp_watchlist_symbols: ["RKLB", "PL", "ASTS", "BKSY", "SPIR", "MNTS"]
 fmp_watchlist_symbol_count: 6
 fmp_primary_symbol: "RKLB"
-fmp_technical_symbol_count: 6
-fmp_technical_nonclear_count: 2
-fmp_technical_bearish_count: 1
-fmp_technical_overbought_count: 1
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
+fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "watch"
-fmp_primary_technical_bias: "bullish"
-fmp_primary_momentum_state: "overbought"
-fmp_primary_rsi14: 70.15
-fmp_primary_price_vs_sma200_pct: 90.96
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 78586983920
-fmp_primary_trailing_pe: -450.09
-fmp_primary_price_to_sales: 115.64
-fmp_primary_price_to_book: 36.3
-fmp_primary_ev_to_sales: 114.07
-fmp_primary_ev_to_ebitda: -477.43
+fmp_primary_market_cap: 56456898510
+fmp_primary_trailing_pe: -294.39
+fmp_primary_price_to_sales: 83.08
+fmp_primary_price_to_book: 26.08
+fmp_primary_ev_to_sales: 81.51
+fmp_primary_ev_to_ebitda: -364.56
 fmp_primary_roe_pct: -12.26
 fmp_primary_roic_pct: -8.07
 fmp_primary_operating_margin_pct: -33.2
 fmp_primary_net_margin_pct: -26.87
 fmp_primary_current_ratio: 4.47
 fmp_primary_debt_to_equity: 0.06
-fmp_primary_price_target: 84.2
-fmp_primary_analyst_count: 15
-fmp_primary_target_upside_pct: -37.98
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
-fmp_calendar_symbol_count: 5
-fmp_calendar_pull_date: "2026-05-26"
-fmp_next_earnings_date: "2026-06-04"
-fmp_next_earnings_symbols: ["PL"]
-fmp_last_sync: "2026-05-26"
+fmp_primary_price_target: 90.83
+fmp_primary_analyst_count: 18
+fmp_primary_target_upside_pct: -6.87
+fmp_primary_fundamentals_cached_at: "2026-06-23"
+fmp_calendar_symbol_count: 0
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "space", "defense", "satellites", "leo", "space-force", "isr"]
 ---
 

@@ -29,37 +29,31 @@ invalidation_triggers: ["Defense AI budgets flatten while hyperscaler power dema
 fmp_watchlist_symbols: ["GEV", "ETN", "PLTR", "MSFT", "AMZN"]
 fmp_watchlist_symbol_count: 5
 fmp_primary_symbol: "GEV"
-fmp_technical_symbol_count: 5
-fmp_technical_nonclear_count: 2
-fmp_technical_bearish_count: 2
+fmp_technical_symbol_count: 0
+fmp_technical_nonclear_count: 0
+fmp_technical_bearish_count: 0
 fmp_technical_overbought_count: 0
 fmp_technical_oversold_count: 0
-fmp_primary_technical_status: "clear"
-fmp_primary_technical_bias: "mixed"
-fmp_primary_momentum_state: "neutral"
-fmp_primary_rsi14: 54.24
-fmp_primary_price_vs_sma200_pct: 45.54
 fmp_primary_fundamentals_status: "complete"
-fmp_primary_market_cap: 279130212800
-fmp_primary_trailing_pe: 29.8
-fmp_primary_price_to_sales: 7.09
-fmp_primary_price_to_book: 20.07
-fmp_primary_ev_to_sales: 6.9
-fmp_primary_ev_to_ebitda: 81.8
+fmp_primary_market_cap: 283877151600
+fmp_primary_trailing_pe: 30.49
+fmp_primary_price_to_sales: 7.21
+fmp_primary_price_to_book: 20.41
+fmp_primary_ev_to_sales: 7.02
+fmp_primary_ev_to_ebitda: 32.2
 fmp_primary_roe_pct: 87.98
 fmp_primary_roic_pct: 10.32
 fmp_primary_operating_margin_pct: 3.87
 fmp_primary_net_margin_pct: 23.81
 fmp_primary_current_ratio: 0.86
 fmp_primary_debt_to_equity: 0.21
-fmp_primary_price_target: 884.48
-fmp_primary_analyst_count: 61
-fmp_primary_target_upside_pct: -14.85
-fmp_primary_fundamentals_cached_at: "2026-05-25"
-fmp_primary_snapshot_date: "2026-05-15"
+fmp_primary_price_target: 899.64
+fmp_primary_analyst_count: 64
+fmp_primary_target_upside_pct: -14.84
+fmp_primary_fundamentals_cached_at: "2026-06-23"
 fmp_calendar_symbol_count: 0
-fmp_calendar_pull_date: "2026-05-26"
-fmp_last_sync: "2026-05-26"
+fmp_calendar_pull_date: "2026-06-23"
+fmp_last_sync: "2026-06-23"
 tags: ["thesis", "bridge", "ai", "defense", "power", "infrastructure"]
 ---
 
