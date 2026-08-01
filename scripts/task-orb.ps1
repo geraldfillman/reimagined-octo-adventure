@@ -39,7 +39,7 @@ Write-Host "[$ts] Symbols ($($symbols.Count)): $symbolList"
 
 # --- Step 2: refresh entropy for today's candidates -------------------------
 Write-Host "[$ts] Running entropy-monitor..."
-node run.mjs entropy-monitor --symbols $symbolList
+node run.mjs pull entropy-monitor --symbols $symbolList
 if ($LASTEXITCODE -ne 0) {
     Write-Host "[$ts] WARNING: entropy-monitor exited with code $LASTEXITCODE -- continuing to ORB screen"
 }

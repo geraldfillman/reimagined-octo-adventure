@@ -10,11 +10,12 @@
  *   node run.mjs scan sectors --dry-run
  *   node run.mjs pull fred --group housing
  *
- * Legacy flat commands still work but print a deprecation notice.
+ * Legacy flat aliases were retired 2026-08 (they now print the grouped
+ * replacement and exit). Flat puller names still resolve via the dynamic
+ * fallthrough (used by task-orb.ps1 and dashboard run-buttons).
  * Run "node run.mjs help" for a full overview.
  */
 
-import { listSources } from './lib/config.mjs';
 import { isGroupCommand, routeGrouped, printGroupHelp } from './cmd/router.mjs';
 
 const [, , command, ...args] = process.argv;
@@ -53,92 +54,24 @@ if (isGroupCommand(command)) {
   process.exit(process.exitCode ?? 0);
 }
 
-// ── Compat aliases — legacy flat commands (print deprecation notice, then run) ─
+// ── Retired-command tombstones ─────────────────────────────────────────────────
 
-function deprecated(oldCmd, newCmd) {
-  console.warn(`⚠  Deprecated: use "node run.mjs ${newCmd}" instead of "${oldCmd}"`);
-}
+const RETIRED_ALIASES = {
+  'status': 'system status',
+  'validate': 'system validate',
+  'learning-session': 'learn session',
+  'cleanup': 'system cleanup',
+  'infranodus': 'system infranodus',
+  'dashboard': 'system dashboard',
+  'conviction-delta': 'scan conviction',
+  'thesis-fmp-sync': 'thesis sync',
+  'thesis-catalysts': 'thesis catalysts',
+  'thesis-full-picture': 'thesis full-picture',
+};
 
-if (command === 'status') {
-  deprecated('status', 'system status');
-  printStatus();
-  process.exit(0);
-}
-
-if (command === 'validate') {
-  deprecated('validate', 'system validate');
-  const validator = await import('./validate-vault.mjs');
-  await validator.run();
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'learning-session') {
-  deprecated('learning-session', 'learn session');
-  const { pathToFileURL } = await import('url');
-  const { join } = await import('path');
-  const { getLearningVaultRoot } = await import('./lib/config.mjs');
-  const learningSession = await import(pathToFileURL(join(getLearningVaultRoot(), 'scripts', 'learning-session.mjs')).href);
-  const flags = parseArgs(args);
-  await learningSession.run(flags);
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'cleanup') {
-  deprecated('cleanup', 'system cleanup');
-  const cleanup = await import('./cleanup.mjs');
-  const flags = parseArgs(args);
-  await cleanup.run(flags);
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'infranodus') {
-  deprecated('infranodus', 'system infranodus');
-  const measurement = await import('./infranodus.mjs');
-  const flags = parseArgs(args);
-  await measurement.run(flags);
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'dashboard') {
-  deprecated('dashboard', 'system dashboard');
-  const { startServer } = await import('./dashboard/server.mjs');
-  const port = parseInt(process.env.DASHBOARD_PORT ?? '3737', 10);
-  startServer(port);
-}
-
-if (command === 'conviction-delta') {
-  deprecated('conviction-delta', 'scan conviction');
-  const tracker = await import('./lib/conviction-tracker.mjs');
-  const flags = parseArgs(args);
-  const result = await tracker.run(flags);
-  if (flags.json) {
-    console.log(JSON.stringify(result, null, 2));
-  }
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'thesis-fmp-sync') {
-  deprecated('thesis-fmp-sync', 'thesis sync');
-  const sync = await import('./sync-thesis-fmp.mjs');
-  const flags = parseArgs(args);
-  await sync.run(flags);
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'thesis-catalysts') {
-  deprecated('thesis-catalysts', 'thesis catalysts');
-  const catalysts = await import('./thesis-catalysts.mjs');
-  const flags = parseArgs(args);
-  await catalysts.run(flags);
-  process.exit(process.exitCode ?? 0);
-}
-
-if (command === 'thesis-full-picture') {
-  deprecated('thesis-full-picture', 'thesis full-picture');
-  const reports = await import('./thesis-full-picture.mjs');
-  const flags = parseArgs(args);
-  await reports.run(flags);
-  process.exit(process.exitCode ?? 0);
+if (RETIRED_ALIASES[command]) {
+  console.error(`Removed: "${command}" — use "node run.mjs ${RETIRED_ALIASES[command]}" instead.`);
+  process.exit(1);
 }
 
 if (command === 'qlib') {
@@ -287,27 +220,9 @@ Examples:
 
 Run "node run.mjs <group> --help" for group detail.
 
-Note: Legacy flat commands (sector-scan, thesis-fmp-sync, etc.) still work
-      but print a deprecation hint. See 90_System/CLI Command Audit.md.
+Note: Legacy flat aliases (thesis-fmp-sync, conviction-delta, etc.) were
+      retired — the CLI prints the grouped replacement if you use one.
 `);
 }
 
-function printStatus() {
-  console.log('\n📊 API Key Status\n');
-  const sources = listSources();
-  const maxName = Math.max(...sources.map(s => s.name.length));
-
-  for (const s of sources) {
-    const status = s.requiresKey
-      ? (s.hasKey ? '✅ Configured' : '❌ Missing')
-      : '⚪ No key needed';
-    console.log(`  ${s.name.padEnd(maxName + 2)} ${status}`);
-  }
-
-  const configured = sources.filter(s => s.hasKey).length;
-  console.log(`\n  ${configured}/${sources.length} sources ready\n`);
-}
-
-if (command !== 'dashboard') {
-  run();
-}
+run();
