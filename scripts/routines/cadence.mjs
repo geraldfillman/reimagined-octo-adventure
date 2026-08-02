@@ -76,6 +76,7 @@ export const CADENCE_DEFINITIONS = {
       cmd('FMP watchlist deep scan', ['pull', 'fmp', '--watchlist-deep-scan', '--concurrency', '2']),
       cmd('FMP macro calendar', ['pull', 'fmp', '--macro-calendar']),
       cmd('Company risk score update', ['scan', 'company-risk', '--watchlist', '--update-score']),
+      cmd('Health price triggers', ['edgar', 'triggers']),
       cmd('Agent thesis scan', ['pull', 'agent-analyst', '--all-thesis', '--limit', '12', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
       cmd('Agent strategy scan', ['pull', 'agent-analyst', '--all-strategies', '--limit', '12', '--skip-llm'], { skipFlag: 'skip-agent-scan' }),
       cmd('Disclosure reality scan', ['pull', 'disclosure-reality', '--all', '--limit', '25']),
