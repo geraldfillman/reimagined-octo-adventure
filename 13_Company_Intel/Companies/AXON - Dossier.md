@@ -1,26 +1,26 @@
 ﻿---
 node_type: "company_intel"
-company: "NEXTERA ENERGY INC"
-ticker: "NEE"
-cik: "0000753308"
-sector: "Electric Services"
+company: "AXON ENTERPRISE, INC."
+ticker: "AXON"
+cik: "0001069183"
+sector: "Ordnance & Accessories, (No Vehicles/Guided Missiles)"
 fiscal_year_end: "12-31"
 research_status: "Scaffold"
 confidence: "Low"
 overall_state: "yellow"
-one_liner: "Generates and delivers electricity in Florida and builds wind and solar plants that sell power under long-term contracts."
-last_updated: "2026-08-01"
+one_liner: ""
+last_updated: "2026-08-02"
 clarity_score:
 economic_quality_score:
 governance_score:
 disclosure_score:
 evolution_score:
-core_entities: ["[[NEE]]"]
+core_entities: ["[[AXON]]"]
 related_theses: []
 tags: [company-intel]
 ---
 
-# NEXTERA ENERGY INC â€” Company Dossier
+# AXON ENTERPRISE, INC. â€” Company Dossier
 
 > Method: [[04_Reference/EDGAR_Company_Deconstruction_Framework]] Â· Board: [[00_Dashboard/Company Intel Board]]
 > `research_status`: Scaffold â†’ Card â†’ Baseline â†’ Active â†’ Archived
@@ -35,9 +35,6 @@ Complete this before reading analyst opinions. When done, set `research_status: 
 ## 1. Simplest Description
 
 ### One Sentence (explain it to a ten-year-old)
-Generates and delivers electricity in Florida and builds wind and solar plants that sell power under long-term contracts.
-
-> Research angle (framework Â§14): Regulated returns, power demand, financing, generation mix
 <!-- What is sold, who pays, what the company must repeatedly do, why the customer uses it. Copy into `one_liner` frontmatter. -->
 
 ### One Paragraph
@@ -163,7 +160,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 12. Filing Baseline
 
-> Generate the filing inventory with `node run.mjs edgar baseline --ticker NEE` â€” link the latest pull note here.
+> Generate the filing inventory with `node run.mjs edgar baseline --ticker AXON` â€” link the latest pull note here.
 
 - **Latest baseline pull:**
 - **10-K reviewed:** <!-- date, key findings, changed risks, key footnotes, controls, auditor -->
@@ -183,7 +180,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 13. Financial Skeleton
 
-> Generate from XBRL with `node run.mjs edgar facts --ticker NEE` â€” link the latest pull note here, then interpret.
+> Generate from XBRL with `node run.mjs edgar facts --ticker AXON` â€” link the latest pull note here, then interpret.
 
 | Metric | Current | Prior | Direction | Explanation | Concern |
 |---|---:|---:|---|---|---|

@@ -21,6 +21,7 @@ Filing-driven company deconstruction: describe the company simply, prove the des
 
 - [[00_Dashboard/Company Intel Board]] — coverage, state, findings feed, baseline freshness
 - [[00_Dashboard/Health Review Board]] — review scores, red-flag overrides, divergence patterns, checkpoints due
+- [[13_Company_Intel/Research Universe Map]] — thematic connection layer: 10 theme chains around the covered anchors, cross-cutting macro reaction table, ranked promotion queue
 
 ## Templates
 

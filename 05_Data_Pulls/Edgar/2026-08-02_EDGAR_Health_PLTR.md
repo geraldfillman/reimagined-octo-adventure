@@ -12,12 +12,13 @@ symbol: "PLTR"
 cik: "0001321655"
 company: "Palantir"
 benchmark: "SPY"
+reporting_currency: "USD"
 tags: ["edgar", "company-intel", "health-review"]
 ---
 
 ## How to read this
 
-Quantitative layer of [[04_Reference/Corporate_Health_Integrity_Framework]] — §5 screening bands (profile: **general**) plus the §9.2 relative-performance prompt.
+Quantitative layer of [[04_Reference/Corporate_Health_Integrity_Framework]] — §5 screening bands (profile: **general**, reporting currency: **USD**) plus the §9.2 relative-performance prompt. All markers are ratios/growth rates, so the currency cancels within each marker.
 
 > Bands are **investigation prompts, not verdicts** (§5). Every 🟡/🔴 routes to a filing via the §15 table. ⚪ `n/a` is an explicit data gap — never estimated.
 

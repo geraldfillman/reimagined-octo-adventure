@@ -30,27 +30,75 @@ const LEVERAGE_EXEMPT_PROFILES = Object.freeze(new Set(['bank', 'reit']));
  * XBRL concept preference lists per series, consumed by the puller via
  * `fiscalYearValues(facts, spec.concepts, { unit, kind, limit: 6 })`.
  * Order matters: first fresh concept wins (companies retire tags over time).
+ *
+ * Each list carries us-gaap concepts first, then ifrs-full aliases for
+ * foreign private issuers (20-F). IFRS aliases were probe-confirmed against
+ * TSM and NVO companyfacts (2026-08-02) — never add tag names from memory.
+ * Note: ifrs-full FinanceCosts is broader than interest expense, which makes
+ * the §5.5 coverage ratio conservative (never flattering).
  */
 export const HEALTH_SERIES_SPECS = Object.freeze({
-  revenue: Object.freeze({ concepts: ['RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenues', 'SalesRevenueNet', 'SalesRevenueGoodsNet'], kind: 'flow' }),
+  revenue: Object.freeze({ concepts: ['RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenues', 'SalesRevenueNet', 'SalesRevenueGoodsNet', 'Revenue', 'RevenueFromContractsWithCustomers'], kind: 'flow' }),
   netIncome: Object.freeze({ concepts: ['NetIncomeLoss', 'ProfitLoss'], kind: 'flow' }),
-  operatingCashFlow: Object.freeze({ concepts: ['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations'], kind: 'flow' }),
-  capex: Object.freeze({ concepts: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'], kind: 'flow' }),
-  receivables: Object.freeze({ concepts: ['AccountsReceivableNetCurrent', 'ReceivablesNetCurrent'], kind: 'balance' }),
-  inventory: Object.freeze({ concepts: ['InventoryNet'], kind: 'balance' }),
-  costOfRevenue: Object.freeze({ concepts: ['CostOfRevenue', 'CostOfGoodsAndServicesSold', 'CostOfGoodsSold'], kind: 'flow' }),
-  operatingIncome: Object.freeze({ concepts: ['OperatingIncomeLoss'], kind: 'flow' }),
-  depreciationAmortization: Object.freeze({ concepts: ['DepreciationDepletionAndAmortization', 'DepreciationAmortizationAndAccretionNet', 'DepreciationAndAmortization'], kind: 'flow' }),
-  interestExpense: Object.freeze({ concepts: ['InterestExpense', 'InterestExpenseDebt'], kind: 'flow' }),
-  cash: Object.freeze({ concepts: ['CashAndCashEquivalentsAtCarryingValue', 'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents'], kind: 'balance' }),
+  operatingCashFlow: Object.freeze({ concepts: ['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations', 'CashFlowsFromUsedInOperatingActivities'], kind: 'flow' }),
+  capex: Object.freeze({ concepts: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets', 'PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities'], kind: 'flow' }),
+  receivables: Object.freeze({ concepts: ['AccountsReceivableNetCurrent', 'ReceivablesNetCurrent', 'CurrentTradeReceivables'], kind: 'balance' }),
+  inventory: Object.freeze({ concepts: ['InventoryNet', 'Inventories'], kind: 'balance' }),
+  costOfRevenue: Object.freeze({ concepts: ['CostOfRevenue', 'CostOfGoodsAndServicesSold', 'CostOfGoodsSold', 'CostOfSales'], kind: 'flow' }),
+  operatingIncome: Object.freeze({ concepts: ['OperatingIncomeLoss', 'ProfitLossFromOperatingActivities'], kind: 'flow' }),
+  depreciationAmortization: Object.freeze({ concepts: ['DepreciationDepletionAndAmortization', 'DepreciationAmortizationAndAccretionNet', 'DepreciationAndAmortization', 'DepreciationAndAmortisationExpense'], kind: 'flow' }),
+  interestExpense: Object.freeze({ concepts: ['InterestExpense', 'InterestExpenseDebt', 'FinanceCosts'], kind: 'flow' }),
+  cash: Object.freeze({ concepts: ['CashAndCashEquivalentsAtCarryingValue', 'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents', 'CashAndCashEquivalents'], kind: 'balance' }),
   shortTermInvestments: Object.freeze({ concepts: ['ShortTermInvestments', 'MarketableSecuritiesCurrent'], kind: 'balance' }),
-  debtLongTerm: Object.freeze({ concepts: ['LongTermDebtNoncurrent', 'LongTermDebt'], kind: 'balance' }),
+  debtLongTerm: Object.freeze({ concepts: ['LongTermDebtNoncurrent', 'LongTermDebt', 'Borrowings'], kind: 'balance' }),
   debtCurrent: Object.freeze({ concepts: ['LongTermDebtCurrent', 'DebtCurrent'], kind: 'balance' }),
   dilutedShares: Object.freeze({ concepts: ['WeightedAverageNumberOfDilutedSharesOutstanding', 'WeightedAverageNumberOfSharesOutstandingBasic'], kind: 'flow', unit: 'shares' }),
-  sbc: Object.freeze({ concepts: ['ShareBasedCompensation'], kind: 'flow' }),
-  dividendsPaid: Object.freeze({ concepts: ['PaymentsOfDividends', 'PaymentsOfDividendsCommonStock'], kind: 'flow' }),
-  buybacks: Object.freeze({ concepts: ['PaymentsForRepurchaseOfCommonStock'], kind: 'flow' }),
+  sbc: Object.freeze({ concepts: ['ShareBasedCompensation', 'ExpenseFromSharebasedPaymentTransactionsWithEmployees', 'AdjustmentsForSharebasedPayments'], kind: 'flow' }),
+  dividendsPaid: Object.freeze({ concepts: ['PaymentsOfDividends', 'PaymentsOfDividendsCommonStock', 'DividendsPaidClassifiedAsFinancingActivities', 'DividendsPaid'], kind: 'flow' }),
+  buybacks: Object.freeze({ concepts: ['PaymentsForRepurchaseOfCommonStock', 'PurchaseOfTreasuryShares'], kind: 'flow' }),
 });
+
+/**
+ * Detect a filer's reporting currency from its company-facts document.
+ *
+ * Foreign private issuers file XBRL in their local currency (TSM → TWD,
+ * NVO → DKK), so extracting series with a hardcoded USD unit returns nothing.
+ * Every §5 marker is a ratio or growth rate, so numerator and denominator
+ * share the unit and the currency cancels — computing in the filer's own
+ * currency is safe as long as one currency is used consistently.
+ *
+ * Counts which ISO-4217-shaped unit key (exactly three uppercase letters)
+ * carries data across the monetary HEALTH_SERIES_SPECS concepts and returns
+ * the most common one; ties prefer USD. Returns null when no monetary unit
+ * is found. The `shares` unit is never affected.
+ */
+export function detectReportingCurrency(companyFacts) {
+  const namespaces = ['us-gaap', 'ifrs-full', 'dei'];
+  const counts = new Map();
+  for (const spec of Object.values(HEALTH_SERIES_SPECS)) {
+    if (spec.unit === 'shares') continue;
+    for (const ns of namespaces) {
+      const bucket = companyFacts?.facts?.[ns];
+      if (!bucket) continue;
+      for (const concept of spec.concepts) {
+        const units = bucket[concept]?.units;
+        if (!units) continue;
+        for (const [unitKey, entries] of Object.entries(units)) {
+          if (!/^[A-Z]{3}$/.test(unitKey)) continue;
+          if (!Array.isArray(entries) || entries.length === 0) continue;
+          counts.set(unitKey, (counts.get(unitKey) ?? 0) + 1);
+        }
+      }
+    }
+  }
+  let best = null;
+  for (const [currency, n] of counts) {
+    if (!best || n > best.n || (n === best.n && currency === 'USD')) {
+      best = { currency, n };
+    }
+  }
+  return best?.currency ?? null;
+}
 
 // ─── Series accessors ────────────────────────────────────────────────────────
 // A series object maps each HEALTH_SERIES_SPECS key to a newest-first array of

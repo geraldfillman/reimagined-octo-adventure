@@ -16,6 +16,7 @@ import {
   BAND,
   computeHealthMarkers,
   computeRelativeReturn,
+  detectReportingCurrency,
   relativePerformanceMarker,
   summarizeMarkers,
 } from '../lib/health-markers.mjs';
@@ -367,6 +368,56 @@ runTest('buildHealthSeries extracts multi-year series and shares unit', () => {
   assert.equal(series.revenue.length, 2);
   assert.equal(series.dilutedShares.length, 2);
   assert.equal(series.inventory.length, 0); // absent concept → empty, not fabricated
+});
+
+// ─── Reporting-currency detection (foreign private issuers) ──────────────────
+
+function ifrsFact(val, fyEndYear) {
+  return { ...annualFact(val, fyEndYear, '12-31'), form: '20-F' };
+}
+
+const DKK_FACTS_FIXTURE = {
+  facts: {
+    'ifrs-full': {
+      ProfitLoss: { units: { DKK: [2024, 2025].map(y => ifrsFact(y * 20, y)) } },
+      Revenues: { units: { DKK: [2024, 2025].map(y => ifrsFact(y * 200, y)) } },
+      NetCashProvidedByUsedInOperatingActivities: { units: { DKK: [2024, 2025].map(y => ifrsFact(y * 25, y)) } },
+      // Oddball concept tagged only in USD — must NOT leak into the DKK series set.
+      ShareBasedCompensation: { units: { USD: [ifrsFact(3, 2025)] } },
+      WeightedAverageNumberOfDilutedSharesOutstanding: {
+        units: { shares: [2024, 2025].map(y => ifrsFact(1_000, y)) },
+      },
+    },
+  },
+};
+
+runTest('detectReportingCurrency picks the dominant monetary unit', () => {
+  assert.equal(detectReportingCurrency(DKK_FACTS_FIXTURE), 'DKK');
+  assert.equal(detectReportingCurrency(FACTS_FIXTURE), 'USD');
+  assert.equal(detectReportingCurrency({ facts: {} }), null);
+  assert.equal(detectReportingCurrency(null), null);
+});
+
+runTest('detectReportingCurrency prefers USD on ties and ignores non-currency units', () => {
+  const tied = {
+    facts: {
+      'us-gaap': {
+        NetIncomeLoss: { units: { EUR: [annualFact(1, 2025)] } },
+        Revenues: { units: { USD: [annualFact(2, 2025)], shares: [annualFact(9, 2025)] } },
+      },
+    },
+  };
+  assert.equal(detectReportingCurrency(tied), 'USD');
+});
+
+runTest('buildHealthSeries computes foreign-filer series in local currency without mixing units', () => {
+  const series = buildHealthSeries(DKK_FACTS_FIXTURE);
+  assert.equal(series.netIncome.length, 2);       // ProfitLoss in DKK
+  assert.equal(series.operatingCashFlow.length, 2);
+  assert.equal(series.dilutedShares.length, 2);   // shares unit untouched
+  assert.equal(series.sbc.length, 0);             // USD-only concept excluded, not mixed in
+  const explicit = buildHealthSeries(DKK_FACTS_FIXTURE, { currency: 'USD' });
+  assert.equal(explicit.netIncome.length, 0);     // explicit currency override is honored
 });
 
 runTest('markerTableRows renders one row per marker with band icon', () => {

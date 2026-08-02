@@ -36,6 +36,7 @@ import {
   HEALTH_SERIES_SPECS,
   computeHealthMarkers,
   computeRelativeReturn,
+  detectReportingCurrency,
   relativePerformanceMarker,
   summarizeMarkers,
 } from '../lib/health-markers.mjs';
@@ -53,12 +54,18 @@ const BAND_ICONS = Object.freeze({
   [BAND.NA]: '⚪',
 });
 
-/** Extract every framework series from one company-facts document. Exported for tests. */
-export function buildHealthSeries(companyFacts) {
+/**
+ * Extract every framework series from one company-facts document.
+ * Monetary series use the filer's detected reporting currency (TSM → TWD,
+ * NVO → DKK) unless one is passed explicitly — every series shares the same
+ * unit, so no marker ever mixes currencies. Exported for tests.
+ */
+export function buildHealthSeries(companyFacts, { currency } = {}) {
+  const reportingCurrency = currency ?? detectReportingCurrency(companyFacts) ?? 'USD';
   const series = {};
   for (const [key, spec] of Object.entries(HEALTH_SERIES_SPECS)) {
     series[key] = fiscalYearValues(companyFacts, spec.concepts, {
-      unit: spec.unit ?? 'USD',
+      unit: spec.unit ?? reportingCurrency,
       kind: spec.kind,
       limit: SERIES_YEARS,
     });
@@ -183,7 +190,11 @@ export async function health(flags = {}) {
   }
   const profileKey = resolveProfileKey(flags.profile, submissions?.sic);
 
-  const series = buildHealthSeries(companyFacts);
+  const reportingCurrency = detectReportingCurrency(companyFacts) ?? 'USD';
+  if (reportingCurrency !== 'USD') {
+    console.log(`💱 Foreign filer detected — computing §5 markers in ${reportingCurrency} (ratios are currency-agnostic).`);
+  }
+  const series = buildHealthSeries(companyFacts, { currency: reportingCurrency });
   const filingMarkers = computeHealthMarkers(series, { profileKey });
 
   const relative = await fetchRelativePerformance(ticker, benchmark);
@@ -209,13 +220,14 @@ export async function health(flags = {}) {
       cik,
       company: name,
       benchmark,
+      reporting_currency: reportingCurrency,
       tags: ['edgar', 'company-intel', 'health-review'],
     },
     sections: [
       {
         heading: 'How to read this',
         content: [
-          `Quantitative layer of [[04_Reference/Corporate_Health_Integrity_Framework]] — §5 screening bands (profile: **${profileKey}**) plus the §9.2 relative-performance prompt.`,
+          `Quantitative layer of [[04_Reference/Corporate_Health_Integrity_Framework]] — §5 screening bands (profile: **${profileKey}**, reporting currency: **${reportingCurrency}**) plus the §9.2 relative-performance prompt. All markers are ratios/growth rates, so the currency cancels within each marker.`,
           '',
           '> Bands are **investigation prompts, not verdicts** (§5). Every 🟡/🔴 routes to a filing via the §15 table. ⚪ `n/a` is an explicit data gap — never estimated.',
           '',
