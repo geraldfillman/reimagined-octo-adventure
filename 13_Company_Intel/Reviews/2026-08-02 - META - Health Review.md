@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q: TTM capex intensity stops rising (≤35% of revenue), TTM FCF holds ≥ FY2025's $46.1B, SBC/revenue back ≤10%"
 next_checkpoint_date: "2026-11-01"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_META]]"
+price_at_review: 556.71
+reconsider_price_low: 445.37
+reconsider_price_high: 695.89
 related_theses: []
 tags: [health-review]
 ---

@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Trailing SBC/revenue back under 20% and diluted-share growth under 4% YoY at the Q3 2026 10-Q; FY2025 10-K debt note + SBC footnote read before then to resolve the 4.94x netting and the performance-plan expense schedule"
 next_checkpoint_date: "2026-11-05"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_AXON]]"
+price_at_review: 527.76
+reconsider_price_low: 422.21
+reconsider_price_high: 659.7
 related_theses: ["[[Defense AI Autonomous Warfare]]"]
 tags: [health-review]
 ---

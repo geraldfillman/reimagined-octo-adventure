@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q: FY2026 distributions run-rate ≤ FCF without further cash drawdown; new TX charter/bylaws exhibits reviewed; holdco CIK continuity confirmed"
 next_checkpoint_date: "2026-11-06"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_XOM]]"
+price_at_review: 155.44
+reconsider_price_low: 124.35
+reconsider_price_high: 194.3
 related_theses: []
 tags: [health-review]
 ---

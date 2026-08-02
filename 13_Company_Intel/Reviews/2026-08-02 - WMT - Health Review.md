@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q2 FY2027 10-Q + FY2026 10-K re-read: receivables−revenue divergence explained in the receivables note (<+5pp or benign ads/marketplace/pharmacy mix); FY2026 global ad revenue and membership income pulled from the 10-K; operating income growth re-converges toward revenue growth; SBC read off the cash-flow statement"
 next_checkpoint_date: "2026-09-15"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_WMT]]"
+price_at_review: 111.2
+reconsider_price_low: 88.96
+reconsider_price_high: 139
 related_theses: []
 tags: [health-review]
 ---

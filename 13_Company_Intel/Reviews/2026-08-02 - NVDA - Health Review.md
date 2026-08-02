@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q2 FY2027 10-Q: trailing inventory-vs-cost-of-sales divergence narrows below +10pp with no step-up in obsolescence provisions; FY2026 goodwill addition (~$15.6B) identified and assessed"
 next_checkpoint_date: "2026-08-31"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_NVDA]]"
+price_at_review: 200.75
+reconsider_price_low: 160.6
+reconsider_price_high: 250.94
 related_theses: []
 tags: [health-review]
 ---

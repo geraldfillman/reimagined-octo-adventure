@@ -331,6 +331,10 @@ async function routeEdgar(sub, _args, flags) {
     const m = await import('../pullers/edgar-health.mjs');
     return m.health(flags);
   }
+  if (sub === 'triggers') {
+    const m = await import('../pullers/edgar-triggers.mjs');
+    return m.triggers(flags);
+  }
   const m = await import('../pullers/edgar-company.mjs');
   switch (sub) {
     case 'scaffold': return m.scaffold(flags);
@@ -429,6 +433,16 @@ Commands:
                  --review              Also scaffold 13_Company_Intel/Reviews/ note
                  --force               Overwrite an existing review note
                  --dry-run
+  triggers     Price-based thesis-reconsideration bands (framework §9.4 —
+               investigation prompts, never trade signals). Default mode checks
+               current Yahoo closes against stored bands and writes a check note
+               on breaches; --set backfills default bands into reviews.
+                 --set                 Write bands into reviews missing them
+                 --ticker <TICKER>     Limit either mode to one ticker
+                 --down <pct>          Downside band, default 20 (§9.2 drawdown prompt)
+                 --up <pct>            Upside band, default 25 (Pattern C prompt)
+                 --force               Overwrite existing bands (--set)
+                 --dry-run             Print only, write nothing
 
 All endpoints are free and keyless (data.sec.gov + Yahoo); no FMP quota is consumed.
 
@@ -437,6 +451,8 @@ Examples:
   node run.mjs edgar baseline --ticker NVDA
   node run.mjs edgar facts --ticker NVDA --dry-run
   node run.mjs edgar health --ticker NVDA --benchmark XLK --review
+  node run.mjs edgar triggers --set
+  node run.mjs edgar triggers
 `,
     scan: `
 scan — Analysis scans

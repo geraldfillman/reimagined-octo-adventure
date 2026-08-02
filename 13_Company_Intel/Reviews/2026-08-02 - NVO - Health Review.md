@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3-2026 results 6-K: inventory-vs-cost-of-sales divergence stays ≤ 0pp and OCF re-tracks net income (OCF/NI ≥ 0.80), read as a pair against LLY's +49.8pp build — same direction = category demand normalizing, opposite directions = share shift; dividend/FCF must also fall below 80% or FCF must grow to cover it"
 next_checkpoint_date: "2026-11-04"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_NVO]]"
+price_at_review: 47.08
+reconsider_price_low: 37.66
+reconsider_price_high: 58.85
 related_theses: ["[[GLP-1 Metabolic Disease Revolution]]"]
 tags: [health-review]
 ---

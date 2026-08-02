@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Receivable divergence back under +10pp in the next 10-Q; FY2025 10-K read resolves buyback-vs-SBC and cash-mix questions"
 next_checkpoint_date: "2026-11-04"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_PLTR]]"
+price_at_review: 123.06
+reconsider_price_low: 98.45
+reconsider_price_high: 153.82
 related_theses: ["[[Defense AI Autonomous Warfare]]", "[[AI Power Defense Stack]]", "[[Fiscal Scarcity Rearmament]]"]
 tags: [health-review]
 ---

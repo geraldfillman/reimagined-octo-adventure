@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q: TTM capex/OCF falls below FY2025's 0.94 with TTM FCF inflecting upward, and receivables growth back within 5pp of revenue growth"
 next_checkpoint_date: "2026-11-06"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_AMZN]]"
+price_at_review: 271.58
+reconsider_price_low: 217.26
+reconsider_price_high: 339.48
 related_theses: []
 tags: [health-review]
 ---

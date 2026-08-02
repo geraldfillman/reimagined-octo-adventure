@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 FY2026 10-Q: trailing receivable-vs-revenue divergence narrows below +10pp and SBC dollars flatten/decline as VMware retention grants roll off; interim — read the already-filed Q1/Q2 FY2026 10-Qs and the FY2025 10-K contract-balances, PPA-amortization, SBC-runway, and debt notes to close the VMware-vs-organic question"
 next_checkpoint_date: "2026-09-15"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_AVGO]]"
+price_at_review: 389.28
+reconsider_price_low: 311.42
+reconsider_price_high: 486.6
 related_theses: ["[[AI Power Infrastructure]]"]
 tags: [health-review]
 ---

@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q2 2026 10-Q credit pass: provision/net loans stays ≤ ~1.2% annualized, no sharp NPL/charge-off inflection, allowance coverage stable"
 next_checkpoint_date: "2026-08-10"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_JPM]]"
+price_at_review: 351.79
+reconsider_price_low: 281.43
+reconsider_price_high: 439.74
 related_theses: []
 tags: [health-review]
 ---

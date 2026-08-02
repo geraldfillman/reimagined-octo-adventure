@@ -78,6 +78,17 @@ WHERE node_type = "health_review" AND date != "" AND date(date) < date(today) - 
 SORT date ASC
 ```
 
+## Price Reconsideration Bands (§9.4)
+
+Breach = re-run the §17 review, **never a trade signal**. Check bands against live prices with `edgar triggers`; latest check notes appear under Marker Pull Freshness (`data_type: price_triggers`).
+
+```dataview
+TABLE ticker, price_at_review, reconsider_price_low, reconsider_price_high, total_score, date
+FROM "13_Company_Intel/Reviews"
+WHERE node_type = "health_review" AND price_at_review != null
+SORT ticker ASC
+```
+
 ---
 
 ## CLI
@@ -87,10 +98,13 @@ node run.mjs edgar health --ticker NVDA                       # §5 bands + §9.
 node run.mjs edgar health --ticker NVDA --benchmark XLK       # sector ETF instead of SPY
 node run.mjs edgar health --ticker NVDA --review              # also scaffold the dated review note
 node run.mjs edgar health --ticker NVDA --dry-run             # plan only, no network
+node run.mjs edgar triggers --set                             # backfill §9.4 price bands into reviews (−20%/+25% defaults)
+node run.mjs edgar triggers                                   # check bands vs live prices → breach note
 ```
 
 ## Cadence (§17)
 
 1. **Quarterly:** re-run `edgar health`, walk §17 steps 1–8 in a fresh review note, write the divergence sentence, set the next falsifiable checkpoint.
 2. **On any §7.3 hard-stop event:** set `red_flag_override: true`, suspend the score, open Intel Findings until understood.
-3. Scores organize evidence — **the written thesis decides, not the number** (§16).
+3. **On a §9.4 band breach:** the thesis goes back on the desk — re-review, then re-band at the new price.
+4. Scores organize evidence — **the written thesis decides, not the number** (§16).

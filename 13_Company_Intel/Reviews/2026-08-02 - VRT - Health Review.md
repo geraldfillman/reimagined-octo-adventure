@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 earnings 8-K + 10-Q (~late Oct on prior cadence): backlog above the Q2 2026 level disclosed in the 2026-07-29 8-K, book-to-bill ≥1.0 with no cancellation step-up; FY2025 goodwill source (+$0.7B) identified; Feb 2026 424B5 use of proceeds confirmed"
 next_checkpoint_date: "2026-10-31"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_VRT]]"
+price_at_review: 241.57
+reconsider_price_low: 193.26
+reconsider_price_high: 301.96
 related_theses: ["[[AI Power Infrastructure]]", "[[Grid Equipment Bottleneck]]"]
 tags: [health-review]
 ---

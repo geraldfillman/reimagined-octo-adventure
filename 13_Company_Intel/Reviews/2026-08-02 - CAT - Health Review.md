@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q2 2026 10-Q: split ME&T trade receivables vs Financial Products finance receivables (divergence must be captive-driven), reconcile the OCF working-capital drag, and confirm operating margin stabilization"
 next_checkpoint_date: "2026-08-15"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_CAT]]"
+price_at_review: 814.81
+reconsider_price_low: 651.85
+reconsider_price_high: 1018.51
 related_theses: []
 tags: [health-review]
 ---

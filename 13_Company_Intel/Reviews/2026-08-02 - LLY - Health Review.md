@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3-2026 10-Q: inventory divergence < +20pp and receivable divergence < +10pp with no obsolescence charge; FY2025 10-K inventory composition and capacity commitments pulled first"
 next_checkpoint_date: "2026-10-30"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_LLY]]"
+price_at_review: 1148.84
+reconsider_price_low: 919.07
+reconsider_price_high: 1436.05
 related_theses: []
 tags: [health-review]
 ---

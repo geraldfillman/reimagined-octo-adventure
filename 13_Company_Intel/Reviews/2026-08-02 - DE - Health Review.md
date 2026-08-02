@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 FY2026 10-Q: split Equipment Operations trade receivables vs John Deere Financial finance receivables (the CAT cross-check) with past-dues/write-offs/allowance direction, confirm the inventory build reverses against falling shipments, and pull precision-ag recurring-revenue disclosure plus right-to-repair legal-proceedings status"
 next_checkpoint_date: "2026-09-04"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_DE]]"
+price_at_review: 592.67
+reconsider_price_low: 474.14
+reconsider_price_high: 740.84
 related_theses: []
 tags: [health-review]
 ---

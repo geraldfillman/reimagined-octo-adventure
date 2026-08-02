@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q + earnings 8-K: fleet utilization/productivity and used-equipment sale proceeds must hold Y/Y; resolve the FY2025 10-K inventory note (is the tagged $240M 'inventory' parts/merchandise or equipment held for sale) and reconcile gross fleet capex vs proceeds-from-used-equipment-sales in the cash-flow statement"
 next_checkpoint_date: "2026-10-25"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_URI]]"
+price_at_review: 1079.26
+reconsider_price_low: 863.41
+reconsider_price_high: 1349.08
 related_theses: []
 tags: [health-review]
 ---

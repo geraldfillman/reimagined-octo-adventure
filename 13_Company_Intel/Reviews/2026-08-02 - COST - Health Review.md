@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "FY2026 10-K: receivables−revenue divergence converges below +5pp; worldwide renewal rate holds ≥90%; membership-fee income and its share of operating income confirmed in the revenue note"
 next_checkpoint_date: "2026-10-15"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_COST]]"
+price_at_review: 951.89
+reconsider_price_low: 761.51
+reconsider_price_high: 1189.86
 related_theses: []
 tags: [health-review]
 ---

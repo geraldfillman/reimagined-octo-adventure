@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 interim results 6-K (~mid-Oct): monthly-revenue 6-Ks keep YoY growth positive and margins hold through the overseas-fab ramp; FY2025 20-F read closes the ⚪ debt and diluted-share gaps and confirms the growth-capex explanation behind 0.55 FCF conversion"
 next_checkpoint_date: "2026-10-16"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_TSM]]"
+price_at_review: 404.25
+reconsider_price_low: 323.4
+reconsider_price_high: 505.31
 related_theses: ["[[AI Power Infrastructure]]", "[[Semiconductor Sovereignty CHIPS Act]]"]
 tags: [health-review]
 ---

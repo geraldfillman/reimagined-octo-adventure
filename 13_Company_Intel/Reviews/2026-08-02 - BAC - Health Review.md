@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q2 2026 10-Q (filed 2026-07-31) credit + rate pass: establish provision/net loans and charge-off baseline (absent from vault), allowance coverage stable, HTM unrealized-loss drag shrinking, CET1 comfortably above requirement"
 next_checkpoint_date: "2026-08-09"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_BAC]]"
+price_at_review: 61.95
+reconsider_price_low: 49.56
+reconsider_price_high: 77.44
 related_theses: []
 tags: [health-review]
 ---

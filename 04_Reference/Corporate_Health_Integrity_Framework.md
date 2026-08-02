@@ -498,6 +498,14 @@ Neither can be proven from a single chart. Confirm with:
 - index additions or removals;
 - and securities-lending data where available.
 
+### 9.4 Price-based reconsideration triggers (vault extension)
+
+Every scored review carries a price band in frontmatter (`price_at_review`, `reconsider_price_low`, `reconsider_price_high`), written by `node run.mjs edgar triggers --set` and checked against current prices with `node run.mjs edgar triggers`.
+
+> **A breached band is an investigation prompt, never a trade signal** (§9.2). Breaching the low band is the §9.2 drawdown prompt: something the review didn't price is happening — re-run the §17 loop and write a fresh dated review. Breaching the high band is the §13 Pattern C prompt: quality may now be fully paid for — re-check valuation vs conservative economics (§16.C).
+
+Defaults are mechanical — low = review price −20% (the §9.2 threshold), high = +25% — and **should be overridden** with valuation-informed levels wherever the researcher has a view: set the band where the §16.C "valuation versus conservative economics" judgment would actually change, and note the reasoning in §13 of the review.
+
 ---
 
 ## 10. Good-faith action can lose money

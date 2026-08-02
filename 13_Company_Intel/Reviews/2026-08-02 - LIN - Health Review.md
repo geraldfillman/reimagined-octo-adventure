@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q: LT debt at or below the FY2025 $20.7B, receivables growth back within revenue growth, and backlog/contract-duration disclosures read for the Pattern C valuation check"
 next_checkpoint_date: "2026-11-06"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_LIN]]"
+price_at_review: 478.38
+reconsider_price_low: 382.7
+reconsider_price_high: 597.98
 related_theses: []
 tags: [health-review]
 ---

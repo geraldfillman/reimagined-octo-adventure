@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q: occupancy holds vs Q2 2026 baseline and same-property NOI growth stays positive; dividend covered by AFFO per the reconciliation"
 next_checkpoint_date: "2026-10-30"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_PLD]]"
+price_at_review: 144.61
+reconsider_price_low: 115.69
+reconsider_price_high: 180.76
 related_theses: []
 tags: [health-review]
 ---

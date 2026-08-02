@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: ""
 next_checkpoint_date: ""
 markers_pull: ""
+price_at_review:
+reconsider_price_low:
+reconsider_price_high:
 related_theses: []
 tags: [health-review]
 ---
@@ -25,6 +28,7 @@ tags: [health-review]
 
 > Method: [[04_Reference/Corporate_Health_Integrity_Framework]] · Board: [[00_Dashboard/Health Review Board]] · Dossier: [[13_Company_Intel/Companies/{{ticker}} - Dossier]]
 > Quantitative markers: `node run.mjs edgar health --ticker {{ticker}}` — link the pull note into `markers_pull`.
+> Price band: `edgar triggers --set` fills default reconsideration levels (§9.4) — override with valuation-informed ones; `edgar triggers` checks them. Breach = re-review, never a trade signal.
 > Filename: `YYYY-MM-DD - TICKER - Health Review.md` · one dated note per review (quarterly cadence, §17)
 
 ---

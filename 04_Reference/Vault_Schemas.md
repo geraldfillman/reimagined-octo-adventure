@@ -262,6 +262,9 @@ Method reference: `04_Reference/Corporate_Health_Integrity_Framework.md`.
 | `next_checkpoint` | The next falsifiable checkpoint (§17 Step 8) |
 | `next_checkpoint_date` | `YYYY-MM-DD` — surfaced on the Health Review Board when due |
 | `markers_pull` | Wikilink to the `edgar health` pull note used |
+| `price_at_review` | Close on the review date (set by `edgar triggers --set`) |
+| `reconsider_price_low` | §9.4 downside reconsideration level (default −20%; breach = §17 re-review, not a trade signal) |
+| `reconsider_price_high` | §9.4 upside reconsideration level (default +25%; breach = §13 Pattern C valuation check) |
 | `related_theses` | Wikilinks to `10_Theses/` notes |
 | `tags` | Must include `health-review` |
 

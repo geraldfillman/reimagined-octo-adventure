@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "Q3 2026 10-Q + FY2025 10-K debt note: manual capex→FCF pull, EBIT/interest coverage from the debt footnote, receivables growth realigning with revenue, LT debt growth no longer outpacing EBITDA"
 next_checkpoint_date: "2026-11-01"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_NEE]]"
+price_at_review: 86.92
+reconsider_price_low: 69.54
+reconsider_price_high: 108.65
 related_theses: []
 tags: [health-review]
 ---

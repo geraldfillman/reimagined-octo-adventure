@@ -17,6 +17,9 @@ red_flags: []
 next_checkpoint: "FY2026 10-K: capex below FY2025's $7.0B (project-spend peak confirmed), OCF−capex gap narrowing materially from −$3.8B, no new Item 2.06 impairment 8-Ks after 2026-06-30, and the debt footnote read to replace the stale-XBRL leverage gap with real maturity and coverage numbers"
 next_checkpoint_date: "2026-11-26"
 markers_pull: "[[05_Data_Pulls/Edgar/2026-08-02_EDGAR_Health_APD]]"
+price_at_review: 294.89
+reconsider_price_low: 235.91
+reconsider_price_high: 368.61
 related_theses: []
 tags: [health-review]
 ---
