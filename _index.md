@@ -11,6 +11,7 @@ Core maps:
 - [[000-moc/moc-theses]]
 - [[000-moc/moc-playbooks]]
 - [[000-moc/moc-company-risk]]
+- [[000-moc/moc-company-intel]]
 
 Learning workspace (Dr_Magnifico vault — open separately in Obsidian):
 - `11_Learning/` — daily sessions, nodes, mastery tracking

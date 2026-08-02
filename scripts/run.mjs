@@ -203,6 +203,7 @@ Groups:
   playbook  Multi-step workflows
   routine   Daily, weekly, monthly, quarterly, yearly pull cadences
   kb        Knowledge base pipeline (ingest → normalize → classify → compile → query)
+  edgar     Company Intel: dossier scaffold, filing baseline, XBRL financial skeleton
 
 Examples:
   node run.mjs system status
@@ -217,6 +218,7 @@ Examples:
   node run.mjs routine daily --dry-run
   node run.mjs kb ingest --file ./article.md --kind article
   node run.mjs kb query --query "What is the energy regime?" --save
+  node run.mjs edgar baseline --ticker NVDA
 
 Run "node run.mjs <group> --help" for group detail.
 

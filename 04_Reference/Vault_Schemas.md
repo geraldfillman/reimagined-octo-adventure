@@ -190,6 +190,87 @@ Filenames: `Pattern - Name.md`
 | `known_connections` | Wikilinked company and entity notes |
 | `tags` | Must include `risk-entity` |
 
+## Company Intel Schemas
+
+Method reference: `04_Reference/EDGAR_Company_Deconstruction_Framework.md`.
+
+### Company Dossier (`13_Company_Intel/Companies/`)
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `company_intel` |
+| `company` | Company display name |
+| `ticker` | Exchange ticker |
+| `cik` | SEC CIK (string, zero-padded ok) |
+| `sector` | Sector label (SIC description or GICS-style) |
+| `fiscal_year_end` | e.g. `12-31` or SEC `fiscalYearEnd` format |
+| `research_status` | `Scaffold`, `Card`, `Baseline`, `Active`, or `Archived` |
+| `confidence` | `Low`, `Medium`, or `High` |
+| `overall_state` | `green`, `yellow`, `orange`, or `red` (framework §12.5) |
+| `one_liner` | The bare-bones one-sentence description (surfaced on dashboards) |
+| `last_updated` | Date of last manual review (YYYY-MM-DD) |
+| `clarity_score` | 0–25 (§12.1) — blank until scored |
+| `economic_quality_score` | 0–35 (§12.2) — blank until scored |
+| `governance_score` | 0–35 (§12.3) — blank until scored |
+| `disclosure_score` | 0–35 (§12.4) — blank until scored |
+| `evolution_score` | 0–50 for the latest material initiative (§4.5) — blank until scored |
+| `core_entities` | Wikilinks to `08_Entities/` notes |
+| `related_theses` | Wikilinks to `10_Theses/` notes |
+| `tags` | Must include `company-intel` |
+
+Filenames: `TICKER - Dossier.md`. Dossiers are living notes updated in place (unlike pull notes).
+
+### Intel Finding (`13_Company_Intel/Findings/`)
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `intel_finding` |
+| `date` | Finding date in `YYYY-MM-DD` |
+| `company` | Plain company name |
+| `ticker` | Exchange ticker |
+| `classification` | One of: `strengthens-core`, `weakens-core`, `expands-adjacent-capability`, `creates-new-engine`, `improves-moat`, `reduces-dependency`, `adds-dependency`, `improves-economics`, `reduces-cash-quality`, `increases-complexity`, `changes-control`, `raises-financing-risk`, `raises-disclosure-risk`, `unresolved` |
+| `machine_effect` | `revenue`, `cost`, `asset`, `capability`, `dependency`, `bottleneck`, `flywheel`, `control`, `financing`, or `disclosure` |
+| `thesis_impact` | `no-change`, `monitor`, `positive-revision`, `negative-revision`, or `thesis-broken` |
+| `evidence_filing` | Exact filing, section, table, note, or exhibit |
+| `source_link` | EDGAR URL or reference |
+| `related_theses` | Wikilinks to affected thesis notes |
+| `tags` | Must include `intel-finding` |
+
+Filenames: `YYYY-MM-DD - TICKER - Short Title.md`
+
+### Health Review (`13_Company_Intel/Reviews/`)
+
+Method reference: `04_Reference/Corporate_Health_Integrity_Framework.md`.
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `health_review` |
+| `date` | Review date in `YYYY-MM-DD` |
+| `company` | Plain company name |
+| `ticker` | Exchange ticker |
+| `period` | Period reviewed (e.g. `FY ending 2026-01-31` or `2026-Q2`) |
+| `process_quality` | `improving`, `stable`, or `deteriorating` (§3 Dimension B/C) |
+| `outcome_quality` | `improving`, `stable`, or `deteriorating` (§3 Dimension A) |
+| `market_response` | `rewarding`, `ignoring`, or `punishing` (§3 Dimension D) |
+| `divergence_pattern` | `none`, `good-process-bad-stock`, `bad-process-good-stock`, `good-company-bad-investment`, or `troubled-company-good-trade` (§13) |
+| `economic_health_score` | 0–40 (§16.A) — blank until scored |
+| `stewardship_score` | 0–40 (§16.B) — blank until scored |
+| `market_confirmation_score` | 0–20 (§16.C) — blank until scored |
+| `total_score` | 0–100 sum — blank until scored |
+| `red_flag_override` | `true` when a §7.3 hard-stop event is open (caps the score) |
+| `red_flags` | List of open §7.3 events |
+| `next_checkpoint` | The next falsifiable checkpoint (§17 Step 8) |
+| `next_checkpoint_date` | `YYYY-MM-DD` — surfaced on the Health Review Board when due |
+| `markers_pull` | Wikilink to the `edgar health` pull note used |
+| `related_theses` | Wikilinks to `10_Theses/` notes |
+| `tags` | Must include `health-review` |
+
+Filenames: `YYYY-MM-DD - TICKER - Health Review.md`. One dated note per review (quarterly cadence) — reviews are point-in-time records, not living notes.
+
+### Edgar Pull Notes (`05_Data_Pulls/Edgar/`)
+
+Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`, `edgar health`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline`, `financial_skeleton`, or `health_markers`, plus `symbol` and `cik` extras. Financial skeletons and health markers also carry `skeleton_profile` (`general`, `bank`, or `reit`) — auto-selected from the company's SIC code, overridable with `--profile`. Profile concept maps live in `scripts/lib/skeleton-profiles.mjs`; health-marker band math lives in `scripts/lib/health-markers.mjs`. Health pulls add `benchmark` (relative-performance symbol) and fire `health:<ticker>:<marker>:concern` signals (any concern → `watch`, 3+ → `alert`).
+
 ### Risk Transaction (`12_Company_Risk/Transactions/`)
 
 | Field | Purpose |

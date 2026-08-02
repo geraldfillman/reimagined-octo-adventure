@@ -20,9 +20,9 @@ Routing env vars (set in `My_Data/.env`):
 
 ## Current State
 
-- `8` MOC files provide the top-level navigation layer (including `moc-company-risk`).
-- `20` dashboards provide the main operator surfaces (including 2 Company Risk dashboards).
-- `21` canonical templates live in `03_Templates/` (including 5 Company Risk templates).
+- `9` MOC files provide the top-level navigation layer (including `moc-company-risk` and `moc-company-intel`).
+- `22` dashboards provide the main operator surfaces (including 2 Company Risk dashboards, the Company Intel Board, and the Health Review Board).
+- `24` canonical templates live in `03_Templates/` (including 5 Company Risk templates and 3 Company Intel templates).
 - `24` active thesis notes plus `19` sector/style baskets are tracked in `10_Theses/`.
 - Active puller scripts live in `scripts/pullers/`, including `sector-scan` and 11 OSINT/social scanners.
 - `10` KB scripts live in `scripts/kb/` — the intake-to-wiki pipeline (`kb ingest`, `kb normalize`, `kb classify`, `kb compile`, `kb query`, `kb librarian`, `kb health`, `kb transcribe`, `kb suggest`, `kb dispatch`).
@@ -58,6 +58,8 @@ Routing env vars (set in `My_Data/.env`):
 - Extended OSINT layer (second pass): added 9 source notes (Phantom Tide, Hormuz Tracker, World Monitor, Leaker, Merklemap, Columbus Project, octosuite, SAR Interference Tracker, Umbra Open Data Tracker) plus osm-search and snscrape. Seven new scan scripts wired — total 11 `scan osint-*` commands. Two learning system resources added to `11_Learning/09_Resources/`.
 - Built `12_Knowledge_Bases/` KB subsystem: 19-directory folder tree, 4 wiki templates, Dataview wiki index, and 10 KB pipeline scripts (`kb ingest` → `kb normalize` → `kb classify` → `kb compile` → `kb query`). Health tools: `kb librarian` (lint + auto-fix), `kb health` (integrity checks), `kb suggest` (gap analysis), `kb transcribe` (meeting extraction). Wired into router.mjs as the `kb` CLI group.
 - Wired KB raw mirroring into `writeNote()` via `scripts/lib/kb-bridge.mjs`. **Retired 2026-08-01** — the automatic mirror duplicated every pull note into KB raw folders that mostly went unprocessed; use manual `kb ingest` to bring specific documents into the KB pipeline instead.
+- Built the **Company Intel** subsystem (2026-08-01) from the EDGAR Company Deconstruction & Intelligence Framework: playbook reference in `04_Reference/`, `Company_Dossier` + `Intel_Finding` templates, `13_Company_Intel/` (Companies + Findings), Company Intel Board dashboard, `moc-company-intel`, and a keyless `edgar` CLI group (`scaffold` / `baseline` / `facts`) built on `scripts/lib/edgar.mjs` with unit tests. Pull notes land in `05_Data_Pulls/Edgar/`.
+- Built the **Health Review** layer (2026-08-02) from the Corporate Health, Integrity & Market-Behavior Framework: method reference in `04_Reference/Corporate_Health_Integrity_Framework.md`, `Health_Review` template, `13_Company_Intel/Reviews/` (one dated scored review per company per quarter), Health Review Board dashboard, and `edgar health` CLI (§5 screening bands from XBRL + §9.2 relative performance via Yahoo, band math in `scripts/lib/health-markers.mjs` with stale-tag guards, unit tests in `scripts/tests/edgar-health.test.mjs`). Leverage bands auto-suppressed for bank/REIT filers per framework §14.
 - Upgraded the learning system to **Adaptive Generalist System V2**: replaced the 11-step session monolith with an 8-step Daily Engine (due-review-queue-first); added retrieval lifecycle fields (`next_review_due`, `retrieval_success_count`, `retrieval_failure_count`, `misconception_log`, etc.) to all 16 mastery notes and templates; rebuilt the Mastery Dashboard with 6 Dataview blocks; added hard 50% domain balance cap; added project promotion gate enforcement and conflict flagging; created `Link_Integrity_Report.md`; added 3 new maintenance scripts (`learning-review.ps1`, `learning-project-audit.ps1`, `learning-link-audit.ps1`) and V2 validation checks to `learning-daily.ps1`.
 
 ## Folder Structure
@@ -78,6 +80,7 @@ Routing env vars (set in `My_Data/.env`):
 | `11_Learning/` | **Moved to Dr_Magnifico vault** — open that vault in Obsidian to access learning content |
 | `12_Company_Risk/` | Company Risk Intelligence system — Companies, Events, Patterns, Entities, Transactions subfolders. Pattern recognition for narrative vs. reality misalignment. |
 | `12_Knowledge_Bases/` | **Moved to Oy vault** — open that vault in Obsidian to access KB content. Scripts still run from `scripts/kb/` here (manual `kb ingest` only; the automatic pull-note mirror was retired 2026-08-01 and residual local files archived to `500-archive/12_Knowledge_Bases/`). |
+| `13_Company_Intel/` | Company deconstruction system (EDGAR framework) — `Companies/` holds living dossiers, `Findings/` holds dated filing-change notes, `Reviews/` holds dated health & integrity reviews. Methods: `04_Reference/EDGAR_Company_Deconstruction_Framework.md` + `04_Reference/Corporate_Health_Integrity_Framework.md`. |
 | `500-archive/` | Retired or deprioritized data sources; do not link from active notes |
 | `scripts/` | Node.js automation (pullers, validator, InfraNodus, cleanup, KB routing) |
 
@@ -96,6 +99,9 @@ All schemas are defined in `04_Reference/Vault_Schemas.md`. Key rules:
 - **Risk Patterns** (`12_Company_Risk/Patterns/`): Must have `node_type: "risk_pattern"`, `pattern_type` (`Financial|Governance|Narrative|Structural`), `severity` (`Low|Medium|High`), `tags: [risk-pattern]`
 - **Risk Entities** (`12_Company_Risk/Entities/`): Must have `node_type: "risk_entity"`, `entity_type` (`Company|Person|Fund`), `known_connections[]`, `tags: [risk-entity]`
 - **Risk Transactions** (`12_Company_Risk/Transactions/`): Must have `node_type: "risk_transaction"`, `date` (YYYY-MM-DD), `transaction_type` (`Cash|Equity|Asset Transfer`), `company`, `entities_involved[]`, `confidence` (`Low|Medium|High`), `tags: [risk-transaction]`
+- **Company Dossiers** (`13_Company_Intel/Companies/`): Must have `node_type: "company_intel"`, `ticker`, `cik`, `research_status` (`Scaffold|Card|Baseline|Active|Archived`), `overall_state` (`green|yellow|orange|red`), `one_liner`, `last_updated`, `tags: [company-intel]`
+- **Intel Findings** (`13_Company_Intel/Findings/`): Must have `node_type: "intel_finding"`, `date` (YYYY-MM-DD), `ticker`, `classification` (framework §7.5 labels), `thesis_impact` (`no-change|monitor|positive-revision|negative-revision|thesis-broken`), `tags: [intel-finding]`
+- **Health Reviews** (`13_Company_Intel/Reviews/`): Must have `node_type: "health_review"`, `date` (YYYY-MM-DD), `ticker`, `process_quality`/`outcome_quality` (`improving|stable|deteriorating`), `market_response` (`rewarding|ignoring|punishing`), `divergence_pattern` (framework §13), §16 score fields (`economic_health_score` 0–40, `stewardship_score` 0–40, `market_confirmation_score` 0–20, `total_score` 0–100), `red_flag_override` (boolean), `tags: [health-review]`
 
 ## Naming Conventions
 
@@ -194,6 +200,12 @@ node run.mjs pull fmp --thesis-watchlists --dry-run
 node run.mjs pull fmp --thesis-watchlists --thesis "Housing Supply Correction"
 node run.mjs pull fmp --sector-baskets
 node run.mjs pull fmp --sector-baskets --sector tech
+
+# Company Intel — EDGAR deconstruction (free, keyless; no FMP quota)
+node run.mjs edgar scaffold --ticker NVDA
+node run.mjs edgar baseline --ticker NVDA
+node run.mjs edgar facts --ticker NVDA
+node run.mjs edgar health --ticker NVDA --benchmark XLK --review   # health/integrity §5 bands + review scaffold
 
 # Playbooks
 node run.mjs playbook housing-cycle
@@ -442,6 +454,8 @@ All dashboards use Dataview queries against frontmatter fields. They render auto
 - **InfraNodus Measurements** - Graph session entry point and hub/bridge analysis
 - **Company Risk Board** - Active watchlist sorted by risk score, recent events feed, pattern exposure heatmap
 - **Company Risk Patterns** - Pattern library, entity network, transaction log, risk score distribution
+- **Company Intel Board** - Dossier coverage by state (green/yellow/orange/red), findings feed, filing-baseline freshness
+- **Health Review Board** - Health & integrity review scores (§16), red-flag overrides, divergence patterns, falsifiable checkpoints due
 
 ## Dashboard
 
