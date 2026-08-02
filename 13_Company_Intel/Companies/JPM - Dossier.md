@@ -1,26 +1,26 @@
 ---
 node_type: "company_intel"
-company: "NVIDIA CORP"
-ticker: "NVDA"
-cik: "0001045810"
-sector: "Semiconductors & Related Devices"
-fiscal_year_end: "01-31"
+company: "JPMORGAN CHASE & CO"
+ticker: "JPM"
+cik: "0000019617"
+sector: "National Commercial Banks"
+fiscal_year_end: "12-31"
 research_status: "Scaffold"
 confidence: "Low"
 overall_state: "yellow"
-one_liner: "Designs computer chips and software that help computers create graphics and run artificial intelligence."
+one_liner: "Takes deposits, makes loans, moves money, and manages investments, earning interest spread and fees."
 last_updated: "2026-08-01"
 clarity_score:
 economic_quality_score:
 governance_score:
 disclosure_score:
 evolution_score:
-core_entities: ["[[NVDA]]"]
+core_entities: ["[[JPM]]"]
 related_theses: []
 tags: [company-intel]
 ---
 
-# NVIDIA CORP — Company Dossier
+# JPMORGAN CHASE & CO — Company Dossier
 
 > Method: [[04_Reference/EDGAR_Company_Deconstruction_Framework]] · Board: [[00_Dashboard/Company Intel Board]]
 > `research_status`: Scaffold → Card → Baseline → Active → Archived
@@ -35,9 +35,9 @@ Complete this before reading analyst opinions. When done, set `research_status: 
 ## 1. Simplest Description
 
 ### One Sentence (explain it to a ten-year-old)
-Designs computer chips and software that help computers create graphics and run artificial intelligence.
+Takes deposits, makes loans, moves money, and manages investments, earning interest spread and fees.
 
-> Research angle (framework §14): AI compute, software ecosystem, data-center capital cycle
+> Research angle (framework §14): Deposits, credit creation, fee businesses, regulation, capital requirements
 <!-- What is sold, who pays, what the company must repeatedly do, why the customer uses it. Copy into `one_liner` frontmatter. -->
 
 ### One Paragraph
@@ -163,7 +163,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 12. Filing Baseline
 
-> Generate the filing inventory with `node run.mjs edgar baseline --ticker NVDA` — link the latest pull note here.
+> Generate the filing inventory with `node run.mjs edgar baseline --ticker JPM` — link the latest pull note here.
 
 - **Latest baseline pull:**
 - **10-K reviewed:** <!-- date, key findings, changed risks, key footnotes, controls, auditor -->
@@ -183,7 +183,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 13. Financial Skeleton
 
-> Generate from XBRL with `node run.mjs edgar facts --ticker NVDA` — link the latest pull note here, then interpret.
+> Generate from XBRL with `node run.mjs edgar facts --ticker JPM` — link the latest pull note here, then interpret.
 
 | Metric | Current | Prior | Direction | Explanation | Concern |
 |---|---:|---:|---|---|---|

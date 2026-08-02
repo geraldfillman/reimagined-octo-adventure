@@ -1,26 +1,26 @@
 ---
 node_type: "company_intel"
-company: "NVIDIA CORP"
-ticker: "NVDA"
-cik: "0001045810"
-sector: "Semiconductors & Related Devices"
-fiscal_year_end: "01-31"
+company: "AMAZON COM INC"
+ticker: "AMZN"
+cik: "0001018724"
+sector: "Retail-Catalog & Mail-Order Houses"
+fiscal_year_end: "12-31"
 research_status: "Scaffold"
 confidence: "Low"
 overall_state: "yellow"
-one_liner: "Designs computer chips and software that help computers create graphics and run artificial intelligence."
+one_liner: "Sells and delivers products, connects outside sellers with buyers, and rents computing infrastructure."
 last_updated: "2026-08-01"
 clarity_score:
 economic_quality_score:
 governance_score:
 disclosure_score:
 evolution_score:
-core_entities: ["[[NVDA]]"]
+core_entities: ["[[AMZN]]"]
 related_theses: []
 tags: [company-intel]
 ---
 
-# NVIDIA CORP — Company Dossier
+# AMAZON COM INC — Company Dossier
 
 > Method: [[04_Reference/EDGAR_Company_Deconstruction_Framework]] · Board: [[00_Dashboard/Company Intel Board]]
 > `research_status`: Scaffold → Card → Baseline → Active → Archived
@@ -35,9 +35,9 @@ Complete this before reading analyst opinions. When done, set `research_status: 
 ## 1. Simplest Description
 
 ### One Sentence (explain it to a ten-year-old)
-Designs computer chips and software that help computers create graphics and run artificial intelligence.
+Sells and delivers products, connects outside sellers with buyers, and rents computing infrastructure.
 
-> Research angle (framework §14): AI compute, software ecosystem, data-center capital cycle
+> Research angle (framework §14): Commerce, logistics, cloud infrastructure, advertising
 <!-- What is sold, who pays, what the company must repeatedly do, why the customer uses it. Copy into `one_liner` frontmatter. -->
 
 ### One Paragraph
@@ -163,7 +163,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 12. Filing Baseline
 
-> Generate the filing inventory with `node run.mjs edgar baseline --ticker NVDA` — link the latest pull note here.
+> Generate the filing inventory with `node run.mjs edgar baseline --ticker AMZN` — link the latest pull note here.
 
 - **Latest baseline pull:**
 - **10-K reviewed:** <!-- date, key findings, changed risks, key footnotes, controls, auditor -->
@@ -183,7 +183,7 @@ When the baseline package is reviewed, set `research_status: Baseline`.
 
 ## 13. Financial Skeleton
 
-> Generate from XBRL with `node run.mjs edgar facts --ticker NVDA` — link the latest pull note here, then interpret.
+> Generate from XBRL with `node run.mjs edgar facts --ticker AMZN` — link the latest pull note here, then interpret.
 
 | Metric | Current | Prior | Direction | Explanation | Concern |
 |---|---:|---:|---|---|---|
