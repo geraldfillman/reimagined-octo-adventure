@@ -206,6 +206,8 @@ node run.mjs edgar scaffold --ticker NVDA
 node run.mjs edgar baseline --ticker NVDA
 node run.mjs edgar facts --ticker NVDA
 node run.mjs edgar health --ticker NVDA --benchmark XLK --review   # health/integrity §5 bands + review scaffold
+node run.mjs edgar triggers --set                                  # §9.4 price reconsideration bands into reviews
+node run.mjs edgar triggers                                        # check bands vs live prices (also in weekly routine)
 
 # Playbooks
 node run.mjs playbook housing-cycle

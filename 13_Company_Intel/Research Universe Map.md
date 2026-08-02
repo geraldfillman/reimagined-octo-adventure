@@ -69,13 +69,13 @@ Anchor: [[LLY]] ✅ — the +49.8pp inventory build is a bet on this entire chai
 
 Anchor: [[PLTR]] ✅ — software-defined defense, where the §5.6 SBC/dilution pattern is endemic.
 
-| Company | Role | Tier | Why connected |
-|---|---|---|---|
-| [[LMT]] / [[NOC]] / [[RTX]] / [[LHX]] | Hardware primes | ⚪ | Budget-share contest: software eats platform budgets or doesn't |
-| [[KTOS]] / [[AVAV]] / [[TXT]] | Autonomy/drones | ⚪ | [[Defense AI Autonomous Warfare]] constituents; PLTR's TITAN/Maven adjacency |
-| **AXON** | Public-safety software+hardware | 🎯 | The best SBC/valuation/net-retention comp for PLTR outside defense |
-| **BAH** / **LDOS** | Services incumbents | ⚪ | The margin-structure contrast PLTR claims to disrupt |
-| [[ESLT]] / [[TDY]] | Sensors/international | ⚪ | Rearmament breadth check |
+| Company                               | Role                            | Tier | Why connected                                                                |
+| ------------------------------------- | ------------------------------- | ---- | ---------------------------------------------------------------------------- |
+| [[LMT]] / [[NOC]] / [[RTX]] / [[LHX]] | Hardware primes                 | ⚪    | Budget-share contest: software eats platform budgets or doesn't              |
+| [[KTOS]] / [[AVAV]] / [[TXT]]         | Autonomy/drones                 | ⚪    | [[Defense AI Autonomous Warfare]] constituents; PLTR's TITAN/Maven adjacency |
+| **AXON**                              | Public-safety software+hardware | 🎯   | The best SBC/valuation/net-retention comp for PLTR outside defense           |
+| **BAH** / **LDOS**                    | Services incumbents             | ⚪    | The margin-structure contrast PLTR claims to disrupt                         |
+| [[ESLT]] / [[TDY]]                    | Sensors/international           | ⚪    | Rearmament breadth check                                                     |
 
 **Theses:** [[Defense AI Autonomous Warfare]] · [[Fiscal Scarcity Rearmament]] · [[AI Power Defense Stack]]
 **Macro:** [[Geopolitical Escalation]] is the demand regime; fiscal cycles set the ceiling.

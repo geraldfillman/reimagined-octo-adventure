@@ -1,4 +1,4 @@
-﻿---
+---
 node_type: "company_intel"
 company: "UNITED RENTALS, INC."
 ticker: "URI"
