@@ -167,6 +167,23 @@ Anchor: [[LIN]] ✅ — the only clean §5 sheet in the universe; edges test whe
 
 ---
 
+## 11. Space Launch & Orbital Infrastructure
+
+Anchor: [[RKLB]] ✅ — vertically integrated small-launch + space-systems machine. The core capability question is additive manufacturing: Rutherford's 3D-printed engines set Electron's cadence economics, and Archimedes/Neutron is the scale-up test of the same capability.
+
+| Company | Role | Tier | Why connected |
+|---|---|---|---|
+| SpaceX *(private)* | Launch price-setter | ⚪ | Unlisted — sets the price umbrella and reusability benchmark over the entire theme |
+| [[KTOS]] | Hypersonics / target vehicles | ⚪ | HASTE suborbital overlap; same defense-budget demand pool |
+| [[LMT]] / [[NOC]] | Primes with space segments | ⚪ | Customer and competitor at once — satellite prime contracts |
+| **IRDM** | Satellite operator | ⚪ | Downstream demand read on constellation build/launch cadence |
+| **PL** | Earth observation | ⚪ | Constellation-refresh demand for launch + components |
+| **ASTS** | Direct-to-device constellation | ⚪ | Launch-demand and space-systems customer pool |
+| [[AVAV]] / [[ESLT]] / [[TDY]] | Defense/sensor adjacency | ⚪ | Rearmament breadth and space-systems supply chain |
+
+**Theses:** [[Space Domain Awareness]] · [[Hypersonic Weapons Advanced Defense]] (HASTE) · [[Fiscal Scarcity Rearmament]]
+**Macro:** [[Geopolitical Escalation]] is the demand regime; [[Rate Hike Cycle]] hurts (pre-FCF duration — §4 Level 1 survival lens applies before any §16 scoring).
+
 ## Cross-cutting macro reaction table
 
 How the twelve anchors sort under each regime — the fastest way to sanity-check a regime call against company-level evidence:
@@ -178,7 +195,7 @@ How the twelve anchors sort under each regime — the fastest way to sanity-chec
 | [[Inflationary Boom]] | [[XOM]], [[LIN]], [[CAT]], grid chain | [[COST]] margins (lagged pricing) | Realized prices vs unit volumes (§5.1) |
 | [[Stagflation]] | [[XOM]], [[COST]] (trade-down) | [[CAT]], [[AMZN]] discretionary, [[JPM]] credit | Freight volumes (ODFL edge), provisions |
 | [[Recession]] | [[COST]], [[LLY]] (inelastic) | [[CAT]], [[JPM]], [[AMZN]], [[PLD]] rents | Dealer/channel inventory, charge-offs, occupancy |
-| [[Geopolitical Escalation]] | [[PLTR]], defense edges, [[XOM]] | [[NVDA]]/TSM chain (export controls, Taiwan) | Export-control 8-Ks, defense budget lines |
+| [[Geopolitical Escalation]] | [[PLTR]], [[RKLB]], defense edges, [[XOM]] | [[NVDA]]/TSM chain (export controls, Taiwan) | Export-control 8-Ks, defense budget lines |
 | [[Goldilocks]] / [[Risk-On]] | [[NVDA]], [[META]], [[PLTR]], [[AMZN]] | hedged/defensive names lag | Multiple expansion vs estimate revisions (§9.2) |
 
 ## Promotion queue

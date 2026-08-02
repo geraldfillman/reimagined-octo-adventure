@@ -1,4 +1,4 @@
-﻿---
+---
 node_type: "company_intel"
 company: "BANK OF AMERICA CORP /DE/"
 ticker: "BAC"

@@ -1,4 +1,4 @@
-﻿---
+---
 node_type: "company_intel"
 company: "AXON ENTERPRISE, INC."
 ticker: "AXON"
