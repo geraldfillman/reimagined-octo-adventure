@@ -4,13 +4,13 @@
  * Handles the new command grammar:
  *   node run.mjs <group> <subcommand> [options]
  *
- * Groups: system | learn | scan | thesis | pull | playbook | routine | kb
+ * Groups: system | learn | scan | thesis | pull | playbook | routine | kb | edgar
  *
  * Each handler delegates to the existing module — no logic is duplicated.
  * The router is purely a dispatch layer.
  */
 
-const KNOWN_GROUPS = ['system', 'learn', 'scan', 'thesis', 'pull', 'playbook', 'quant', 'routine', 'kb'];
+const KNOWN_GROUPS = ['system', 'learn', 'scan', 'thesis', 'pull', 'playbook', 'quant', 'routine', 'kb', 'edgar'];
 
 /**
  * Returns true if the first argument looks like a group name.
@@ -39,6 +39,7 @@ export async function routeGrouped(group, subcommand, args, flags) {
     case 'quant':   return routeQuant();
     case 'routine': return routeRoutine(subcommand, args, flags);
     case 'kb':      return routeKb(subcommand, args, flags);
+    case 'edgar':   return routeEdgar(subcommand, args, flags);
     default:
       console.error(`Error: Unknown group "${group}". Run "node run.mjs help" for available groups.`);
       process.exit(1);
@@ -322,6 +323,21 @@ async function routeKb(sub, _args, flags) {
   return m.run(flags);
 }
 
+// ── edgar ─────────────────────────────────────────────────────────────────────
+// Company Intel: EDGAR deconstruction support (13_Company_Intel/ + 05_Data_Pulls/Edgar/).
+
+async function routeEdgar(sub, _args, flags) {
+  const m = await import('../pullers/edgar-company.mjs');
+  switch (sub) {
+    case 'scaffold': return m.scaffold(flags);
+    case 'baseline': return m.baseline(flags);
+    case 'facts':    return m.facts(flags);
+    default:
+      printGroupHelp('edgar');
+      process.exit(1);
+  }
+}
+
 // ── group help ────────────────────────────────────────────────────────────────
 
 export function printGroupHelp(group) {
@@ -376,6 +392,32 @@ Examples:
   node run.mjs learn session --candidate 5 --topic-id macro-rate-transmission
   node run.mjs learn session --weekly-review
   node run.mjs learn web
+`,
+    edgar: `
+edgar — Company Intel: EDGAR deconstruction (framework: 04_Reference/EDGAR_Company_Deconstruction_Framework.md)
+
+Commands:
+  scaffold     Create 13_Company_Intel/Companies/<TICKER> - Dossier.md pre-filled
+               from SEC submissions (name, CIK, SIC sector, fiscal year-end)
+                 --ticker <TICKER>   Required
+                 --force             Overwrite an existing dossier
+                 --dry-run
+  baseline     Filing baseline package → 05_Data_Pulls/Edgar/
+               (10-K/10-Q/8-K/DEF 14A/insiders/13D-G/offerings/SD, with doc links)
+                 --ticker <TICKER>   Required
+                 --since YYYY-MM-DD  8-K floor (default: latest 10-K filing date)
+                 --dry-run
+  facts        XBRL financial skeleton → 05_Data_Pulls/Edgar/
+               (revenue → margins → OCF/capex/FCF → SBC → shares, FY vs prior FY)
+                 --ticker <TICKER>   Required
+                 --dry-run
+
+All endpoints are free and keyless (data.sec.gov); no FMP quota is consumed.
+
+Examples:
+  node run.mjs edgar scaffold --ticker NVDA
+  node run.mjs edgar baseline --ticker NVDA
+  node run.mjs edgar facts --ticker NVDA --dry-run
 `,
     scan: `
 scan — Analysis scans

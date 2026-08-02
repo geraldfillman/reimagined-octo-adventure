@@ -17,6 +17,7 @@ Open first when:
 Key notes:
 - [[04_Reference/Vault_Schemas]]
 - [[04_Reference/Pull_System_Guide]]
+- [[04_Reference/EDGAR_Company_Deconstruction_Framework]]
 - [[04_Reference/Network Graph]]
 - [[04_Reference/InfraNodus Measurements]]
 - [[04_Reference/Graph Conventions]]

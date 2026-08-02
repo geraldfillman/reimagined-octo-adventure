@@ -139,11 +139,10 @@ function serializeYamlField(key, value, indent) {
   const prefix = '  '.repeat(indent);
 
   if (typeof value === 'string') {
-    // Quote strings that contain special YAML chars
-    if (/[:#\[\]{}&*!|>%@`]/.test(value) || value.includes('\n')) {
-      return `${prefix}${key}: "${value.replace(/"/g, '\\"')}"`;
-    }
-    return `${prefix}${key}: "${value}"`;
+    // Always escape backslashes before quotes so external strings (SEC filer
+    // names, article titles) can never break out of the quoted YAML scalar.
+    const escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `${prefix}${key}: "${escaped}"`;
   }
 
   if (typeof value === 'number' || typeof value === 'boolean') {

@@ -190,6 +190,58 @@ Filenames: `Pattern - Name.md`
 | `known_connections` | Wikilinked company and entity notes |
 | `tags` | Must include `risk-entity` |
 
+## Company Intel Schemas
+
+Method reference: `04_Reference/EDGAR_Company_Deconstruction_Framework.md`.
+
+### Company Dossier (`13_Company_Intel/Companies/`)
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `company_intel` |
+| `company` | Company display name |
+| `ticker` | Exchange ticker |
+| `cik` | SEC CIK (string, zero-padded ok) |
+| `sector` | Sector label (SIC description or GICS-style) |
+| `fiscal_year_end` | e.g. `12-31` or SEC `fiscalYearEnd` format |
+| `research_status` | `Scaffold`, `Card`, `Baseline`, `Active`, or `Archived` |
+| `confidence` | `Low`, `Medium`, or `High` |
+| `overall_state` | `green`, `yellow`, `orange`, or `red` (framework §12.5) |
+| `one_liner` | The bare-bones one-sentence description (surfaced on dashboards) |
+| `last_updated` | Date of last manual review (YYYY-MM-DD) |
+| `clarity_score` | 0–25 (§12.1) — blank until scored |
+| `economic_quality_score` | 0–35 (§12.2) — blank until scored |
+| `governance_score` | 0–35 (§12.3) — blank until scored |
+| `disclosure_score` | 0–35 (§12.4) — blank until scored |
+| `evolution_score` | 0–50 for the latest material initiative (§4.5) — blank until scored |
+| `core_entities` | Wikilinks to `08_Entities/` notes |
+| `related_theses` | Wikilinks to `10_Theses/` notes |
+| `tags` | Must include `company-intel` |
+
+Filenames: `TICKER - Dossier.md`. Dossiers are living notes updated in place (unlike pull notes).
+
+### Intel Finding (`13_Company_Intel/Findings/`)
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `intel_finding` |
+| `date` | Finding date in `YYYY-MM-DD` |
+| `company` | Plain company name |
+| `ticker` | Exchange ticker |
+| `classification` | One of: `strengthens-core`, `weakens-core`, `expands-adjacent-capability`, `creates-new-engine`, `improves-moat`, `reduces-dependency`, `adds-dependency`, `improves-economics`, `reduces-cash-quality`, `increases-complexity`, `changes-control`, `raises-financing-risk`, `raises-disclosure-risk`, `unresolved` |
+| `machine_effect` | `revenue`, `cost`, `asset`, `capability`, `dependency`, `bottleneck`, `flywheel`, `control`, `financing`, or `disclosure` |
+| `thesis_impact` | `no-change`, `monitor`, `positive-revision`, `negative-revision`, or `thesis-broken` |
+| `evidence_filing` | Exact filing, section, table, note, or exhibit |
+| `source_link` | EDGAR URL or reference |
+| `related_theses` | Wikilinks to affected thesis notes |
+| `tags` | Must include `intel-finding` |
+
+Filenames: `YYYY-MM-DD - TICKER - Short Title.md`
+
+### Edgar Pull Notes (`05_Data_Pulls/Edgar/`)
+
+Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline` or `financial_skeleton`, plus `symbol` and `cik` extras.
+
 ### Risk Transaction (`12_Company_Risk/Transactions/`)
 
 | Field | Purpose |
