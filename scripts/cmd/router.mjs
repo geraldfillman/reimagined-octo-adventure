@@ -327,6 +327,10 @@ async function routeKb(sub, _args, flags) {
 // Company Intel: EDGAR deconstruction support (13_Company_Intel/ + 05_Data_Pulls/Edgar/).
 
 async function routeEdgar(sub, _args, flags) {
+  if (sub === 'health') {
+    const m = await import('../pullers/edgar-health.mjs');
+    return m.health(flags);
+  }
   const m = await import('../pullers/edgar-company.mjs');
   switch (sub) {
     case 'scaffold': return m.scaffold(flags);
@@ -414,13 +418,25 @@ Commands:
                  --ticker <TICKER>   Required
                  --profile <name>    general|bank|reit (default: auto from SIC)
                  --dry-run
+  health       Health & integrity markers → 05_Data_Pulls/Edgar/
+               (framework: 04_Reference/Corporate_Health_Integrity_Framework.md —
+               §5 bands: FCF conversion, receivable/inventory divergence, leverage,
+               dilution, SBC, payout + §9.2 12-month relative performance via Yahoo.
+               Leverage bands auto-suppressed for bank/REIT filers per §14)
+                 --ticker <TICKER>     Required
+                 --benchmark <SYM>     Relative-performance benchmark (default: SPY)
+                 --profile <name>      general|bank|reit (default: auto from SIC)
+                 --review              Also scaffold 13_Company_Intel/Reviews/ note
+                 --force               Overwrite an existing review note
+                 --dry-run
 
-All endpoints are free and keyless (data.sec.gov); no FMP quota is consumed.
+All endpoints are free and keyless (data.sec.gov + Yahoo); no FMP quota is consumed.
 
 Examples:
   node run.mjs edgar scaffold --ticker NVDA
   node run.mjs edgar baseline --ticker NVDA
   node run.mjs edgar facts --ticker NVDA --dry-run
+  node run.mjs edgar health --ticker NVDA --benchmark XLK --review
 `,
     scan: `
 scan — Analysis scans

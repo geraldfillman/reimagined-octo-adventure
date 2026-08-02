@@ -15,15 +15,18 @@ Filing-driven company deconstruction: describe the company simply, prove the des
 ## Method
 
 - [[04_Reference/EDGAR_Company_Deconstruction_Framework]] — the full playbook: deconstruction levels 0–10, EDGAR document map, finding-routing tables (§8), investigation trees (§9), quarterly and annual workflows (§10–11), scoring rubrics (§12)
+- [[04_Reference/Corporate_Health_Integrity_Framework]] — the scored review loop on top of the machine model: process vs outcome vs market price (§3), quantitative screening bands (§5), governance/accounting markers (§7–8), divergence patterns (§13), 100-point scoring (§16), quarterly cadence (§17)
 
 ## Operator Surfaces
 
 - [[00_Dashboard/Company Intel Board]] — coverage, state, findings feed, baseline freshness
+- [[00_Dashboard/Health Review Board]] — review scores, red-flag overrides, divergence patterns, checkpoints due
 
 ## Templates
 
 - [[03_Templates/Company_Dossier]] — one living note per company; Part A is the bare-bones Company Card, Part B the filing baseline and evolution
 - [[03_Templates/Intel_Finding]] — one note per meaningful filing change, with benign + negative interpretations and next-evidence routing
+- [[03_Templates/Health_Review]] — one dated note per health & integrity review; §16 scores, divergence sentence, falsifiable checkpoint
 
 ---
 
@@ -46,6 +49,16 @@ SORT date DESC
 LIMIT 15
 ```
 
+## Recent Health Reviews
+
+```dataview
+TABLE ticker, total_score, divergence_pattern, red_flag_override
+FROM "13_Company_Intel/Reviews"
+WHERE node_type = "health_review"
+SORT date DESC
+LIMIT 10
+```
+
 ---
 
 ## CLI (`edgar` group)
@@ -54,6 +67,7 @@ LIMIT 15
 node run.mjs edgar scaffold --ticker NVDA    # create 13_Company_Intel/Companies/NVDA - Dossier.md pre-filled from SEC submissions
 node run.mjs edgar baseline --ticker NVDA    # filing inventory → 05_Data_Pulls/Edgar/ (baseline package per framework §5)
 node run.mjs edgar facts --ticker NVDA       # XBRL companyfacts → financial skeleton pull note
+node run.mjs edgar health --ticker NVDA --review   # health/integrity marker bands + scaffold a scored review note
 node run.mjs edgar baseline --ticker NVDA --dry-run
 ```
 
@@ -75,6 +89,7 @@ All endpoints are free and keyless (data.sec.gov / efts.sec.gov), throttled per 
 2. Compare language against the prior version (§7.4) — new sentences, deleted metrics, risks moved hypothetical → actual
 3. Log each meaningful change as an Intel Finding; route it with the §8 tables
 4. Rewrite the one-sentence description **only if the economic machine materially changed**; update triggers
+5. Run `edgar health --ticker X --review` and walk the health framework's §17 loop — score §16, write the divergence sentence, set the next falsifiable checkpoint
 
 ### Annual deep-dive
 

@@ -65,7 +65,7 @@ export function shouldWriteArtifacts(flags = {}) {
 }
 
 /** Resolve ticker → { ticker, cik, name } via static map first, SEC ticker map second. */
-async function resolveCompany(rawTicker, { allowNetwork = true } = {}) {
+export async function resolveCompany(rawTicker, { allowNetwork = true } = {}) {
   const ticker = String(rawTicker ?? '').trim().toUpperCase();
   if (!ticker) {
     throw new Error('Missing --ticker. Example: node run.mjs edgar baseline --ticker NVDA');
@@ -154,9 +154,9 @@ export function deriveEventSignals(ticker, eventFilings = []) {
  *    candidate concept and keep the one with the freshest period end, using
  *    concept-list order only as the tie-break.
  *
- * @returns {Array<{value:number,end:string,form:string}>} newest-first, ≤2 entries.
+ * @returns {Array<{value:number,end:string,form:string}>} newest-first, ≤`limit` entries (default 2).
  */
-export function fiscalYearValues(facts, concepts, { unit = 'USD', kind = 'flow' } = {}) {
+export function fiscalYearValues(facts, concepts, { unit = 'USD', kind = 'flow', limit = 2 } = {}) {
   const namespaces = ['us-gaap', 'ifrs-full', 'dei'];
   let best = null;
   let bestOrder = Infinity;
@@ -165,7 +165,7 @@ export function fiscalYearValues(facts, concepts, { unit = 'USD', kind = 'flow' 
     if (!bucket) continue;
     for (let order = 0; order < concepts.length; order++) {
       const entries = bucket[concepts[order]]?.units?.[unit];
-      const values = annualPeriodValues(entries, kind);
+      const values = annualPeriodValues(entries, kind, limit);
       if (values.length === 0) continue;
       const fresher = !best
         || values[0].end > best[0].end
@@ -181,7 +181,7 @@ export function fiscalYearValues(facts, concepts, { unit = 'USD', kind = 'flow' 
 
 const ANNUAL_FORMS = new Set(['10-K', '10-K/A', '20-F', '40-F']);
 
-function annualPeriodValues(entries, kind) {
+function annualPeriodValues(entries, kind, limit = 2) {
   if (!Array.isArray(entries) || entries.length === 0) return [];
   const annual = entries.filter(e =>
     ANNUAL_FORMS.has(e.form) &&
@@ -197,7 +197,7 @@ function annualPeriodValues(entries, kind) {
   }
   return [...byPeriod.values()]
     .sort((a, b) => (a.end < b.end ? 1 : -1))
-    .slice(0, 2)
+    .slice(0, limit)
     .map(e => Object.freeze({ value: Number(e.val), end: e.end, form: e.form }));
 }
 

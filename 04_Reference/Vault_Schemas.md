@@ -238,9 +238,38 @@ Filenames: `TICKER - Dossier.md`. Dossiers are living notes updated in place (un
 
 Filenames: `YYYY-MM-DD - TICKER - Short Title.md`
 
+### Health Review (`13_Company_Intel/Reviews/`)
+
+Method reference: `04_Reference/Corporate_Health_Integrity_Framework.md`.
+
+| Field | Purpose |
+| --- | --- |
+| `node_type` | Must be `health_review` |
+| `date` | Review date in `YYYY-MM-DD` |
+| `company` | Plain company name |
+| `ticker` | Exchange ticker |
+| `period` | Period reviewed (e.g. `FY ending 2026-01-31` or `2026-Q2`) |
+| `process_quality` | `improving`, `stable`, or `deteriorating` (§3 Dimension B/C) |
+| `outcome_quality` | `improving`, `stable`, or `deteriorating` (§3 Dimension A) |
+| `market_response` | `rewarding`, `ignoring`, or `punishing` (§3 Dimension D) |
+| `divergence_pattern` | `none`, `good-process-bad-stock`, `bad-process-good-stock`, `good-company-bad-investment`, or `troubled-company-good-trade` (§13) |
+| `economic_health_score` | 0–40 (§16.A) — blank until scored |
+| `stewardship_score` | 0–40 (§16.B) — blank until scored |
+| `market_confirmation_score` | 0–20 (§16.C) — blank until scored |
+| `total_score` | 0–100 sum — blank until scored |
+| `red_flag_override` | `true` when a §7.3 hard-stop event is open (caps the score) |
+| `red_flags` | List of open §7.3 events |
+| `next_checkpoint` | The next falsifiable checkpoint (§17 Step 8) |
+| `next_checkpoint_date` | `YYYY-MM-DD` — surfaced on the Health Review Board when due |
+| `markers_pull` | Wikilink to the `edgar health` pull note used |
+| `related_theses` | Wikilinks to `10_Theses/` notes |
+| `tags` | Must include `health-review` |
+
+Filenames: `YYYY-MM-DD - TICKER - Health Review.md`. One dated note per review (quarterly cadence) — reviews are point-in-time records, not living notes.
+
 ### Edgar Pull Notes (`05_Data_Pulls/Edgar/`)
 
-Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline` or `financial_skeleton`, plus `symbol` and `cik` extras. Financial skeletons also carry `skeleton_profile` (`general`, `bank`, or `reit`) — auto-selected from the company's SIC code, overridable with `--profile`. Profile concept maps live in `scripts/lib/skeleton-profiles.mjs`.
+Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`, `edgar health`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline`, `financial_skeleton`, or `health_markers`, plus `symbol` and `cik` extras. Financial skeletons and health markers also carry `skeleton_profile` (`general`, `bank`, or `reit`) — auto-selected from the company's SIC code, overridable with `--profile`. Profile concept maps live in `scripts/lib/skeleton-profiles.mjs`; health-marker band math lives in `scripts/lib/health-markers.mjs`. Health pulls add `benchmark` (relative-performance symbol) and fire `health:<ticker>:<marker>:concern` signals (any concern → `watch`, 3+ → `alert`).
 
 ### Risk Transaction (`12_Company_Risk/Transactions/`)
 
