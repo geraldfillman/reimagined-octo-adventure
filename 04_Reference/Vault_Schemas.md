@@ -240,7 +240,7 @@ Filenames: `YYYY-MM-DD - TICKER - Short Title.md`
 
 ### Edgar Pull Notes (`05_Data_Pulls/Edgar/`)
 
-Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline` or `financial_skeleton`, plus `symbol` and `cik` extras.
+Written by the `edgar` CLI group (`edgar baseline`, `edgar facts`). Standard pull-note schema with `domain: edgar`, `data_type: filing_baseline` or `financial_skeleton`, plus `symbol` and `cik` extras. Financial skeletons also carry `skeleton_profile` (`general`, `bank`, or `reit`) — auto-selected from the company's SIC code, overridable with `--profile`. Profile concept maps live in `scripts/lib/skeleton-profiles.mjs`.
 
 ### Risk Transaction (`12_Company_Risk/Transactions/`)
 

@@ -409,7 +409,10 @@ Commands:
                  --dry-run
   facts        XBRL financial skeleton → 05_Data_Pulls/Edgar/
                (revenue → margins → OCF/capex/FCF → SBC → shares, FY vs prior FY)
+               Industry-aware: banks get NII/provision/deposits, REITs get
+               D&A/FFO-proxy/real-estate rows, selected from the SIC code
                  --ticker <TICKER>   Required
+                 --profile <name>    general|bank|reit (default: auto from SIC)
                  --dry-run
 
 All endpoints are free and keyless (data.sec.gov); no FMP quota is consumed.

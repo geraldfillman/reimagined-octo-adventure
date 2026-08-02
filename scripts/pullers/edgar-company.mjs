@@ -26,6 +26,9 @@ import {
 import { getByTicker, padCik, stripCik } from '../lib/cik-map.mjs';
 import { buildNote, buildTable, writeNote, dateStampedFilename, today, formatNumber } from '../lib/markdown.mjs';
 import { getPullsDir, getVaultRoot } from '../lib/config.mjs';
+import { SKELETON_PROFILES, selectSkeletonProfile, GENERAL_ROWS } from '../lib/skeleton-profiles.mjs';
+
+export { SKELETON_PROFILES, selectSkeletonProfile, GENERAL_ROWS as SKELETON_ROWS };
 
 const PULL_FOLDER = 'Edgar';
 const DOSSIER_FOLDER = join('13_Company_Intel', 'Companies');
@@ -40,25 +43,6 @@ export const BASELINE_GROUPS = Object.freeze([
   { key: 'ownership',   label: 'Beneficial ownership (13D / 13G / 13F)',         forms: ['SC 13D', 'SC 13D/A', 'SC 13G', 'SC 13G/A', '13F-HR'], limit: 10 },
   { key: 'offerings',   label: 'Registration & offerings (S-* / F-* / 424B / FWP)', forms: [...FORM_GROUPS.SHELF, ...FORM_GROUPS.PROSPECTUS], limit: 10 },
   { key: 'specialized', label: 'Specialized disclosure (SD)',                    forms: ['SD'], limit: 2 },
-]);
-
-/** Financial skeleton concept map (framework §13 dossier, §6.4 statements). */
-export const SKELETON_ROWS = Object.freeze([
-  { label: 'Revenue',                    kind: 'flow',    concepts: ['RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenues', 'SalesRevenueNet', 'RevenueFromContractWithCustomerIncludingAssessedTax'] },
-  { label: 'Gross profit',               kind: 'flow',    concepts: ['GrossProfit'] },
-  { label: 'Operating income',           kind: 'flow',    concepts: ['OperatingIncomeLoss'] },
-  { label: 'Net income',                 kind: 'flow',    concepts: ['NetIncomeLoss'] },
-  { label: 'Operating cash flow',        kind: 'flow',    concepts: ['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations'] },
-  { label: 'Capital expenditure',        kind: 'flow',    concepts: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'] },
-  { label: 'Research & development',     kind: 'flow',    concepts: ['ResearchAndDevelopmentExpense'] },
-  { label: 'Stock-based compensation',   kind: 'flow',    concepts: ['ShareBasedCompensation'] },
-  { label: 'Cash & equivalents',         kind: 'balance', concepts: ['CashAndCashEquivalentsAtCarryingValue'] },
-  { label: 'Receivables (current)',      kind: 'balance', concepts: ['AccountsReceivableNetCurrent'] },
-  { label: 'Inventory',                  kind: 'balance', concepts: ['InventoryNet'] },
-  { label: 'Deferred revenue (current)', kind: 'balance', concepts: ['ContractWithCustomerLiabilityCurrent', 'DeferredRevenueCurrent'] },
-  { label: 'Goodwill',                   kind: 'balance', concepts: ['Goodwill'] },
-  { label: 'Long-term debt',             kind: 'balance', concepts: ['LongTermDebtNoncurrent', 'LongTermDebt'] },
-  { label: 'Diluted shares (wtd avg)',   kind: 'flow',    unit: 'shares', concepts: ['WeightedAverageNumberOfDilutedSharesOutstanding'] },
 ]);
 
 /** 8-K items that warrant operator attention when they appear in the baseline window (framework §6.7). */
@@ -361,15 +345,18 @@ const READ_ORDER_SECTION = Object.freeze({
 // ─── edgar facts ─────────────────────────────────────────────────────────────
 
 export async function facts(flags = {}) {
+  const requestedProfile = resolveProfileFlag(flags);
   if (!shouldWriteArtifacts(flags)) {
     const { ticker, cik } = await resolveCompany(flags.ticker, { allowNetwork: false });
+    const planProfile = requestedProfile ?? SKELETON_PROFILES.general;
     printPlan({
       command: 'edgar facts',
       ticker,
       cik: cik ?? '(resolved via SEC ticker map at run time)',
-      endpoints: ['data.sec.gov/api/xbrl/companyfacts'],
+      endpoints: ['data.sec.gov/api/xbrl/companyfacts', 'data.sec.gov/submissions'],
       wouldWrite: join(getPullsDir(), PULL_FOLDER, dateStampedFilename(`EDGAR_Facts_${ticker}`)),
-      metrics: SKELETON_ROWS.map(r => r.label),
+      profile: requestedProfile?.key ?? '(auto-selected from SIC at run time; override with --profile general|bank|reit)',
+      metrics: planProfile.rows.map(r => r.label),
     });
     return { filePath: null, dryRun: true };
   }
@@ -379,13 +366,15 @@ export async function facts(flags = {}) {
   if (!companyFacts) {
     throw new Error(`No XBRL company facts available for ${ticker} (CIK ${cik}). Small caps and recent IPOs sometimes lack facts.`);
   }
+  const submissions = requestedProfile ? null : await fetchSubmissions(cik);
+  const profile = requestedProfile ?? selectSkeletonProfile(submissions?.sic);
 
-  const { rows, covered, series } = buildSkeletonData(companyFacts);
-  const derived = buildDerivedRows(series);
+  const { rows, covered, series } = buildSkeletonData(companyFacts, profile.rows);
+  const derived = buildDerivedRows(series, profile.key);
 
   const sections = [
     {
-      heading: 'Financial Skeleton (last two fiscal years, XBRL 10-K facts)',
+      heading: `Financial Skeleton — ${profile.label} profile (last two fiscal years, XBRL annual facts)`,
       content: buildTable(['Metric', 'Current FY', 'Prior FY', 'Δ'], rows),
     },
     {
@@ -413,6 +402,7 @@ export async function facts(flags = {}) {
       date_pulled: today(),
       domain: 'edgar',
       data_type: 'financial_skeleton',
+      skeleton_profile: profile.key,
       frequency: 'on-demand',
       signal_status: 'clear',
       signals: [],
@@ -426,15 +416,24 @@ export async function facts(flags = {}) {
 
   const filePath = join(getPullsDir(), PULL_FOLDER, dateStampedFilename(`EDGAR_Facts_${ticker}`));
   writeNote(filePath, note);
-  console.log(`📊 Financial skeleton (${covered}/${SKELETON_ROWS.length} metrics covered) → ${filePath}`);
-  return { filePath, covered, total: SKELETON_ROWS.length };
+  console.log(`📊 Financial skeleton [${profile.key}] (${covered}/${profile.rows.length} metrics covered) → ${filePath}`);
+  return { filePath, covered, total: profile.rows.length, profile: profile.key };
 }
 
-function buildSkeletonData(companyFacts) {
+function resolveProfileFlag(flags) {
+  if (!flags.profile) return null;
+  const profile = SKELETON_PROFILES[String(flags.profile).toLowerCase()];
+  if (!profile) {
+    throw new Error(`Unknown --profile "${flags.profile}". Valid profiles: ${Object.keys(SKELETON_PROFILES).join(', ')}.`);
+  }
+  return profile;
+}
+
+function buildSkeletonData(companyFacts, specs) {
   const rows = [];
   const series = new Map();
   let covered = 0;
-  for (const spec of SKELETON_ROWS) {
+  for (const spec of specs) {
     const values = fiscalYearValues(companyFacts, spec.concepts, { unit: spec.unit ?? 'USD', kind: spec.kind });
     series.set(spec.label, values);
     const [current, prior] = values;
@@ -451,24 +450,34 @@ function buildSkeletonData(companyFacts) {
   return { rows, covered, series };
 }
 
-function buildDerivedRows(series) {
+// Different metrics can resolve from tags retired in different years —
+// helpers only combine two metrics when their period ends actually match.
+function seriesHelpers(series) {
   const value = (label, index) => series.get(label)?.[index]?.value ?? null;
   const end = (label, index) => series.get(label)?.[index]?.end ?? null;
-  // Different metrics can resolve from tags retired in different years —
-  // only combine two metrics when their period ends actually match.
   const samePeriod = (a, b, index) => end(a, index) != null && end(a, index) === end(b, index);
-  const rows = [];
-
-  const ratio = (numLabel, denLabel, index) => {
+  const pct = (numLabel, denLabel, index) => {
     const num = value(numLabel, index);
     const den = value(denLabel, index);
     if (num == null || !den || !samePeriod(numLabel, denLabel, index)) return '—';
     return formatNumber((num / den) * 100, { style: 'percent' });
   };
+  return { value, samePeriod, pct };
+}
+
+function buildDerivedRows(series, profileKey = 'general') {
+  const helpers = seriesHelpers(series);
+  if (profileKey === 'bank') return bankDerivedRows(helpers);
+  if (profileKey === 'reit') return reitDerivedRows(helpers);
+  return generalDerivedRows(helpers);
+}
+
+function generalDerivedRows({ value, samePeriod, pct }) {
+  const rows = [];
 
   if (value('Revenue', 0) != null) {
-    rows.push(['Gross margin', ratio('Gross profit', 'Revenue', 0), ratio('Gross profit', 'Revenue', 1)]);
-    rows.push(['Operating margin', ratio('Operating income', 'Revenue', 0), ratio('Operating income', 'Revenue', 1)]);
+    rows.push(['Gross margin', pct('Gross profit', 'Revenue', 0), pct('Gross profit', 'Revenue', 1)]);
+    rows.push(['Operating margin', pct('Operating income', 'Revenue', 0), pct('Operating income', 'Revenue', 1)]);
   }
 
   const fcf = (index) => {
@@ -488,7 +497,51 @@ function buildDerivedRows(series) {
   }
 
   if (value('Net income', 0) != null) {
-    rows.push(['OCF / net income', ratio('Operating cash flow', 'Net income', 0), ratio('Operating cash flow', 'Net income', 1)]);
+    rows.push(['OCF / net income', pct('Operating cash flow', 'Net income', 0), pct('Operating cash flow', 'Net income', 1)]);
+  }
+
+  return rows;
+}
+
+function bankDerivedRows({ value, pct }) {
+  const rows = [];
+  if (value('Total net revenue', 0) != null) {
+    rows.push(['Efficiency ratio (noninterest expense / revenue)', pct('Noninterest expense', 'Total net revenue', 0), pct('Noninterest expense', 'Total net revenue', 1)]);
+  }
+  if (value("Stockholders' equity", 0) != null) {
+    rows.push(['Return on equity (NI / period-end equity)', pct('Net income', "Stockholders' equity", 0), pct('Net income', "Stockholders' equity", 1)]);
+  }
+  if (value('Loans (net of allowance)', 0) != null) {
+    rows.push(['Provision / net loans', pct('Provision for credit losses', 'Loans (net of allowance)', 0), pct('Provision for credit losses', 'Loans (net of allowance)', 1)]);
+    rows.push(['Loans / deposits', pct('Loans (net of allowance)', 'Deposits', 0), pct('Loans (net of allowance)', 'Deposits', 1)]);
+  }
+  return rows;
+}
+
+function reitDerivedRows({ value, samePeriod, pct }) {
+  const rows = [];
+
+  const ffoProxy = (index) => {
+    const ni = value('Net income', index);
+    const da = value('Depreciation & amortization', index);
+    if (ni == null || da == null || !samePeriod('Net income', 'Depreciation & amortization', index)) return null;
+    return ni + da;
+  };
+  const cur = ffoProxy(0);
+  const pri = ffoProxy(1);
+  if (cur != null || pri != null) {
+    rows.push([
+      'FFO proxy (NI + D&A; sale gains not adjusted — check 10-K)',
+      cur != null ? formatNumber(cur, { style: 'currency' }) : '—',
+      pri != null ? formatNumber(pri, { style: 'currency' }) : '—',
+    ]);
+  }
+
+  if (value('Total assets', 0) != null) {
+    rows.push(['Long-term debt / total assets', pct('Long-term debt', 'Total assets', 0), pct('Long-term debt', 'Total assets', 1)]);
+  }
+  if (value('Net income', 0) != null) {
+    rows.push(['OCF / net income', pct('Operating cash flow', 'Net income', 0), pct('Operating cash flow', 'Net income', 1)]);
   }
 
   return rows;

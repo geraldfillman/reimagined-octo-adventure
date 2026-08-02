@@ -8,6 +8,7 @@ import {
   formatFiscalYearEnd,
   deriveEventSignals,
 } from '../pullers/edgar-company.mjs';
+import { selectSkeletonProfile, SKELETON_PROFILES } from '../lib/skeleton-profiles.mjs';
 
 function runTest(name, fn) {
   try {
@@ -159,4 +160,25 @@ runTest('fiscalYearValues prefers the concept with the freshest period end', () 
 runTest('fiscalYearValues returns empty on missing concepts', () => {
   assert.deepEqual(fiscalYearValues(FACTS_FIXTURE, ['NoSuchConcept']), []);
   assert.deepEqual(fiscalYearValues(null, ['Revenues']), []);
+});
+
+runTest('selectSkeletonProfile routes SIC codes to industry profiles', () => {
+  assert.equal(selectSkeletonProfile('6021').key, 'bank');    // national commercial bank (JPM)
+  assert.equal(selectSkeletonProfile(6712).key, 'bank');      // bank holding company
+  assert.equal(selectSkeletonProfile('6798').key, 'reit');    // REIT (PLD)
+  assert.equal(selectSkeletonProfile('3674').key, 'general'); // semiconductors
+  assert.equal(selectSkeletonProfile('7372').key, 'general'); // prepackaged software
+  assert.equal(selectSkeletonProfile('').key, 'general');
+  assert.equal(selectSkeletonProfile(undefined).key, 'general');
+});
+
+runTest('skeleton profiles are well-formed', () => {
+  for (const profile of Object.values(SKELETON_PROFILES)) {
+    assert.ok(profile.key && profile.label);
+    assert.ok(profile.rows.length >= 10, `${profile.key} has too few rows`);
+    for (const row of profile.rows) {
+      assert.ok(row.label && Array.isArray(row.concepts) && row.concepts.length > 0, `${profile.key}: bad row ${row.label}`);
+      assert.ok(row.kind === 'flow' || row.kind === 'balance', `${profile.key}/${row.label}: bad kind`);
+    }
+  }
 });

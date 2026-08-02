@@ -4,6 +4,7 @@ source: "SEC EDGAR XBRL company facts (data.sec.gov)"
 date_pulled: "2026-08-01"
 domain: "edgar"
 data_type: "financial_skeleton"
+skeleton_profile: "bank"
 frequency: "on-demand"
 signal_status: "clear"
 signals: []
@@ -13,33 +14,31 @@ company: "JPMORGAN CHASE & CO"
 tags: ["edgar", "company-intel", "jpm"]
 ---
 
-## Financial Skeleton (last two fiscal years, XBRL 10-K facts)
+## Financial Skeleton — Bank / lender profile (last two fiscal years, XBRL annual facts)
 
 | Metric | Current FY | Prior FY | Δ |
 | --- | --- | --- | --- |
-| Revenue | $182.4B (2025-12-31) | $177.6B (2024-12-31) | ↑ 2.8% |
-| Gross profit | — | — |  |
-| Operating income | — | — |  |
+| Total net revenue | $182.4B (2025-12-31) | $177.6B (2024-12-31) | ↑ 2.8% |
+| Net interest income | $95.4B (2025-12-31) | $92.6B (2024-12-31) | ↑ 3.1% |
+| Noninterest income | $87.0B (2025-12-31) | $85.0B (2024-12-31) | ↑ 2.4% |
+| Provision for credit losses | $14.2B (2025-12-31) | $10.7B (2024-12-31) | ↑ 33.1% |
+| Noninterest expense | $95.6B (2025-12-31) | $91.8B (2024-12-31) | ↑ 4.2% |
 | Net income | $57.0B (2025-12-31) | $58.5B (2024-12-31) | ↓ -2.4% |
-| Operating cash flow | $-147.8B (2025-12-31) | $-42.0B (2024-12-31) | ↓ -251.8% |
-| Capital expenditure | — | — |  |
-| Research & development | — | — |  |
+| Loans (net of allowance) | $1467.7B (2025-12-31) | $1323.6B (2024-12-31) | ↑ 10.9% |
+| Deposits | $2559.3B (2025-12-31) | $2406.0B (2024-12-31) | ↑ 6.4% |
+| Total assets | $4424.9B (2025-12-31) | $4002.8B (2024-12-31) | ↑ 10.5% |
+| Stockholders' equity | $362.4B (2025-12-31) | $344.8B (2024-12-31) | ↑ 5.1% |
 | Stock-based compensation | $3.6B (2025-12-31) | $3.5B (2024-12-31) | ↑ 3.1% |
-| Cash & equivalents | $278.8B (2018-12-31) | $431.3B (2017-12-31) | ↓ -35.4% |
-| Receivables (current) | — | — |  |
-| Inventory | — | — |  |
-| Deferred revenue (current) | — | — |  |
-| Goodwill | $52.7B (2025-12-31) | $52.6B (2024-12-31) | ↑ 0.3% |
-| Long-term debt | $267.9B (2013-12-31) | $249.0B (2012-12-31) | ↑ 7.6% |
 | Diluted shares (wtd avg) | 2.8B (2025-12-31) | 2.9B (2024-12-31) | ↓ -3.4% |
 
 ## Derived
 
 | Metric | Current FY | Prior FY |
 | --- | --- | --- |
-| Gross margin | — | — |
-| Operating margin | — | — |
-| OCF / net income | -259.0% | -71.9% |
+| Efficiency ratio (noninterest expense / revenue) | 52.4% | 51.7% |
+| Return on equity (NI / period-end equity) | 15.7% | 17.0% |
+| Provision / net loans | 1.0% | 0.8% |
+| Loans / deposits | 57.3% | 55.0% |
 
 ## Reconciliation Prompts (framework §7 pass 3)
 

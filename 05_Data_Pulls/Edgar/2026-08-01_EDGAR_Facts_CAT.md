@@ -4,6 +4,7 @@ source: "SEC EDGAR XBRL company facts (data.sec.gov)"
 date_pulled: "2026-08-01"
 domain: "edgar"
 data_type: "financial_skeleton"
+skeleton_profile: "general"
 frequency: "on-demand"
 signal_status: "clear"
 signals: []
@@ -13,7 +14,7 @@ company: "CATERPILLAR INC"
 tags: ["edgar", "company-intel", "cat"]
 ---
 
-## Financial Skeleton (last two fiscal years, XBRL 10-K facts)
+## Financial Skeleton — General profile (last two fiscal years, XBRL annual facts)
 
 | Metric | Current FY | Prior FY | Δ |
 | --- | --- | --- | --- |
